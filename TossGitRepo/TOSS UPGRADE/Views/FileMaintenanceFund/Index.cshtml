@@ -49,7 +49,67 @@
                     <div class="row mt-1">
                         <div class="col-md-1"></div>
                         <div class="col-md-10" id="SubFundTableID">
-                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* Add Fund Modal *@
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="form-group">
+                    <div class="modal animated zoomIn text-left" id="addFundModal" role="dialog">
+                        <div class="modal-dialog" style="max-width:650px" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-headerbc white">
+                                    <h4 class="modal-title white"><i class="la la-plus mr-1"></i>Fund</h4>
+                                    <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+                                </div>
+                                <div class="modal-body skin skin-square">
+                                    <div class="row black">
+                                        <div class="col-md-12" @*id="FundID"*@>
+                                            <div class="row">
+                                                <div class="col-md-5 black form-group">
+                                                    <label><b>Fund</b></label>
+                                                    <input type="text" class="form-control " placeholder="Enter Fund Name" />
+                                                </div>
+                                                <div class="col-md-3 black form-group pl-0">
+                                                    <label><b>Fund Code</b></label>
+                                                    <input type="text" class="form-control " placeholder="Enter Fund Code" />
+                                                </div>
+                                                <div class="col-md-2 black form-group pl-0">
+                                                    <label style="visibility:hidden"><b>Fund </b></label>
+                                                    <button class="btn bg-addbutton black form-control"><b>Add</b></button>
+                                                </div>
+                                                <div class="col-md-2 black form-group pl-0">
+                                                    <label style="visibility:hidden"><b>Fund </b></label>
+                                                    <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-md-12" @*id="FundTableID"*@>
+                                            <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>Fund</th>
+                                                        <th>Fund Code</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                    <tr>
+                                                        <td>Development Fund</td>
+                                                        <td>300</td>
+                                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

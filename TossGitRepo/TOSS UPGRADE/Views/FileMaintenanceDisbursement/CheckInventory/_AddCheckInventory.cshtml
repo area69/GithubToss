@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-5 form-group">
             <label>Bank Name</label>
-            @Html.DropDownListFor(m => m.getCheckInventorycolumns.BankID, Model.CheckInventoryBankList, new { @class = "form-control select2", id = "BankIDDD", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadDynamicDDAccountName','')" })
+            @Html.DropDownListFor(m => m.getCheckInventorycolumns.BankAccountTable.BankID, Model.CheckInventoryBankList, new { @class = "form-control select2", id = "BankIDDD", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadDynamicDDAccountName','')" })
         </div>
         <div class="col-md-5 form-group" id="_DynamicDDAccountNameID">
 

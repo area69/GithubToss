@@ -1,12 +1,15 @@
 ﻿@model TOSS_UPGRADE.Models.FM_Funds.FM_Fund
-    @{
-        DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
-    }
-    @using TOSS_UPGRADE.Models;
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
 
 
-    <label class="mt-1"><b>Fund</b></label>
+<label class="mt-1"><b>Fund</b></label>
+<span class="input-group-append" id="button-addon2">
     @Html.DropDownListFor(m => m.SubFundNameID, Model.SubFundList, new { @class = "form-control select2", id = "FundNameIDD" })
+    <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addFundModal" ng-click="Get_FundTables()"><strong>+</strong></button>
+</span>  
     <script>
         $(function () {
             $("#FundNameIDD").select2();

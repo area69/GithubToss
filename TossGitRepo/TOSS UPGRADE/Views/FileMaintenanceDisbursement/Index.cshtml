@@ -13,18 +13,18 @@
        <div class="card">
                 <ul class="nav nav-tabs bg-headerbc nav-underline">
                     <li class="nav-item">
-                        <a class="nav-link " id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Check Inventory</b></a>
+                        <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Check Inventory</b></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Check Maintenance</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>DV Type</b></a>
+                        <a class="nav-link " id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>DV Type</b></a>
                     </li>
                 </ul>
                 <div class="tab-content px-1 pt-1">
                     @* Check Inventory *@
-                    <div role="tabpanel" class="tab-pane " id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
+                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -32,11 +32,13 @@
                                         <div class="card-header bg-carheadercolor">
                                             <h4 class="card-title black"><b>Check Inventory</b></h4>
                                         </div>
-                                        <div class="card-body box-shadow-2" id="_CheckInventoryID">
+                                        <div class="card-body box-shadow-2">
+                                            <div id="_CheckInventoryID">
 
-                                        </div>
-                                        <div class="card-body box-shadow-2 mt-1" id="_CheckInventoryTableID">
+                                            </div>
+                                            <div id="_CheckInventoryTableID">
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +71,7 @@
                         </div>
                     </div>
                     @* DV Type *@
-                    <div role="tabpanel" class="tab-pane active" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
+                    <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-md-12">

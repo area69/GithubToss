@@ -31,7 +31,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicAccountName(int BankAccountID)
         {
             FM_Disbursement_CheckInventory model = new FM_Disbursement_CheckInventory();
-            model.CheckInventoryAccountNameList = new SelectList((from s in TOSSDB.BankAccountTables.ToList() where s.BankID == BankAccountID select new { BankAccountID = s.BankAccountID, AccountNo = s.AccountNo /*+ "- ("+ s.FundType_FundName.FundTitle +")"*/ }), "BankAccountID", "AccountNo");
+            model.CheckInventoryAccountNameList = new SelectList((from s in TOSSDB.BankAccountTables.ToList() where s.BankAccountID == BankAccountID select new { BankAccountID = s.BankAccountID, AccountNo = s.AccountNo /*+ "- ("+ s.FundType_FundName.FundTitle +")"*/ }), "BankAccountID", "AccountNo");
             return PartialView("CheckInventory/_DynamicDDAccountName", model);
         }
         public ActionResult GetSelectedDynamicAccountName(int CheckInventoryAccountNameIDTempID)
