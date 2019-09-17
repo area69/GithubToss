@@ -1,0 +1,361 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.select2-container--classic .select2-results__options .select2-results__option[aria-selected=true], .select2-container--default .select2-results__options .select2-results__option[aria-selected=true] {
+    background-color: #CD6661 !important;
+    color: white !important;
+}
+/* Style buttons */
+
+.buttonEf {
+    background-color: transparent; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    font-size: 28px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+}
+.iconhoverCreate {
+    color: #8EC074
+}
+.iconhoverDelete {
+    color: #CD6661;
+}
+.iconhoverDelete:hover {
+    color: darkred;
+} 
+.iconhoverEdit {
+    color: #1E9FF2;
+}
+.iconhoverEdit:hover {
+    color: blue;
+} 
+
+
+.card-sm .card-header {
+    padding: 7px;
+}
+table thead tr th{
+    white-space: normal;
+    vertical-align: middle;
+}
+.nav.nav-tabs.nav-topline .nav-item a.nav-link.active {
+    background: none;
+    box-shadow: inset 0 3px 0 #FF4961;
+    color: black;
+    border-radius: 0;
+    border-top-color: #FF4961;
+    border-bottom: none;
+}
+.nav.nav-tabs.nav-topline .nav-item a.nav-link {
+    padding: 0.8rem 0.5rem;
+    background: rgba(40, 44, 42, 0.05);
+    color: white;
+    line-height: 1;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+/*.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #E49B1F;
+    color: white;
+}*/
+.card-header {
+    padding: 8px;
+    margin: 1px;
+}
+/*.nav-tabs .nav-topline .nav-item {
+    background-color: #E49B1F;
+    box-shadow: inset 0 3px 0 #388E3C;
+    color: white;
+    border-radius: 0;
+    border-bottom: none;
+}*/
+
+.select2-container {
+    width: 100% !important;
+}
+
+.nav-link.active {
+    background-color: #E49B1F !important;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: black;
+}
+
+.bg-labelcolor {
+    text-decoration-color: black;
+    background-color: #F4F4F4 !important;
+}
+.header-navbar .navbar-header .navbar-brand {
+    padding: 7px 0px !important;
+    margin-right: 0;
+}
+
+.header-navbar .navbar-header .navbar-brand .brand-logo {
+    width: 50px !important;
+}
+
+.bg-info {
+    background-color: #1883AE !important;
+}
+
+.bg-headerbc {
+    background-color: #BD352F !important;
+    text-decoration-color: white;
+}
+
+.bg-addbutton {
+    background-color: #F0AD4E !important;
+    text-decoration-color: black;
+}
+
+.bg-carheadercolor {
+    background-color: #F0DF82 !important;
+}
+.footerbc {
+    background-color: #800000 !important;
+}
+
+.navbar-semi-light .navbar-header {
+    background-image: linear-gradient(to right, rgba(189, 53, 47,0), rgba(189, 53, 47,1));
+}
+
+.main-menu.menu-light .navigation > li ul .open > ul li > a {
+    padding: 8px 18px 8px 64px !important;
+    margin-left: 14px !important;
+}
+
+.bg-info.bg-lighten-1 {
+    background-color: #1883AE !important;
+}
+
+.page-item.active .page-link {
+    background-color:  #1883AE !important;
+    border-color:  #1883AE !important;
+}
+
+.dataTables_wrapper{
+    padding: 0 !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    margin-top: 1rem;
+    float: right;
+}
+
+.pagination .page-link {
+    color: #1883AE;
+    border: 1px solid #BABFC7;
+}
+.table-smss-hover tbody tr:hover {
+    background: #fff2cc;
+    cursor: pointer;
+    color: black;
+    text-decoration-color: white;
+}
+
+.table-smss-hover tbody tr.active {
+    background: #FFE0B2;
+    color: black;
+}
+.bordered-div
+{
+     border-color:  #B2CDE3 !important;
+     border-style: solid ;
+     border-width: 2px;
+     border-radius:5px;
+}
+
+.custom-div
+{
+    padding:5px;
+    margin:10px;
+}
+
+.RecordsFileUploadImageSmall
+{
+      height: 100px;
+    width: 85px;
+}
+
+.navbar-dark {
+    background: #1883AE !important;
+}
+footer.footer-dark {
+    background: #BD352F !important;
+}
+
+
+.btn-info {
+    border-color: #168DEE !important;
+    background-color: #1883AE !important;
+    color: #FFFFFF;
+}
+
+
+.custom-btn-blue{
+        font-size: 14px !important;
+    padding: 10px !important;
+      margin: 5px;
+}
+
+.custom-btn-blue-fixed{
+        font-size: 14px !important;
+    padding: 10px !important;
+      margin: 5px;
+      width:100px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    font-size: 14px !important;
+    margin-top: 5px;
+}
+
+
+table.table {
+    /*border-color:#000;*/
+    color:black;
+}
+    table.table thead tr th,
+    table.table tbody tr td {
+        /*background: #1883AE;*/
+        /*color: #fff;*/
+        border-color: #000;
+        white-space: normal;
+    }
+
+table thead tr th {
+   white-space: normal;
+}
+
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(1),
+table.table-ledger thead tr:nth-child(2) th:nth-child(2),
+table.table-ledger thead tr:nth-child(2) th:nth-child(3),
+table.table-ledger thead tr:nth-child(2) th:nth-child(4),
+table.table-ledger thead tr:nth-child(2) th:nth-child(5) {
+    border-right: 0px solid #1883AE;
+    border-left: 0px solid #1883AE;
+}
+
+table.table-ledger thead tr:nth-child(2) th:nth-child(7),
+table.table-ledger thead tr:nth-child(2) th:nth-child(9),
+table.table-ledger thead tr:nth-child(2) th:nth-child(11){
+    border-right: 0px solid #1883AE;
+    border-left: 0px solid #1883AE;
+}*/
+
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(7),
+table.table-ledger thead tr:nth-child(2) th:nth-child(9),
+table.table-ledger thead tr:nth-child(2) th:nth-child(11) {
+    border-left: 2px solid #1883AE;
+}*/
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(8) {
+    border-right: 2px solid #1883AE;
+}
+table.table-ledger thead tr:nth-child(2) th:nth-child(10) {
+    border-right: 2px solid #1883AE;
+}
+table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
+    border-right: 2px solid #1883AE;
+}*/
+
+
+
+/*Form Styles*/
+.form-inline {
+    align-items: flex-start
+}
+.form-inline .form-group {
+    margin-bottom: 15px;
+}
+.form-inline .form-group label{
+    min-width: 100px;
+    justify-content: flex-start;
+    /*background: lightblue;*/
+    position: relative;
+}
+.form-group div {
+    font-weight: bold;
+    text-decoration-color:black;
+}
+
+.main-menu.menu-light .navigation > li.open > a {
+    border-right: 4px solid #BD352F !important;
+}
+.main-menu.menu-dark .navigation > li.open > a {
+    border-right: 4px solid #BD352F !important;
+    color: #f6f6f6;
+    font-weight: 700;
+}
+.main-menu.menu-dark .navigation > li .active > a {
+    background: #BD352F;
+}
+
+.nav.nav-tabs.nav-underline .nav-item a.nav-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2rem;
+    padding: 0.5rem 1rem;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+    color: white;
+    border: none;
+}
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link.active {
+        border: none;
+        border-bottom-color: #FF4961;
+        color: black;
+        background-color: transparent;
+    }
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link:hover, .nav.nav-tabs.nav-underline .nav-item a.nav-link:focus {
+        color: #FF4961;
+    }
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link.active:focus, .nav.nav-tabs.nav-underline .nav-item a.nav-link.active:hover {
+        color: #0b0d0e;
+        background-color: transparent;
+    }
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link:before {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #FF4961;
+        content: '';
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        -webkit-transform: translate3d(0, 150%, 0);
+        transform: translate3d(0, 150%, 0);
+    }
+
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 1px;
+}
+.table-bordered, .table-bordered td, .table-bordered th {
+    border: 1px solid black !important;
+}
+
+.input-group-addon {
+    background-color: transparent;
+    border-color: #BABFC7;
+}
+
+.table-striped tbody tr.odd.selected, .table-striped tbody tr.even.selected {
+    background-color: #f9f9ac;
+    color: #121719;
+}

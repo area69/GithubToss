@@ -1,0 +1,1381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_TOSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountableForm_Assignment">
+          <Key>
+            <PropertyRef Name="AssignAFID" />
+          </Key>
+          <Property Name="AssignAFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CollectorID" Type="int" Nullable="false" />
+          <Property Name="FundID" Type="int" Nullable="false" />
+          <Property Name="AFORID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="SubCollectorID" Type="int" />
+          <Property Name="IsTransferred" Type="bit" />
+          <Property Name="IsConsumed" Type="bit" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="AccountableForm_Inventory">
+          <Key>
+            <PropertyRef Name="AFORID" />
+          </Key>
+          <Property Name="AFORID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountFormID" Type="int" Nullable="false" />
+          <Property Name="StubNo" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="StartingOR" Type="int" Nullable="false" />
+          <Property Name="EndingOR" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="isIssued" Type="bit" Nullable="false" />
+          <Property Name="AFTableID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccountableFormTable">
+          <Key>
+            <PropertyRef Name="AccountFormID" />
+          </Key>
+          <Property Name="AccountFormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountFormName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isCTC" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsLock" Type="bit" />
+          <Property Name="PersonalInfoID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="BankAccount_AccountType">
+          <Key>
+            <PropertyRef Name="AccountTypeID" />
+          </Key>
+          <Property Name="AccountTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankAccount_LedgerAccount">
+          <Key>
+            <PropertyRef Name="AccountCodeID" />
+          </Key>
+          <Property Name="AccountCodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankAccountTable">
+          <Key>
+            <PropertyRef Name="BankAccountID" />
+          </Key>
+          <Property Name="BankAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankID" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FundID" Type="int" Nullable="false" />
+          <Property Name="CurrentAccount" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AccountCodeID" Type="int" Nullable="false" />
+          <Property Name="AccountTypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankTable">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BankAddress" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Barangay_BarangayName">
+          <Key>
+            <PropertyRef Name="BarangayID" />
+          </Key>
+          <Property Name="BarangayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BarangayName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CheckInventoryTable">
+          <Key>
+            <PropertyRef Name="CheckInvntID" />
+          </Key>
+          <Property Name="CheckInvntID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankAccountID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="StartingChckNo" Type="int" Nullable="false" />
+          <Property Name="EndingChckNo" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="IsIssued" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CheckMaintenanceTable">
+          <Key>
+            <PropertyRef Name="CheckMainteID" />
+          </Key>
+          <Property Name="CheckMainteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CheckInvntID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollectorTable">
+          <Key>
+            <PropertyRef Name="CollectorID" />
+          </Key>
+          <Property Name="CollectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CollectorName" Type="varchar" MaxLength="70" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DVTypeTable">
+          <Key>
+            <PropertyRef Name="DVTypeID" />
+          </Key>
+          <Property Name="DVTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DVTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundName" Type="varchar" MaxLength="50" />
+          <Property Name="FundCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="IRA_Table">
+          <Key>
+            <PropertyRef Name="IRAID" />
+          </Key>
+          <Property Name="IRAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IRAPercentageShare" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IRAPercent" Type="int" Nullable="false" />
+          <Property Name="IRABase" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Level1Modules">
+          <Key>
+            <PropertyRef Name="Level1ModuleID" />
+          </Key>
+          <Property Name="Level1ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level1ModuleName" Type="varchar" MaxLength="50" />
+          <Property Name="ModuleParentID" Type="int" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="50" />
+          <Property Name="ActionName" Type="varchar" MaxLength="50" />
+          <Property Name="JSID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Level2Modules">
+          <Key>
+            <PropertyRef Name="Level2ModuleID" />
+          </Key>
+          <Property Name="Level2ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level2ModuleName" Type="varchar" MaxLength="50" />
+          <Property Name="Level1ModuleID" Type="int" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="100" />
+          <Property Name="ActionName" Type="varchar" MaxLength="50" />
+          <Property Name="JSID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Level3Modules">
+          <Key>
+            <PropertyRef Name="Level3ModuleID" />
+          </Key>
+          <Property Name="Level3ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level3ModuleName" Type="varchar" MaxLength="50" />
+          <Property Name="Level2ModuleID" Type="int" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="50" />
+          <Property Name="ActionName" Type="varchar" MaxLength="50" />
+          <Property Name="JSID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ParentModules">
+          <Key>
+            <PropertyRef Name="ModuleParentID" />
+          </Key>
+          <Property Name="ModuleParentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="icon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ControllerName" Type="varchar" MaxLength="50" />
+          <Property Name="ActionName" Type="varchar" MaxLength="50" />
+          <Property Name="JSID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PersonalInformation">
+          <Key>
+            <PropertyRef Name="PersonalInfoID" />
+          </Key>
+          <Property Name="PersonalInfoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="FullName" Type="varchar" MaxLength="108" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="SignatoriesTable">
+          <Key>
+            <PropertyRef Name="SignatoriesID" />
+          </Key>
+          <Property Name="SignatoriesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SignatoriesName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionID" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="IsDeptHead" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Signatory_DepartmentTable">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="DepartmentCode" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Signatory_PositionTable">
+          <Key>
+            <PropertyRef Name="PositionID" />
+          </Key>
+          <Property Name="PositionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SubCollectorTable">
+          <Key>
+            <PropertyRef Name="SubCollectorID" />
+          </Key>
+          <Property Name="SubCollectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubCollectorName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundID" Type="int" />
+          <Property Name="SubFundName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_AccountableForm_Assignment_AccountableForm_Inventory">
+          <End Role="AccountableForm_Inventory" Type="Self.AccountableForm_Inventory" Multiplicity="1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableForm_Inventory">
+              <PropertyRef Name="AFORID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="AFORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_CollectorTable">
+          <End Role="CollectorTable" Type="Self.CollectorTable" Multiplicity="1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectorTable">
+              <PropertyRef Name="CollectorID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_SubCollectorTable">
+          <End Role="SubCollectorTable" Type="Self.SubCollectorTable" Multiplicity="0..1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCollectorTable">
+              <PropertyRef Name="SubCollectorID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="SubCollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
+          <End Role="AccountableFormTable" Type="Self.AccountableFormTable" Multiplicity="1" />
+          <End Role="AccountableForm_Inventory" Type="Self.AccountableForm_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableFormTable">
+              <PropertyRef Name="AccountFormID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Inventory">
+              <PropertyRef Name="AccountFormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_PersonalInformation">
+          <End Role="PersonalInformation" Type="Self.PersonalInformation" Multiplicity="0..1" />
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformation">
+              <PropertyRef Name="PersonalInfoID" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="PersonalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInventoryTable_BankAccountTable">
+          <End Role="BankAccountTable" Type="Self.BankAccountTable" Multiplicity="1" />
+          <End Role="CheckInventoryTable" Type="Self.CheckInventoryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccountTable">
+              <PropertyRef Name="BankAccountID" />
+            </Principal>
+            <Dependent Role="CheckInventoryTable">
+              <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1Modules_ParentModules">
+          <End Role="ParentModules" Type="Self.ParentModules" Multiplicity="0..1" />
+          <End Role="Level1Modules" Type="Self.Level1Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParentModules">
+              <PropertyRef Name="ModuleParentID" />
+            </Principal>
+            <Dependent Role="Level1Modules">
+              <PropertyRef Name="ModuleParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level2Modules_Level1Modules">
+          <End Role="Level1Modules" Type="Self.Level1Modules" Multiplicity="0..1" />
+          <End Role="Level2Modules" Type="Self.Level2Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level1Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Principal>
+            <Dependent Role="Level2Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level3Modules_Level2Modules">
+          <End Role="Level2Modules" Type="Self.Level2Modules" Multiplicity="0..1" />
+          <End Role="Level3Modules" Type="Self.Level3Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level2Modules">
+              <PropertyRef Name="Level2ModuleID" />
+            </Principal>
+            <Dependent Role="Level3Modules">
+              <PropertyRef Name="Level2ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentModules_ParentModules">
+          <End Role="ParentModules" Type="Self.ParentModules" Multiplicity="1" />
+          <End Role="ParentModules1" Type="Self.ParentModules" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ParentModules">
+              <PropertyRef Name="ModuleParentID" />
+            </Principal>
+            <Dependent Role="ParentModules1">
+              <PropertyRef Name="ModuleParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_PositionName">
+          <End Role="Signatory_PositionTable" Type="Self.Signatory_PositionTable" Multiplicity="1" />
+          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_PositionTable">
+              <PropertyRef Name="PositionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="PositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
+          <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="1" />
+          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubFund_Fund">
+          <End Role="Fund" Type="Self.Fund" Multiplicity="0..1" />
+          <End Role="SubFund" Type="Self.SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="SubFund">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AccountableFormInvtList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_AccountableFormList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_AccountTypeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_AFDescriptionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_BankAccountTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_BankTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_CheckInventoryList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_CheckMaintenanceList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_DVTypeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_IRAList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_MemoAccountClassList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_MMAccountCodeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_PositionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_SignatoryDepartmentList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_SignatoryTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="DB_TOSSModelStoreContainer">
+          <EntitySet Name="AccountableForm_Assignment" EntityType="Self.AccountableForm_Assignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountableForm_Inventory" EntityType="Self.AccountableForm_Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccountableFormTable" EntityType="Self.AccountableFormTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankAccount_AccountType" EntityType="Self.BankAccount_AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankAccount_LedgerAccount" EntityType="Self.BankAccount_LedgerAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankAccountTable" EntityType="Self.BankAccountTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankTable" EntityType="Self.BankTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Barangay_BarangayName" EntityType="Self.Barangay_BarangayName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckInventoryTable" EntityType="Self.CheckInventoryTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CheckMaintenanceTable" EntityType="Self.CheckMaintenanceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollectorTable" EntityType="Self.CollectorTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DVTypeTable" EntityType="Self.DVTypeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fund" EntityType="Self.Fund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IRA_Table" EntityType="Self.IRA_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Level3Modules" EntityType="Self.Level3Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SignatoriesTable" EntityType="Self.SignatoriesTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Signatory_DepartmentTable" EntityType="Self.Signatory_DepartmentTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Signatory_PositionTable" EntityType="Self.Signatory_PositionTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubCollectorTable" EntityType="Self.SubCollectorTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubFund" EntityType="Self.SubFund" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="Self.FK_AccountableForm_Assignment_AccountableForm_Inventory">
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_CollectorTable" Association="Self.FK_AccountableForm_Assignment_CollectorTable">
+            <End Role="CollectorTable" EntitySet="CollectorTable" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_SubCollectorTable" Association="Self.FK_AccountableForm_Assignment_SubCollectorTable">
+            <End Role="SubCollectorTable" EntitySet="SubCollectorTable" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="Self.FK_AccountableForm_Inventory_AccountableFormTable">
+            <End Role="AccountableFormTable" EntitySet="AccountableFormTable" />
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
+            <End Role="PersonalInformation" EntitySet="PersonalInformation" />
+            <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="Self.FK_CheckInventoryTable_BankAccountTable">
+            <End Role="BankAccountTable" EntitySet="BankAccountTable" />
+            <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1Modules_ParentModules" Association="Self.FK_Level1Modules_ParentModules">
+            <End Role="ParentModules" EntitySet="ParentModules" />
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level2Modules_Level1Modules" Association="Self.FK_Level2Modules_Level1Modules">
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+            <End Role="Level2Modules" EntitySet="Level2Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level3Modules_Level2Modules" Association="Self.FK_Level3Modules_Level2Modules">
+            <End Role="Level2Modules" EntitySet="Level2Modules" />
+            <End Role="Level3Modules" EntitySet="Level3Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentModules_ParentModules" Association="Self.FK_ParentModules_ParentModules">
+            <End Role="ParentModules" EntitySet="ParentModules" />
+            <End Role="ParentModules1" EntitySet="ParentModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_PositionName" Association="Self.FK_SignatoriesTable_PositionName">
+            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="Self.FK_SignatoriesTable_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubFund_Fund" Association="Self.FK_SubFund_Fund">
+            <End Role="Fund" EntitySet="Fund" />
+            <End Role="SubFund" EntitySet="SubFund" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_TOSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DB_TOSSEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="SP_AccountableFormInvtList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AccountableFormList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AccountTypeList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AFDescriptionList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BankAccountTable">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BankTable">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CheckInventoryList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CheckMaintenanceList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DVTypeList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FundTypesList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_IRAList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MemoAccountClassList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_MMAccountCodeList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PositionList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SignatoryDepartmentList">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_SignatoryTable">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="AccountableForm_Assignment" EntityType="DB_TOSSModel.AccountableForm_Assignment" />
+          <EntitySet Name="AccountableForm_Inventory" EntityType="DB_TOSSModel.AccountableForm_Inventory" />
+          <EntitySet Name="AccountableFormTables" EntityType="DB_TOSSModel.AccountableFormTable" />
+          <EntitySet Name="Accounts" EntityType="DB_TOSSModel.Account" />
+          <EntitySet Name="BankAccount_AccountType" EntityType="DB_TOSSModel.BankAccount_AccountType" />
+          <EntitySet Name="BankAccount_LedgerAccount" EntityType="DB_TOSSModel.BankAccount_LedgerAccount" />
+          <EntitySet Name="BankAccountTables" EntityType="DB_TOSSModel.BankAccountTable" />
+          <EntitySet Name="BankTables" EntityType="DB_TOSSModel.BankTable" />
+          <EntitySet Name="Barangay_BarangayName" EntityType="DB_TOSSModel.Barangay_BarangayName" />
+          <EntitySet Name="CheckInventoryTables" EntityType="DB_TOSSModel.CheckInventoryTable" />
+          <EntitySet Name="CheckMaintenanceTables" EntityType="DB_TOSSModel.CheckMaintenanceTable" />
+          <EntitySet Name="CollectorTables" EntityType="DB_TOSSModel.CollectorTable" />
+          <EntitySet Name="DVTypeTables" EntityType="DB_TOSSModel.DVTypeTable" />
+          <EntitySet Name="Funds" EntityType="DB_TOSSModel.Fund" />
+          <EntitySet Name="IRA_Table" EntityType="DB_TOSSModel.IRA_Table" />
+          <EntitySet Name="Level1Modules" EntityType="DB_TOSSModel.Level1Modules" />
+          <EntitySet Name="Level2Modules" EntityType="DB_TOSSModel.Level2Modules" />
+          <EntitySet Name="Level3Modules" EntityType="DB_TOSSModel.Level3Modules" />
+          <EntitySet Name="ParentModules" EntityType="DB_TOSSModel.ParentModule" />
+          <EntitySet Name="PersonalInformations" EntityType="DB_TOSSModel.PersonalInformation" />
+          <EntitySet Name="SignatoriesTables" EntityType="DB_TOSSModel.SignatoriesTable" />
+          <EntitySet Name="Signatory_DepartmentTable" EntityType="DB_TOSSModel.Signatory_DepartmentTable" />
+          <EntitySet Name="Signatory_PositionTable" EntityType="DB_TOSSModel.Signatory_PositionTable" />
+          <EntitySet Name="SubCollectorTables" EntityType="DB_TOSSModel.SubCollectorTable" />
+          <EntitySet Name="SubFunds" EntityType="DB_TOSSModel.SubFund" />
+          <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory">
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_CollectorTable" Association="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable">
+            <End Role="CollectorTable" EntitySet="CollectorTables" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_SubCollectorTable" Association="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable">
+            <End Role="SubCollectorTable" EntitySet="SubCollectorTables" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable">
+            <End Role="AccountableFormTable" EntitySet="AccountableFormTables" />
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Accounts_PersonalInformation" Association="DB_TOSSModel.FK_Accounts_PersonalInformation">
+            <End Role="PersonalInformation" EntitySet="PersonalInformations" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable">
+            <End Role="BankAccountTable" EntitySet="BankAccountTables" />
+            <End Role="CheckInventoryTable" EntitySet="CheckInventoryTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubFund_Fund" Association="DB_TOSSModel.FK_SubFund_Fund">
+            <End Role="Fund" EntitySet="Funds" />
+            <End Role="SubFund" EntitySet="SubFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1Modules_ParentModules" Association="DB_TOSSModel.FK_Level1Modules_ParentModules">
+            <End Role="ParentModule" EntitySet="ParentModules" />
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level2Modules_Level1Modules" Association="DB_TOSSModel.FK_Level2Modules_Level1Modules">
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+            <End Role="Level2Modules" EntitySet="Level2Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level3Modules_Level2Modules" Association="DB_TOSSModel.FK_Level3Modules_Level2Modules">
+            <End Role="Level2Modules" EntitySet="Level2Modules" />
+            <End Role="Level3Modules" EntitySet="Level3Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentModules_ParentModules" Association="DB_TOSSModel.FK_ParentModules_ParentModules">
+            <End Role="ParentModule" EntitySet="ParentModules" />
+            <End Role="ParentModule1" EntitySet="ParentModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_PositionName" Association="DB_TOSSModel.FK_SignatoriesTable_PositionName">
+            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AccountableForm_Assignment">
+          <Key>
+            <PropertyRef Name="AssignAFID" />
+          </Key>
+          <Property Name="AssignAFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CollectorID" Type="Int32" Nullable="false" />
+          <Property Name="FundID" Type="Int32" Nullable="false" />
+          <Property Name="AFORID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SubCollectorID" Type="Int32" />
+          <Property Name="IsTransferred" Type="Boolean" />
+          <Property Name="IsConsumed" Type="Boolean" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Assignment" ToRole="AccountableForm_Inventory" />
+          <NavigationProperty Name="CollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" FromRole="AccountableForm_Assignment" ToRole="CollectorTable" />
+          <NavigationProperty Name="SubCollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable" FromRole="AccountableForm_Assignment" ToRole="SubCollectorTable" />
+        </EntityType>
+        <EntityType Name="AccountableForm_Inventory">
+          <Key>
+            <PropertyRef Name="AFORID" />
+          </Key>
+          <Property Name="AFORID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountFormID" Type="Int32" Nullable="false" />
+          <Property Name="StubNo" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="StartingOR" Type="Int32" Nullable="false" />
+          <Property Name="EndingOR" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="isIssued" Type="Boolean" Nullable="false" />
+          <Property Name="AFTableID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Inventory" ToRole="AccountableForm_Assignment" />
+          <NavigationProperty Name="AccountableFormTable" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableForm_Inventory" ToRole="AccountableFormTable" />
+        </EntityType>
+        <EntityType Name="AccountableFormTable">
+          <Key>
+            <PropertyRef Name="AccountFormID" />
+          </Key>
+          <Property Name="AccountFormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountFormName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isCTC" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableFormTable" ToRole="AccountableForm_Inventory" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsLock" Type="Boolean" />
+          <Property Name="PersonalInfoID" Type="Guid" />
+          <NavigationProperty Name="PersonalInformation" Relationship="DB_TOSSModel.FK_Accounts_PersonalInformation" FromRole="Account" ToRole="PersonalInformation" />
+        </EntityType>
+        <EntityType Name="BankAccount_AccountType">
+          <Key>
+            <PropertyRef Name="AccountTypeID" />
+          </Key>
+          <Property Name="AccountTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BankAccount_LedgerAccount">
+          <Key>
+            <PropertyRef Name="AccountCodeID" />
+          </Key>
+          <Property Name="AccountCodeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BankAccountTable">
+          <Key>
+            <PropertyRef Name="BankAccountID" />
+          </Key>
+          <Property Name="BankAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankID" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundID" Type="Int32" Nullable="false" />
+          <Property Name="CurrentAccount" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCodeID" Type="Int32" Nullable="false" />
+          <Property Name="AccountTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CheckInventoryTables" Relationship="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable" FromRole="BankAccountTable" ToRole="CheckInventoryTable" />
+        </EntityType>
+        <EntityType Name="BankTable">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BankAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Barangay_BarangayName">
+          <Key>
+            <PropertyRef Name="BarangayID" />
+          </Key>
+          <Property Name="BarangayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BarangayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CheckInventoryTable">
+          <Key>
+            <PropertyRef Name="CheckInvntID" />
+          </Key>
+          <Property Name="CheckInvntID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankAccountID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="StartingChckNo" Type="Int32" Nullable="false" />
+          <Property Name="EndingChckNo" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsIssued" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BankAccountTable" Relationship="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable" FromRole="CheckInventoryTable" ToRole="BankAccountTable" />
+        </EntityType>
+        <EntityType Name="CheckMaintenanceTable">
+          <Key>
+            <PropertyRef Name="CheckMainteID" />
+          </Key>
+          <Property Name="CheckMainteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CheckInvntID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollectorTable">
+          <Key>
+            <PropertyRef Name="CollectorID" />
+          </Key>
+          <Property Name="CollectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CollectorName" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" FromRole="CollectorTable" ToRole="AccountableForm_Assignment" />
+        </EntityType>
+        <EntityType Name="DVTypeTable">
+          <Key>
+            <PropertyRef Name="DVTypeID" />
+          </Key>
+          <Property Name="DVTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DVTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubFunds" Relationship="DB_TOSSModel.FK_SubFund_Fund" FromRole="Fund" ToRole="SubFund" />
+        </EntityType>
+        <EntityType Name="IRA_Table">
+          <Key>
+            <PropertyRef Name="IRAID" />
+          </Key>
+          <Property Name="IRAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IRAPercentageShare" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IRAPercent" Type="Int32" Nullable="false" />
+          <Property Name="IRABase" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
+        </EntityType>
+        <EntityType Name="Level1Modules">
+          <Key>
+            <PropertyRef Name="Level1ModuleID" />
+          </Key>
+          <Property Name="Level1ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level1ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ModuleParentID" Type="Int32" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ParentModule" Relationship="DB_TOSSModel.FK_Level1Modules_ParentModules" FromRole="Level1Modules" ToRole="ParentModule" />
+          <NavigationProperty Name="Level2Modules" Relationship="DB_TOSSModel.FK_Level2Modules_Level1Modules" FromRole="Level1Modules" ToRole="Level2Modules" />
+        </EntityType>
+        <EntityType Name="Level2Modules">
+          <Key>
+            <PropertyRef Name="Level2ModuleID" />
+          </Key>
+          <Property Name="Level2ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level2ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Level1ModuleID" Type="Int32" />
+          <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Level1Modules" Relationship="DB_TOSSModel.FK_Level2Modules_Level1Modules" FromRole="Level2Modules" ToRole="Level1Modules" />
+          <NavigationProperty Name="Level3Modules" Relationship="DB_TOSSModel.FK_Level3Modules_Level2Modules" FromRole="Level2Modules" ToRole="Level3Modules" />
+        </EntityType>
+        <EntityType Name="Level3Modules">
+          <Key>
+            <PropertyRef Name="Level3ModuleID" />
+          </Key>
+          <Property Name="Level3ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level3ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Level2ModuleID" Type="Int32" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Level2Modules" Relationship="DB_TOSSModel.FK_Level3Modules_Level2Modules" FromRole="Level3Modules" ToRole="Level2Modules" />
+        </EntityType>
+        <EntityType Name="ParentModule">
+          <Key>
+            <PropertyRef Name="ModuleParentID" />
+          </Key>
+          <Property Name="ModuleParentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="icon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ControllerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Level1Modules" Relationship="DB_TOSSModel.FK_Level1Modules_ParentModules" FromRole="ParentModule" ToRole="Level1Modules" />
+          <NavigationProperty Name="ParentModules1" Relationship="DB_TOSSModel.FK_ParentModules_ParentModules" FromRole="ParentModule" ToRole="ParentModule1" />
+          <NavigationProperty Name="ParentModule1" Relationship="DB_TOSSModel.FK_ParentModules_ParentModules" FromRole="ParentModule1" ToRole="ParentModule" />
+        </EntityType>
+        <EntityType Name="PersonalInformation">
+          <Key>
+            <PropertyRef Name="PersonalInfoID" />
+          </Key>
+          <Property Name="PersonalInfoID" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="FullName" Type="String" MaxLength="108" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Accounts" Relationship="DB_TOSSModel.FK_Accounts_PersonalInformation" FromRole="PersonalInformation" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="SignatoriesTable">
+          <Key>
+            <PropertyRef Name="SignatoriesID" />
+          </Key>
+          <Property Name="SignatoriesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SignatoriesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PositionID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="IsDeptHead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Signatory_PositionTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_PositionName" FromRole="SignatoriesTable" ToRole="Signatory_PositionTable" />
+          <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable" FromRole="SignatoriesTable" ToRole="Signatory_DepartmentTable" />
+        </EntityType>
+        <EntityType Name="Signatory_DepartmentTable">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable" FromRole="Signatory_DepartmentTable" ToRole="SignatoriesTable" />
+        </EntityType>
+        <EntityType Name="Signatory_PositionTable">
+          <Key>
+            <PropertyRef Name="PositionID" />
+          </Key>
+          <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_PositionName" FromRole="Signatory_PositionTable" ToRole="SignatoriesTable" />
+        </EntityType>
+        <EntityType Name="SubCollectorTable">
+          <Key>
+            <PropertyRef Name="SubCollectorID" />
+          </Key>
+          <Property Name="SubCollectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubCollectorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable" FromRole="SubCollectorTable" ToRole="AccountableForm_Assignment" />
+        </EntityType>
+        <EntityType Name="SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundID" Type="Int32" />
+          <Property Name="SubFundName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fund" Relationship="DB_TOSSModel.FK_SubFund_Fund" FromRole="SubFund" ToRole="Fund" />
+        </EntityType>
+        <Association Name="FK_AccountableForm_Assignment_AccountableForm_Inventory">
+          <End Type="DB_TOSSModel.AccountableForm_Inventory" Role="AccountableForm_Inventory" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableForm_Inventory">
+              <PropertyRef Name="AFORID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="AFORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_CollectorTable">
+          <End Type="DB_TOSSModel.CollectorTable" Role="CollectorTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectorTable">
+              <PropertyRef Name="CollectorID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_SubCollectorTable">
+          <End Type="DB_TOSSModel.SubCollectorTable" Role="SubCollectorTable" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCollectorTable">
+              <PropertyRef Name="SubCollectorID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="SubCollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
+          <End Type="DB_TOSSModel.AccountableFormTable" Role="AccountableFormTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableForm_Inventory" Role="AccountableForm_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableFormTable">
+              <PropertyRef Name="AccountFormID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Inventory">
+              <PropertyRef Name="AccountFormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Accounts_PersonalInformation">
+          <End Type="DB_TOSSModel.PersonalInformation" Role="PersonalInformation" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonalInformation">
+              <PropertyRef Name="PersonalInfoID" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="PersonalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckInventoryTable_BankAccountTable">
+          <End Type="DB_TOSSModel.BankAccountTable" Role="BankAccountTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.CheckInventoryTable" Role="CheckInventoryTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccountTable">
+              <PropertyRef Name="BankAccountID" />
+            </Principal>
+            <Dependent Role="CheckInventoryTable">
+              <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubFund_Fund">
+          <End Type="DB_TOSSModel.Fund" Role="Fund" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.SubFund" Role="SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="SubFund">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1Modules_ParentModules">
+          <End Type="DB_TOSSModel.ParentModule" Role="ParentModule" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Level1Modules" Role="Level1Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParentModule">
+              <PropertyRef Name="ModuleParentID" />
+            </Principal>
+            <Dependent Role="Level1Modules">
+              <PropertyRef Name="ModuleParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level2Modules_Level1Modules">
+          <End Type="DB_TOSSModel.Level1Modules" Role="Level1Modules" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Level2Modules" Role="Level2Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level1Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Principal>
+            <Dependent Role="Level2Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level3Modules_Level2Modules">
+          <End Type="DB_TOSSModel.Level2Modules" Role="Level2Modules" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Level3Modules" Role="Level3Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Level2Modules">
+              <PropertyRef Name="Level2ModuleID" />
+            </Principal>
+            <Dependent Role="Level3Modules">
+              <PropertyRef Name="Level2ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentModules_ParentModules">
+          <End Type="DB_TOSSModel.ParentModule" Role="ParentModule" Multiplicity="1" />
+          <End Type="DB_TOSSModel.ParentModule" Role="ParentModule1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ParentModule">
+              <PropertyRef Name="ModuleParentID" />
+            </Principal>
+            <Dependent Role="ParentModule1">
+              <PropertyRef Name="ModuleParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_PositionName">
+          <End Type="DB_TOSSModel.Signatory_PositionTable" Role="Signatory_PositionTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_PositionTable">
+              <PropertyRef Name="PositionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="PositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
+          <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_TOSSModelStoreContainer" CdmEntityContainer="DB_TOSSEntities">
+          <FunctionImportMapping FunctionImportName="SP_AccountableFormInvtList" FunctionName="DB_TOSSModel.Store.SP_AccountableFormInvtList" />
+          <FunctionImportMapping FunctionImportName="SP_AccountableFormList" FunctionName="DB_TOSSModel.Store.SP_AccountableFormList" />
+          <FunctionImportMapping FunctionImportName="SP_AccountTypeList" FunctionName="DB_TOSSModel.Store.SP_AccountTypeList" />
+          <FunctionImportMapping FunctionImportName="SP_AFDescriptionList" FunctionName="DB_TOSSModel.Store.SP_AFDescriptionList" />
+          <FunctionImportMapping FunctionImportName="SP_BankAccountTable" FunctionName="DB_TOSSModel.Store.SP_BankAccountTable" />
+          <FunctionImportMapping FunctionImportName="SP_BankTable" FunctionName="DB_TOSSModel.Store.SP_BankTable" />
+          <FunctionImportMapping FunctionImportName="SP_CheckInventoryList" FunctionName="DB_TOSSModel.Store.SP_CheckInventoryList" />
+          <FunctionImportMapping FunctionImportName="SP_CheckMaintenanceList" FunctionName="DB_TOSSModel.Store.SP_CheckMaintenanceList" />
+          <FunctionImportMapping FunctionImportName="SP_DVTypeList" FunctionName="DB_TOSSModel.Store.SP_DVTypeList" />
+          <FunctionImportMapping FunctionImportName="SP_IRAList" FunctionName="DB_TOSSModel.Store.SP_IRAList" />
+          <FunctionImportMapping FunctionImportName="SP_MemoAccountClassList" FunctionName="DB_TOSSModel.Store.SP_MemoAccountClassList" />
+          <FunctionImportMapping FunctionImportName="SP_MMAccountCodeList" FunctionName="DB_TOSSModel.Store.SP_MMAccountCodeList" />
+          <FunctionImportMapping FunctionImportName="SP_PositionList" FunctionName="DB_TOSSModel.Store.SP_PositionList" />
+          <FunctionImportMapping FunctionImportName="SP_SignatoryDepartmentList" FunctionName="DB_TOSSModel.Store.SP_SignatoryDepartmentList" />
+          <FunctionImportMapping FunctionImportName="SP_SignatoryTable" FunctionName="DB_TOSSModel.Store.SP_SignatoryTable" />
+          <EntitySetMapping Name="AccountableForm_Assignment">
+            <EntityTypeMapping TypeName="DB_TOSSModel.AccountableForm_Assignment">
+              <MappingFragment StoreEntitySet="AccountableForm_Assignment">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="IsConsumed" ColumnName="IsConsumed" />
+                <ScalarProperty Name="IsTransferred" ColumnName="IsTransferred" />
+                <ScalarProperty Name="SubCollectorID" ColumnName="SubCollectorID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AFORID" ColumnName="AFORID" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="CollectorID" ColumnName="CollectorID" />
+                <ScalarProperty Name="AssignAFID" ColumnName="AssignAFID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountableForm_Inventory">
+            <EntityTypeMapping TypeName="DB_TOSSModel.AccountableForm_Inventory">
+              <MappingFragment StoreEntitySet="AccountableForm_Inventory">
+                <ScalarProperty Name="AFTableID" ColumnName="AFTableID" />
+                <ScalarProperty Name="isIssued" ColumnName="isIssued" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EndingOR" ColumnName="EndingOR" />
+                <ScalarProperty Name="StartingOR" ColumnName="StartingOR" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="StubNo" ColumnName="StubNo" />
+                <ScalarProperty Name="AccountFormID" ColumnName="AccountFormID" />
+                <ScalarProperty Name="AFORID" ColumnName="AFORID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountableFormTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.AccountableFormTable">
+              <MappingFragment StoreEntitySet="AccountableFormTable">
+                <ScalarProperty Name="isCTC" ColumnName="isCTC" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AccountFormName" ColumnName="AccountFormName" />
+                <ScalarProperty Name="AccountFormID" ColumnName="AccountFormID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="PersonalInfoID" ColumnName="PersonalInfoID" />
+                <ScalarProperty Name="IsLock" ColumnName="IsLock" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankAccount_AccountType">
+            <EntityTypeMapping TypeName="DB_TOSSModel.BankAccount_AccountType">
+              <MappingFragment StoreEntitySet="BankAccount_AccountType">
+                <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankAccount_LedgerAccount">
+            <EntityTypeMapping TypeName="DB_TOSSModel.BankAccount_LedgerAccount">
+              <MappingFragment StoreEntitySet="BankAccount_LedgerAccount">
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountCodeID" ColumnName="AccountCodeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankAccountTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.BankAccountTable">
+              <MappingFragment StoreEntitySet="BankAccountTable">
+                <ScalarProperty Name="AccountTypeID" ColumnName="AccountTypeID" />
+                <ScalarProperty Name="AccountCodeID" ColumnName="AccountCodeID" />
+                <ScalarProperty Name="CurrentAccount" ColumnName="CurrentAccount" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="BankAccountID" ColumnName="BankAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.BankTable">
+              <MappingFragment StoreEntitySet="BankTable">
+                <ScalarProperty Name="BankAddress" ColumnName="BankAddress" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Barangay_BarangayName">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Barangay_BarangayName">
+              <MappingFragment StoreEntitySet="Barangay_BarangayName">
+                <ScalarProperty Name="BarangayName" ColumnName="BarangayName" />
+                <ScalarProperty Name="BarangayID" ColumnName="BarangayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckInventoryTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.CheckInventoryTable">
+              <MappingFragment StoreEntitySet="CheckInventoryTable">
+                <ScalarProperty Name="IsIssued" ColumnName="IsIssued" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EndingChckNo" ColumnName="EndingChckNo" />
+                <ScalarProperty Name="StartingChckNo" ColumnName="StartingChckNo" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BankAccountID" ColumnName="BankAccountID" />
+                <ScalarProperty Name="CheckInvntID" ColumnName="CheckInvntID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CheckMaintenanceTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.CheckMaintenanceTable">
+              <MappingFragment StoreEntitySet="CheckMaintenanceTable">
+                <ScalarProperty Name="CheckInvntID" ColumnName="CheckInvntID" />
+                <ScalarProperty Name="CheckMainteID" ColumnName="CheckMainteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollectorTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.CollectorTable">
+              <MappingFragment StoreEntitySet="CollectorTable">
+                <ScalarProperty Name="CollectorName" ColumnName="CollectorName" />
+                <ScalarProperty Name="CollectorID" ColumnName="CollectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DVTypeTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.DVTypeTable">
+              <MappingFragment StoreEntitySet="DVTypeTable">
+                <ScalarProperty Name="DVTypeName" ColumnName="DVTypeName" />
+                <ScalarProperty Name="DVTypeID" ColumnName="DVTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funds">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Fund">
+              <MappingFragment StoreEntitySet="Fund">
+                <ScalarProperty Name="FundCode" ColumnName="FundCode" />
+                <ScalarProperty Name="FundName" ColumnName="FundName" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IRA_Table">
+            <EntityTypeMapping TypeName="DB_TOSSModel.IRA_Table">
+              <MappingFragment StoreEntitySet="IRA_Table">
+                <ScalarProperty Name="IRABase" ColumnName="IRABase" />
+                <ScalarProperty Name="IRAPercent" ColumnName="IRAPercent" />
+                <ScalarProperty Name="IRAPercentageShare" ColumnName="IRAPercentageShare" />
+                <ScalarProperty Name="IRAID" ColumnName="IRAID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Level1Modules">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Level1Modules">
+              <MappingFragment StoreEntitySet="Level1Modules">
+                <ScalarProperty Name="JSID" ColumnName="JSID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ModuleParentID" ColumnName="ModuleParentID" />
+                <ScalarProperty Name="Level1ModuleName" ColumnName="Level1ModuleName" />
+                <ScalarProperty Name="Level1ModuleID" ColumnName="Level1ModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Level2Modules">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Level2Modules">
+              <MappingFragment StoreEntitySet="Level2Modules">
+                <ScalarProperty Name="JSID" ColumnName="JSID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="Level1ModuleID" ColumnName="Level1ModuleID" />
+                <ScalarProperty Name="Level2ModuleName" ColumnName="Level2ModuleName" />
+                <ScalarProperty Name="Level2ModuleID" ColumnName="Level2ModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Level3Modules">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Level3Modules">
+              <MappingFragment StoreEntitySet="Level3Modules">
+                <ScalarProperty Name="JSID" ColumnName="JSID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="Level2ModuleID" ColumnName="Level2ModuleID" />
+                <ScalarProperty Name="Level3ModuleName" ColumnName="Level3ModuleName" />
+                <ScalarProperty Name="Level3ModuleID" ColumnName="Level3ModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParentModules">
+            <EntityTypeMapping TypeName="DB_TOSSModel.ParentModule">
+              <MappingFragment StoreEntitySet="ParentModules">
+                <ScalarProperty Name="JSID" ColumnName="JSID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="icon" ColumnName="icon" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleParentID" ColumnName="ModuleParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalInformations">
+            <EntityTypeMapping TypeName="DB_TOSSModel.PersonalInformation">
+              <MappingFragment StoreEntitySet="PersonalInformation">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonalInfoID" ColumnName="PersonalInfoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SignatoriesTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.SignatoriesTable">
+              <MappingFragment StoreEntitySet="SignatoriesTable">
+                <ScalarProperty Name="IsDeptHead" ColumnName="IsDeptHead" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="SignatoriesName" ColumnName="SignatoriesName" />
+                <ScalarProperty Name="SignatoriesID" ColumnName="SignatoriesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Signatory_DepartmentTable">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Signatory_DepartmentTable">
+              <MappingFragment StoreEntitySet="Signatory_DepartmentTable">
+                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Signatory_PositionTable">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Signatory_PositionTable">
+              <MappingFragment StoreEntitySet="Signatory_PositionTable">
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCollectorTables">
+            <EntityTypeMapping TypeName="DB_TOSSModel.SubCollectorTable">
+              <MappingFragment StoreEntitySet="SubCollectorTable">
+                <ScalarProperty Name="SubCollectorName" ColumnName="SubCollectorName" />
+                <ScalarProperty Name="SubCollectorID" ColumnName="SubCollectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubFunds">
+            <EntityTypeMapping TypeName="DB_TOSSModel.SubFund">
+              <MappingFragment StoreEntitySet="SubFund">
+                <ScalarProperty Name="SubFundName" ColumnName="SubFundName" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
