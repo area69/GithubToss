@@ -15,7 +15,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     color: white !important;
 }
 /* Style buttons */
-
+.form label {
+    color: #080b16;
+}
+.custom-form-margin {
+    margin-bottom: 2px;
+}
 .buttonEf {
     background-color: transparent; /* Blue background */
     border: none; /* Remove borders */
@@ -55,6 +60,11 @@ table thead tr th{
     border-top-color: #FF4961;
     border-bottom: none;
 }
+.nav-link.active {
+    background-color: #E49B1F !important;
+    font-weight: 600 !important;
+    color: black !important;
+}
 .nav.nav-tabs.nav-topline .nav-item a.nav-link {
     padding: 0.8rem 0.5rem;
     background: rgba(40, 44, 42, 0.05);
@@ -82,7 +92,9 @@ table thead tr th{
 .select2-container {
     width: 100% !important;
 }
-
+.nav-tabs {
+     border-bottom: 1px solid rgba(40, 44, 42, 0.05); 
+}
 .nav-link.active {
     background-color: #E49B1F !important;
     border-radius: 0.25rem 0.25rem 0 0;

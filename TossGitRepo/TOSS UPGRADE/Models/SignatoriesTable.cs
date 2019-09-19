@@ -20,7 +20,6 @@ namespace TOSS_UPGRADE.Models
         public int DepartmentID { get; set; }
         public bool IsDeptHead { get; set; }
     
-        public virtual Signatory_PositionTable Signatory_PositionTable { get; set; }
         public virtual Signatory_DepartmentTable Signatory_DepartmentTable { get; set; }
     }
 }

@@ -1,29 +1,30 @@
 ﻿
-@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableForm
+@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
 @{
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-@using (Ajax.BeginForm("AddAccountableForm", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AccountableFormTable','Accountable Form Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("AddBankName", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBankController','Get_BankTable','Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row black">
         <div class="col-md-5 form-group">
-            <label><b>Bank Name</b></label>
-            <input type="text" class="form-control" placeholder="Enter Bank Name" />
+            <label><b>Bank Name</b></label> 
+            @Html.TextBoxFor(m => m.getBankColumns.BankName, new { @class = "form-control", type = "text" })
+
         </div>
         <div class="col-md-2 pl-0 form-group">
             <label><b>Bank Code</b></label>
-            <input type="text" class="form-control" placeholder="Enter Bank Code" />
+            @Html.TextBoxFor(m => m.getBankColumns.BankCode, new { @class = "form-control", type = "text" })
         </div>
         <div class="col-md-5 pl-0 form-group">
             <label><b>Bank Address</b></label>
-            <input type="text" class="form-control" placeholder="Enter Bank Address" />
+            @Html.TextBoxFor(m => m.getBankColumns.BankAddress, new { @class = "form-control", type = "text" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-8"></div>
         <div class="col-md-2">
-            <button class="btn bg-addbutton form-control black"><b>Add</b></button>
+            <button type="submit" class="btn bg-addbutton form-control black"><b>Add</b></button>
         </div>
         <div class="col-md-2">
             <button class="btn bg-headerbc form-control white"><b>Cancel</b></button>

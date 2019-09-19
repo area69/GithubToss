@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row black" id="FMPositionController" ng-controller="FMPositionController" ng-init="InitAllFunction();">
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="card box-shadow-2">
@@ -20,64 +20,70 @@
                 <h4 class="card-title black"><b>Position</b></h4>
             </div>
             <div class="card-body box-shadow-2">
-                <div class="row black">
-                    <div class="col-md-4 form-group">
-                        <label><b>Position Name</b></label>
-                        <input type="text" class="form-control" value="" />
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <label><b>Position Code</b></label>
-                        <input type="text" class="form-control" value="" />
-                    </div>
+                <div id="PositionID">
 
-                    <div class="col-md-2 form-group">
-                        <label class="white">Position</label>
-                        <button class="btn bg-addbutton black form-control"><b>Add</b></button>
-                    </div>
-                    <div class="col-md-2 form-group">
-                        <label class="white">Position</label>
-                        <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
-                    </div>
+                </div>
+                <div class="row mt-1" id="_PositionTableID">
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-        <div class="card box-shadow-2">
-            <div class="card-header bg-carheadercolor">
-                <h4 class="card-title black"><b>Position Details</b></h4>
-            </div>
-            <div class="card-body box-shadow-2">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                            <thead>
-                                <tr>
-                                    <th>Position Name</th>
-                                    <th>Position Code</th>
-                                    <th width="5px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Local Chief Executive</td>
-                                    <td>LCE</td>
-                                    <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <td>Budget Officer I</td>
-                                    <td>BO I</td>
-                                    <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+
+    @*View Adding of Position Modal*@
+    app.controller('FMPositionController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        F.InitAllFunction = function () {
+            F.Get_PositionTable();
+        }
+        @* Message Box *@
+        F.SuccessMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Added", SuccessMess);
+        }
+        F.UpdateMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Update", SuccessMess);
+        }
+        F.DeleteMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Deleted", SuccessMess);
+        }
+
+        F.Get_PositionTable = function () {
+            P({
+                url: '/FileMaintenancePosition/Get_PositionTable',
+            }).then(function (response) {
+                $("#_PositionTableID").html(response.data);
+                F.Get_AddPosition();
+                });
+        }
+        F.Get_AddPosition = function () {
+            P({
+                url: '/FileMaintenancePosition/Get_AddPosition',
+            }).then(function (response) {
+                $("#PositionID").html(response.data);
+                });
+
+        }
+        F.Get_UpdatePosition = function (PositionID) {
+            P({
+                url: '/FileMaintenancePosition/Get_UpdatePosition',
+                params: { PositionID: PositionID }
+            }).then(function (response) {
+                $("#PositionID").html(response.data);
+                });
+        }
+        F.Get_DeletePosition = function (PositionID) {
+            P({
+                url: '/FileMaintenancePosition/DeletePosition',
+                params: { PositionID: PositionID }
+            }).then(function (response) {
+                F.Get_PositionTable();
+            });
+        }
+        });
+</script>

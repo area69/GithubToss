@@ -6,20 +6,20 @@
 
 @using (Ajax.BeginForm("AddAccountableForm", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AccountableFormTable','Accountable Form Successfully Saved')", OnFailure = "OnFailure()", }))
 {
-<div class="row">
+<div class="row black">
     <div class="col-md-3 form-group">
-        <label>Accountable Form</label>
+        <label><b>Accountable Form</b></label>
         @Html.TextBoxFor(m => m.getAccountableFormcolumns.AccountFormName, new { @class = "form-control", type = "text" })
     </div>
     <div class="col-md-2 form-group row skin skin-square">
         <label style="visibility:hidden">Accountable Form</label>
         <fieldset>
             @Html.CheckBoxFor(m => m.getAccountableFormcolumns.isCTC, new { @class = "form-control icheckbox_square-red", type = "checkbox" })
-            <label>For CTC</label>
+            <label><b>For CTC</b></label>
         </fieldset>
     </div>
     <div class="col-md-5 form-group">
-        <label>Description</label>
+        <label><b>Description</b></label>
         @Html.TextBoxFor(m => m.getAccountableFormcolumns.Description, new { @class = "form-control", type = "text" })
     </div>   
     <div class="col-md-1 px-0 mr-1">

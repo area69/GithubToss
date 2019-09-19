@@ -97,6 +97,15 @@
           <Property Name="BarangayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BarangayName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Barangay_CollectorName">
+          <Key>
+            <PropertyRef Name="BarangayCollectorID" />
+          </Key>
+          <Property Name="BarangayCollectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="CheckInventoryTable">
           <Key>
             <PropertyRef Name="CheckInvntID" />
@@ -225,7 +234,8 @@
             <PropertyRef Name="PositionID" />
           </Key>
           <Property Name="PositionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PositionName" Type="varchar" MaxLength="50" />
+          <Property Name="PositionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionCode" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="SubCollectorTable">
           <Key>
@@ -362,18 +372,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SignatoriesTable_PositionName">
-          <End Role="Signatory_PositionTable" Type="Self.Signatory_PositionTable" Multiplicity="1" />
-          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Signatory_PositionTable">
-              <PropertyRef Name="PositionID" />
-            </Principal>
-            <Dependent Role="SignatoriesTable">
-              <PropertyRef Name="PositionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
           <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="1" />
           <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
@@ -453,6 +451,7 @@
           <EntitySet Name="BankAccountTable" EntityType="Self.BankAccountTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankTable" EntityType="Self.BankTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Barangay_BarangayName" EntityType="Self.Barangay_BarangayName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Barangay_CollectorName" EntityType="Self.Barangay_CollectorName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInventoryTable" EntityType="Self.CheckInventoryTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckMaintenanceTable" EntityType="Self.CheckMaintenanceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollectorTable" EntityType="Self.CollectorTable" Schema="dbo" store:Type="Tables" />
@@ -508,10 +507,6 @@
           <AssociationSet Name="FK_ParentModules_ParentModules" Association="Self.FK_ParentModules_ParentModules">
             <End Role="ParentModules" EntitySet="ParentModules" />
             <End Role="ParentModules1" EntitySet="ParentModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SignatoriesTable_PositionName" Association="Self.FK_SignatoriesTable_PositionName">
-            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
-            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
           </AssociationSet>
           <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="Self.FK_SignatoriesTable_Signatory_DepartmentTable">
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
@@ -584,6 +579,7 @@
           <EntitySet Name="BankAccountTables" EntityType="DB_TOSSModel.BankAccountTable" />
           <EntitySet Name="BankTables" EntityType="DB_TOSSModel.BankTable" />
           <EntitySet Name="Barangay_BarangayName" EntityType="DB_TOSSModel.Barangay_BarangayName" />
+          <EntitySet Name="Barangay_CollectorName" EntityType="DB_TOSSModel.Barangay_CollectorName" />
           <EntitySet Name="CheckInventoryTables" EntityType="DB_TOSSModel.CheckInventoryTable" />
           <EntitySet Name="CheckMaintenanceTables" EntityType="DB_TOSSModel.CheckMaintenanceTable" />
           <EntitySet Name="CollectorTables" EntityType="DB_TOSSModel.CollectorTable" />
@@ -643,10 +639,6 @@
           <AssociationSet Name="FK_ParentModules_ParentModules" Association="DB_TOSSModel.FK_ParentModules_ParentModules">
             <End Role="ParentModule" EntitySet="ParentModules" />
             <End Role="ParentModule1" EntitySet="ParentModules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SignatoriesTable_PositionName" Association="DB_TOSSModel.FK_SignatoriesTable_PositionName">
-            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
-            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
           </AssociationSet>
           <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable">
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
@@ -752,6 +744,15 @@
           </Key>
           <Property Name="BarangayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BarangayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Barangay_CollectorName">
+          <Key>
+            <PropertyRef Name="BarangayCollectorID" />
+          </Key>
+          <Property Name="BarangayCollectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CheckInventoryTable">
           <Key>
@@ -879,7 +880,6 @@
           <Property Name="PositionID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="IsDeptHead" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Signatory_PositionTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_PositionName" FromRole="SignatoriesTable" ToRole="Signatory_PositionTable" />
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable" FromRole="SignatoriesTable" ToRole="Signatory_DepartmentTable" />
         </EntityType>
         <EntityType Name="Signatory_DepartmentTable">
@@ -896,8 +896,8 @@
             <PropertyRef Name="PositionID" />
           </Key>
           <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PositionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_PositionName" FromRole="Signatory_PositionTable" ToRole="SignatoriesTable" />
+          <Property Name="PositionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PositionCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SubCollectorTable">
           <Key>
@@ -1048,18 +1048,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SignatoriesTable_PositionName">
-          <End Type="DB_TOSSModel.Signatory_PositionTable" Role="Signatory_PositionTable" Multiplicity="1" />
-          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Signatory_PositionTable">
-              <PropertyRef Name="PositionID" />
-            </Principal>
-            <Dependent Role="SignatoriesTable">
-              <PropertyRef Name="PositionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
           <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="1" />
           <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
@@ -1191,6 +1179,16 @@
               <MappingFragment StoreEntitySet="Barangay_BarangayName">
                 <ScalarProperty Name="BarangayName" ColumnName="BarangayName" />
                 <ScalarProperty Name="BarangayID" ColumnName="BarangayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Barangay_CollectorName">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Barangay_CollectorName">
+              <MappingFragment StoreEntitySet="Barangay_CollectorName">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="BarangayCollectorID" ColumnName="BarangayCollectorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1333,6 +1331,7 @@
           <EntitySetMapping Name="Signatory_PositionTable">
             <EntityTypeMapping TypeName="DB_TOSSModel.Signatory_PositionTable">
               <MappingFragment StoreEntitySet="Signatory_PositionTable">
+                <ScalarProperty Name="PositionCode" ColumnName="PositionCode" />
                 <ScalarProperty Name="PositionName" ColumnName="PositionName" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
               </MappingFragment>

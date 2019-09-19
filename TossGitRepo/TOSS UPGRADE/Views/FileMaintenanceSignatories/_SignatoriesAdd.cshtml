@@ -1,86 +1,242 @@
 ﻿@model TOSS_UPGRADE.Models.FM_SignatoriesModel
 @{
-    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+                /**/
+
+                DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 
 @using (Ajax.BeginForm("AddSignatories", "FileMaintenanceSignatories", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSignatoriesController', 'GetListOfSignatories','SuccessSave1')", OnFailure = "OnFailure()", }))
 {
 
-<div class="row black">
-    <div class="col-md-5 form-group">
-        <label><b>Employee Name</b></label>
-        @Html.TextBoxFor(m => m.getSignatoriesColumns.SignatoriesName, new { @class = "form-control", type = "text", ng_model = "SignatoriesNameID" })
-        @Html.ValidationMessageFor(model => model.getSignatoriesColumns.SignatoriesName)
+    <div class="row black">
+        <div class="col-md-5 form-group">
+            <label><b>Employee Name</b></label>
+            @Html.TextBoxFor(m => m.getSignatoriesColumns.SignatoriesName, new { @class = "form-control", type = "text", ng_model = "SignatoriesNameID" })
+            @Html.ValidationMessageFor(model => model.getSignatoriesColumns.SignatoriesName)
+
+        </div>
+        <div class="col-md-5 form-group">
+            <label><b>Preferred Name</b></label>
+            <input type="text" class="form-control" value="" />
+        </div>
+        <div class="col-md-2">
+            <label><b>Department Head?</b></label>
+            <select class="form-control" id="isDeptHeadDD" onchange="IsDeptHeadOnChange()">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        @Html.HiddenFor(m => m.isDeptHeads, new { id = "isDeptHeadID" })
 
     </div>
-    <div class="col-md-5 form-group">
-        <label><b>Preferred Name</b></label>
-        <input type="text" class="form-control" value="" />
-    </div>
-    <div class="col-md-2">
-        <label><b>Department Head?</b></label>
-        <select class="form-control" id="isDeptHeadDD" onchange="IsDeptHeadOnChange()">
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-        </select>
-    </div>
-    @Html.HiddenFor(m => m.isDeptHeads, new { id = "isDeptHeadID" })
-   
-</div>
-<div class="row black">
-    <div class="col-md-5 form-group" id="_DynamicDDPositionNameID">
+    <div class="row black">
+        <div class="col-md-5 form-group" id="_DynamicDDPositionNameID">
 
-    </div>
-    <div class="col-md-5 form-group" id="_DynamicDDDepartmentID">
+        </div>
+        <div class="col-md-5 form-group" id="_DynamicDDDepartmentID">
 
+        </div>
+        <div class="col-md-2">
+            <label><b>Is Active</b></label>
+            <select class="form-control">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+        @*<div class="col-md-2 mr-1 form-group row skin skin-square">
+                <label style="visibility:hidden">Accountable Form</label>
+                <fieldset>
+                    <input type="checkbox" name="name" value="" class="form-control icheckbox_square-red" />
+                    <label><b>Is Active</b></label>
+                </fieldset>
+            </div>*@
     </div>
-    <div class="col-md-2">
-        <label><b>Is Active</b></label>
-        <select class="form-control">
-            <option>Yes</option>
-            <option>No</option>
-        </select>
+
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-4">
+            <div class="form-group">
+                <label><b>Function</b></label>
+                <span class="input-group-append">
+                    <select class="form-control">
+                        <option>General Administration</option>
+                    </select>
+                    <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addFunctionModal"><strong>+</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <label><b>Division</b></label>
+            <input type="text" class="form-control" value="Division 1" />
+        </div>
+
+
+        <div class="col-md-2 form-group">
+            <label class="white">Position</label>
+            <button class="btn bg-addbutton black form-control"><b>Add</b></button>
+        </div>
+        <div class="col-md-2 form-group">
+            <label class="white">Position</label>
+            <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+        </div>
     </div>
-    @*<div class="col-md-2 mr-1 form-group row skin skin-square">
-            <label style="visibility:hidden">Accountable Form</label>
-            <fieldset>
-                <input type="checkbox" name="name" value="" class="form-control icheckbox_square-red" />
-                <label><b>Is Active</b></label>
-            </fieldset>
-        </div>*@
-</div>
-    
+
+    @* Add Function Modal *@
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="form-group">
+            <div class="modal animated zoomIn text-left" id="addFunctionModal" role="dialog">
+                <div class="modal-dialog" style="max-width:1000px" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-headerbc white">
+                            <h4 class="modal-title white"><b>Add Function</b></h4>
+                            <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+                        </div>
+                        <div class="modal-body skin skin-square">
+
+                            <div class="row mt-1 black">
+                                <div class="col-md-12" @*id="DepartmentxID"*@>
                                     <div class="row">
-                                        <div class="col-md-4 form-group">
-                                            <label><b>Function</b></label>
-                                            <select class="form-control">
-                                                <option>General Administration</option>
-                                            </select>
+                                        <div class="col-xl-3 col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2"><b>Department</b></label>
+                                                <select class="form-control">
+                                                    <option>General Services Office</option>
+                                                    <option>Office of the Local Accountant</option>
+                                                    <option>Office of the Local Budget Office</option>
+                                                    <option>Office of the Local Chief Executive</option>
+                                                    <option>Office of the Local Engineering and Maintenance</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4 form-group">
-                                            <label><b>Division</b></label>
-                                            <input type="text" class="form-control" value="Division 1" />
+                                        <div class="col-xl-2 col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2 "><b>Function</b></label>
+                                                <textarea class="form-control" style="height:40px"></textarea>
+                                            </div>
                                         </div>
-
-                                     
-                                        <div class="col-md-2 form-group">
-                                            <label class="white">Position</label>
-                                            <button class="btn bg-addbutton black form-control"><b>Add</b></button>
+                                        <div class="col-xl-2 col-lg-3 col-md-4">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin"><b>Function Abbreviation</b></label>
+                                                <input type="text" class="form-control" name="name" value="0000" />
+                                            </div>
                                         </div>
-                                        <div class="col-md-2 form-group">
-                                            <label class="white">Position</label>
-                                            <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+                                        <div class="col-xl-2 col-lg-3 col-md-4">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2 mt-lg-2"><b>Function Code</b></label>
+                                                <input type="text" class="form-control" name="name" value="1011-1" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-6 col-md-4">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2 mt-lg-2"><b>Fund</b></label>
+                                                <select class="form-control">
+                                                    <option>General Fund</option>
+                                                    <option>Calamity Fund</option>
+                                                    <option>Development Fund</option>
+                                                    <option>Special Education Fund</option>
+                                                    <option>Trust Fund</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-5 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2"><b>Sector</b></label>
+                                                <select class="form-control">
+                                                    <option>Social Services</option>
+                                                    <option>Economic Services</option>
+                                                    <option>General Public Services</option>
+                                                    <option>Other Public Services</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-7 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2"><b>Sub Sector</b></label>
+                                                <select class="form-control">
+                                                    <option>Social Security, Social Services and Welfare</option>
+                                                    <option>Health and Nutrition</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-5 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin mt-xl-2"><b>Office Type</b></label>
+                                                <select class="form-control">
+                                                    <option>Mandatory</option>
+                                                    <option>Optional</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label class="custom-form-margin"><b>Department / Office Code</b></label>
+                                                <input type="text" class="form-control" name="name" value="00" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn bg-addbutton form-control black">
+                                                <b>Add</b>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="reset" class="btn bg-headerbc form-control white">
+                                                <b>Cancel</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-1" @*id="DepartmentTableID"*@>
+                                <div class="col-md-12">
+                                    <table class="table table-striped table-responsive zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>Department</th>
+                                                <th>Function</th>
+                                                <th>Function Abbreviation</th>
+                                                <th>Function Code</th>
+                                                <th>Sector</th>
+                                                <th>Sub<br />Sector</th>
+                                                <th>Fund</th>
+                                                <th>Office Code</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr>
+                                                <td>Office of the Local Chief Executive</td>
+                                                <td>General Administration</td>
+                                                <td>GA</td>
+                                                <td>01</td>
+                                                <td>General Public Services</td>
+                                                <td>N/A</td>
+                                                <td>General Fund</td>
+                                                <td>05</td>
+                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-    <script>
-        $(function () {
-            IsDeptHeadOnChange()
-        })
-        function IsDeptHeadOnChange() {
-            var isDeptHeadValue = $("#isDeptHeadDD").val();
-            $("#isDeptHeadID").val(isDeptHeadValue);
-        }
-    </script>
+<script>
+    $(function () {
+        IsDeptHeadOnChange()
+    })
+    function IsDeptHeadOnChange() {
+        var isDeptHeadValue = $("#isDeptHeadDD").val();
+        $("#isDeptHeadID").val(isDeptHeadValue);
+    }
+</script>

@@ -105,6 +105,87 @@ namespace TOSS_UPGRADE.Controllers
 
         #endregion
         #region SubFund
+        //Table Fund
+        public ActionResult Get_FundTable2()
+        {
+            FM_Fund model = new FM_Fund();
+            List<FundList> tbl_Fund = new List<FundList>();
+
+            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.Fund";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_FundsList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_Fund.Add(new FundList()
+                        {
+                            FundID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            FundName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            FundCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getFundList = tbl_Fund.ToList();
+            return PartialView("SubFund/Fund/_FundTable", model.getFundList);
+        }
+
+        //Get Add Fund Partial View
+        public ActionResult Get_AddFund2()
+        {
+            FM_Fund model = new FM_Fund();
+            return PartialView("SubFund/Fund/_AddFunds", model);
+        }
+
+        //Add Fund
+        public JsonResult AddFunds2(FM_Fund model)
+        {
+            Fund tblFund = new Fund();
+            tblFund.FundName = model.getFundcolumns.FundName;
+            tblFund.FundCode = model.getFundcolumns.FundCode;
+            TOSSDB.Funds.Add(tblFund);
+            TOSSDB.SaveChanges();
+            return Json(tblFund);
+        }
+
+        //Get Update Fund
+        public ActionResult Get_UpdateFund2(FM_Fund model, int FundID)
+        {
+            Fund tblFund = (from e in TOSSDB.Funds where e.FundID == FundID select e).FirstOrDefault();
+            model.getFundcolumns.FundID = tblFund.FundID;
+            model.getFundcolumns.FundName = tblFund.FundName;
+            model.getFundcolumns.FundCode = tblFund.FundCode;
+            return PartialView("SubFund/Fund/_UpdateFunds", model);
+        }
+
+        //Update Fund
+        public ActionResult UpdateFunds2(FM_Fund model)
+        {
+            Fund tblFund = (from e in TOSSDB.Funds where e.FundID == model.getFundcolumns.FundID select e).FirstOrDefault();
+            tblFund.FundName = model.getFundcolumns.FundName;
+            tblFund.FundCode = model.getFundcolumns.FundCode;
+            TOSSDB.Entry(tblFund);
+            TOSSDB.SaveChanges();
+            return PartialView("SubFund/Fund/_UpdateFunds", model);
+        }
+
+        //Delete Fund
+        public ActionResult DeleteFunds2(FM_Fund model, int FundID)
+        {
+            Fund tblFund = (from e in TOSSDB.Funds where e.FundID == FundID select e).FirstOrDefault();
+            TOSSDB.Funds.Remove(tblFund);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
 
         //Dropdown Fund
         public ActionResult GetDynamicFund()

@@ -1,0 +1,30 @@
+﻿
+
+@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("AddAccountType", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBankController','Get_AccountTypeTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+    <div class="row black">
+        <div class="col-md-8 form-group">
+            <label><b>Account Type</b></label>
+            @Html.TextBoxFor(m => m.getAccountTypeColumns.AccountType, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-2 pl-0">
+            <label style="visibility:hidden">HideThis</label>
+            <button type="submit" class="btn bg-addbutton form-control black"><b>Add</b></button>
+        </div>
+        <div class="col-md-2 pl-0">
+            <label style="visibility:hidden">HideThis</label>
+            <button class="btn bg-headerbc form-control white"><b>Cancel</b></button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

@@ -9,27 +9,29 @@
 {
 
     @Html.HiddenFor(m => m.getFundcolumns.FundID, new { })
-
-    <div class="row">
-        <div class="col-md-5">
-            <label class="mt-1"><b>Fund</b></label>
-            @Html.TextBoxFor(m => m.getFundcolumns.FundName, new { @class = "form-control", type = "text", placeholder = "Enter Fund Name" })
-        </div>
-        <div class="col-md-3">
-            <label class="mt-1"><b>Fund Code</b></label>
-            @Html.TextBoxFor(m => m.getFundcolumns.FundCode, new { @class = "form-control", type = "text", placeholder = "Enter Fund Code" })
-        </div>
-        <div class="col-md-2">
-            <label class="mt-1" style="visibility:hidden"><b>Update</b></label>
-            <button type="submit" class="btn bg-addbutton form-control black">
-                <b>Update</b>
-            </button>
-        </div>
-        <div class="col-md-2">
-            <label class="mt-1" style="visibility:hidden"><b>Fund</b></label>
-            <button type="reset"  onclick="AngularGlobalEdit('FMFundController','Get_AddFunds','')" class="btn bg-headerbc white form-control"><b>Cancel</b></button>
-        </div>
+    
+<div class="row black">
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <label class="mt-1"><b>Fund</b></label>
+        @Html.TextBoxFor(m => m.getFundcolumns.FundName, new { @class = "form-control", type = "text", placeholder = "Enter Fund Name" })
     </div>
+    <div class="col-md-3">
+        <label class="mt-1"><b>Fund Code</b></label>
+        @Html.TextBoxFor(m => m.getFundcolumns.FundCode, new { @class = "form-control", type = "text", placeholder = "Enter Fund Code" })
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col-md-8"></div>
+    <div class="col-md-2">
+        <button type="submit" class="btn bg-addbutton form-control black">
+            <b>Add</b>
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button type="reset" onclick="AngularGlobalEdit('FMFundController','Get_AddFunds','')" class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+    </div>
+</div>
 }
 <script>
     $(function () {

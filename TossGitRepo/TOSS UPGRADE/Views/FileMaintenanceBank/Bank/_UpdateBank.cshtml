@@ -1,0 +1,41 @@
+﻿
+
+@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("UpdateBankName", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBankController','Get_BankTable','Successfully Updated')", OnFailure = "OnFailure()", }))
+{
+<div class="row black">
+    @Html.HiddenFor(m => m.getBankColumns.BankID, new { })
+    <div class="col-md-5 form-group">
+        <label><b>Bank Name</b></label>
+        @Html.TextBoxFor(m => m.getBankColumns.BankName, new { @class = "form-control", type = "text" })
+
+    </div>
+    <div class="col-md-2 pl-0 form-group">
+        <label><b>Bank Code</b></label>
+        @Html.TextBoxFor(m => m.getBankColumns.BankCode, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-5 pl-0 form-group">
+        <label><b>Bank Address</b></label>
+        @Html.TextBoxFor(m => m.getBankColumns.BankAddress, new { @class = "form-control", type = "text" })
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black"><b>Update</b></button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn bg-headerbc form-control white"><b>Cancel</b></button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

@@ -9,74 +9,79 @@
         <h3 class="content-header-title black"><b>File Maintenance - Internal Revenue Allotment Share</b></h3>
     </div>
 </div>
-<div class="row black">
+<div class="row black" id="FMIRAController" ng-controller="FMIRAController" ng-init="InitAllFunction();">
     <div class="col-12 col-xl-12 ">
         <div class="card box-shadow-2">
-            <div class="card-header bg-carheadercolor">
-                <h4 class="card-title black" style="visibility:hidden"><b>List of Memorandum Account Classifications</b></h4>
-            </div>
-            <div class="card-content collapse show">
-                <div class="card-body box-shadow-2">
+            <div class="card-body box-shadow-3">
+                <div id="_IraID">
 
-                    <div class="row black">
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-4 form-group">
-                                    <label><b>IRA Percentage Share</b></label>
-                                    <input type="text" class="form-control" value="" />
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label><b>%</b></label>
-                                    <input type="text" class="form-control" value="" />
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label><b>Base</b></label>
-                                    <input type="text" class="form-control" value="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label style="visibility:hidden">Base</label>
-                            <button type="button" class="btn form-control black bg-addbutton"><b>Add</b></button>
-                        </div>
-                        <div class="col-md-2">
-                            <label style="visibility:hidden">Base</label>
-                            <button type="button" class="btn form-control white bg-headerbc"><b>Cancel</b></button>
-                        </div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered zero-configuration w-100">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Percentage</th>
-                                            <th>Percent</th>
-                                            <th>Base</th>
-                                            <th width="5px;">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-center">
-                                        <tr>
-                                            <td>0.20</td>
-                                            <td>20%</td>
-                                            <td>1.00</td>
-                                            <td><button type="button" class="btn btn-icon bg-headerbc text-white" data-toggle="popoverIRA" onfocusout="ClosePopOver5()" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>0.20</td>
-                                            <td>20%</td>
-                                            <td>1.00</td>
-                                            <td><button type="button" class="btn btn-icon bg-headerbc text-white" data-toggle="popoverIRA" onfocusout="ClosePopOver5()" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10" id="_IraTableID">
+
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+<script>
+
+    @*Angular Function*@
+    app.controller('FMIRAController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        F.InitAllFunction = function () {
+            //Internal Revenue Allotment Table
+            F.Get_InternalRevenueAllotmentTable();
+        }
+        @* Message Box *@
+        F.SuccessMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Added", SuccessMess);
+        }
+        F.UpdateMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Update", SuccessMess);
+        }
+        F.DeleteMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Deleted", SuccessMess);
+        }
+        //Internal Revenue Allotment Share
+        F.Get_InternalRevenueAllotmentTable = function () {
+            P({
+                url: '/FileMaintenanceIRAShare/Get_InternalRevenueAllotmentTable',
+            }).then(function (response) {
+                $("#_IraTableID").html(response.data);
+            });
+           F.Get_AddInternalRevenueAllotment();
+        }
+        F.Get_AddInternalRevenueAllotment = function () {
+            P({
+                url: '/FileMaintenanceIRAShare/Get_AddInternalRevenueAllotmentTable',
+            }).then(function (response) {
+                $("#_IraID").html(response.data);
+            });
+        }
+        F.Get_UpdateInternalRevenueAllotment = function (IRAID) {
+            P({
+                url: '/FileMaintenanceIRAShare/Get_UpdateInternalRevenueAllotment',
+                params: { IRAID: IRAID }
+            }).then(function (response) {
+                $("#_IraID").html(response.data);
+            });
+        }
+        F.Get_DeleteInternalRevenueAllotment = function (IRAID) {
+            P({
+                url: '/FileMaintenanceIRAShare/DeleteInternalRevenueAllotment',
+                params: { IRAID: IRAID }
+            }).then(function (response) {
+                F.Get_InternalRevenueAllotmentTable();
+            });
+        }
+    });
+</script>

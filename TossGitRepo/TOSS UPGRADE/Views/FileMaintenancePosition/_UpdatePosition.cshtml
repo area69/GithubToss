@@ -1,0 +1,38 @@
+﻿
+@model TOSS_UPGRADE.Models.FM_Position.FM_Position_Position
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdatePosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMPositionController','Get_PositionTable','UpdateMessageBox')", OnFailure = "OnFailure()", }))
+{
+<div class="row">
+    @Html.HiddenFor(m => m.getPositioncolumns.PositionID, new { })
+    <div class="col-md-5">
+        <label>Position Name</label>
+        @Html.TextBoxFor(m => m.getPositioncolumns.PositionName, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-3">
+        <label>Position Code</label>
+        @Html.TextBoxFor(m => m.getPositioncolumns.PositionCode, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-2 pl-0">
+        <label style="visibility:hidden">Position</label>
+        <button type="submit" class="btn bg-addbutton form-control black"><b>Update</b></button>
+    </div>
+    <div class="col-md-2 pl-0">
+        <label style="visibility:hidden">Position</label>
+        <button type="reset" class="btn bg-headerbc form-control white"><b>Cancel</b></button>
+    </div>
+</div>
+    }
+    <script>
+        $(function () {
+            LoadDataTable();
+            LoadPopOver();
+        })
+    </script>
+
+
+

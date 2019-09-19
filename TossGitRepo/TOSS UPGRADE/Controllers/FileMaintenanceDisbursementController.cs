@@ -143,7 +143,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicMaitenance(int BankAccountID)
         {
             FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            model.CheckMaintenanceAccountNameList = new SelectList((from s in TOSSDB.BankAccountTables.ToList() where s.BankID == BankAccountID select new { BankAccountID = s.BankAccountID, AccountNo = s.AccountNo /*+ "- (" + s.FundType_FundName.FundTitle + ")"*/ }), "BankAccountID", "AccountNo");
+            model.CheckMaintenanceAccountNameList = new SelectList((from s in TOSSDB.BankAccountTables.ToList() where s.BankAccountID == BankAccountID select new { BankAccountID = s.BankAccountID, AccountNo = s.AccountNo /*+ "- (" + s.FundType_FundName.FundTitle + ")"*/ }), "BankAccountID", "AccountNo");
             return PartialView("CheckMaintenance/_DynamicDDAccountName2", model);
         }
         public ActionResult GetSelectedDynamicMaitenance(int CheckMaintenanceBankIDTempID)

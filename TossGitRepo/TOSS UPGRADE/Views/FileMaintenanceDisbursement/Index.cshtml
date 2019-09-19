@@ -33,12 +33,74 @@
                                             <h4 class="card-title black"><b>Check Inventory</b></h4>
                                         </div>
                                         <div class="card-body box-shadow-2">
-                                            <div id="_CheckInventoryID">
-
+                                            <div class="row black" @*id="_CheckInventoryID"*@>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-4 form-group">
+                                                    <label><b>Bank Name</b></label>
+                                                    <select class="form-control">
+                                                        <option>Land Bank of the Philippines</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label><b>Account Name/ Number</b></label>
+                                                    <select class="form-control">
+                                                        <option>0442-1046-11 - (GF - Proper)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label><b>Quantity</b></label>
+                                                    <input type="text" class="form-control" value="" />
+                                                </div>
                                             </div>
-                                            <div id="_CheckInventoryTableID">
-
+                                            <div class="row black" @*id="_CheckInventoryID"*@>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 form-group">
+                                                            <label><b>Starting Check No.</b></label>
+                                                            <input type="text" class="form-control" value="" />
+                                                        </div>
+                                                        <div class="col-md-4 form-group">
+                                                            <label><b>Ending Check No.</b></label>
+                                                            <input type="text" class="form-control" value="" />
+                                                        </div>
+                                                        <div class="col-md-4 form-group">
+                                                            <label><b>Date</b></label>
+                                                            <input name="name" value="" class="form-control pickadate " />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <div class="row mt-1">
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Bank Name</th>
+                                                                <th>Bank Account No.</th>
+                                                                <th>Quantity</th>
+                                                                <th>Starting Check No.</th>
+                                                                <th>Ending Check No.</th>
+                                                                <th>Date</th>
+                                                                <th width="5px;">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Land Bank of the Philippines</td>
+                                                                <td>0441-1941-10</td>
+                                                                <td>2</td>
+                                                                <td>101235</td>
+                                                                <td>101236</td>
+                                                                <td>9/18/2019</td>
+                                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -54,16 +116,78 @@
                                         <div class="card-header bg-carheadercolor">
                                             <h4 class="card-title black"><b>Bank Account</b></h4>
                                         </div>
-                                        <div class="card-body box-shadow-2" id="_checkMaintenanceID">
+                                        <div class="card-body box-shadow-2" @*id="_checkMaintenanceID"*@>
+                                            <div class="row black" @*id="_CheckInventoryID"*@>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-4 form-group">
+                                                    <label><b>Bank Name</b></label>
+                                                    <select class="form-control">
+                                                        <option>Land Bank of the Philippines</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label><b>Account Name/ Number</b></label>
+                                                    <select class="form-control">
+                                                        <option>0442-1046-11 - (GF - Proper)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label><b>Starting Check No.</b></label>     
+                                                    <select class="form-control">
+                                                        <option>18092019</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row black" @*id="_CheckInventoryID"*@>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 form-group">
 
-                                        </div>
-                                    </div>
-                                    <div class="card-block mt-1">
-                                        <div class="card-header bg-carheadercolor">
-                                            <h4 class="card-title black"><b>Check Details</b></h4>
-                                        </div>
-                                        <div class="card-body box-shadow-2" id="_checkMaintenanceTableID">
+                                                            <label><b>Quantity</b></label>
+                                                            <input type="text" class="form-control" value="" disabled/>
+                                                
+                                                        </div>
+                                                        <div class="col-md-4 form-group">
+                                                            <label><b>Ending Check No.</b></label>
+                                                            <input type="text" class="form-control" value="" disabled/>
+                                                        </div>
+                                                        <div class="col-md-4 form-group">
+                                                            <label><b>Date</b></label>
+                                                            <input name="name" value="" class="form-control pickadate " />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-1">
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Bank Name</th>
+                                                                <th>Bank Account No.</th>
+                                                                <th>Quantity</th>
+                                                                <th>Starting Check No.</th>
+                                                                <th>Ending Check No.</th>
+                                                                <th>Date</th>
+                                                                <th width="5px;">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Land Bank of the Philippines</td>
+                                                                <td>0441-1941-10</td>
+                                                                <td>2</td>
+                                                                <td>101235</td>
+                                                                <td>101236</td>
+                                                                <td>9/18/2019</td>
+                                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
 
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,156 +231,156 @@
         F.InitAllFunction = function () {
             //DV Type Table
             F.Get_DVTypeTable();
-            F.Get_CheckInventoryTable();
-            F.Get_CheckMaintenanceTable();
+            //F.Get_CheckInventoryTable();
+            //F.Get_CheckMaintenanceTable();
         }
-        //Check Inventory
-        F.LoadDynamicDDAccountName = function () {
-            var BankAccountID = $("#BankIDDD").val()
+        ////Check Inventory
+        //F.LoadDynamicDDAccountName = function () {
+        //    var BankAccountID = $("#BankIDDD").val()
           
-            P({
-                url: '/FileMaintenanceDisbursement/GetDynamicAccountName',
-                params: { BankAccountID: BankAccountID }
-            }).then(function (response) {
-                $("#_DynamicDDAccountNameID").html(response.data);
-            });
-        }
-        F.LoadSelectDynamicDDAccountName = function () {
-            var CheckInventoryAccountNameIDTempID = $("#CheckInventoryAccountNameIDTempID").val();
-            P({
-                url: '/FileMaintenanceDisbursement/GetSelectedDynamicAccountName',
-                params: { CheckInventoryAccountNameIDTempID: CheckInventoryAccountNameIDTempID }
-            }).then(function (response) {
-                $("#_DynamicDDAccountNameID").html(response.data);
-            });
-        }
-        F.Get_CheckInventoryTable = function () {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_CheckInventoryTable',
-            }).then(function (response) {
-                $("#_CheckInventoryTableID").html(response.data);
-            });
-            F.Get_AddCheckInventory();
-        }
-        F.Get_AddCheckInventory = function () {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_AddCheckInventory',
-            }).then(function (response) {
-                $("#_CheckInventoryID").html(response.data);
-                F.LoadDynamicDDAccountName();
-                F.LoadDynamicCheckMaintenanceInventory();
-                });
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/GetDynamicAccountName',
+        //        params: { BankAccountID: BankAccountID }
+        //    }).then(function (response) {
+        //        $("#_DynamicDDAccountNameID").html(response.data);
+        //    });
+        //}
+        //F.LoadSelectDynamicDDAccountName = function () {
+        //    var CheckInventoryAccountNameIDTempID = $("#CheckInventoryAccountNameIDTempID").val();
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/GetSelectedDynamicAccountName',
+        //        params: { CheckInventoryAccountNameIDTempID: CheckInventoryAccountNameIDTempID }
+        //    }).then(function (response) {
+        //        $("#_DynamicDDAccountNameID").html(response.data);
+        //    });
+        //}
+        //F.Get_CheckInventoryTable = function () {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_CheckInventoryTable',
+        //    }).then(function (response) {
+        //        $("#_CheckInventoryTableID").html(response.data);
+        //    });
+        //    F.Get_AddCheckInventory();
+        //}
+        //F.Get_AddCheckInventory = function () {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_AddCheckInventory',
+        //    }).then(function (response) {
+        //        $("#_CheckInventoryID").html(response.data);
+        //        F.LoadDynamicDDAccountName();
+        //        F.LoadDynamicCheckMaintenanceInventory();
+        //        });
           
-        }
-        F.Get_UpdateCheckInventory = function (CheckInvntID) {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_UpdateCheckInventory',
-                params: { CheckInvntID: CheckInvntID }
-            }).then(function (response) {
-                $("#_CheckInventoryID").html(response.data);
-                F.LoadSelectDynamicDDAccountName();
-            });
-        }
-        F.Get_DeleteCheckInventory = function (CheckInvntID) {
-            P({
-                url: '/FileMaintenanceDisbursement/DeleteCheckInventory',
-                params: { CheckInvntID: CheckInvntID }
-            }).then(function (response) {
-                F.Get_CheckInventoryTable();
-            });
-        }
+        //}
+        //F.Get_UpdateCheckInventory = function (CheckInvntID) {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_UpdateCheckInventory',
+        //        params: { CheckInvntID: CheckInvntID }
+        //    }).then(function (response) {
+        //        $("#_CheckInventoryID").html(response.data);
+        //        F.LoadSelectDynamicDDAccountName();
+        //    });
+        //}
+        //F.Get_DeleteCheckInventory = function (CheckInvntID) {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/DeleteCheckInventory',
+        //        params: { CheckInvntID: CheckInvntID }
+        //    }).then(function (response) {
+        //        F.Get_CheckInventoryTable();
+        //    });
+        //}
 
-        //Check Maintenance
-        F.Get_CheckMaintenanceTable = function () {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_CheckMaintenanceTable',
-            }).then(function (response) {
-                $("#_checkMaintenanceTableID").html(response.data);
-            });
-            F.Get_AddCheckMaintenance();
-        }
-        F.Get_AddCheckMaintenance = function () {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_AddCheckMaitenance',
-            }).then(function (response) {
-                $("#_checkMaintenanceID").html(response.data);
-                F.LoadDynamicDDAccountName2(); 
-                F.Get_CheckInventoryTable();
-            });
-        }
-        F.LoadDynamicDDAccountName2 = function () {
-            var BankAccountID = $("#BankIDDD2").val()
-            P({
-                url: '/FileMaintenanceDisbursement/GetDynamicMaitenance',
-                params: { BankAccountID: BankAccountID }
-            }).then(function (response) {
-                $("#_DynamicDDAccountID").html(response.data);
-                F.Get_AddCheckMaintenanceInventory();
-            });
-        }
-        F.Get_AddCheckMaintenanceInventory = function () {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_AddCheckMaintenanceInventory',
-            }).then(function (response) {
-                $("#_CheckInventoryPVID").html(response.data);
-                F.LoadDynamicCheckMaintenanceInventory();
-            });
-        }
-        F.LoadDynamicCheckMaintenanceInventory = function () {
-            var BankID = $("#BankIDDD2").val()
-            var AccountNameIDDD2 = $("#AccountNameIDDD2").val()
-            if (AccountNameIDDD2 == null) {
-                AccountNameIDDD2 = 0;
-            }
-            P({
-                url: '/FileMaintenanceDisbursement/LoadDynamicCheckMaintenanceInventory',
-                params: { BankID: BankID, AccountNameIDDD2: AccountNameIDDD2}
-            }).then(function (response) {
-                $("#_DynamicDDStartingNoID").html(response.data);
-                F.Get_CheckMaintenanceQuantyNEnd();
-            });
-        }
-        F.Get_CheckMaintenanceQuantyNEnd = function () {
-            var BankID = $("#BankIDDD2").val();
-            var BankAccountID = $("#AccountNameIDDD2").val();
-            var StartingChckNo = $("#AccountNameInventoryIDDD2 option:selected").text();
-            if (StartingChckNo == null || StartingChckNo == "" || BankAccountID == null || BankAccountID == "") {
-                StartingChckNo = 0;
-                BankAccountID = 0;
-            }
-            P({
-                url: '/FileMaintenanceDisbursement/Get_CheckMaintenanceQuantyNEnd',
-                params: { BankID: BankID, BankAccountID: BankAccountID, StartingChckNo: StartingChckNo }
-            }).then(function (response) {
-                $("#_DynamicTBQuanEnding").html(response.data);
-            });
-        }
-        F.Get_UpdateCheckMaintenance = function (CheckMainteID) {
-            P({
-                url: '/FileMaintenanceDisbursement/Get_UpdateCheckMaintenance',
-                params: { CheckMainteID: CheckMainteID }
-            }).then(function (response) {
-                $("#_checkMaintenanceID").html(response.data);
-                F.GetLoadDynamicDDAccountName();
-            });
-        }
-        F.GetLoadDynamicDDAccountName = function () {
-            var CheckMaintenanceBankIDTempID = $("#CheckMaintenanceBankIDTempID").val();
-            P({
-                url: '/FileMaintenanceDisbursement/GetSelectedDynamicMaitenance',
-                params: { CheckMaintenanceBankIDTempID: CheckMaintenanceBankIDTempID }
-            }).then(function (response) {
-                $("#_DynamicDDAccountID").html(response.data);
-            });
-        }
-        F.Get_DeleteCheckMaintenance = function (CheckMainteID) {
-            P({
-                url: '/FileMaintenanceDisbursement/DeleteCheckMaintenance',
-                params: { CheckMainteID: CheckMainteID }
-            }).then(function (response) {
-                F.Get_CheckMaintenanceTable();
-            });
-        }
+        ////Check Maintenance
+        //F.Get_CheckMaintenanceTable = function () {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_CheckMaintenanceTable',
+        //    }).then(function (response) {
+        //        $("#_checkMaintenanceTableID").html(response.data);
+        //    });
+        //    F.Get_AddCheckMaintenance();
+        //}
+        //F.Get_AddCheckMaintenance = function () {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_AddCheckMaitenance',
+        //    }).then(function (response) {
+        //        $("#_checkMaintenanceID").html(response.data);
+        //        F.LoadDynamicDDAccountName2(); 
+        //        F.Get_CheckInventoryTable();
+        //    });
+        //}
+        //F.LoadDynamicDDAccountName2 = function () {
+        //    var BankAccountID = $("#BankIDDD2").val()
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/GetDynamicMaitenance',
+        //        params: { BankAccountID: BankAccountID }
+        //    }).then(function (response) {
+        //        $("#_DynamicDDAccountID").html(response.data);
+        //        F.Get_AddCheckMaintenanceInventory();
+        //    });
+        //}
+        //F.Get_AddCheckMaintenanceInventory = function () {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_AddCheckMaintenanceInventory',
+        //    }).then(function (response) {
+        //        $("#_CheckInventoryPVID").html(response.data);
+        //        F.LoadDynamicCheckMaintenanceInventory();
+        //    });
+        //}
+        //F.LoadDynamicCheckMaintenanceInventory = function () {
+        //    var BankID = $("#BankIDDD2").val()
+        //    var AccountNameIDDD2 = $("#AccountNameIDDD2").val()
+        //    if (AccountNameIDDD2 == null) {
+        //        AccountNameIDDD2 = 0;
+        //    }
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/LoadDynamicCheckMaintenanceInventory',
+        //        params: { BankID: BankID, AccountNameIDDD2: AccountNameIDDD2}
+        //    }).then(function (response) {
+        //        $("#_DynamicDDStartingNoID").html(response.data);
+        //        F.Get_CheckMaintenanceQuantyNEnd();
+        //    });
+        //}
+        //F.Get_CheckMaintenanceQuantyNEnd = function () {
+        //    var BankID = $("#BankIDDD2").val();
+        //    var BankAccountID = $("#AccountNameIDDD2").val();
+        //    var StartingChckNo = $("#AccountNameInventoryIDDD2 option:selected").text();
+        //    if (StartingChckNo == null || StartingChckNo == "" || BankAccountID == null || BankAccountID == "") {
+        //        StartingChckNo = 0;
+        //        BankAccountID = 0;
+        //    }
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_CheckMaintenanceQuantyNEnd',
+        //        params: { BankID: BankID, BankAccountID: BankAccountID, StartingChckNo: StartingChckNo }
+        //    }).then(function (response) {
+        //        $("#_DynamicTBQuanEnding").html(response.data);
+        //    });
+        //}
+        //F.Get_UpdateCheckMaintenance = function (CheckMainteID) {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/Get_UpdateCheckMaintenance',
+        //        params: { CheckMainteID: CheckMainteID }
+        //    }).then(function (response) {
+        //        $("#_checkMaintenanceID").html(response.data);
+        //        F.GetLoadDynamicDDAccountName();
+        //    });
+        //}
+        //F.GetLoadDynamicDDAccountName = function () {
+        //    var CheckMaintenanceBankIDTempID = $("#CheckMaintenanceBankIDTempID").val();
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/GetSelectedDynamicMaitenance',
+        //        params: { CheckMaintenanceBankIDTempID: CheckMaintenanceBankIDTempID }
+        //    }).then(function (response) {
+        //        $("#_DynamicDDAccountID").html(response.data);
+        //    });
+        //}
+        //F.Get_DeleteCheckMaintenance = function (CheckMainteID) {
+        //    P({
+        //        url: '/FileMaintenanceDisbursement/DeleteCheckMaintenance',
+        //        params: { CheckMainteID: CheckMainteID }
+        //    }).then(function (response) {
+        //        F.Get_CheckMaintenanceTable();
+        //    });
+        //}
 
         //DV Type
         F.Get_DVTypeTable = function () {

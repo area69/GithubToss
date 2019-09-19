@@ -247,6 +247,9 @@
     <Compile Include="Models\Barangay_BarangayName.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Barangay_CollectorName.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BarModels\BarModel.cs" />
     <Compile Include="Models\CheckInventoryTable.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
@@ -263,10 +266,13 @@
     <Compile Include="Models\FM_AccountableForm\FM_AccountableForm.cs" />
     <Compile Include="Models\FM_AccountableForm\FM_AccountableFormInventory.cs" />
     <Compile Include="Models\FM_Bank\FM_Bank_BankName.cs" />
+    <Compile Include="Models\FM_Barangay\FM_Barangay_BarangayName.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckInventory.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckMaintenance.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_DVType.cs" />
     <Compile Include="Models\FM_Funds\FM_Fund.cs" />
+    <Compile Include="Models\FM_IRA\FM_IRA_IRA.cs" />
+    <Compile Include="Models\FM_Position\FM_Position_Position.cs" />
     <Compile Include="Models\FM_SignatoriesModel.cs" />
     <Compile Include="Models\Fund.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
@@ -8999,6 +9005,26 @@
     <Content Include="Views\FileMaintenanceBarangay\Index.cshtml" />
     <Content Include="Views\FileMaintenanceIRAShare\Index.cshtml" />
     <Content Include="Views\FileMaintenancePayee\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_AddFunds.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_FundTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_UpdateFunds.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayName\_AddBarangayName.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayName\_BarangayNameTable.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayName\_UpdateBarangayName.cshtml" />
+    <Content Include="Views\FileMaintenanceIRAShare\_AddInternalRevenueAllotment.cshtml" />
+    <Content Include="Views\FileMaintenanceIRAShare\_InternalRevenueAllotmentTable.cshtml" />
+    <Content Include="Views\FileMaintenanceIRAShare\_UpdateInternalRevenueAllotment.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayCollector\_BarangayCollectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayCollector\_AddBarangayCollector.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayCollector\_UpdateBarangayCollector.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_AddPosition.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_PositionTable.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_UpdatePosition.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\Bank\_UpdateBank.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountType\_AddAccountType.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountType\_AccountTypeTable.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountType\_UpdateAccountType.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDBankName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9013,6 +9039,7 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
+    <Folder Include="Views\FileMaintenanceBarangay\BarangayBankAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
