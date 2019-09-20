@@ -60,6 +60,9 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-4 pr-0 form-group black">
+                            <div id="_BankAccountBankID">
+
+                            </div>
                         </div>
                         <div class="col-md-2 pr-0 form-group black">
                             <label><b>Account Number</b></label>
@@ -537,7 +540,7 @@
             //Account Type
             F.Get_AccountTypeTable();
 
-
+            F.LoadDynamicDDBank();
         }
 
         //Bank Name
@@ -607,6 +610,14 @@
             });
         }
 
+        //Bank Account
 
+        F.LoadDynamicDDBank = function () {
+            P({
+                url: '/FileMaintenanceBank/GetDynamicBank',
+            }).then(function (response) {
+                $("#_BankAccountBankID").html(response.data);
+            });
+        }
         });
 </script>

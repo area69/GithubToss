@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Sector";
+}
+<script>
+    $("#fmSector").addClass("active");
+</script>
+
+<div class="content-header row">
+    <div class="content-header-left col-md-6 mb-2">
+        <h3 class="content-header-title"><b>File Maintenance - Sector</b></h3>
+    </div>
+</div>
+
+<div class="card-content" id="FMSectorController" ng-controller="FMSectorController" ng-init="InitAllFunction();">
+    <div class="card">
+        <ul class="nav nav-tabs bg-headerbc nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Sector</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Sub Sector</b></a>
+            </li>
+        </ul>
+        <div class="tab-content px-1 pt-1">
+            @* Sector *@
+            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
+                <div class="content-body">
+                    <div class="row black">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="SectorID">
+
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" id="SectorTableID">
+                             </div>
+                    </div>
+                </div>
+            </div>
+            @* Sub Sector *@
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
+                <div class="content-body">
+                    <div class="row black">
+                        <div class="col-md-12" id="SubSectorID">
+                         
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10" id="SubSectorTableID">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+@*Angular Function*@
+    app.controller('FMSectorController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+        F.InitAllFunction = function () {
+            //Sector
+            F.Get_SectorTables();
+            ////Sub Sector
+            F.Get_SubSectorTables();
+        }
+        @* Message Box *@
+        F.SuccessMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Added", SuccessMess);
+        }
+        F.UpdateMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Update", SuccessMess);
+        }
+        F.DeleteMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Deleted", SuccessMess);
+        }
+        @*Fund*@
+        F.Get_SectorTables = function () {
+            P({
+                url: '/FileMaintenanceSector/Get_SectorTable',
+            }).then(function (response) {
+                $("#SectorTableID").html(response.data);
+                });
+            F.Get_AddSectors();
+            F.LoadDynamicDDSector();
+        }
+        F.Get_AddSectors = function () {
+            P({
+                url: '/FileMaintenanceSector/Get_AddSector',
+            }).then(function (response) {
+                $("#SectorID").html(response.data);
+               
+            });
+        }
+        F.Get_UpdateSectors = function (SectorID) {
+            P({
+                url: '/FileMaintenanceSector/Get_UpdateSector',
+                params: { SectorID: SectorID }
+            }).then(function (response) {
+                $("#SectorID").html(response.data);
+            });
+        }
+        F.Get_DeleteSectors = function (SectorID) {
+            P({
+                url: '/FileMaintenanceSector/DeleteSectors',
+                params: { SectorID: SectorID }
+            }).then(function (response) {
+                F.Get_SectorTables();
+            });
+        }
+        @* Sub Fund *@
+        F.LoadDynamicDDSector = function () {
+            P({
+                url: '/FileMaintenanceSector/GetDynamicSector',
+            }).then(function (response) {
+                $("#_DynamicSector").html(response.data);
+                F.LoadDynamicLSectorCode();
+            });
+        }
+        F.LoadDynamicLSectorCode = function () {
+            var SectorID = $("#SectorNameIDD").val();
+            P({
+                url: '/FileMaintenanceSector/GetSectorCodeField',
+                params: { SectorID: SectorID },
+            }).then(function (response) {
+                $("#_DynamicSectorCode").html(response.data);
+            });
+        }
+        F.Get_SubSectorTables = function () {
+            P({
+                url: '/FileMaintenanceSector/Get_SubSectorTable',
+            }).then(function (response) {
+                $("#SubSectorTableID").html(response.data);
+            });
+            F.Get_AddSubSectors();
+        }
+        F.Get_AddSubSectors = function () {
+            P({
+                url: '/FileMaintenanceSector/Get_AddSubSector',
+            }).then(function (response) {
+                $("#SubSectorID").html(response.data);
+                F.LoadDynamicDDSector();
+            });
+        }
+        F.Get_DeleteSubSectors = function (SubSectorID) {
+            P({
+                url: '/FileMaintenanceSector/DeleteSubSectors',
+                params: { SubSectorID: SubSectorID }
+            }).then(function (response) {
+                F.Get_SubSectorTables();
+            });
+        }
+        F.Get_UpdateSubSectors = function (SubSectorID) {
+            P({
+                url: '/FileMaintenanceSector/Get_UpdateSubSector',
+                params: { SubSectorID: SubSectorID }
+            }).then(function (response) {
+                $("#SubSectorID").html(response.data);
+                F.LoadSelectedDynamicDDSector();
+            });
+        }
+        F.LoadSelectedDynamicDDSector = function () {
+            var SectorIDTempID = $("#SectorIDTempID").val();
+            P({
+                url: '/FileMaintenanceSector/GetSelectedDynamicSector',
+                params: { SectorIDTempID: SectorIDTempID }
+            }).then(function (response) {
+                $("#_DynamicSector").html(response.data);
+            });
+        }
+    });
+</script>

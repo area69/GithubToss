@@ -186,5 +186,15 @@ namespace TOSS_UPGRADE.Controllers
 
 
         #endregion
+        #region Bank Account
+
+        //Dropdown Bank
+        public ActionResult GetDynamicBank()
+        {
+            FM_Bank model = new FM_Bank();
+            model.BankAccountBankList = new SelectList((from s in TOSSDB.BankTables.ToList() select new { BankID = s.BankID, BankName = s.BankName }), "BankID", "BankName");
+            return PartialView("BankAccount/_DynamicDDBankName", model);
+        }
+        #endregion
     }
 }

@@ -1,0 +1,7 @@
+﻿@model TOSS_UPGRADE.Models.FM_Sectors.FM_Sector
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<label><b>Sector Code</b></label>
+    @Html.TextBoxFor(m => m.getSectorcolumns.SectorCode, new { @class = "accntCode text-center", type = "text", id = "SectorCode", disabled = "disabled" })<b>-</b>

@@ -199,6 +199,7 @@
     <Compile Include="Controllers\FileMaintenancePayeeController.cs" />
     <Compile Include="Controllers\FileMaintenancePositionController.cs" />
     <Compile Include="Controllers\FileMaintenanceResponsibilityCenterController.cs" />
+    <Compile Include="Controllers\FileMaintenanceSectorController.cs" />
     <Compile Include="Controllers\FileMaintenanceSignatoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Models\FM_Funds\FM_Fund.cs" />
     <Compile Include="Models\FM_IRA\FM_IRA_IRA.cs" />
     <Compile Include="Models\FM_Position\FM_Position_Position.cs" />
+    <Compile Include="Models\FM_Sectors\FM_Sector.cs" />
     <Compile Include="Models\FM_SignatoriesModel.cs" />
     <Compile Include="Models\Fund.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
@@ -296,6 +298,9 @@
     <Compile Include="Models\PersonalInformation.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sector.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SignatoriesTable.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -309,6 +314,9 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubFund.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubSector.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TOSSDataSet.Designer.cs">
@@ -9025,6 +9033,14 @@
     <Content Include="Views\FileMaintenanceBank\AccountType\_AccountTypeTable.cshtml" />
     <Content Include="Views\FileMaintenanceBank\AccountType\_UpdateAccountType.cshtml" />
     <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDBankName.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\Sector\_AddSectors.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\Sector\_SectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\Sector\_UpdateSectors.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\_AddSubSectors.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\_DynamicDDSectorName.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\_DynamicLSectorCode.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\_SubSectorTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
