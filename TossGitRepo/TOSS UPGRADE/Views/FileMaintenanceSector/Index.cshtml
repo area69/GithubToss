@@ -43,7 +43,8 @@
             <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
                 <div class="content-body">
                     <div class="row black">
-                        <div class="col-md-12" id="SubSectorID">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10" id="SubSectorID">
                          
                         </div>
                     </div>
@@ -133,6 +134,15 @@
                 $("#_DynamicSectorCode").html(response.data);
             });
         }
+        F.LoadSelectedDynamicLSectorCode = function () {
+            var SubSectorID = $("#SubSectorIDD").val();
+            P({
+                url: '/FileMaintenanceSector/GetSelectedSectorCodeField',
+                params: { SubSectorID: SubSectorID },
+            }).then(function (response) {
+                $("#_DynamicSectorCode").html(response.data);
+            });
+        }
         F.Get_SubSectorTables = function () {
             P({
                 url: '/FileMaintenanceSector/Get_SubSectorTable',
@@ -167,12 +177,13 @@
             });
         }
         F.LoadSelectedDynamicDDSector = function () {
-            var SectorIDTempID = $("#SectorIDTempID").val();
+            var SectorNameIDTempID = $("#SectorNameIDTempID").val();
             P({
                 url: '/FileMaintenanceSector/GetSelectedDynamicSector',
-                params: { SectorIDTempID: SectorIDTempID }
+                params: { SectorNameIDTempID: SectorNameIDTempID }
             }).then(function (response) {
                 $("#_DynamicSector").html(response.data);
+                F.LoadSelectedDynamicLSectorCode();
             });
         }
     });

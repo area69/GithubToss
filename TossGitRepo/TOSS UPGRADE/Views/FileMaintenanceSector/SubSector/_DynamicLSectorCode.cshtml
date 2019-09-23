@@ -3,5 +3,7 @@
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-<label><b>Sector Code</b></label>
-    @Html.TextBoxFor(m => m.getSectorcolumns.SectorCode, new { @class = "accntCode text-center", type = "text", id = "SectorCode", disabled = "disabled" })<b>-</b>
+<label class="black"><b>Sector Code</b></label>
+
+@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "text-left form-control black font-weight-bold", type = "text", id = "SectorCode" })
+@*@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "accntCode text-center font-weight-bold", type = "text", id = "SectorCode" })*@                                                            

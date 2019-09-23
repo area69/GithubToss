@@ -1,0 +1,46 @@
+﻿@model TOSS_UPGRADE.Models.FM_Sectors.FM_Sector
+@{
+    /**/
+
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdateSubSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSectorController','Get_SubSectorTables','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+
+    @Html.HiddenFor(m => m.getSubSectorcolumns.SubSectorID, new { id = "SubSectorIDD" })
+    @Html.HiddenFor(m => m.SubSectorNameTempID, new { id = "SectorNameIDTempID" })
+    <div class="row">
+        <div class="col-md-4" id="_DynamicSector">
+        </div>
+        <div class="col-md-5">
+            <label class="mt-1"><b>Sub Sector</b></label>
+            @Html.TextBoxFor(m => m.getSubSectorcolumns.SubSectorName, new { @class = "form-control", type = "text", placeholder = "Enter SubSector Name" })
+
+        </div>
+        <div class="col-md-3 mt-1" id="_DynamicSectorCode">
+
+        </div>
+
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="reset" onclick="AngularGlobalEdit('FMSectorController','Get_AddSubSectors','')" class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+
+        </div>
+    </div>
+    
+}
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

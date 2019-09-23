@@ -31,9 +31,10 @@ namespace TOSS_UPGRADE.Models.FM_Sectors
         public IEnumerable<System.Web.Mvc.SelectListItem> SubSectorList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.SubSector> getSubSector { get; set; }
 
-        public string SubSectorNameID { get; set; }
-        public string SID { get; set; }
+        public int SubSectorNameID { get; set; }
+        public string SubsectorCodeID { get; set; }
         public int SubSectorNameTempID { get; set; }
+        public string SubsectorCodeTempID { get; set; }
     }
     public class SectorList
     {

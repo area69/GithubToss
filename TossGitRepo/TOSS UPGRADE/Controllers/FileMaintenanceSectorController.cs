@@ -110,41 +110,39 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicSector()
         {
             FM_Sector model = new FM_Sector();
+            model.SubSectorList = new SelectList((from s in TOSSDB.Sectors.ToList() select new { SectorID = s.SectorID, SectorName = s.SectorName}), "SectorID", "SectorName");
+            return PartialView("SubSector/_DynamicDDSectorName", model);
+        }
+        public ActionResult GetSelectedDynamicSector(int SectorNameIDTempID)
+        {
+            FM_Sector model = new FM_Sector();
             model.SubSectorList = new SelectList((from s in TOSSDB.Sectors.ToList() select new { SectorID = s.SectorID, SectorName = s.SectorName }), "SectorID", "SectorName");
+            model.SubSectorNameID = SectorNameIDTempID;
             return PartialView("SubSector/_DynamicDDSectorName", model);
         }
         public ActionResult GetSectorCodeField(int SectorID)
         {
             FM_Sector model = new FM_Sector();
-            //var SubSectorTbl = (from e in TOSSDB.Sectors where e.SectorID == SectorID select e).FirstOrDefault();
-            //model.SID = SubSectorTbl.SectorCode;
-
             Sector tblSector = (from e in TOSSDB.Sectors where e.SectorID == SectorID select e).FirstOrDefault();
-            model.getSectorcolumns.SectorCode = tblSector.SectorCode;
-
+            model.SubsectorCodeID = tblSector.SectorCode + " - ";
             return PartialView("SubSector/_DynamicLSectorCode", model);
         }
-        public ActionResult GetDynamicSectorCode()
+
+        public ActionResult GetSelectedSectorCodeField(int SubSectorID)
         {
             FM_Sector model = new FM_Sector();
-            model.SubSectorList = new SelectList((from s in TOSSDB.Sectors.ToList() select new { SectorID = s.SectorID, SectorCode = s.SectorCode }), "SectorID", "SectorCode");
+            SubSector tblSector = (from e in TOSSDB.SubSectors where e.SubSectorID == SubSectorID select e).FirstOrDefault();
+            model.SubsectorCodeID = tblSector.SubSectorCode;
             return PartialView("SubSector/_DynamicLSectorCode", model);
         }
-        //Dropdown SubSector
-        //public ActionResult GetSelectedDynamicFund(int FundIDTempID)
-        //{
-        //    FM_Fund model = new FM_Fund();
-        //    model.SubFundList = new SelectList((from s in TOSSDB.Funds.ToList() select new { FundID = s.FundID, FundName = s.FundName }), "FundID", "FundName");
-        //    model.SubFundNameID = FundIDTempID;
-        //    return PartialView("SubFund/_DynamiccDDFundName", model);
-        //}
+        
         //Table SubSector
         public ActionResult Get_SubSectorTable()
         {
             FM_Sector model = new FM_Sector();
             List<SubSectorList> tbl_ = new List<SubSectorList>();
 
-            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.SubSector";
+            var SQLQuery = "SELECT SubSectorID,Sector.SectorName,SubSectorName,SubSectorCode FROM DB_TOSS.dbo.SubSector,dbo.Sector where Sector.SectorID = SubSector.SectorID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -176,46 +174,49 @@ namespace TOSS_UPGRADE.Controllers
             FM_Sector model = new FM_Sector();
             return PartialView("SubSector/_AddSubSectors", model);
         }
-        ////Add SubSector
-        //public JsonResult AddSubFunds(FM_Fund model)
-        //{
-        //    SubFund tblSubFund = new SubFund();
-        //    tblSubFund.FundID = model.SubFundNameID;
-        //    tblSubFund.SubFundName = model.getSubFundcolumns.SubFundName;
-        //    TOSSDB.SubFunds.Add(tblSubFund);
-        //    TOSSDB.SaveChanges();
-        //    return Json(tblSubFund);
-        //}
+        //Add SubSector
+        public JsonResult AddSubSector(FM_Sector model)
+        {
+            SubSector tblSubSector = new SubSector();
+            tblSubSector.SectorID = model.SubSectorNameID;
+            tblSubSector.SubSectorName = model.getSubSectorcolumns.SubSectorName;
+            tblSubSector.SubSectorCode = model.SubsectorCodeID;
+            TOSSDB.SubSectors.Add(tblSubSector);
+            TOSSDB.SaveChanges();
+            return Json(tblSubSector);
+        }
 
-        ////Get Update SubSector
-        //public ActionResult Get_UpdateSubFund(FM_Fund model, int SubFundID)
-        //{
-        //    SubFund tblFund = (from e in TOSSDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
-        //    model.getSubFundcolumns.SubFundID = tblFund.SubFundID;
-        //    model.SubFundNameTempID = Convert.ToInt32(tblFund.FundID);
-        //    model.getSubFundcolumns.SubFundName = tblFund.SubFundName;
-        //    return PartialView("SubFund/_UpdateSubFund", model);
-        //}
+        //Get Update SubSector
+        public ActionResult Get_UpdateSubSector(FM_Sector model, int SubSectorID)
+        {
+            SubSector tblSubSector = (from e in TOSSDB.SubSectors where e.SubSectorID == SubSectorID select e).FirstOrDefault();
+            model.getSubSectorcolumns.SubSectorID = tblSubSector.SubSectorID;
+            model.SubSectorNameTempID = tblSubSector.SectorID;
+            model.getSubSectorcolumns.SubSectorName = tblSubSector.SubSectorName;
+            model.SubsectorCodeID = tblSubSector.SubSectorCode;
+            return PartialView("SubSector/_UpdateSubSectors", model);
+        }
 
-        ////Update SubSector
-        //public ActionResult UpdateSubFunds(FM_Fund model)
-        //{
-        //    SubFund tblFund = (from e in TOSSDB.SubFunds where e.SubFundID == model.getSubFundcolumns.SubFundID select e).FirstOrDefault();
-        //    tblFund.FundID = model.SubFundNameID;
-        //    tblFund.SubFundName = model.getSubFundcolumns.SubFundName;
-        //    TOSSDB.Entry(tblFund);
-        //    TOSSDB.SaveChanges();
-        //    return PartialView("SubFund/_UpdateSubFund", model);
-        //}
+        //Update SubSector
+        public ActionResult UpdateSubSector(FM_Sector model)
+        {
+            SubSector tblSubSector = (from e in TOSSDB.SubSectors where e.SubSectorID == model.getSubSectorcolumns.SubSectorID select e).FirstOrDefault();
+            tblSubSector.SectorID = model.SubSectorNameID;
+            tblSubSector.SubSectorName = model.getSubSectorcolumns.SubSectorName;
+            tblSubSector.SubSectorCode = model.SubsectorCodeID;
+            TOSSDB.Entry(tblSubSector);
+            TOSSDB.SaveChanges();
+            return PartialView("SubSector/_UpdateSubSectors", model);
+        }
 
-        ////Delete SubSector
-        //public ActionResult DeleteSubFunds(FM_Fund model, int SubFundID)
-        //{
-        //    SubFund tblSubFund = (from e in TOSSDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
-        //    TOSSDB.SubFunds.Remove(tblSubFund);
-        //    TOSSDB.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        //Delete SubSector
+        public ActionResult DeleteSubSectors(FM_Sector model, int SubSectorID)
+        {
+            SubSector tblSubSector = (from e in TOSSDB.SubSectors where e.SubSectorID == SubSectorID select e).FirstOrDefault();
+            TOSSDB.SubSectors.Remove(tblSubSector);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
         #endregion
     }
 }

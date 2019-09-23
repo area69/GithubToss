@@ -5,7 +5,7 @@
 @using TOSS_UPGRADE.Models;
 
 
-<label class="mt-1"><b>Sector</b></label>
+<label class="mt-1 black"><b>Sector</b></label>
 @Html.DropDownListFor(m => m.SubSectorNameID, Model.SubSectorList, new { @class = "form-control select2", id = "SectorNameIDD", onchange = "AngularGlobalFunctions('FMSectorController','LoadDynamicLSectorCode','')" })
 <script>
     $(function () {

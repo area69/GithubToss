@@ -173,6 +173,7 @@
     <Compile Include="Controllers\BarController.cs" />
     <Compile Include="Controllers\CollectionBarangayCTCCollectionController.cs" />
     <Compile Include="Controllers\CollectionBuildingCollectionController.cs" />
+    <Compile Include="Controllers\CollectionCivilRegistryController.cs" />
     <Compile Include="Controllers\CollectionDisplayORController.cs" />
     <Compile Include="Controllers\CollectionFieldCollectionController.cs" />
     <Compile Include="Controllers\CollectionLiquidationofCollectionController.cs" />
@@ -9041,6 +9042,8 @@
     <Content Include="Views\FileMaintenanceSector\SubSector\_DynamicDDSectorName.cshtml" />
     <Content Include="Views\FileMaintenanceSector\SubSector\_DynamicLSectorCode.cshtml" />
     <Content Include="Views\FileMaintenanceSector\SubSector\_SubSectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\_UpdateSubSectors.cshtml" />
+    <Content Include="Views\CollectionCivilRegistry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
