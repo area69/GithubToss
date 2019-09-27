@@ -5,5 +5,5 @@
 @using TOSS_UPGRADE.Models;
 <label class="black"><b>Sector Code</b></label>
 
-@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "text-left form-control black font-weight-bold", type = "text", id = "SectorCode" })
-@*@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "accntCode text-center font-weight-bold", type = "text", id = "SectorCode" })*@                                                            
+@*@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "text-left form-control black font-weight-bold", type = "text", id = "SectorCode" })*@
+@Html.TextBoxFor(m => m.SubsectorCodeID, new { @class = "accntCode black text-right font-weight-bold", type = "text", id = "SectorCode", @disabled = "disabled" })                                                            

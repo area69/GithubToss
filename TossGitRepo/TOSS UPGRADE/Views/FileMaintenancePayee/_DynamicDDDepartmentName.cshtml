@@ -1,0 +1,15 @@
+﻿@model TOSS_UPGRADE.Models.FM_Payee.FM_Payee_Payee
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>Department</b></label>
+    @Html.DropDownListFor(m => m.DepartmentID, Model.PayeeList, new { @class = "form-control select2", id = "DepartmentNameIDD" })
+<script>
+    $(function () {
+        $("#DepartmentNameIDD").select2();
+    })
+</script>
+

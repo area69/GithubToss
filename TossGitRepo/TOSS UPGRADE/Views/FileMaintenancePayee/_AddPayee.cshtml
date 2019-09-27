@@ -1,0 +1,39 @@
+﻿@model TOSS_UPGRADE.Models.FM_Payee.FM_Payee_Payee
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+@using (Ajax.BeginForm("AddPayee", "FileMaintenancePayee", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMPayeeController','Get_PayeeTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+    <div class="row black">
+        <div class="col-md-3 form-group">
+            <label><b>Payee Name</b></label> 
+            @Html.TextBoxFor(m => m.getPayeecolumns.PayeeName, new { @class = "form-control", type = "text" })
+
+        </div>
+        <div class="col-md-5 form-group">
+            <label><b>Address</b></label>
+            @Html.TextBoxFor(m => m.getPayeecolumns.PayeeAddress, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-4" id="_DepartmentNameID">
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-2 form-group">
+            <button class="btn bg-addbutton black form-control"><b>Add</b></button>
+        </div>
+        <div class="col-md-2 form-group">
+            <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+        </div>
+    </div>
+}
+<script>
+        $(function () {
+            LoadDataTable();
+            LoadPopOver();
+        })
+</script>

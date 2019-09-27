@@ -23,15 +23,15 @@
         @Html.TextBoxFor(m => m.getBankColumns.BankAddress, new { @class = "form-control", type = "text" })
     </div>
 </div>
-    <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-2">
-            <button type="submit" class="btn bg-addbutton form-control black"><b>Update</b></button>
-        </div>
-        <div class="col-md-2">
-            <button class="btn bg-headerbc form-control white"><b>Cancel</b></button>
-        </div>
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-2">
+        <button type="submit" class="btn bg-addbutton form-control black"><b>Update</b></button>
     </div>
+    <div class="col-md-2">
+        <button type="reset" class="btn form-control white bg-headerbc" onclick="AngularGlobalEdit('FMBankController','Get_AddBank','')"><b>Cancel</b></button>
+    </div>
+</div>
 }
 <script>
     $(function () {

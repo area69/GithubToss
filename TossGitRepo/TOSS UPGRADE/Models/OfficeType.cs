@@ -12,22 +12,19 @@ namespace TOSS_UPGRADE.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sector
+    public partial class OfficeType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sector()
+        public OfficeType()
         {
             this.Signatory_DepartmentTable = new HashSet<Signatory_DepartmentTable>();
-            this.SubSectors = new HashSet<SubSector>();
         }
     
-        public int SectorID { get; set; }
-        public string SectorName { get; set; }
-        public string SectorCode { get; set; }
+        public int OfficeTypeID { get; set; }
+        public string OfficeTypeName { get; set; }
+        public string OfficeTypeCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Signatory_DepartmentTable> Signatory_DepartmentTable { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubSector> SubSectors { get; set; }
     }
 }

@@ -12,12 +12,13 @@ namespace TOSS_UPGRADE.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SignatoriesTable
+    public partial class Payee
     {
-        public int SignatoriesID { get; set; }
-        public string SignatoriesName { get; set; }
-        public int PositionID { get; set; }
-        public int DepartmentID { get; set; }
-        public bool IsDeptHead { get; set; }
+        public int PayeeID { get; set; }
+        public string PayeeName { get; set; }
+        public string PayeeAddress { get; set; }
+        public Nullable<int> DepartmentID { get; set; }
+    
+        public virtual Signatory_DepartmentTable Signatory_DepartmentTable { get; set; }
     }
 }

@@ -379,3 +379,18 @@ table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
     background-color: #f9f9ac;
     color: #121719;
 }
+
+#foo {
+    border: 2px groove threedface;
+    padding: 1em;
+}
+
+#foo h2 {
+    float: left;
+    margin: -1.7em 0 0;
+    padding: 0 .5em;
+    background: #fff;
+    font-size: 1em;
+    font-weight: normal;
+}
+

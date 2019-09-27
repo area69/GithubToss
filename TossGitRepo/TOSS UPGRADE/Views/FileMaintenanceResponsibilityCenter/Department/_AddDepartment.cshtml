@@ -1,0 +1,68 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Department
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddDepartment", "FileMaintenanceResponsibilityCenter", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMDepartmentController','Get_DepartmentTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2"><b>Department</b></label>
+                @Html.TextBoxFor(m => m.getDepartmentcolumns.DepartmentName, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-0"><b>Department Abbreviation</b></label>
+                @Html.TextBoxFor(m => m.getDepartmentcolumns.DepartmentAbbreviation, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2"><b>Responsibility Center Code</b></label>
+                @Html.TextBoxFor(m => m.getDepartmentcolumns.ResponsibilityCode, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6">
+            <div class="form-group" id="_DynamicFundID">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="form-group" id="_DynamicSectorID">
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="form-group" id="_DynamicSubSectorID">
+
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="form-group" id="_DynamicOfficeTypeID">
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin"><b>Department / Office Code</b></label>
+                @Html.TextBoxFor(m => m.getDepartmentcolumns.DepartmentCode, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-2 col-lg-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2 col-lg-2">
+            <button type="reset" class="btn bg-headerbc form-control white">
+                <b>Cancel</b>
+            </button>
+        </div>
+    </div>
+}

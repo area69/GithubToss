@@ -17,14 +17,24 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Signatory_DepartmentTable()
         {
-            this.SignatoriesTables = new HashSet<SignatoriesTable>();
+            this.Payees = new HashSet<Payee>();
         }
     
         public int DepartmentID { get; set; }
-        public string Department { get; set; }
+        public string DepartmentName { get; set; }
         public string DepartmentCode { get; set; }
+        public string DepartmentAbbreviation { get; set; }
+        public string ResponsibilityCode { get; set; }
+        public Nullable<int> SectorID { get; set; }
+        public Nullable<int> OfficeTypeID { get; set; }
+        public Nullable<int> FundID { get; set; }
+        public Nullable<int> SubSectorID { get; set; }
     
+        public virtual Fund Fund { get; set; }
+        public virtual OfficeType OfficeType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SignatoriesTable> SignatoriesTables { get; set; }
+        public virtual ICollection<Payee> Payees { get; set; }
+        public virtual Sector Sector { get; set; }
+        public virtual SubSector SubSector { get; set; }
     }
 }

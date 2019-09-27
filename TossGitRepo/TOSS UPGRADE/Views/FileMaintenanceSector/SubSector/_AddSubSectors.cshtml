@@ -9,17 +9,23 @@
 @using (Ajax.BeginForm("AddSubSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSectorController','Get_SubSectorTables','SuccessMessageBox')", OnFailure = "OnFailure()", }))
 {
     <div class="row ">
-        <div class="col-md-5" id="_DynamicSector">
+        <div class="col-md-4" id="_DynamicSector">
         </div>
         <div class="col-md-5">
             <label class="mt-1 black"><b>Sub Sector</b></label>
             @Html.TextBoxFor(m => m.getSubSectorcolumns.SubSectorName, new { @class = "form-control", type = "text", placeholder = "Enter SubSector Name" })
-
         </div>
-        <div class="col-md-2 mt-1" id="_DynamicSectorCode">
+        <div class="col-md-3 mt-1">
+            <div class="row">
+                <div class="col-md-6 pr-0" id="_DynamicSectorCode">
 
+                </div>
+                <div class="col-md-6 pl-0">
+                    <label style="visibility:hidden">Code</label>
+                    @Html.TextBoxFor(m => m.getSubSectorcolumns.SubSectorCode, new { @class = "form-control", type = "text"})
+                </div>
+            </div>
         </div>
-        
     </div>   
     <div class="row mt-1">
         <div class="col-md-8"></div>

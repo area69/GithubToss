@@ -40,13 +40,13 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicDepartment()
         {
             FM_SignatoriesModel model = new FM_SignatoriesModel();
-            model.DepartmentList = new SelectList((from s in TOSSDB.Signatory_DepartmentTable.ToList() select new { DepartmentID = s.DepartmentID, Department = s.Department }), "DepartmentID", "Department");
+            model.DepartmentList = new SelectList((from s in TOSSDB.Signatory_DepartmentTable.ToList() select new { DepartmentID = s.DepartmentID, Department = s.DepartmentName }), "DepartmentID", "Department");
             return PartialView("_DynamicDDDepartment", model);
         }
         public ActionResult GetSelectedDynamicDepartment(int DepartmentIDTempID)
         {
             FM_SignatoriesModel model = new FM_SignatoriesModel();
-            model.DepartmentList = new SelectList((from s in TOSSDB.Signatory_DepartmentTable.ToList() select new { DepartmentID = s.DepartmentID, Department = s.Department }), "DepartmentID", "Department");
+            model.DepartmentList = new SelectList((from s in TOSSDB.Signatory_DepartmentTable.ToList() select new { DepartmentID = s.DepartmentID, Department = s.DepartmentName }), "DepartmentID", "Department");
             model.DepartmentID = DepartmentIDTempID;
             return PartialView("_DynamicDDDepartment", model);
         }
@@ -227,7 +227,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_SignatoriesModel model = new FM_SignatoriesModel();
             List<Signatory_DepartmentTable> tbl_Department = new List<Signatory_DepartmentTable>();
 
-            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.Signatory_DepartmentTable order by Department asc";
+            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.Signatory_DepartmentTable";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -242,7 +242,7 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_Department.Add(new Signatory_DepartmentTable()
                         {
                             DepartmentID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            Department = GlobalFunction.ReturnEmptyString(dr[1]),
+                            DepartmentName = GlobalFunction.ReturnEmptyString(dr[1]),
                             DepartmentCode = GlobalFunction.ReturnEmptyString(dr[2]),
                         });
                     }
@@ -264,7 +264,7 @@ namespace TOSS_UPGRADE.Controllers
         public JsonResult AddDepartment(FM_SignatoriesModel model)
         {
             Signatory_DepartmentTable tblDepartment = new Signatory_DepartmentTable();
-            tblDepartment.Department = GlobalFunction.ReturnEmptyString(model.getDepartmentColumns.Department);
+            tblDepartment.DepartmentName = GlobalFunction.ReturnEmptyString(model.getDepartmentColumns.DepartmentName);
             tblDepartment.DepartmentCode = GlobalFunction.ReturnEmptyString(model.getDepartmentColumns.DepartmentCode);
             TOSSDB.Signatory_DepartmentTable.Add(tblDepartment);
             TOSSDB.SaveChanges();
@@ -276,7 +276,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             Signatory_DepartmentTable tblDepartment = (from e in TOSSDB.Signatory_DepartmentTable where e.DepartmentID == DepartmentID select e).FirstOrDefault();
             model.getDepartmentColumns.DepartmentID = tblDepartment.DepartmentID;
-            model.getDepartmentColumns.Department = tblDepartment.Department;
+            model.getDepartmentColumns.DepartmentName = tblDepartment.DepartmentName;
             model.getDepartmentColumns.DepartmentCode = tblDepartment.DepartmentCode;
             return PartialView("Department/_DepartmentUpdate", model);
         }
@@ -284,7 +284,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult UpdateDepartment(FM_SignatoriesModel model)
         {
             Signatory_DepartmentTable tblDepartment = (from e in TOSSDB.Signatory_DepartmentTable where e.DepartmentID == model.getDepartmentColumns.DepartmentID select e).FirstOrDefault();
-            tblDepartment.Department = model.getDepartmentColumns.Department;
+            tblDepartment.DepartmentName = model.getDepartmentColumns.DepartmentName;
             tblDepartment.DepartmentCode = model.getDepartmentColumns.DepartmentCode;
             TOSSDB.Entry(tblDepartment);
             TOSSDB.SaveChanges();

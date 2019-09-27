@@ -1,0 +1,38 @@
+﻿@model TOSS_UPGRADE.Models.FM_OfficeType.FM_OfficeType_OfficeType
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+@using (Ajax.BeginForm("AddOfficeType", "FileMaintenanceOfficeType", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMOfficeTypeController','Get_OfficeTypeTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+    <div class="row black">
+        <div class="col-md-3 form-group">
+        </div>
+        <div class="col-md-4 form-group">
+            <label><b>Office Type</b></label>
+            @Html.TextBoxFor(m => m.getOfficeTypecolumns.OfficeTypeName, new { @class = "form-control", type = "text"})
+        </div>
+        <div class="col-md-2">
+            <label><b>Code</b></label>
+            @Html.TextBoxFor(m => m.getOfficeTypecolumns.OfficeTypeCode, new { @class = "form-control", type = "text" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2 form-group">
+            <button type="submit" class="btn bg-addbutton black form-control"><b>Add</b></button>
+        </div>
+        <div class="col-md-2 form-group">
+            <button type="reset" class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+        </div>
+    </div>
+}
+    <script>
+        $(function () {
+            LoadDataTable();
+            LoadPopOver();
+        })    
+    </script>

@@ -1,0 +1,302 @@
+﻿@{
+    ViewBag.Title = "Remittance";
+}
+<script>
+    $("#cremittance").addClass("active");
+</script>
+
+<div class="card box-shadow-2">
+    <div class="card-content collapse show">
+        <div class="card-body">
+            <div class="row mb-1 black">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="mt-1"><b>Filter By:</b></label>
+                            <select class="form-control">
+                                <option>Real Property Tax</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="mt-1"><b>Fund</b></label>
+                            <select class="form-control">
+                                <option>General Fund</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="mt-1" style="visibility:hidden">Fund</label>
+                                    <button class="btn bg-addbutton form-control black"><b>Load</b></button>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="mt-1" style="visibility:hidden">Fund</label>
+                                    <button class="btn bg-addbutton form-control black"><b>Reset</b></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card box-shadow-2">
+                <div class="card-header bg-carheadercolor">
+                    <h4 class="card-title black"><b>Daily Collections</b></h4>
+                </div>
+                <div class="card-body box-shadow-2">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <section id=foo>
+                                <h2>
+                                    <b>Summary</b>
+                                </h2>
+                                <label>Cash</label>
+                                <input type="text" class="form-control" value="" />
+
+                                <label>Non Cash</label>
+                                <input type="text" class="form-control" value="" />
+
+                                <label>Total</label>
+                                <input type="text" class="form-control" value="" />
+                            </section>
+                        </div>
+
+                        <div class="col-md-5">
+                            <section id=foo>
+                                <h2>
+                                    <b>OR Details</b>
+                                </h2>
+
+                                <table class="table table-striped table-responsive table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>OR Type</th>
+                                            <th>Starting OR</th>
+                                            <th>Ending OR</th>
+                                            <th>Amount Collected</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Real Property Tax</td>
+                                            <td>0000001</td>
+                                            <td>0000050</td>
+                                            <td class="text-right">188,233.66</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </section>
+                        </div>
+
+                        <div class="col-md-5">
+                            <section id=foo>
+                                <h2>
+                                    <b>Checks on Hand</b>
+                                </h2>
+
+                                <table class="table table-striped table-responsive table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Check No</th>
+                                            <th>Check Date</th>
+                                            <th>Bank Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card box-shadow-2">
+                <div class="card-header bg-carheadercolor">
+                    <h4 class="card-title black"><b>Unremitted Collections</b></h4>
+                </div>
+                <div class="card-body box-shadow-2">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <section id=foo>
+                                <h2>
+                                    <b>Summary</b>
+                                </h2>
+                                <label>Cash</label>
+                                <input type="text" class="form-control" value="" />
+
+                                <label>Non Cash</label>
+                                <input type="text" class="form-control" value="" />
+
+                                <label>Total</label>
+                                <input type="text" class="form-control" value="" />
+                            </section>
+                        </div>
+
+                        <div class="col-md-5">
+                            <section id=foo>
+                                <h2>
+                                    <b>OR Details</b>
+                                </h2>
+
+                                <table class="table table-striped table-responsive table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>OR Type</th>
+                                            <th>Starting OR</th>
+                                            <th>Ending OR</th>
+                                            <th>Amount Collected</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Real Property Tax</td>
+                                            <td>0000001</td>
+                                            <td>0000050</td>
+                                            <td class="text-right">188,233.66</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </section>
+                        </div>
+
+                        <div class="col-md-5">
+                            <section id=foo>
+                                <h2>
+                                    <b>Checks on Hand</b>
+                                </h2>
+
+                                <table class="table table-striped table-responsive table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Check No</th>
+                                            <th>Check Date</th>
+                                            <th>Bank Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 px-0">
+                    <section id=foo>
+                        <h2>
+                            <b>Daily and Unremitted Collections</b>
+                        </h2>
+                        <label>Cash</label>
+                        <input type="text" class="form-control" value="" />
+
+                        <label>Non Cash</label>
+                        <input type="text" class="form-control" value="" />
+
+                        <label>Total</label>
+                        <input type="text" class="form-control" value="" />
+
+                        <label>Remittance Date</label>
+                        <input name="name" value="" class="form-control pickadate " />
+
+                        <button class="btn bg-addbutton black form-control font-weight-bold mt-1">Remit</button>
+
+                    </section>
+                </div>
+
+                <div class="col-md-9 pr-0">
+                    <section id=foo>
+                        <h2>
+                            <b>Cash Denomination</b>
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-6 form-inline">
+                                <label class="mt-1">Remaining Amount:</label>
+                                <input type="text" class="form-control ml-1" value="">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn bg-addbutton black form-control font-weight-bold">Save Denominations</button>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-6">
+                                <table class="table table-striped table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Bill</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <table class="table table-striped table-bordered text-center dataTable table-smss-hover no-footer m-0 w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Bill</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id=foo class="mt-1">
+                        <h2>
+                            <b>Reports</b>
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn bg-addbutton black form-control font-weight-bold">RCD</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn bg-addbutton black form-control font-weight-bold">Abstract By Fee</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn bg-addbutton black form-control font-weight-bold">Abstract of Collection</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

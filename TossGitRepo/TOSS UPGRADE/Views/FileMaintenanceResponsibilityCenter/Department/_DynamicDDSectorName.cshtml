@@ -1,13 +1,13 @@
-﻿@model TOSS_UPGRADE.Models.FM_Sectors.FM_Sector
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Department
 @{
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 
 
-<label class="mt-1 black"><b>Sector</b></label>
+<label class="custom-form-margin mt-xl-2"><b>Sector</b></label>
 <span class="input-group-append" id="button-addon2">
-    @Html.DropDownListFor(m => m.SubSectorNameID, Model.SubSectorList, new { @class = "form-control select2", id = "SectorNameIDD", onchange = "AngularGlobalFunctions('FMSectorController','LoadDynamicLSectorCode','')" })
+    @Html.DropDownListFor(m => m.SectorNameID, Model.DepartmentList, new { @class = "form-control select2", id = "SectorNameIDD", onchange = "AngularGlobalFunctions('FMDepartmentController','LoadDynamicDDSubSector','')" })
     <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addSectorModal" ng-click="Get_SectorTables2()"><strong>+</strong></button>
 </span>
 <script>
@@ -15,4 +15,3 @@
         $("#SectorNameIDD").select2();
     })
 </script>
-

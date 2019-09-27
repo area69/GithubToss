@@ -177,6 +177,7 @@
     <Compile Include="Controllers\CollectionDisplayORController.cs" />
     <Compile Include="Controllers\CollectionFieldCollectionController.cs" />
     <Compile Include="Controllers\CollectionLiquidationofCollectionController.cs" />
+    <Compile Include="Controllers\CollectionRemittanceController.cs" />
     <Compile Include="Controllers\CollectionRPTCollectionController.cs" />
     <Compile Include="Controllers\CollectionTreasurerCollectionBusinessAndMiscCollectionController.cs" />
     <Compile Include="Controllers\CollectionTreasurerCollectionCommunityTaxCertificateController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Controllers\FileMaintenanceDisbursementController.cs" />
     <Compile Include="Controllers\FileMaintenanceFundController.cs" />
     <Compile Include="Controllers\FileMaintenanceIRAShareController.cs" />
+    <Compile Include="Controllers\FileMaintenanceOfficeTypeController.cs" />
     <Compile Include="Controllers\FileMaintenancePayeeController.cs" />
     <Compile Include="Controllers\FileMaintenancePositionController.cs" />
     <Compile Include="Controllers\FileMaintenanceResponsibilityCenterController.cs" />
@@ -274,7 +276,10 @@
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_DVType.cs" />
     <Compile Include="Models\FM_Funds\FM_Fund.cs" />
     <Compile Include="Models\FM_IRA\FM_IRA_IRA.cs" />
+    <Compile Include="Models\FM_OfficeType\FM_OfficeType_OfficeType.cs" />
+    <Compile Include="Models\FM_Payee\FM_Payee_Payee.cs" />
     <Compile Include="Models\FM_Position\FM_Position_Position.cs" />
+    <Compile Include="Models\FM_ResponsibilityCenter\FM_ResponsibilityCenter_Department.cs" />
     <Compile Include="Models\FM_Sectors\FM_Sector.cs" />
     <Compile Include="Models\FM_SignatoriesModel.cs" />
     <Compile Include="Models\Fund.cs">
@@ -293,7 +298,13 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel\LoginModel.cs" />
+    <Compile Include="Models\OfficeType.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ParentModule.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payee.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonalInformation.cs">
@@ -9044,6 +9055,25 @@
     <Content Include="Views\FileMaintenanceSector\SubSector\_SubSectorTable.cshtml" />
     <Content Include="Views\FileMaintenanceSector\SubSector\_UpdateSubSectors.cshtml" />
     <Content Include="Views\CollectionCivilRegistry\Index.cshtml" />
+    <Content Include="Views\CollectionRemittance\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceOfficeType\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceOfficeType\_AddOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenanceOfficeType\_OfficeTypeTable.cshtml" />
+    <Content Include="Views\FileMaintenanceOfficeType\_UpdateOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_AddSectors.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_SectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_UpdateSectors.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DepartmentTable.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_AddDepartment.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DynamicDDFundName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DynamicDDSectorName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DynamicDDSubSector.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DynamicDDOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_UpdateDepartment.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\_PayeeTable.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\_AddPayee.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\_DynamicDDDepartmentName.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\_UpdatePayee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9059,6 +9089,7 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
     <Folder Include="Views\FileMaintenanceBarangay\BarangayBankAccount\" />
+    <Folder Include="Views\FileMaintenanceResponsibilityCenter\Function\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

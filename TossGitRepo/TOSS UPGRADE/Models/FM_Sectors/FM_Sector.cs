@@ -48,6 +48,7 @@ namespace TOSS_UPGRADE.Models.FM_Sectors
         public int SubSectorID { get; set; }
         public string SectorName { get; set; }
         public string SubSectorName { get; set; }
+        public string SectorCode { get; set; }
         public string SubSectorCode { get; set; }
     }
 }
