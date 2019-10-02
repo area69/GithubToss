@@ -41,6 +41,7 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<CheckMaintenanceTable> CheckMaintenanceTables { get; set; }
         public virtual DbSet<CollectorTable> CollectorTables { get; set; }
         public virtual DbSet<DVTypeTable> DVTypeTables { get; set; }
+        public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<Fund> Funds { get; set; }
         public virtual DbSet<IRA_Table> IRA_Table { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
@@ -50,6 +51,8 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<Payee> Payees { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
+        public virtual DbSet<RevisionYear> RevisionYears { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<SignatoriesTable> SignatoriesTables { get; set; }
         public virtual DbSet<Signatory_DepartmentTable> Signatory_DepartmentTable { get; set; }

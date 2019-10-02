@@ -1,0 +1,16 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Section
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label class="custom-form-margin"><b>Function</b></label>
+@Html.DropDownListFor(m => m.FunctionID, Model.SectionList, new { @class = "form-control select2", id = "SectionFunctionNameIDD" })
+
+<script>
+    $(function () {
+        $("#SectionFunctionNameIDD").select2();
+    })
+</script>
+

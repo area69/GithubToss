@@ -5,10 +5,8 @@
 @using TOSS_UPGRADE.Models;
 <div class="form-group">
     <label class="custom-form-margin mt-xl-2"><b>Sub Sector</b></label>
-    <span class="input-group-append">
         @Html.DropDownListFor(m => m.SubSectorNameID, Model.DepartmentList, new { @class = "form-control select2", id = "SubSectorID" })
-        <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addSubSectorModal"><strong>+</strong></button>
-    </span>
+
 </div>
 
 <script>

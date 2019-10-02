@@ -1,0 +1,8 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Function
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<label class="custom-form-margin"><b>Department / Office Code</b></label>
+@Html.TextBoxFor(m => m.DepartmentCode, new { @class = "form-control", type = "text",@rows = 1, id = "DepartmentCode", @readonly = "@readonly" })
+

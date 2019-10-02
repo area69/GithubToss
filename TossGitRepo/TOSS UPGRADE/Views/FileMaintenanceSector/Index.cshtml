@@ -56,32 +56,6 @@
                     </div>
                 </div>
             </div>
-            @* Add Fund Modal *@
-            <div class="col-lg-8 col-md-8 col-sm-12">
-                <div class="form-group">
-                    <div class="modal animated zoomIn text-left" id="addSectorModal" role="dialog">
-                        <div class="modal-dialog" style="max-width:650px" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header bg-headerbc white">
-                                    <h4 class="modal-title white"><i class="la la-plus mr-1"></i>Sector</h4>
-                                    <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-                                </div>
-                                <div class="modal-body skin skin-square">
-                                    <div class="row black">
-                                        <div class="col-md-12" id="SectorID2">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-md-12" id="SectorTableID2">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -139,44 +113,10 @@
                 params: { SectorID: SectorID }
             }).then(function (response) {
                 F.Get_SectorTables();
-                F.Get_SectorTables2();
             });
         }
         @* Sub Sector *@
-
-        F.Get_SectorTables2 = function () {
-            P({
-                url: '/FileMaintenanceSector/Get_SectorTable2',
-            }).then(function (response) {
-                $("#SectorTableID2").html(response.data);
-                F.Get_AddSectors2();
-            });
-        }
-        F.Get_AddSectors2 = function () {
-            P({
-                url: '/FileMaintenanceSector/Get_AddSector2',
-            }).then(function (response) {
-                $("#SectorID2").html(response.data);
-                F.Get_SectorTables();
-                F.LoadDynamicDDSector();
-            });
-        }
-        F.Get_UpdateSectors2 = function (SectorID) {
-            P({
-                url: '/FileMaintenanceSector/Get_UpdateSector2',
-                params: { SectorID: SectorID }
-            }).then(function (response) {
-                $("#SectorID2").html(response.data);
-            });
-        }
-        F.Get_DeleteSectors2 = function (SectorID) {
-            P({
-                url: '/FileMaintenanceSector/DeleteSectors2',
-                params: { SectorID: SectorID }
-            }).then(function (response) {
-                F.Get_SectorTables2();
-            });
-        }
+        
 
         F.LoadDynamicDDSector = function () {
             P({
@@ -202,7 +142,6 @@
                 $("#SubSectorTableID").html(response.data);
             });
             F.Get_AddSubSectors();
-            F.Get_SectorTables2();
         }
         F.Get_AddSubSectors = function () {
             P({

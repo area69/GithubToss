@@ -1,0 +1,70 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Function
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddFunction", "FileMaintenanceResponsibilityCenter", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMDepartmentController','Get_FunctionTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="form-group" id="_DepartmentID">
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 "><b>Function</b></label>
+                @Html.TextAreaFor(m => m.getFunctioncolumns.FunctionName, new { @class = "form-control",@rows = 1, type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin"><b>Function Abbreviation</b></label>
+                @Html.TextBoxFor(m => m.getFunctioncolumns.FunctionAbbreviation, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2"><b>Function Code</b></label>
+                @Html.TextBoxFor(m => m.getFunctioncolumns.FunctionCode, new { @class = "form-control", type = "text" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-6 col-md-4">
+            <div class="form-group" id="_DynamicFundID1">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-5 col-md-6">
+            <div class="form-group" id="_FunctionSectorNameID">
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-7 col-md-6">
+            <div class="form-group" id="_FunctionSubSectorNameID">
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-5 col-md-6">
+            <div class="form-group" id="_FunctionOfficeTypeID">
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-6">
+            <div class="form-group" id="_DynamicDepartmentCodeID">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="reset" class="btn bg-headerbc form-control white">
+                <b>Cancel</b>
+            </button>
+        </div>
+    </div>
+}

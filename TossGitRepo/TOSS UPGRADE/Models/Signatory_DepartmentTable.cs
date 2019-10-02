@@ -17,7 +17,10 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Signatory_DepartmentTable()
         {
+            this.Functions = new HashSet<Function>();
             this.Payees = new HashSet<Payee>();
+            this.Sections = new HashSet<Section>();
+            this.SignatoriesTables = new HashSet<SignatoriesTable>();
         }
     
         public int DepartmentID { get; set; }
@@ -30,11 +33,17 @@ namespace TOSS_UPGRADE.Models
         public Nullable<int> FundID { get; set; }
         public Nullable<int> SubSectorID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Function> Functions { get; set; }
         public virtual Fund Fund { get; set; }
         public virtual OfficeType OfficeType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payee> Payees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Section> Sections { get; set; }
         public virtual Sector Sector { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SignatoriesTable> SignatoriesTables { get; set; }
         public virtual SubSector SubSector { get; set; }
     }
 }

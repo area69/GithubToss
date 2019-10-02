@@ -1,0 +1,15 @@
+﻿@model TOSS_UPGRADE.Models.FM_SignatoriesModel
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>Function</b></label>
+@Html.DropDownListFor(m => m.FunctionID, Model.DepartmentList, new { @class = "form-control select2", id = "FunctionIDD" })
+
+<script>
+    $(function () {
+        $("#FunctionIDD").select2();
+    })
+</script>

@@ -6,10 +6,8 @@
 
 
 <label class="custom-form-margin mt-xl-2 mt-lg-2"><b>Fund</b></label>
-<span class="input-group-append" id="button-addon2">
-    @Html.DropDownListFor(m => m.SubFundNameID, Model.SubFundList, new { @class = "form-control select2", id = "FundNameIDD" })
-    <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addFundModal" ng-click="Get_FundTable2s()"><strong>+</strong></button>
-</span>
+@Html.DropDownListFor(m => m.SubFundNameID, Model.SubFundList, new { @class = "form-control select2", id = "FundNameIDD" })
+
 <script>
     $(function () {
         $("#FundNameIDD").select2();

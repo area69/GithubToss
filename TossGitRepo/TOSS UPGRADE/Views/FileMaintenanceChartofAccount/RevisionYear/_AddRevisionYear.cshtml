@@ -1,0 +1,48 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_RevisionYear
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddRevisionYear", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_RevisionYearTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+    <div class="row black">
+        <div class="col-md-2">
+            <label class="mt-1"><b>Revision Year</b></label>
+            @Html.TextBoxFor(m => m.getRevisionYearcolumns.RevisionYearDate, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>Is Used?</b></label>
+            <select class="form-control" id="isUsedDD" onchange="IsUsedOnChange()">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            @Html.HiddenFor(m => m.IsUsed, new { id = "isUsedID" })
+        </div>
+        <div class="col-md-4">
+            <label class="mt-1"><b>Remarks</b></label>
+            @Html.TextBoxFor(m => m.getRevisionYearcolumns.Remarks, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="submit" class="btn bg-addbutton form-control black" onclick="reload">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="reset" class="btn bg-headerbc form-control white">
+                <b>Cancel</b>
+            </button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        IsUsedOnChange()
+    })
+    function IsUsedOnChange() {
+        var isUsedValue = $("#isUsedDD").val();
+        $("#isUsedID").val(isUsedValue);
+    }
+</script>

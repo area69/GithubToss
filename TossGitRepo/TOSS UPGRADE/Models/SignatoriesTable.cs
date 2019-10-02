@@ -16,8 +16,16 @@ namespace TOSS_UPGRADE.Models
     {
         public int SignatoriesID { get; set; }
         public string SignatoriesName { get; set; }
+        public string PreferredName { get; set; }
         public int PositionID { get; set; }
         public int DepartmentID { get; set; }
+        public int FunctionID { get; set; }
+        public string DivisionName { get; set; }
+        public bool isActive { get; set; }
         public bool IsDeptHead { get; set; }
+    
+        public virtual Function Function { get; set; }
+        public virtual Signatory_DepartmentTable Signatory_DepartmentTable { get; set; }
+        public virtual Signatory_PositionTable Signatory_PositionTable { get; set; }
     }
 }

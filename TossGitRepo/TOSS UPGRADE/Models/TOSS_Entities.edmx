@@ -139,6 +139,19 @@
           <Property Name="DVTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DVTypeName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FunctionName" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionAbbreviation" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionCode" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="SectorID" Type="int" />
+          <Property Name="SubSectorID" Type="int" />
+          <Property Name="OfficeTypeID" Type="int" />
+        </EntityType>
         <EntityType Name="Fund">
           <Key>
             <PropertyRef Name="FundID" />
@@ -228,6 +241,24 @@
           <Property Name="Birthday" Type="date" />
           <Property Name="FullName" Type="varchar" MaxLength="108" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <EntityType Name="RevisionYear">
+          <Key>
+            <PropertyRef Name="RevisionYearID" />
+          </Key>
+          <Property Name="RevisionYearID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevisionYearDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsUsed" Type="bit" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="FunctionID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Sector">
           <Key>
             <PropertyRef Name="SectorID" />
@@ -242,8 +273,12 @@
           </Key>
           <Property Name="SignatoriesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SignatoriesName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PreferredName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PositionID" Type="int" Nullable="false" />
           <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="FunctionID" Type="int" Nullable="false" />
+          <Property Name="DivisionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
           <Property Name="IsDeptHead" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Signatory_DepartmentTable">
@@ -364,6 +399,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Function_OfficeType">
+          <End Role="OfficeType" Type="Self.OfficeType" Multiplicity="0..1" />
+          <End Role="Functions" Type="Self.Functions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Functions">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_Sector">
+          <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
+          <End Role="Functions" Type="Self.Functions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Functions">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_Signatory_DepartmentTable">
+          <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="0..1" />
+          <End Role="Functions" Type="Self.Functions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Functions">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_SubSector">
+          <End Role="SubSector" Type="Self.SubSector" Multiplicity="0..1" />
+          <End Role="Functions" Type="Self.Functions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Functions">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1Modules_Level1Modules">
+          <End Role="Level1Modules" Type="Self.Level1Modules" Multiplicity="1" />
+          <End Role="Level1Modules1" Type="Self.Level1Modules" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Level1Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Principal>
+            <Dependent Role="Level1Modules1">
+              <PropertyRef Name="Level1ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Level1Modules_ParentModules">
           <End Role="ParentModules" Type="Self.ParentModules" Multiplicity="0..1" />
           <End Role="Level1Modules" Type="Self.Level1Modules" Multiplicity="*" />
@@ -421,6 +516,66 @@
             </Principal>
             <Dependent Role="Payee">
               <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Functions">
+          <End Role="Functions" Type="Self.Functions" Multiplicity="1" />
+          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Signatory_DepartmentTable">
+          <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="1" />
+          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Functions">
+          <End Role="Functions" Type="Self.Functions" Multiplicity="1" />
+          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
+          <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="1" />
+          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_PositionTable">
+          <End Role="Signatory_PositionTable" Type="Self.Signatory_PositionTable" Multiplicity="1" />
+          <End Role="SignatoriesTable" Type="Self.SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_PositionTable">
+              <PropertyRef Name="PositionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="PositionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -556,6 +711,7 @@
           <EntitySet Name="CheckMaintenanceTable" EntityType="Self.CheckMaintenanceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollectorTable" EntityType="Self.CollectorTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DVTypeTable" EntityType="Self.DVTypeTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Functions" EntityType="Self.Functions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fund" EntityType="Self.Fund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRA_Table" EntityType="Self.IRA_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
@@ -565,6 +721,8 @@
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payee" EntityType="Self.Payee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RevisionYear" EntityType="Self.RevisionYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sections" EntityType="Self.Sections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SignatoriesTable" EntityType="Self.SignatoriesTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Signatory_DepartmentTable" EntityType="Self.Signatory_DepartmentTable" Schema="dbo" store:Type="Tables" />
@@ -596,6 +754,26 @@
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
           </AssociationSet>
+          <AssociationSet Name="FK_Function_OfficeType" Association="Self.FK_Function_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeType" />
+            <End Role="Functions" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_Sector" Association="Self.FK_Function_Sector">
+            <End Role="Sector" EntitySet="Sector" />
+            <End Role="Functions" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_Signatory_DepartmentTable" Association="Self.FK_Function_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="Functions" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_SubSector" Association="Self.FK_Function_SubSector">
+            <End Role="SubSector" EntitySet="SubSector" />
+            <End Role="Functions" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1Modules_Level1Modules" Association="Self.FK_Level1Modules_Level1Modules">
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+            <End Role="Level1Modules1" EntitySet="Level1Modules" />
+          </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_ParentModules" Association="Self.FK_Level1Modules_ParentModules">
             <End Role="ParentModules" EntitySet="ParentModules" />
             <End Role="Level1Modules" EntitySet="Level1Modules" />
@@ -615,6 +793,26 @@
           <AssociationSet Name="FK_Payee_Signatory_DepartmentTable" Association="Self.FK_Payee_Signatory_DepartmentTable">
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
             <End Role="Payee" EntitySet="Payee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Functions" Association="Self.FK_Sections_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Signatory_DepartmentTable" Association="Self.FK_Sections_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Functions" Association="Self.FK_SignatoriesTable_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="Self.FK_SignatoriesTable_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_PositionTable" Association="Self.FK_SignatoriesTable_Signatory_PositionTable">
+            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTable" />
           </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_Fund" Association="Self.FK_Signatory_DepartmentTable_Fund">
             <End Role="Fund" EntitySet="Fund" />
@@ -708,6 +906,7 @@
           <EntitySet Name="CheckMaintenanceTables" EntityType="DB_TOSSModel.CheckMaintenanceTable" />
           <EntitySet Name="CollectorTables" EntityType="DB_TOSSModel.CollectorTable" />
           <EntitySet Name="DVTypeTables" EntityType="DB_TOSSModel.DVTypeTable" />
+          <EntitySet Name="Functions" EntityType="DB_TOSSModel.Function" />
           <EntitySet Name="Funds" EntityType="DB_TOSSModel.Fund" />
           <EntitySet Name="IRA_Table" EntityType="DB_TOSSModel.IRA_Table" />
           <EntitySet Name="Level1Modules" EntityType="DB_TOSSModel.Level1Modules" />
@@ -717,6 +916,8 @@
           <EntitySet Name="ParentModules" EntityType="DB_TOSSModel.ParentModule" />
           <EntitySet Name="Payees" EntityType="DB_TOSSModel.Payee" />
           <EntitySet Name="PersonalInformations" EntityType="DB_TOSSModel.PersonalInformation" />
+          <EntitySet Name="RevisionYears" EntityType="DB_TOSSModel.RevisionYear" />
+          <EntitySet Name="Sections" EntityType="DB_TOSSModel.Section" />
           <EntitySet Name="Sectors" EntityType="DB_TOSSModel.Sector" />
           <EntitySet Name="SignatoriesTables" EntityType="DB_TOSSModel.SignatoriesTable" />
           <EntitySet Name="Signatory_DepartmentTable" EntityType="DB_TOSSModel.Signatory_DepartmentTable" />
@@ -748,6 +949,30 @@
             <End Role="BankAccountTable" EntitySet="BankAccountTables" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTables" />
           </AssociationSet>
+          <AssociationSet Name="FK_Function_OfficeType" Association="DB_TOSSModel.FK_Function_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeTypes" />
+            <End Role="Function" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_Sector" Association="DB_TOSSModel.FK_Function_Sector">
+            <End Role="Sector" EntitySet="Sectors" />
+            <End Role="Function" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_Signatory_DepartmentTable" Association="DB_TOSSModel.FK_Function_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="Function" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Function_SubSector" Association="DB_TOSSModel.FK_Function_SubSector">
+            <End Role="SubSector" EntitySet="SubSectors" />
+            <End Role="Function" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Functions" Association="DB_TOSSModel.FK_Sections_Functions">
+            <End Role="Function" EntitySet="Functions" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Functions" Association="DB_TOSSModel.FK_SignatoriesTable_Functions">
+            <End Role="Function" EntitySet="Functions" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_Fund" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_Fund">
             <End Role="Fund" EntitySet="Funds" />
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
@@ -755,6 +980,10 @@
           <AssociationSet Name="FK_SubFund_Fund" Association="DB_TOSSModel.FK_SubFund_Fund">
             <End Role="Fund" EntitySet="Funds" />
             <End Role="SubFund" EntitySet="SubFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1Modules_Level1Modules" Association="DB_TOSSModel.FK_Level1Modules_Level1Modules">
+            <End Role="Level1Modules" EntitySet="Level1Modules" />
+            <End Role="Level1Modules1" EntitySet="Level1Modules" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_ParentModules" Association="DB_TOSSModel.FK_Level1Modules_ParentModules">
             <End Role="ParentModule" EntitySet="ParentModules" />
@@ -780,6 +1009,10 @@
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
             <End Role="Payee" EntitySet="Payees" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sections_Signatory_DepartmentTable" Association="DB_TOSSModel.FK_Sections_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="Section" EntitySet="Sections" />
+          </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_Sector" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_Sector">
             <End Role="Sector" EntitySet="Sectors" />
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
@@ -787,6 +1020,14 @@
           <AssociationSet Name="FK_SubSector_Sector" Association="DB_TOSSModel.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sectors" />
             <End Role="SubSector" EntitySet="SubSectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_DepartmentTable" Association="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable">
+            <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SignatoriesTable_Signatory_PositionTable" Association="DB_TOSSModel.FK_SignatoriesTable_Signatory_PositionTable">
+            <End Role="Signatory_PositionTable" EntitySet="Signatory_PositionTable" />
+            <End Role="SignatoriesTable" EntitySet="SignatoriesTables" />
           </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_SubSector" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_SubSector">
             <End Role="SubSector" EntitySet="SubSectors" />
@@ -937,6 +1178,25 @@
           <Property Name="DVTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DVTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Function">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionAbbreviation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="SectorID" Type="Int32" />
+          <Property Name="SubSectorID" Type="Int32" />
+          <Property Name="OfficeTypeID" Type="Int32" />
+          <NavigationProperty Name="OfficeType" Relationship="DB_TOSSModel.FK_Function_OfficeType" FromRole="Function" ToRole="OfficeType" />
+          <NavigationProperty Name="Sector" Relationship="DB_TOSSModel.FK_Function_Sector" FromRole="Function" ToRole="Sector" />
+          <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Function_Signatory_DepartmentTable" FromRole="Function" ToRole="Signatory_DepartmentTable" />
+          <NavigationProperty Name="SubSector" Relationship="DB_TOSSModel.FK_Function_SubSector" FromRole="Function" ToRole="SubSector" />
+          <NavigationProperty Name="Sections" Relationship="DB_TOSSModel.FK_Sections_Functions" FromRole="Function" ToRole="Section" />
+          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_Functions" FromRole="Function" ToRole="SignatoriesTable" />
+        </EntityType>
         <EntityType Name="Fund">
           <Key>
             <PropertyRef Name="FundID" />
@@ -966,6 +1226,8 @@
           <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ActionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Level1Modules1" Relationship="DB_TOSSModel.FK_Level1Modules_Level1Modules" FromRole="Level1Modules" ToRole="Level1Modules1" />
+          <NavigationProperty Name="Level1Modules2" Relationship="DB_TOSSModel.FK_Level1Modules_Level1Modules" FromRole="Level1Modules1" ToRole="Level1Modules" />
           <NavigationProperty Name="ParentModule" Relationship="DB_TOSSModel.FK_Level1Modules_ParentModules" FromRole="Level1Modules" ToRole="ParentModule" />
           <NavigationProperty Name="Level2Modules" Relationship="DB_TOSSModel.FK_Level2Modules_Level1Modules" FromRole="Level1Modules" ToRole="Level2Modules" />
         </EntityType>
@@ -1001,6 +1263,7 @@
           <Property Name="OfficeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OfficeTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OfficeTypeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Functions" Relationship="DB_TOSSModel.FK_Function_OfficeType" FromRole="OfficeType" ToRole="Function" />
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType" FromRole="OfficeType" ToRole="Signatory_DepartmentTable" />
         </EntityType>
         <EntityType Name="ParentModule">
@@ -1039,6 +1302,26 @@
           <Property Name="FullName" Type="String" MaxLength="108" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Accounts" Relationship="DB_TOSSModel.FK_Accounts_PersonalInformation" FromRole="PersonalInformation" ToRole="Account" />
         </EntityType>
+        <EntityType Name="RevisionYear">
+          <Key>
+            <PropertyRef Name="RevisionYearID" />
+          </Key>
+          <Property Name="RevisionYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevisionYearDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+          <Property Name="Remarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Function" Relationship="DB_TOSSModel.FK_Sections_Functions" FromRole="Section" ToRole="Function" />
+          <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Sections_Signatory_DepartmentTable" FromRole="Section" ToRole="Signatory_DepartmentTable" />
+        </EntityType>
         <EntityType Name="Sector">
           <Key>
             <PropertyRef Name="SectorID" />
@@ -1046,6 +1329,7 @@
           <Property Name="SectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SectorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Functions" Relationship="DB_TOSSModel.FK_Function_Sector" FromRole="Sector" ToRole="Function" />
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_Sector" FromRole="Sector" ToRole="Signatory_DepartmentTable" />
           <NavigationProperty Name="SubSectors" Relationship="DB_TOSSModel.FK_SubSector_Sector" FromRole="Sector" ToRole="SubSector" />
         </EntityType>
@@ -1055,9 +1339,16 @@
           </Key>
           <Property Name="SignatoriesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SignatoriesName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreferredName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PositionID" Type="Int32" Nullable="false" />
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" />
+          <Property Name="DivisionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeptHead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Function" Relationship="DB_TOSSModel.FK_SignatoriesTable_Functions" FromRole="SignatoriesTable" ToRole="Function" />
+          <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable" FromRole="SignatoriesTable" ToRole="Signatory_DepartmentTable" />
+          <NavigationProperty Name="Signatory_PositionTable" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_PositionTable" FromRole="SignatoriesTable" ToRole="Signatory_PositionTable" />
         </EntityType>
         <EntityType Name="Signatory_DepartmentTable">
           <Key>
@@ -1072,10 +1363,13 @@
           <Property Name="OfficeTypeID" Type="Int32" />
           <Property Name="FundID" Type="Int32" />
           <Property Name="SubSectorID" Type="Int32" />
+          <NavigationProperty Name="Functions" Relationship="DB_TOSSModel.FK_Function_Signatory_DepartmentTable" FromRole="Signatory_DepartmentTable" ToRole="Function" />
           <NavigationProperty Name="Fund" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_Fund" FromRole="Signatory_DepartmentTable" ToRole="Fund" />
           <NavigationProperty Name="OfficeType" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType" FromRole="Signatory_DepartmentTable" ToRole="OfficeType" />
           <NavigationProperty Name="Payees" Relationship="DB_TOSSModel.FK_Payee_Signatory_DepartmentTable" FromRole="Signatory_DepartmentTable" ToRole="Payee" />
+          <NavigationProperty Name="Sections" Relationship="DB_TOSSModel.FK_Sections_Signatory_DepartmentTable" FromRole="Signatory_DepartmentTable" ToRole="Section" />
           <NavigationProperty Name="Sector" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_Sector" FromRole="Signatory_DepartmentTable" ToRole="Sector" />
+          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_DepartmentTable" FromRole="Signatory_DepartmentTable" ToRole="SignatoriesTable" />
           <NavigationProperty Name="SubSector" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_SubSector" FromRole="Signatory_DepartmentTable" ToRole="SubSector" />
         </EntityType>
         <EntityType Name="Signatory_PositionTable">
@@ -1085,6 +1379,7 @@
           <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PositionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PositionCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SignatoriesTables" Relationship="DB_TOSSModel.FK_SignatoriesTable_Signatory_PositionTable" FromRole="Signatory_PositionTable" ToRole="SignatoriesTable" />
         </EntityType>
         <EntityType Name="SubCollectorTable">
           <Key>
@@ -1111,6 +1406,7 @@
           <Property Name="SectorID" Type="Int32" Nullable="false" />
           <Property Name="SubSectorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SubSectorCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Functions" Relationship="DB_TOSSModel.FK_Function_SubSector" FromRole="SubSector" ToRole="Function" />
           <NavigationProperty Name="Sector" Relationship="DB_TOSSModel.FK_SubSector_Sector" FromRole="SubSector" ToRole="Sector" />
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_SubSector" FromRole="SubSector" ToRole="Signatory_DepartmentTable" />
         </EntityType>
@@ -1186,6 +1482,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Function_OfficeType">
+          <End Type="DB_TOSSModel.OfficeType" Role="OfficeType" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Function">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_Sector">
+          <End Type="DB_TOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Function">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_Signatory_DepartmentTable">
+          <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Function">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Function_SubSector">
+          <End Type="DB_TOSSModel.SubSector" Role="SubSector" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Function">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Functions">
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Function">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Functions">
+          <End Type="DB_TOSSModel.Function" Role="Function" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Function">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Signatory_DepartmentTable_Fund">
           <End Type="DB_TOSSModel.Fund" Role="Fund" Multiplicity="0..1" />
           <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="*" />
@@ -1207,6 +1575,18 @@
             </Principal>
             <Dependent Role="SubFund">
               <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1Modules_Level1Modules">
+          <End Type="DB_TOSSModel.Level1Modules" Role="Level1Modules" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Level1Modules" Role="Level1Modules1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Level1Modules">
+              <PropertyRef Name="Level1ModuleID" />
+            </Principal>
+            <Dependent Role="Level1Modules1">
+              <PropertyRef Name="Level1ModuleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1282,6 +1662,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sections_Signatory_DepartmentTable">
+          <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Section" Role="Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Section">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Signatory_DepartmentTable_Sector">
           <End Type="DB_TOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
           <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="*" />
@@ -1303,6 +1695,30 @@
             </Principal>
             <Dependent Role="SubSector">
               <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_DepartmentTable">
+          <End Type="DB_TOSSModel.Signatory_DepartmentTable" Role="Signatory_DepartmentTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_DepartmentTable">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SignatoriesTable_Signatory_PositionTable">
+          <End Type="DB_TOSSModel.Signatory_PositionTable" Role="Signatory_PositionTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SignatoriesTable" Role="SignatoriesTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signatory_PositionTable">
+              <PropertyRef Name="PositionID" />
+            </Principal>
+            <Dependent Role="SignatoriesTable">
+              <PropertyRef Name="PositionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1487,6 +1903,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Functions">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Function">
+              <MappingFragment StoreEntitySet="Functions">
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="FunctionAbbreviation" ColumnName="FunctionAbbreviation" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Funds">
             <EntityTypeMapping TypeName="DB_TOSSModel.Fund">
               <MappingFragment StoreEntitySet="Fund">
@@ -1585,6 +2015,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RevisionYears">
+            <EntityTypeMapping TypeName="DB_TOSSModel.RevisionYear">
+              <MappingFragment StoreEntitySet="RevisionYear">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="RevisionYearDate" ColumnName="RevisionYearDate" />
+                <ScalarProperty Name="RevisionYearID" ColumnName="RevisionYearID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Section">
+              <MappingFragment StoreEntitySet="Sections">
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sectors">
             <EntityTypeMapping TypeName="DB_TOSSModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
@@ -1598,8 +2048,12 @@
             <EntityTypeMapping TypeName="DB_TOSSModel.SignatoriesTable">
               <MappingFragment StoreEntitySet="SignatoriesTable">
                 <ScalarProperty Name="IsDeptHead" ColumnName="IsDeptHead" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
                 <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
                 <ScalarProperty Name="SignatoriesName" ColumnName="SignatoriesName" />
                 <ScalarProperty Name="SignatoriesID" ColumnName="SignatoriesID" />
               </MappingFragment>

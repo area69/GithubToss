@@ -1,0 +1,8 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Function
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+    <label class="custom-form-margin black"><b>Fund</b></label>
+    @Html.TextAreaFor(m => m.FundName, new { @class = "form-control", type = "text", id = "FundTitle", @readonly = "@readonly" })
+

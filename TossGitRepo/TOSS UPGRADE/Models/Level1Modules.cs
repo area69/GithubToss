@@ -27,6 +27,8 @@ namespace TOSS_UPGRADE.Models
         public string ActionName { get; set; }
         public string JSID { get; set; }
     
+        public virtual Level1Modules Level1Modules1 { get; set; }
+        public virtual Level1Modules Level1Modules2 { get; set; }
         public virtual ParentModule ParentModule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Level2Modules> Level2Modules { get; set; }

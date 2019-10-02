@@ -6,7 +6,4 @@
 @using TOSS_UPGRADE.Models;
 
 <label><b>Bank Name</b></label>
-    <span class="input-group-append" id="button-addon2">
         @Html.DropDownListFor(m => m.BankAccountBankID, Model.BankAccountBankList, new { @class = "form-control select2", id = "BankIDDD" @*onchange = "CurrentAccountConcate()"*@ })
-<button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addBankNameModal"><strong>+</strong></button>
-    </span>

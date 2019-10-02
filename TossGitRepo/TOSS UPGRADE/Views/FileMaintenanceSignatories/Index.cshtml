@@ -110,10 +110,6 @@
 
         F.InitAllFunction = function () {
             F.GetListOfSignatories();
-            F.Get_PositionTable();
-            F.LoadDynamicDDDepartment();
-            F.Get_DepartmentTable();
-            F.LoadDynamicDDPositionName();
         }
 
         F.SuccessSave1 = function () {
@@ -136,41 +132,7 @@
             var SuccessMess = "Department Successfully Update";
             swalSuccess("Success", SuccessMess);
         }
-        
-        F.Get_PositionTable = function () {
-            P({
-                url: '/FileMaintenanceSignatories/Get_PositionTable',
-            }).then(function (response) {
-                $("#PositionTableID").html(response.data);
-                });
-            F.Get_AddPosition();
-        }
-        F.Get_AddPosition = function () {
-            P({
-                url: '/FileMaintenanceSignatories/Get_AddPosition',
-            }).then(function (response) {
-                $("#PositionTempID").html(response.data);
-                F.LoadDynamicDDPositionName();
-                });
 
-        }
-        F.Get_UpdatePosition = function (PositionID) {
-            P({
-                url: '/FileMaintenanceSignatories/Get_UpdatePosition',
-                params: { PositionID: PositionID }
-            }).then(function (response) {
-                $("#PositionTempID").html(response.data);
-                });
-        }
-        F.Get_DeletePosition = function (PositionID) {
-            P({
-                url: '/FileMaintenanceSignatories/DeletePosition',
-                params: { PositionID: PositionID }
-            }).then(function (response) {
-                F.Get_PositionTable();
-                F.LoadDynamicDDPositionName();
-            });
-        }
         F.GetListOfSignatories = function () {
             P({
                 url: '/FileMaintenanceSignatories/GetListOfSignatories',
@@ -202,6 +164,7 @@
                 params: { DepartmentIDTempID: DepartmentIDTempID }
             }).then(function (response) {
                 $("#_DynamicDDDepartmentID").html(response.data);
+                F.LoadDynamicDDFunction();
             });
         }
         F.LoadSelectedDynamicDDPositionName = function () {
@@ -214,7 +177,6 @@
             });
         }
         F.Get_UpdateSignatories = function (SignatoriesID) {
-           
             P({
                 url: '/FileMaintenanceSignatories/Get_UpdateSignatories',
                 params: { SignatoriesID: SignatoriesID }
@@ -232,44 +194,21 @@
                 F.GetListOfSignatories();
             });
         }
-        
         F.LoadDynamicDDDepartment = function () {
             P({
                 url: '/FileMaintenanceSignatories/GetDynamicDepartment',
             }).then(function (response) {
                 $("#_DynamicDDDepartmentID").html(response.data);
+                F.LoadDynamicDDFunction();
             });
         }
-        F.Get_DepartmentTable = function () {
+        F.LoadDynamicDDFunction = function () {
+            var DepartmentID = $("#DepartmentIDD").val();
             P({
-                url: '/FileMaintenanceSignatories/Get_DepartmentTable',
-            }).then(function (response) {
-                $("#DepartmentTableID").html(response.data);
-                });
-            F.Get_AddDepartment();
-        }
-        F.Get_AddDepartment = function () {
-            P({
-                url: '/FileMaintenanceSignatories/Get_AddDepartment',
-            }).then(function (response) {
-                $("#DepartmentxID").html(response.data);
-                });
-        }
-        F.Get_UpdateDepartment = function (DepartmentID) {
-            P({
-                url: '/FileMaintenanceSignatories/Get_UpdateDepartment',
+                url: '/FileMaintenanceSignatories/GetDynamicFunction',
                 params: { DepartmentID: DepartmentID }
             }).then(function (response) {
-                $("#DepartmentxID").html(response.data);
-            });
-        }
-        F.Get_DeleteDepartment = function (DepartmentID) {
-            P({
-                url: '/FileMaintenanceSignatories/DeleteDepartment',
-                params: { DepartmentID: DepartmentID }
-            }).then(function (response) {
-                F.Get_DepartmentTable();
-                F.LoadDynamicDDDepartment();
+                $("#_DynamicDDFunctionID").html(response.data);
             });
         }
         });

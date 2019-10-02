@@ -10,12 +10,15 @@
             <table class="table table-striped zero-configuration table-bordered text-center dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th width="25%">Employee Name</th>
+                        <th width="25%">Preferred Name</th>
                         <th>Position</th>
                         <th>Department</th>
-                        <th>Department Code</th>
-                        <th>Department Head?</th>
-                        <th width="15%">Action</th>
+                        <th width="5%">Dept Head?</th>
+                        <th>Function</th>
+                        <th>Division</th>
+                        <th width="5%">Is Active?</th>
+                        <th width="5%">Action</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -31,31 +34,45 @@
                             var ActionContentProgram = ViewEdit + ViewDelete;
                     <tr>
                         <td>@Items.SignatoriesName</td>
-                        <td>@Items.PositionNames</td>
-                        <td>@Items.Department</td>
-                        <td>@Items.DepartmentCode</td>
+                        <td>@Items.PreferredName</td>
+                        <td>@Items.PositionName</td>
+                        <td>@Items.DepartmentName</td>
                         <td>
                             @{
                                 var idDeptHead = "";
-                                if (Items.idDeptHead == true)
+                                if (Items.isDeptHead == true)
                                 {
                                     idDeptHead = "Yes";
                                 }
-                                else if (Items.idDeptHead == false)
+                                else if (Items.isDeptHead == false)
                                 {
                                     idDeptHead = "No";
                                 }
-
                             }
                             @idDeptHead
+                        </td>
+                        <td>@Items.FunctionName</td>
+                        <td>@Items.DivisionName</td>
+                        <td>
+                            @{
+                                var isActive = "";
+                                if (Items.isActive == true)
+                                {
+                                    isActive = "Yes";
+                                }
+                                else if (Items.isActive == false)
+                                {
+                                    isActive = "No";
+                                }
+
+                            }
+                            @isActive
                         </td>
                         <td>
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
                                     data-original-title="" data-html="true" data-placement="right">
                                 <i class="la la-bars"></i>
                             </button>
-                            @*<button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMSignatoriesController','Get_UpdateSignatories','@Items.SignatoriesID')"><i class="ft-edit"></i></button>
-        <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','@Items.SignatoriesName','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.SignatoriesID ,&quot;Get_DeleteSignatories&quot;,&quot;FMSignatoriesController&quot;)')"><i class="ft-delete"></i></button>*@
                         </td>
                     </tr>
                         }

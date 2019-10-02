@@ -1,0 +1,44 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Section
+@{
+                /**/
+
+                DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddSection", "FileMaintenanceResponsibilityCenter", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMDepartmentController','Get_SectionTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+<div class="row black">
+    <div class="col-md-12">
+        <div class="row mt-1">
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="form-group" id="_SectionDepartmentID">
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="form-group" id="_SecctionFunctionID">
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-4">
+                <div class="form-group">
+                    <label class="custom-form-margin"><b>Section</b></label>
+                    @Html.TextBoxFor(m => m.getSectioncolumns.SectionName, new { @class = "form-control", type = "text" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-2">
+                <button type="submit" class="btn bg-addbutton form-control black">
+                    <b>Add</b>
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button type="reset" class="btn bg-headerbc form-control white">
+                    <b>Cancel</b>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+}

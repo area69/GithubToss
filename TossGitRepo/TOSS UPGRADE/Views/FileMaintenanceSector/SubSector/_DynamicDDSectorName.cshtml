@@ -6,10 +6,8 @@
 
 
 <label class="mt-1 black"><b>Sector</b></label>
-<span class="input-group-append" id="button-addon2">
     @Html.DropDownListFor(m => m.SubSectorNameID, Model.SubSectorList, new { @class = "form-control select2", id = "SectorNameIDD", onchange = "AngularGlobalFunctions('FMSectorController','LoadDynamicLSectorCode','')" })
-    <button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addSectorModal" ng-click="Get_SectorTables2()"><strong>+</strong></button>
-</span>
+
 <script>
     $(function () {
         $("#SectorNameIDD").select2();

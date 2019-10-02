@@ -17,6 +17,7 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SubSector()
         {
+            this.Functions = new HashSet<Function>();
             this.Signatory_DepartmentTable = new HashSet<Signatory_DepartmentTable>();
         }
     
@@ -25,6 +26,8 @@ namespace TOSS_UPGRADE.Models
         public string SubSectorName { get; set; }
         public string SubSectorCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Function> Functions { get; set; }
         public virtual Sector Sector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Signatory_DepartmentTable> Signatory_DepartmentTable { get; set; }

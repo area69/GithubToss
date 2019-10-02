@@ -17,6 +17,7 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OfficeType()
         {
+            this.Functions = new HashSet<Function>();
             this.Signatory_DepartmentTable = new HashSet<Signatory_DepartmentTable>();
         }
     
@@ -24,6 +25,8 @@ namespace TOSS_UPGRADE.Models
         public string OfficeTypeName { get; set; }
         public string OfficeTypeCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Function> Functions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Signatory_DepartmentTable> Signatory_DepartmentTable { get; set; }
     }

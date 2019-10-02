@@ -271,6 +271,7 @@
     <Compile Include="Models\FM_AccountableForm\FM_AccountableFormInventory.cs" />
     <Compile Include="Models\FM_Bank\FM_Bank_BankName.cs" />
     <Compile Include="Models\FM_Barangay\FM_Barangay_BarangayName.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_RevisionYear.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckInventory.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckMaintenance.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_DVType.cs" />
@@ -280,8 +281,13 @@
     <Compile Include="Models\FM_Payee\FM_Payee_Payee.cs" />
     <Compile Include="Models\FM_Position\FM_Position_Position.cs" />
     <Compile Include="Models\FM_ResponsibilityCenter\FM_ResponsibilityCenter_Department.cs" />
+    <Compile Include="Models\FM_ResponsibilityCenter\FM_ResponsibilityCenter_Function.cs" />
+    <Compile Include="Models\FM_ResponsibilityCenter\FM_ResponsibilityCenter_Section.cs" />
     <Compile Include="Models\FM_Sectors\FM_Sector.cs" />
     <Compile Include="Models\FM_SignatoriesModel.cs" />
+    <Compile Include="Models\Function.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Fund.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -308,6 +314,12 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PersonalInformation.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RevisionYear.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Section.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sector.cs">
@@ -8942,11 +8954,8 @@
     <Content Include="Views\AF53\Index.cshtml" />
     <Content Include="Views\AF54\Index.cshtml" />
     <Content Include="Views\FileMaintenanceSignatories\_SignatoriesTable.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Position\_PositionTable.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Position\_PositionUpdate.cshtml" />
     <Content Include="Views\FileMaintenanceSignatories\_SignatoriesAdd.cshtml" />
     <Content Include="Views\FileMaintenanceSignatories\_SignatoriesUpdate.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Position\_PositionAdd.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\CollectionDisplayOR\Index.cshtml" />
     <Content Include="Views\BankTransactionAFTransfer\Index.cshtml" />
@@ -8955,9 +8964,6 @@
     <Content Include="Views\BankTransactionInvestment\Index.cshtml" />
     <Content Include="Views\BankTransactionADebitAgencyBankAccount\Index.cshtml" />
     <Content Include="Views\FileMaintenanceSignatories\_DynamicDDDepartment.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Department\_DepartmentAdd.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Department\_DepartmentTable.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatories\Department\_DepartmentUpdate.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\DVType\_AddDVType.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\DVType\_UpdateDVType.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\DVType\_DVTypeTable.cshtml" />
@@ -9025,9 +9031,6 @@
     <Content Include="Views\FileMaintenanceBarangay\Index.cshtml" />
     <Content Include="Views\FileMaintenanceIRAShare\Index.cshtml" />
     <Content Include="Views\FileMaintenancePayee\Index.cshtml" />
-    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_AddFunds.cshtml" />
-    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_FundTable.cshtml" />
-    <Content Include="Views\FileMaintenanceFund\SubFund\Fund\_UpdateFunds.cshtml" />
     <Content Include="Views\FileMaintenanceBarangay\BarangayName\_AddBarangayName.cshtml" />
     <Content Include="Views\FileMaintenanceBarangay\BarangayName\_BarangayNameTable.cshtml" />
     <Content Include="Views\FileMaintenanceBarangay\BarangayName\_UpdateBarangayName.cshtml" />
@@ -9060,9 +9063,6 @@
     <Content Include="Views\FileMaintenanceOfficeType\_AddOfficeType.cshtml" />
     <Content Include="Views\FileMaintenanceOfficeType\_OfficeTypeTable.cshtml" />
     <Content Include="Views\FileMaintenanceOfficeType\_UpdateOfficeType.cshtml" />
-    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_AddSectors.cshtml" />
-    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_SectorTable.cshtml" />
-    <Content Include="Views\FileMaintenanceSector\SubSector\Sector\_UpdateSectors.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DepartmentTable.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_AddDepartment.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\_DynamicDDFundName.cshtml" />
@@ -9074,6 +9074,24 @@
     <Content Include="Views\FileMaintenancePayee\_AddPayee.cshtml" />
     <Content Include="Views\FileMaintenancePayee\_DynamicDDDepartmentName.cshtml" />
     <Content Include="Views\FileMaintenancePayee\_UpdatePayee.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_AddFunction.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_FunctionTable.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_UpdateFunction.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicDDDepartmentName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicLBFundName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicLBDepartmentOfficeCode.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicDDSectorName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicDDSubSector.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\_DynamicDDOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\_AddSection.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\SectionTable.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\_UpdateSection.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\_DynamicDDDepartmenName.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\_DynamicDDFunctionName.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatories\_DynamicDDFunctionName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_AddRevisionYear.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_RevisionYearTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_UpdateRevisionYear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9089,7 +9107,6 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
     <Folder Include="Views\FileMaintenanceBarangay\BarangayBankAccount\" />
-    <Folder Include="Views\FileMaintenanceResponsibilityCenter\Function\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

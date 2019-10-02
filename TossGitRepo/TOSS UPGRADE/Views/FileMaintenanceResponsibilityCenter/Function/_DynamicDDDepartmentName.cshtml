@@ -1,0 +1,15 @@
+﻿@model TOSS_UPGRADE.Models.FM_ResponsibilityCenter.FM_ResponsibilityCenter_Function
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label class="custom-form-margin mt-xl-2"><b>Department</b></label>
+    @Html.DropDownListFor(m => m.DepartmentID, Model.FunctionList, new { @class = "form-control select2", id = "DepartmentNameIDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMDepartmentController','LoadDynamicLBFundName','LoadDynamicLBDepartmentCode')" })
+   
+<script>
+    $(function () {
+        $("#DepartmentIDD").select2();
+    })
+</script>

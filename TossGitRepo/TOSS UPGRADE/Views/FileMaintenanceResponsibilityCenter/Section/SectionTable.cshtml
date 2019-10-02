@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_ResponsibilityCenter.SectionList>
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<div class="col-md-12">
+    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+        <thead class="text-center">
+            <tr>
+                <th>Department</th>
+                <th>Function</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            @{
+                foreach (var Items in Model)
+                {
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Section Deleted";
+
+                    var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\" onclick=\"AngularGlobalEdit('FMDepartmentController','Get_UpdateSection','" + @Items.SectionID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                    var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.SectionName + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.SectionID + ",&quot;Get_DeleteSection&quot;,&quot;FMDepartmentController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete<b></button>";
+                    var ActionContentProgram = ViewEdit + ViewDelete;
+                    <tr>
+                        <td>@Items.DepartmentName</td>
+                        <td>@Items.FunctionName</td>
+                        <td>@Items.SectionName</td>
+                        <td>
+                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                    data-original-title="" data-html="true" data-placement="right">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>
