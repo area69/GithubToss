@@ -236,6 +236,12 @@
     <Compile Include="Models\AccountableForm_Inventory.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountGroup.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AllotmentClass.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BankAccountTable.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -271,6 +277,9 @@
     <Compile Include="Models\FM_AccountableForm\FM_AccountableFormInventory.cs" />
     <Compile Include="Models\FM_Bank\FM_Bank_BankName.cs" />
     <Compile Include="Models\FM_Barangay\FM_Barangay_BarangayName.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_AccountGroup.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_AllotmentClass.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_MajorAccountGroup.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_RevisionYear.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckInventory.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckMaintenance.cs" />
@@ -304,6 +313,9 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel\LoginModel.cs" />
+    <Compile Include="Models\MajorAccountGroup.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OfficeType.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -9092,6 +9104,22 @@
     <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_AddRevisionYear.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_RevisionYearTable.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\_UpdateRevisionYear.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AllotmentClass\_AddAllotmentClass.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AllotmentClass\_UpdateAllotmentClass.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AllotmentClass\_AllotmentClassTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AllotmentClass\_DynamicDDRevisionYearDate.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\_AddAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\_AccountGroupTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\_UpdateAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\_DynamicDDRevisionYearDate.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\_DynamicDDAllotmentClassName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_AddMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_MajorAccountGroupTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_UpdateMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDRevisionYearDate.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAllotmentClassName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAccountGroupName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAccountGroupCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

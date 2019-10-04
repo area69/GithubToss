@@ -30,7 +30,9 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<AccountableForm_Assignment> AccountableForm_Assignment { get; set; }
         public virtual DbSet<AccountableForm_Inventory> AccountableForm_Inventory { get; set; }
         public virtual DbSet<AccountableFormTable> AccountableFormTables { get; set; }
+        public virtual DbSet<AccountGroup> AccountGroups { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AllotmentClass> AllotmentClasses { get; set; }
         public virtual DbSet<BankAccount_AccountType> BankAccount_AccountType { get; set; }
         public virtual DbSet<BankAccount_LedgerAccount> BankAccount_LedgerAccount { get; set; }
         public virtual DbSet<BankAccountTable> BankAccountTables { get; set; }
@@ -47,6 +49,7 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
         public virtual DbSet<Level2Modules> Level2Modules { get; set; }
         public virtual DbSet<Level3Modules> Level3Modules { get; set; }
+        public virtual DbSet<MajorAccountGroup> MajorAccountGroups { get; set; }
         public virtual DbSet<OfficeType> OfficeTypes { get; set; }
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<Payee> Payees { get; set; }

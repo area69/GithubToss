@@ -24,8 +24,6 @@ namespace TOSS_UPGRADE.Controllers
         }
 
         #region RevisionYear
-        //Barangay
-
         //Table Revision Year
         public ActionResult Get_RevisionYearTable()
         {
@@ -72,10 +70,14 @@ namespace TOSS_UPGRADE.Controllers
             tblBarangayName.IsUsed = model.IsUsed;
             tblBarangayName.Remarks = model.getRevisionYearcolumns.Remarks;
             TOSSDB.RevisionYears.Add(tblBarangayName);
-            TOSSDB.SaveChanges();
-            return Json(tblBarangayName);
-        }
 
+            AllotmentClass tblAllotment = new AllotmentClass();
+            tblAllotment.RevisionYearID = model.getRevisionYearcolumns.RevisionYearID;
+            tblAllotment.AllotmentClassName = "N/A";
+            TOSSDB.AllotmentClasses.Add(tblAllotment);
+            TOSSDB.SaveChanges();
+            return Json("");
+        }
         //Get Revision Year
         public ActionResult Get_UpdateRevisionYear(FM_ChartOfAccounts_RevisionYear model, int RevisionYearID)
         {
@@ -103,6 +105,277 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.RevisionYears.Remove(tblBarangayName);
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
+        }
+        #endregion
+        #region Allotment Class
+        //Table Allotment Class
+        public ActionResult Get_AllotmentClassTable()
+        {
+            FM_ChartOfAccounts_AllotmentClass model = new FM_ChartOfAccounts_AllotmentClass();
+            List<AllotmentClassList> tbl_AllotmentClass = new List<AllotmentClassList>();
+
+            var SQLQuery = "SELECT AllotmentClassID,RevisionYearDate,AllotmentClassName,IsUsed FROM DB_TOSS.dbo.AllotmentClass,dbo.RevisionYear where RevisionYear.RevisionYearID = AllotmentClass.RevisionYearID AND IsUsed = 1  order by AllotmentClassName asc;";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_AllotmentClassList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_AllotmentClass.Add(new AllotmentClassList()
+                        {
+                            AllotmentClassID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[1]),
+                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[2]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getAllotmentClassList = tbl_AllotmentClass.ToList();
+            return PartialView("AllotmentClass/_AllotmentClassTable", model.getAllotmentClassList);
+        }
+        //Get Add Allotment Class Partial View
+        public ActionResult Get_AddAllotmentClass()
+        {
+            FM_ChartOfAccounts_AllotmentClass model = new FM_ChartOfAccounts_AllotmentClass();
+            return PartialView("AllotmentClass/_AddAllotmentClass", model);
+        }
+        //Dropdown Revision Year
+        public ActionResult GetDynamicRevisionYear()
+        {
+            FM_ChartOfAccounts_AllotmentClass model = new FM_ChartOfAccounts_AllotmentClass();
+            model.AllotmentClassList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("AllotmentClass/_DynamicDDRevisionYearDate", model);
+        }
+        //Dropdown Revision Year
+        public ActionResult GetSelectedDynamicRevisionYear(int RevisionYearDateTempID)
+        {
+            FM_ChartOfAccounts_AllotmentClass model = new FM_ChartOfAccounts_AllotmentClass();
+            model.AllotmentClassList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.RevisionYearDate = RevisionYearDateTempID;
+            return PartialView("AllotmentClass/_DynamicDDRevisionYearDate", model);
+        }
+        //Add Allotment Class
+        public JsonResult AddAllotmentClass(FM_ChartOfAccounts_AllotmentClass model)
+        {
+            AllotmentClass tblAllotmentClass = new AllotmentClass();
+            tblAllotmentClass.RevisionYearID = model.RevisionYearDate;
+            tblAllotmentClass.AllotmentClassName = model.getAllotmentClasscolumns.AllotmentClassName;
+            TOSSDB.AllotmentClasses.Add(tblAllotmentClass);
+            TOSSDB.SaveChanges();
+            return Json(tblAllotmentClass);
+        }
+        //Get Allotment Class
+        public ActionResult Get_UpdateAllotmentClass(FM_ChartOfAccounts_AllotmentClass model, int AllotmentClassID)
+        {
+            AllotmentClass tblAllotmentClass = (from e in TOSSDB.AllotmentClasses where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
+            model.getAllotmentClasscolumns.AllotmentClassID = tblAllotmentClass.AllotmentClassID;
+            model.RevisionYearDateTempID = tblAllotmentClass.RevisionYearID;
+            model.getAllotmentClasscolumns.AllotmentClassName = tblAllotmentClass.AllotmentClassName;
+            return PartialView("AllotmentClass/_UpdateAllotmentClass", model);
+        }
+        public ActionResult UpdateAllotmentClass(FM_ChartOfAccounts_AllotmentClass model)
+        {
+            AllotmentClass tblAllotmentClass = (from e in TOSSDB.AllotmentClasses where e.AllotmentClassID == model.getAllotmentClasscolumns.AllotmentClassID select e).FirstOrDefault();
+            tblAllotmentClass.RevisionYearID = model.RevisionYearDate;
+            tblAllotmentClass.AllotmentClassName = model.getAllotmentClasscolumns.AllotmentClassName;
+            TOSSDB.Entry(tblAllotmentClass);
+            TOSSDB.SaveChanges();
+            return PartialView("AllotmentClass/_UpdateAllotmentClass", model);
+        }
+        //Delete Allotment Class
+        public ActionResult DeleteAllotmentClass(FM_ChartOfAccounts_AllotmentClass model, int AllotmentClassID)
+        {
+            AllotmentClass tblBarangayName = (from e in TOSSDB.AllotmentClasses where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
+            TOSSDB.AllotmentClasses.Remove(tblBarangayName);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        #endregion
+        #region Account Group
+        //Table Account Group
+        public ActionResult Get_AccountGroupTable()
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            List<AccountGroupList> tbl_AllotmentClass = new List<AccountGroupList>();
+
+            var SQLQuery = "SELECT AccountGroupID,AccountGroupName,AccountGroupCode,RevisionYearDate,AllotmentClassName FROM DB_TOSS.dbo.AccountGroup,AllotmentClass,RevisionYear where AllotmentClass.AllotmentClassID = AccountGroup.AllotmentClassID AND RevisionYear.RevisionYearID = AccountGroup.RevisionYearID";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_AccountGroupList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_AllotmentClass.Add(new AccountGroupList()
+                        {
+                            AccountGroupID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[3]),
+                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[4]),
+                            AccountGroupName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            AccountGroupCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getAccountGroupList = tbl_AllotmentClass.ToList();
+            return PartialView("AccountGroup/_AccountGroupTable", model.getAccountGroupList);
+        }
+        //Get Add Allotment Class Partial View
+        public ActionResult Get_AddAccountGroup()
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            return PartialView("AccountGroup/_AddAccountGroup", model);
+        }
+        //Dropdown Revision Year
+        public ActionResult GetDynamicAccountGroupRevisionYear()
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            model.AccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("AccountGroup/_DynamicDDRevisionYearDate", model);
+        }
+
+        public ActionResult GetSelectedDynamicAccountGroupRevisionYear(int RevisionYearDateTempID)
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            model.AccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.RevisionYearDate = RevisionYearDateTempID;
+            return PartialView("AccountGroup/_DynamicDDRevisionYearDate", model);
+        }
+        //Dropdown Allotment Class
+        public ActionResult GetDynamicAccountGroupAllotmentClass(int RevisionYearID)
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            model.AccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.ToList() where s.RevisionYearID == RevisionYearID && s.AllotmentClassID != 9 orderby s.AllotmentClassName ascending select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
+            return PartialView("AccountGroup/_DynamicDDAllotmentClassName", model);
+        }
+        public ActionResult GetSelectedDynamicAccountGroupAllotmentClass(int RevisionYearID,int AllotmentClassIDTempID)
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            model.AccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.Where(a => a.RevisionYearID == RevisionYearID).ToList() select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
+            model.AllotmentClassID = AllotmentClassIDTempID;
+            return PartialView("AccountGroup/_DynamicDDAllotmentClassName", model);
+        }
+        //Add Allotment Class
+        public JsonResult AddAccountGroup(FM_ChartOfAccounts_AccountGroup model)
+        {
+            AccountGroup tblAccountGroup = new AccountGroup();
+            tblAccountGroup.AllotmentClassID = model.AllotmentClassID;
+            tblAccountGroup.RevisionYearID = model.RevisionYearDate;
+            tblAccountGroup.AccountGroupName = model.getAccountGroupcolumns.AccountGroupName;
+            tblAccountGroup.AccountGroupCode = model.getAccountGroupcolumns.AccountGroupCode;
+            TOSSDB.AccountGroups.Add(tblAccountGroup);
+            TOSSDB.SaveChanges();
+            return Json(tblAccountGroup);
+        }
+        //Get Allotment Class
+        public ActionResult Get_UpdateAccountGroup(FM_ChartOfAccounts_AccountGroup model, int AccountGroupID)
+        {
+            AccountGroup tblAllotmentClass = (from e in TOSSDB.AccountGroups where e.AccountGroupID == AccountGroupID select e).FirstOrDefault();
+            model.getAccountGroupcolumns.AccountGroupID = tblAllotmentClass.AccountGroupID;
+            model.RevisionYearDateTempID = tblAllotmentClass.RevisionYearID;
+            model.AllotmentClassIDTempID = tblAllotmentClass.AllotmentClassID;
+            model.getAccountGroupcolumns.AccountGroupName = tblAllotmentClass.AccountGroupName;
+            model.getAccountGroupcolumns.AccountGroupCode = tblAllotmentClass.AccountGroupCode;
+            return PartialView("AccountGroup/_UpdateAccountGroup", model);
+        }
+        public ActionResult UpdateAccountGroup(FM_ChartOfAccounts_AccountGroup model)
+        {
+            AccountGroup tblAccountGroup = (from e in TOSSDB.AccountGroups where e.AllotmentClassID == model.getAccountGroupcolumns.AccountGroupID select e).FirstOrDefault();
+            tblAccountGroup.RevisionYearID = model.RevisionYearDate;
+            tblAccountGroup.AllotmentClassID = model.AllotmentClassID;
+            tblAccountGroup.AccountGroupName = model.getAccountGroupcolumns.AccountGroupName;
+            tblAccountGroup.AccountGroupCode = model.getAccountGroupcolumns.AccountGroupCode;
+            TOSSDB.Entry(tblAccountGroup);
+            TOSSDB.SaveChanges();
+            return PartialView("AllotmentClass/_UpdateAllotmentClass", model);
+        }
+        //Delete Allotment Class
+        public ActionResult DeleteAccountGroup(FM_ChartOfAccounts_AccountGroup model, int AccountGroupID)
+        {
+            AccountGroup tblBarangayName = (from e in TOSSDB.AccountGroups where e.AccountGroupID == AccountGroupID select e).FirstOrDefault();
+            TOSSDB.AccountGroups.Remove(tblBarangayName);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        #endregion
+        #region Major Account Group
+        //Table Account Group
+        public ActionResult Get_MajorAccountGroupTable()
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            List<MajorAccountGroupList> tbl_AllotmentClass = new List<MajorAccountGroupList>();
+
+            var SQLQuery = "SELECT MajorAccountGroupID,MajorAccountGroupName,MajorAccountGroupCode,RevisionYearID,AllotmentClassID,AccountGroupName FROM DB_TOSS.dbo.MajorAccountGroup,AccountGroup where AccountGroup.AccountGroupID = MajorAccountGroup.AccountGroupID";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_AccountGroupList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_AllotmentClass.Add(new MajorAccountGroupList()
+                        {
+                            MajorAccountGroupID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            MajorAccountGroupName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            MajorAccountGroupCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                            RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[3]),
+                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[4]),
+                            AccountGroupName = GlobalFunction.ReturnEmptyString(dr[5])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getMajorAccountGroupList = tbl_AllotmentClass.ToList();
+            return PartialView("MajorAccountGroup/_MajorAccountGroupTable", model.getMajorAccountGroupList);
+        }
+        //Get Add Allotment Class Partial View
+        public ActionResult Get_MajorAddAccountGroup()
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            return PartialView("MajorAccountGroup/_AddMajorAccountGroup", model);
+        }
+        //Dropdown Revision Year
+        public ActionResult GetDynamicMajorAccountGroupRevisionYear()
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("MajorAccountGroup/_DynamicDDRevisionYearDate", model);
+        }
+        //Dropdown Allotment Class
+        public ActionResult GetDynamicMajorAccountGroupAllotmentClass(int RevisionYearID)
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.ToList() where s.RevisionYearID == RevisionYearID orderby s.AllotmentClassName ascending select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
+            return PartialView("MajorAccountGroup/_DynamicDDAllotmentClassName", model);
+        }
+        public ActionResult GetDynamicMajorAccountGroupAccountGroupName(int AllotmentClassID)
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.AccountGroups.Where(a => a.AllotmentClassID == AllotmentClassID).ToList() select new { AccountGroupID = s.AccountGroupID, AccountGroupName = s.AccountGroupName }), "AccountGroupID", "AccountGroupName");
+            return PartialView("MajorAccountGroup/_DynamicDDAccountGroupName", model);
+        }
+        public ActionResult GetMajorAccountCodeField(int AccountGroupID)
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            AccountGroup tblSector = (from e in TOSSDB.AccountGroups where e.AccountGroupID == AccountGroupID select e).FirstOrDefault();
+            model.AccountGroupCodeID = tblSector.AccountGroupCode + " - ";
+            return PartialView("MajorAccountGroup/_DynamicDDAccountGroupCode", model);
         }
         #endregion
     }

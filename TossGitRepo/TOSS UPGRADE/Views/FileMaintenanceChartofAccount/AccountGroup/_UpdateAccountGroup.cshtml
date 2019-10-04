@@ -1,0 +1,42 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_AccountGroup
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdateAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_AccountGroupTable','Successfully Updated')", OnFailure = "OnFailure()", }))
+{
+    @Html.HiddenFor(m => m.getAccountGroupcolumns.AccountGroupID, new { })
+    @Html.HiddenFor(m => m.AllotmentClassIDTempID, new { id = "AllotmentClassIDTempID" })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID, new { id = "RevisionYearDateTempID" })
+    <div class="row black">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2" id="_AccountGroupRevisionYearID">
+                </div>
+                <div class="col-md-5" id="_AccountGroupAllotmentClassID">
+                </div>
+                <div class="col-md-3">
+                    <label class="mt-1"><b>Accounts</b></label>
+                    @Html.TextBoxFor(m => m.getAccountGroupcolumns.AccountGroupName, new { @class = "form-control", type = "text" })
+                </div>
+                <div class="col-md-2">
+                    <label class="mt-1"><b>Account Code</b></label>
+                    @Html.TextBoxFor(m => m.getAccountGroupcolumns.AccountGroupCode, new { @class = "form-control", type = "text" })
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn bg-addbutton form-control black">
+                        <b>Update</b>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMRevisonYearController','Get_AddAccountGroup','')"><b>Cancel</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -56,67 +56,13 @@
 
                     <div class="row black">
                         <div class="col-md-1"></div>
-                        <div class="col-md-10" @*id="DepartmentxID"*@>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="mt-1"><b>Revision Year</b></label>
-                                    <select class="form-control">
-                                        <option>2015</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="mt-1"><b>Allotment Class</b></label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="submit" class="btn bg-addbutton form-control black" onclick="reload">
-                                        <b>Add</b>
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="reset" class="btn bg-headerbc form-control white">
-                                        <b>Cancel</b>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="col-md-10" id="_AllotmentClassID">
                         </div>
                     </div>
-                    <div class="row mt-1" @*id="DepartmentTableID"*@>
+                    <div class="row mt-1" >
                         <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                <thead>
-                                    <tr>
-                                        <th>Revision Year</th>
-                                        <th>Allotment Class</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Capital Outlay</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Maintenance and Other Operating Expenses</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Other Operating Expenses</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Personal Services</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md-10" id="_AllotmentClassTableID">
+
                         </div>
                     </div>
                 </div>
@@ -124,98 +70,10 @@
             @* Account Group *@
             <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
                 <div class="content-body">
-                    <div class="row black">
-                        <div class="col-md-12" @*id="DepartmentxID"*@>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="mt-1"><b>Revision Year</b></label>
-                                    <select class="form-control">
-                                        <option>2015</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-5">
-                                    <label class="mt-1"><b>Allotment Class</b></label>
-                                    <select class="form-control">
-                                        <option>Maintenance and Other Operating Expenses</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="mt-1"><b>Accounts</b></label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1"><b>Account Code</b></label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8"></div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="submit" class="btn bg-addbutton form-control black" onclick="reload">
-                                        <b>Add</b>
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="reset" class="btn bg-headerbc form-control white">
-                                        <b>Cancel</b>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="_AccountGroupID">
+
                     </div>
-                    <div class="row mt-1" @*id="DepartmentTableID"*@>
-                        <div class="col-md-12">
-                            <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Revision Year</th>
-                                        <th>Allotment Class</th>
-                                        <th>Accounts</th>
-                                        <th>Account Code</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Capital Outlay</td>
-                                        <td>Asset</td>
-                                        <td>1</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Liabilities</td>
-                                        <td>2</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Equity</td>
-                                        <td>3</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Income</td>
-                                        <td>4</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Personal Service</td>
-                                        <td>Expenses</td>
-                                        <td>5</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="row mt-1" id="_AccountGroupTableID">
                     </div>
                 </div>
             </div>
@@ -223,111 +81,12 @@
             <div role="tabpanel" class="tab-pane" id="tab4" aria-expanded="true" aria-labelledby="base-tab4">
                 <div class="content-body">
                     <div class="row black">
-                        @*  <div class="col-md-1"></div>*@
-                        <div class="col-md-12" @*id="DepartmentxID"*@>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label class="mt-1"><b>Revision Year</b></label>
-                                    <select class="form-control">
-                                        <option>2015</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="mt-1"><b>Allotment Class</b></label>
-                                    <select class="form-control">
-                                        <option>Maintenance and Other Operating Expenses</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="mt-1"><b>Accounts</b></label>
-                                    <select class="form-control">
-                                        <option>Asset</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <label class="mt-1"><b>Major Account Group</b></label>
-                                    <input type="text" class="form-control" name="name" value="" />
-                                </div>
-                                <div class="col-md-3 mt-1">
-                                    <label><b>Account Code</b></label>
-                                    <div class="input-group mt-0">
-                                        <span class="input-group-addon" id="basic-addon1"><b>1 - </b></span>
-                                        <input type="text" class="form-control" name="name" value="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="submit" class="btn bg-addbutton form-control black" onclick="reload">
-                                        <b>Add</b>
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1" style="visibility:hidden">Function Code</label>
-                                    <button type="reset" class="btn bg-headerbc form-control white">
-                                        <b>Cancel</b>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10" id="_MajorAccountGroupID">
                         </div>
                     </div>
-                    <div class="row mt-1" @*id="DepartmentTableID"*@>
-                        <div class="col-md-12">
-                            <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Revision Year</th>
-                                        <th>Allotment Class</th>
-                                        <th>Accounts</th>
-                                        <th>Major Account Group</th>
-                                        <th>Account Code</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Capital Outlay</td>
-                                        <td>Asset</td>
-                                        <td>Cash</td>
-                                        <td>1-01</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Liabilities</td>
-                                        <td>Financial Liabilities</td>
-                                        <td>2-01</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Equity</td>
-                                        <td>Government Equity</td>
-                                        <td>3-01</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Income</td>
-                                        <td>Tax Revenue</td>
-                                        <td>4-01</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Personal Service</td>
-                                        <td>Expenses</td>
-                                        <td>Personnel Services</td>
-                                        <td>5-01</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row mt-1" >
+                        <div class="col-md-12" id="MajorAccountGroupTableID">
                         </div>
                     </div>
                 </div>
@@ -673,12 +432,17 @@
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
         F.InitAllFunction = function () {
-            //Barangay Name
+          //Revision Year
             F.Get_RevisionYearTable();
+          //Allotment Class
+            F.Get_AllotmentClassTable();
+          //Account Group
+            F.Get_AccountGroupTable();
+          //Major Account Group
+            F.Get_MajorAccountGroupTable();
         }
-
-        //Barangay
-        //Barangay Name
+        
+        //Revision Year
         F.Get_RevisionYearTable = function () {
             P({
                 url: '/FileMaintenanceChartofAccount/Get_RevisionYearTable',
@@ -686,6 +450,9 @@
                 $("#_RevisionYearTableID").html(response.data);
             });
             F.Get_AddRevisionYear();
+            F.Get_AllotmentClassTable();
+            //F.LoadDynamicDDAccountGroupRevisionYear();
+            //F.LoadDynamicDDMajorAccountGroupRevisionYear();
         }
         F.Get_AddRevisionYear = function () {
             P({
@@ -708,6 +475,185 @@
                 params: { RevisionYearID: RevisionYearID }
             }).then(function (response) {
                 F.Get_RevisionYearTable();
+            });
+        }
+
+        //Allotment Class
+        F.Get_AllotmentClassTable = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_AllotmentClassTable',
+            }).then(function (response) {
+                $("#_AllotmentClassTableID").html(response.data);
+            });
+            F.Get_AddAllotmentClass();
+        }
+        F.Get_AddAllotmentClass = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_AddAllotmentClass',
+            }).then(function (response) {
+                $("#_AllotmentClassID").html(response.data);
+                F.LoadDynamicDDRevisionYear();
+            });
+        }
+        F.LoadDynamicDDRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicRevisionYear',
+            }).then(function (response) {
+                $("#_DynamicDDRevisionYearID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDRevisionYear = function () {
+            var RevisionYearDateTempID = $("#RevisionYearDateTempID").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicRevisionYear',
+                params: { RevisionYearDateTempID: RevisionYearDateTempID }
+            }).then(function (response) {
+                $("#_DynamicDDRevisionYearID").html(response.data);
+            });
+        }
+        F.Get_UpdateAllotmentClass = function (AllotmentClassID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_UpdateAllotmentClass',
+                params: { AllotmentClassID: AllotmentClassID }
+            }).then(function (response) {
+                $("#_AllotmentClassID").html(response.data);
+                F.LoadSelectedDynamicDDRevisionYear();
+            });
+        }
+        F.Get_DeleteAllotmentClass = function (AllotmentClassID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/DeleteAllotmentClass',
+                params: { AllotmentClassID: AllotmentClassID }
+            }).then(function (response) {
+                F.Get_AllotmentClassTable();
+            });
+        }
+
+        //Account Group
+        F.Get_AccountGroupTable = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_AccountGroupTable',
+            }).then(function (response) {
+                $("#_AccountGroupTableID").html(response.data);
+            });
+            F.Get_AddAccountGroup();
+        }
+        F.Get_AddAccountGroup = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_AddAccountGroup',
+            }).then(function (response) {
+                $("#_AccountGroupID").html(response.data);
+                F.LoadDynamicDDAccountGroupRevisionYear();
+            });
+        }
+        F.LoadDynamicDDAccountGroupRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicAccountGroupRevisionYear',
+            }).then(function (response) {
+                $("#_AccountGroupRevisionYearID").html(response.data);
+                F.LoadDynamicDDAccountGroupAllotmentClass();
+            });
+        }
+        F.LoadDynamicDDAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#AccountGroupRevisionYearNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID }
+            }).then(function (response) {
+                $("#_AccountGroupAllotmentClassID").html(response.data);
+                $("#AccountGroupAllotmentClassNameIDD").append("<option value=9>N/A</option>");
+            });
+        }
+        F.Get_UpdateAccountGroup = function (AccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_UpdateAccountGroup',
+                params: { AccountGroupID: AccountGroupID }
+            }).then(function (response) {
+                $("#_AccountGroupID").html(response.data);
+                F.LoadSelectedDynamicDDAccountGroupRevisionYear();
+            });
+        }
+        F.LoadSelectedDynamicDDAccountGroupRevisionYear = function () {
+            var RevisionYearDateTempID = $("#RevisionYearDateTempID").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicAccountGroupRevisionYear',
+                params: { RevisionYearDateTempID: RevisionYearDateTempID }
+            }).then(function (response) {
+                $("#_AccountGroupRevisionYearID").html(response.data);
+                F.LoadSelectedDynamicDDAccountGroupAllotmentClass();
+            });
+        }
+        F.LoadSelectedDynamicDDAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#RevisionYearDateTempID").val();
+            var AllotmentClassIDTempID = $("#AllotmentClassIDTempID").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID: AllotmentClassIDTempID }
+            }).then(function (response) {
+                $("#_AccountGroupAllotmentClassID").html(response.data);            
+            });
+        }
+        F.Get_DeleteAccountGroup = function (AccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/DeleteAccountGroup',
+                params: { AccountGroupID: AccountGroupID }
+            }).then(function (response) {
+                F.Get_AccountGroupTable();
+            });
+        }
+
+        //Major Account Group
+        F.Get_MajorAccountGroupTable = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_MajorAccountGroupTable',
+            }).then(function (response) {
+                $("#MajorAccountGroupTableID").html(response.data);
+            });
+            F.Get_AddMajorAccountGroup();
+        }
+        F.Get_AddMajorAccountGroup = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_MajorAddAccountGroup',
+            }).then(function (response) {
+                $("#_MajorAccountGroupID").html(response.data);
+                F.LoadDynamicDDMajorAccountGroupRevisionYear();
+            });
+        }
+        F.LoadDynamicDDMajorAccountGroupRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicMajorAccountGroupRevisionYear',
+            }).then(function (response) {
+                $("#_MajorRevisionYearID").html(response.data);
+                F.LoadDynamicDDMajorAccountGroupAllotmentClass();
+            });
+        }
+        F.LoadDynamicDDMajorAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#MajorAccountGroupRevisionYearNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicMajorAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID }
+            }).then(function (response) {
+                $("#_MajorAllotmentClassID").html(response.data);
+                F.LoadDynamicDDMajorAccountGroupAccountGroupName();
+                });
+        }
+        F.LoadDynamicDDMajorAccountGroupAccountGroupName = function () {
+            var AllotmentClassID = $("#MajorAccountGroupAllotmentClassNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicMajorAccountGroupAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID }
+            }).then(function (response) {
+                $("#_MajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLMajorAccountCode();
+            });
+        }
+        F.LoadDynamicLMajorAccountCode = function () {
+            var AccountGroupID = $("#MajorAccountGroupAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetMajorAccountCodeField',
+                params: { AccountGroupID: AccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicMajorAccountCode").html(response.data);
             });
         }
     });

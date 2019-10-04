@@ -12,23 +12,20 @@ namespace TOSS_UPGRADE.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RevisionYear
+    public partial class AllotmentClass
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RevisionYear()
+        public AllotmentClass()
         {
             this.AccountGroups = new HashSet<AccountGroup>();
-            this.AllotmentClasses = new HashSet<AllotmentClass>();
         }
     
+        public int AllotmentClassID { get; set; }
         public int RevisionYearID { get; set; }
-        public string RevisionYearDate { get; set; }
-        public bool IsUsed { get; set; }
-        public string Remarks { get; set; }
+        public string AllotmentClassName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountGroup> AccountGroups { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AllotmentClass> AllotmentClasses { get; set; }
+        public virtual RevisionYear RevisionYear { get; set; }
     }
 }

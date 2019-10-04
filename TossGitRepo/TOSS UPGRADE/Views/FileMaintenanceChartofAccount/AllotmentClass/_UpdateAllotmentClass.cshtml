@@ -1,0 +1,29 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_AllotmentClass
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdateAllotmentClass", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_AllotmentClassTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+    @Html.HiddenFor(m => m.getAllotmentClasscolumns.AllotmentClassID, new { })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID, new { id= "RevisionYearDateTempID" })
+    <div class="row">
+        <div class="col-md-2" id="_DynamicDDRevisionYearID">
+        </div>
+        <div class="col-md-6">
+            <label class="mt-1"><b>Allotment Class</b></label>
+            @Html.TextBoxFor(m => m.getAllotmentClasscolumns.AllotmentClassName, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Update</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMRevisonYearController','Get_AddAllotmentClass','')"><b>Cancel</b></button>
+        </div>
+    </div>
+}
