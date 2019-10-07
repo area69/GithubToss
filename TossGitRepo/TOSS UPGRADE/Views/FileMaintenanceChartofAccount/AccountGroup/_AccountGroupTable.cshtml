@@ -8,8 +8,8 @@
         <thead class="text-center">
             <tr>
                 <th width="5px">Revision Year</th>
-                <th width="60px">Allotment Class</th>
-                <th width="20px">Accounts</th>
+                <th>Allotment Class</th>
+                <th width="35px">Accounts</th>
                 <th width="5px">Account Code</th>
                 <th width="5px">Action</th>
             </tr>
@@ -26,7 +26,7 @@
                     var ActionContentProgram = ViewEdit + ViewDelete;
                     <tr>
                         <td>@Items.RevisionYearDate</td>
-                        <td>@Items.AllotmentClass</td>
+                        <td class="text-left">@Items.AllotmentClass</td>
                         <td>@Items.AccountGroupName</td>
                         <td>@Items.AccountGroupCode</td>
                         <td width="10%">

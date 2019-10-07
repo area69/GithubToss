@@ -1,1 +1,50 @@
 ﻿
+
+@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_MajorAccountGroup
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("AddMajorAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_MajorAccountGroupTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+
+    @Html.HiddenFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupID, new { })
+    @Html.HiddenFor(m => m.AccountGroupIDTempID1, new { id = "AccountGroupIDTempID1" })
+    @Html.HiddenFor(m => m.AllotmentClassIDTempID1, new { id = "AllotmentClassIDTempID1" })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID1, new { id = "RevisionYearDateTempID1" })
+    <div class="row">
+        <div class="col-md-3" id="_MajorRevisionYearID">
+        </div>
+        <div class="col-md-6" id="_MajorAllotmentClassID">
+        </div>
+        <div class="col-md-3" id="_MajorAccountGroupNameID">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <label class="mt-1"><b>Major Account Group</b></label>
+            @Html.TextBoxFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupName, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-3 mt-1">
+            <div class="row">
+                <div class="col-md-6 pr-0" id="_DynamicMajorAccountCode">
+
+                </div>
+                <div class="col-md-5 pl-0">
+                    <label style="visibility:hidden">Code</label>
+                    @Html.TextBoxFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupCode, new { @class = "form-control", type = "text" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Update</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1" style="visibility:hidden">Function Code</label>
+            <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMRevisonYearController','Get_AddMajorAccountGroup','')"><b>Cancel</b></button>
+        </div>
+    </div>
+}

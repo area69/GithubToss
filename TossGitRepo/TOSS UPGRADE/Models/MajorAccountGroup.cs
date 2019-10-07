@@ -15,10 +15,14 @@ namespace TOSS_UPGRADE.Models
     public partial class MajorAccountGroup
     {
         public int MajorAccountGroupID { get; set; }
+        public int RevisionYearID { get; set; }
+        public int AllotmentClassID { get; set; }
         public int AccountGroupID { get; set; }
         public string MajorAccountGroupName { get; set; }
         public string MajorAccountGroupCode { get; set; }
     
         public virtual AccountGroup AccountGroup { get; set; }
+        public virtual AllotmentClass AllotmentClass { get; set; }
+        public virtual RevisionYear RevisionYear { get; set; }
     }
 }

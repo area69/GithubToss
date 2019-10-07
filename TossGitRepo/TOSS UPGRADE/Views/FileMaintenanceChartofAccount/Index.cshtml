@@ -450,9 +450,6 @@
                 $("#_RevisionYearTableID").html(response.data);
             });
             F.Get_AddRevisionYear();
-            F.Get_AllotmentClassTable();
-            //F.LoadDynamicDDAccountGroupRevisionYear();
-            //F.LoadDynamicDDMajorAccountGroupRevisionYear();
         }
         F.Get_AddRevisionYear = function () {
             P({
@@ -561,7 +558,6 @@
                 params: { RevisionYearID: RevisionYearID }
             }).then(function (response) {
                 $("#_AccountGroupAllotmentClassID").html(response.data);
-                $("#AccountGroupAllotmentClassNameIDD").append("<option value=9>N/A</option>");
             });
         }
         F.Get_UpdateAccountGroup = function (AccountGroupID) {
@@ -626,7 +622,7 @@
                 $("#_MajorRevisionYearID").html(response.data);
                 F.LoadDynamicDDMajorAccountGroupAllotmentClass();
             });
-        }
+        } 
         F.LoadDynamicDDMajorAccountGroupAllotmentClass = function () {
             var RevisionYearID = $("#MajorAccountGroupRevisionYearNameIDD").val();
             P({
@@ -654,6 +650,55 @@
                 params: { AccountGroupID: AccountGroupID },
             }).then(function (response) {
                 $("#_DynamicMajorAccountCode").html(response.data);
+            });
+        }
+        F.Get_UpdateMajorAccountGroup = function (MajorAccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_UpdateMajorAccountGroup',
+                params: { MajorAccountGroupID: MajorAccountGroupID }
+            }).then(function (response) {
+                $("#_MajorAccountGroupID").html(response.data);
+                F.LoadSelectedDynamicDDMajorAccountGroupRevisionYear();
+            });
+        }
+        F.LoadSelectedDynamicDDMajorAccountGroupRevisionYear = function () {
+            var RevisionYearDateTempID1 = $("#RevisionYearDateTempID1");
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicMajorAccountGroupRevisionYear',
+                params: { RevisionYearDateTempID1: RevisionYearDateTempID1}
+            }).then(function (response) {
+                $("#_MajorRevisionYearID").html(response.data);
+                F.LoadSelectedDynamicDDMajorAccountGroupAllotmentClass();
+            });
+        } 
+        F.LoadSelectedDynamicDDMajorAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#MajorAccountGroupRevisionYearNameIDD").val();
+            var AllotmentClassIDTempID1 = $("#AllotmentClassIDTempID1").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicMajorAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID1: AllotmentClassIDTempID1}
+            }).then(function (response) {
+                $("#_MajorAllotmentClassID").html(response.data);
+                F.LoadSelectedDynamicDDMajorAccountGroupAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDMajorAccountGroupAccountGroupName = function () {
+            var AllotmentClassID = $("#MajorAccountGroupAllotmentClassNameIDD").val();
+            var AccountGroupIDTempID1 = $("#AccountGroupIDTempID1").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicMajorAccountGroupAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID1: AccountGroupIDTempID1 }
+            }).then(function (response) {
+                $("#_MajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLMajorAccountCode();
+            });
+        }
+        F.Get_DeleteMajorAccountGroup = function (MajorAccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/DeleteMajorAccountGroup',
+                params: { MajorAccountGroupID: MajorAccountGroupID }
+            }).then(function (response) {
+                F.Get_MajorAccountGroupTable();
             });
         }
     });

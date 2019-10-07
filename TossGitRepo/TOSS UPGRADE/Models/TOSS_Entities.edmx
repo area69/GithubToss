@@ -225,6 +225,8 @@
             <PropertyRef Name="MajorAccountGroupID" />
           </Key>
           <Property Name="MajorAccountGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevisionYearID" Type="int" Nullable="false" />
+          <Property Name="AllotmentClassID" Type="int" Nullable="false" />
           <Property Name="AccountGroupID" Type="int" Nullable="false" />
           <Property Name="MajorAccountGroupName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MajorAccountGroupCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -570,6 +572,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MajorAccountGroup_AllotmentClass">
+          <End Role="AllotmentClass" Type="Self.AllotmentClass" Multiplicity="1" />
+          <End Role="MajorAccountGroup" Type="Self.MajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllotmentClass">
+              <PropertyRef Name="AllotmentClassID" />
+            </Principal>
+            <Dependent Role="MajorAccountGroup">
+              <PropertyRef Name="AllotmentClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MajorAccountGroup_RevisionYear">
+          <End Role="RevisionYear" Type="Self.RevisionYear" Multiplicity="1" />
+          <End Role="MajorAccountGroup" Type="Self.MajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RevisionYear">
+              <PropertyRef Name="RevisionYearID" />
+            </Principal>
+            <Dependent Role="MajorAccountGroup">
+              <PropertyRef Name="RevisionYearID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ParentModules_ParentModules">
           <End Role="ParentModules" Type="Self.ParentModules" Multiplicity="1" />
           <End Role="ParentModules1" Type="Self.ParentModules" Multiplicity="0..1" />
@@ -880,6 +906,14 @@
             <End Role="AccountGroup" EntitySet="AccountGroup" />
             <End Role="MajorAccountGroup" EntitySet="MajorAccountGroup" />
           </AssociationSet>
+          <AssociationSet Name="FK_MajorAccountGroup_AllotmentClass" Association="Self.FK_MajorAccountGroup_AllotmentClass">
+            <End Role="AllotmentClass" EntitySet="AllotmentClass" />
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MajorAccountGroup_RevisionYear" Association="Self.FK_MajorAccountGroup_RevisionYear">
+            <End Role="RevisionYear" EntitySet="RevisionYear" />
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroup" />
+          </AssociationSet>
           <AssociationSet Name="FK_ParentModules_ParentModules" Association="Self.FK_ParentModules_ParentModules">
             <End Role="ParentModules" EntitySet="ParentModules" />
             <End Role="ParentModules1" EntitySet="ParentModules" />
@@ -1058,6 +1092,10 @@
             <End Role="RevisionYear" EntitySet="RevisionYears" />
             <End Role="AllotmentClass" EntitySet="AllotmentClasses" />
           </AssociationSet>
+          <AssociationSet Name="FK_MajorAccountGroup_AllotmentClass" Association="DB_TOSSModel.FK_MajorAccountGroup_AllotmentClass">
+            <End Role="AllotmentClass" EntitySet="AllotmentClasses" />
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroups" />
+          </AssociationSet>
           <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable">
             <End Role="BankAccountTable" EntitySet="BankAccountTables" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTables" />
@@ -1109,6 +1147,10 @@
           <AssociationSet Name="FK_Level3Modules_Level2Modules" Association="DB_TOSSModel.FK_Level3Modules_Level2Modules">
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MajorAccountGroup_RevisionYear" Association="DB_TOSSModel.FK_MajorAccountGroup_RevisionYear">
+            <End Role="RevisionYear" EntitySet="RevisionYears" />
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_OfficeType" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType">
             <End Role="OfficeType" EntitySet="OfficeTypes" />
@@ -1224,6 +1266,7 @@
           <Property Name="AllotmentClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountGroups" Relationship="DB_TOSSModel.FK_AccountGroup_AllotmentClass" FromRole="AllotmentClass" ToRole="AccountGroup" />
           <NavigationProperty Name="RevisionYear" Relationship="DB_TOSSModel.FK_AllotmentClass_AllotmentClass" FromRole="AllotmentClass" ToRole="RevisionYear" />
+          <NavigationProperty Name="MajorAccountGroups" Relationship="DB_TOSSModel.FK_MajorAccountGroup_AllotmentClass" FromRole="AllotmentClass" ToRole="MajorAccountGroup" />
         </EntityType>
         <EntityType Name="BankAccount_AccountType">
           <Key>
@@ -1397,10 +1440,14 @@
             <PropertyRef Name="MajorAccountGroupID" />
           </Key>
           <Property Name="MajorAccountGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevisionYearID" Type="Int32" Nullable="false" />
+          <Property Name="AllotmentClassID" Type="Int32" Nullable="false" />
           <Property Name="AccountGroupID" Type="Int32" Nullable="false" />
           <Property Name="MajorAccountGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MajorAccountGroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountGroup" Relationship="DB_TOSSModel.FK_MajorAccountGroup_AccountGroup" FromRole="MajorAccountGroup" ToRole="AccountGroup" />
+          <NavigationProperty Name="AllotmentClass" Relationship="DB_TOSSModel.FK_MajorAccountGroup_AllotmentClass" FromRole="MajorAccountGroup" ToRole="AllotmentClass" />
+          <NavigationProperty Name="RevisionYear" Relationship="DB_TOSSModel.FK_MajorAccountGroup_RevisionYear" FromRole="MajorAccountGroup" ToRole="RevisionYear" />
         </EntityType>
         <EntityType Name="OfficeType">
           <Key>
@@ -1458,6 +1505,7 @@
           <Property Name="Remarks" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountGroups" Relationship="DB_TOSSModel.FK_AccountGroup_RevisionYear" FromRole="RevisionYear" ToRole="AccountGroup" />
           <NavigationProperty Name="AllotmentClasses" Relationship="DB_TOSSModel.FK_AllotmentClass_AllotmentClass" FromRole="RevisionYear" ToRole="AllotmentClass" />
+          <NavigationProperty Name="MajorAccountGroups" Relationship="DB_TOSSModel.FK_MajorAccountGroup_RevisionYear" FromRole="RevisionYear" ToRole="MajorAccountGroup" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -1666,6 +1714,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MajorAccountGroup_AllotmentClass">
+          <End Type="DB_TOSSModel.AllotmentClass" Role="AllotmentClass" Multiplicity="1" />
+          <End Type="DB_TOSSModel.MajorAccountGroup" Role="MajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AllotmentClass">
+              <PropertyRef Name="AllotmentClassID" />
+            </Principal>
+            <Dependent Role="MajorAccountGroup">
+              <PropertyRef Name="AllotmentClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CheckInventoryTable_BankAccountTable">
           <End Type="DB_TOSSModel.BankAccountTable" Role="BankAccountTable" Multiplicity="1" />
           <End Type="DB_TOSSModel.CheckInventoryTable" Role="CheckInventoryTable" Multiplicity="*" />
@@ -1819,6 +1879,18 @@
             </Principal>
             <Dependent Role="Level3Modules">
               <PropertyRef Name="Level2ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MajorAccountGroup_RevisionYear">
+          <End Type="DB_TOSSModel.RevisionYear" Role="RevisionYear" Multiplicity="1" />
+          <End Type="DB_TOSSModel.MajorAccountGroup" Role="MajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RevisionYear">
+              <PropertyRef Name="RevisionYearID" />
+            </Principal>
+            <Dependent Role="MajorAccountGroup">
+              <PropertyRef Name="RevisionYearID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2194,6 +2266,8 @@
                 <ScalarProperty Name="MajorAccountGroupCode" ColumnName="MajorAccountGroupCode" />
                 <ScalarProperty Name="MajorAccountGroupName" ColumnName="MajorAccountGroupName" />
                 <ScalarProperty Name="AccountGroupID" ColumnName="AccountGroupID" />
+                <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
+                <ScalarProperty Name="RevisionYearID" ColumnName="RevisionYearID" />
                 <ScalarProperty Name="MajorAccountGroupID" ColumnName="MajorAccountGroupID" />
               </MappingFragment>
             </EntityTypeMapping>
