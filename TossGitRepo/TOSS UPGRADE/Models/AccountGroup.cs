@@ -24,10 +24,8 @@ namespace TOSS_UPGRADE.Models
         public string AccountGroupName { get; set; }
         public string AccountGroupCode { get; set; }
         public int AllotmentClassID { get; set; }
-        public int RevisionYearID { get; set; }
     
         public virtual AllotmentClass AllotmentClass { get; set; }
-        public virtual RevisionYear RevisionYear { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MajorAccountGroup> MajorAccountGroups { get; set; }
     }

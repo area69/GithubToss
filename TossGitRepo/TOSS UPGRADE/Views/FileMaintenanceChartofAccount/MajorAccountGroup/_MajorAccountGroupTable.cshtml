@@ -25,8 +25,38 @@
                 var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.MajorAccountGroupID + ",&quot;Get_DeleteMajorAccountGroup&quot;,&quot;FMRevisonYearController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                 var ActionContentProgram = ViewEdit + ViewDelete;
                 <tr>
-                    <td>@Items.RevisionYearDate</td>
-                    <td>@Items.AllotmentClass</td>
+                    <td>
+                        @{
+                            var SubID = Items.AllotmentClass;
+                            var SubSector = (from e in SISDB.AllotmentClasses where e.AllotmentClassID == SubID select e).FirstOrDefault();
+                            var TDValue = "";
+                            if (SubSector == null)
+                            {
+                                TDValue = "N/A";
+                            }
+                            else
+                            {
+                                TDValue = SubSector.RevisionYear.RevisionYearDate;
+                            }
+                        }
+                        @TDValue
+                    </td>
+                    <td>
+                        @{
+                            var SubID1 = Items.AllotmentClass;
+                            var SubSector1 = (from e in SISDB.AllotmentClasses where e.AllotmentClassID == SubID1 select e).FirstOrDefault();
+                            var TDValue1 = "";
+                            if (SubSector1 == null)
+                            {
+                                TDValue1 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue1 = SubSector.AllotmentClassName;
+                            }
+                        }
+                        @TDValue1
+                    </td>
                     <td>@Items.AccountGroupName</td>
                     <td>@Items.MajorAccountGroupName</td>
                     <td>@Items.AccountGroupCode - @Items.MajorAccountGroupCode</td>

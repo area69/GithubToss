@@ -11,55 +11,32 @@
         <h3 class="content-header-title black"><b>File Maintenance - Responsibility Center</b></h3>
     </div>
 </div>
-<div class="card-content" id="FMDepartmentController" ng-controller="FMDepartmentController" ng-init="InitAllFunction();">
+<div class="card-content" id="FMDepartmentController" ng-controller="FMDepartmentController" ng-init="DepartmentTab();">
     <div class="card">
         <ul class="nav nav-tabs bg-headerbc nav-underline">
             <li class="nav-item">
-                <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Department</b></a>
+                <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" ng-click="DepartmentTab()" href="#tab1" aria-expanded="true"><b>Department</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Function</b></a>
+                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" ng-click="FunctionTab()" aria-expanded="false"><b>Function</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>Section</b></a>
+                <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" ng-click="SectionTab()" aria-expanded="false"><b>Section</b></a>
             </li>
         </ul>
         <div class="tab-content px-1 pt-1">
             @* Department *@
-            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-                <div class="content-body">
-                    <div class="row mt-1 black">
-                        <div class="col-md-12" id="DepartmentID">
-
-                        </div>
-                    </div>
-                    <div class="row mt-1" id="DepartmentTableID">
-
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" ng-bind-html="tab1" aria-labelledby="base-tab1">
+              
             </div>
             @* Function *@
-            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
-                <div class="content-body">
-                    <div class="row mt-1 black">
-                        <div class="col-md-12" id="_FunctionID">
-                        </div>
-                    </div>
-                    <div class="row mt-1" id="_FunctionTableID">
-                     
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" ng-bind-html="tab2" aria-labelledby="base-tab2">
+               
 
             </div>
             @* Section *@
-            <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
-                <div class="content-body">
-                    <div id="_SectionID">
-
-                    </div>
-                    <div class="row mt-1" id="_SectionTableID">
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" ng-bind-html="tab3" aria-labelledby="base-tab3">
+               
             </div>
         </div>
     </div>
@@ -70,10 +47,32 @@
     app.controller('FMDepartmentController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
-        F.InitAllFunction = function () {
-            F.Get_DepartmentTable();
-            F.Get_FunctionTable();
-            F.Get_SectionTable();
+        F.DepartmentTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceResponsibilityCenter/DepartmentTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+                F.Get_DepartmentTable();
+            });
+        }
+        F.FunctionTab = function () {
+            F.tab2 = null;
+            P({
+                url: '/FileMaintenanceResponsibilityCenter/FunctionTab',
+            }).then(function (response) {
+                F.tab2 = D(response.data);
+                F.Get_FunctionTable();
+            });
+        }
+        F.SectionTab = function () {
+            F.tab3 = null;
+            P({
+                url: '/FileMaintenanceResponsibilityCenter/SectionTab',
+            }).then(function (response) {
+                F.tab3 = D(response.data);
+                F.Get_SectionTable();
+            });
         }
         @* Message Box *@
         F.SuccessMessageBox = function () {

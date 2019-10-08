@@ -26,7 +26,7 @@ namespace TOSS_UPGRADE.Models.FM_ChartOfAccounts
     public class AccountGroupList
     {
         public int AccountGroupID { get; set; }
-        public string RevisionYearDate { get; set; }
+        public int RevisionYearDate { get; set; }
         public string AllotmentClass { get; set; }
         public string AccountGroupName { get; set; }
         public string AccountGroupCode { get; set; }

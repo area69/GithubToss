@@ -22,6 +22,16 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
+        public ActionResult SectorTab()
+        {
+            FM_Sector model = new FM_Sector();
+            return PartialView("Sector/SectorIndex", model);
+        }
+        public ActionResult SubSectorTab()
+        {
+            FM_Sector model = new FM_Sector();
+            return PartialView("SubSector/SubSectorIndex", model);
+        }
         #region Sector
         //Table Sector
         public ActionResult Get_SectorTable()

@@ -11,48 +11,25 @@
         <h3 class="content-header-title black"><b>File Maintenance - Fund</b></h3>
     </div>
 </div>
-<div class="card-content" id="FMFundController" ng-controller="FMFundController" ng-init="InitAllFunction();">
+<div class="card-content" id="FMFundController" ng-controller="FMFundController" ng-init="FundTab();">
 
     <div class="card">
         <ul class="nav nav-tabs">
             <li class="nav-item bg-headerbc text-center">
-                <a class="nav-link btn-min-width white active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Fund</b></a>
+                <a class="nav-link btn-min-width white active" id="base-tab1" ng-click="FundTab()" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Fund</b></a>
             </li>
             <li class="nav-item bg-headerbc text-center">
-                <a class="nav-link btn-min-width white" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Sub Fund</b></a>
+                <a class="nav-link btn-min-width white" id="base-tab2" data-toggle="tab" ng-click="SubFundTab()" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Sub Fund</b></a>
             </li>
         </ul>
         <div class="tab-content px-1 pt-1">
             @* Fund *@
-            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-                <div class="content-body">
-                    <div class="row black">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" id="FundID">
-
-                        </div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" id="FundTableID">
-                        </div>
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" ng-bind-html="tab1" aria-labelledby="base-tab1">
+              
             </div>
             @* Sub Fund *@
-            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
-                <div class="content-body">
-                    <div class="row black">
-                        <div class="col-md-12" id="SubFundID">
-                        </div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" id="SubFundTableID">
-
-                        </div>
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" ng-bind-html="tab2" aria-labelledby="base-tab2">
+               
             </div>
         </div>
     </div>
@@ -61,13 +38,26 @@
 @*Angular Function*@
     app.controller('FMFundController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
-        F.InitAllFunction = function () {
-            //Fund
-            F.Get_FundTables();
-            //Sub Fund
-            F.Get_SubFundTables();
-            
+
+        F.FundTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceFund/FundTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+                F.Get_FundTables();
+            });
         }
+        F.SubFundTab = function () {
+            F.tab2 = null;
+            P({
+                url: '/FileMaintenanceFund/SubFundTab',
+            }).then(function (response) {
+                F.tab2 = D(response.data);
+                F.Get_SubFundTables();
+            });
+        }
+
         @* Message Box *@
         F.SuccessMessageBox = function () {
             var SuccessMess = F.P;
@@ -81,13 +71,14 @@
             var SuccessMess = F.P;
             swalSuccess("Successfully Deleted", SuccessMess);
         }
-        @*Fund*@
+        @* Fund *@
+
         F.Get_FundTables = function () {
             P({
                 url: '/FileMaintenanceFund/Get_FundTable',
             }).then(function (response) {
                 $("#FundTableID").html(response.data);
-                });
+            });
             F.Get_AddFunds();
         }
         F.Get_AddFunds = function () {
@@ -95,8 +86,7 @@
                 url: '/FileMaintenanceFund/Get_AddFund',
             }).then(function (response) {
                 $("#FundID").html(response.data);
-                F.LoadDynamicDDFund();
-                });
+            });
         }
         F.Get_UpdateFunds = function (FundID) {
             P({
@@ -104,7 +94,7 @@
                 params: { FundID: FundID }
             }).then(function (response) {
                 $("#FundID").html(response.data);
-                });
+            });
         }
         F.Get_DeleteFunds = function (FundID) {
             P({
@@ -165,5 +155,6 @@
                 $("#_DynamicFund").html(response.data);
             });
         }
+
     });
 </script>

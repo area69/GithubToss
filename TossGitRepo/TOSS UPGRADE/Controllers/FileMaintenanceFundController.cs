@@ -23,6 +23,16 @@ namespace TOSS_UPGRADE.Controllers
             return View();
         }
         #region Fund
+        public ActionResult FundTab()
+        {
+            FM_Fund model = new FM_Fund();
+            return PartialView("Fund/FundIndex", model);
+        }
+        public ActionResult SubFundTab()
+        {
+            FM_Fund model = new FM_Fund();
+            return PartialView("SubFund/SubFundIndex", model);
+        }
         //Table Fund
         public ActionResult Get_FundTable()
         {

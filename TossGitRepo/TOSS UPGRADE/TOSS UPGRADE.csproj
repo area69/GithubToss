@@ -281,6 +281,7 @@
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_AllotmentClass.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_MajorAccountGroup.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_RevisionYear.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_SubMajorAccountGroup.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckInventory.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_CheckMaintenance.cs" />
     <Compile Include="Models\FM_Disbursement\FM_Disbursement_DVType.cs" />
@@ -9120,6 +9121,18 @@
     <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAllotmentClassName.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAccountGroupName.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\_DynamicDDAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\Fund\FundIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\SubFund\SubFundIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\Sector\SectorIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSector\SubSectorIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Department\DepartmentIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Function\FunctionIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibilityCenter\Section\SectionIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\RevisionYear\RevisionIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AllotmentClass\AllotmentClassIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\AccountGroupIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\MajorAccountGroupIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\SubMajorAccountGroupIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

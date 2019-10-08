@@ -7,11 +7,11 @@
     <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
         <thead class="text-center">
             <tr>
-                <th width="5px">Revision Year</th>
+                <th>Revision Year</th>
                 <th>Allotment Class</th>
-                <th width="35px">Accounts</th>
-                <th width="5px">Account Code</th>
-                <th width="5px">Action</th>
+                <th>Accounts</th>
+                <th>Account Code</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -25,10 +25,25 @@
                     var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.AccountGroupID + ",&quot;Get_DeleteAccountGroup&quot;,&quot;FMRevisonYearController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                     var ActionContentProgram = ViewEdit + ViewDelete;
                     <tr>
-                        <td>@Items.RevisionYearDate</td>
+                        <td width="5%">
+                            @{
+                                var SubID = Items.RevisionYearDate;
+                                var SubSector = (from e in SISDB.RevisionYears where e.RevisionYearID == SubID select e).FirstOrDefault();
+                                var TDValue = "";
+                                if (SubSector == null)
+                                {
+                                    TDValue = "N/A";
+                                }
+                                else
+                                {
+                                    TDValue = SubSector.RevisionYearDate;
+                                }
+                            }
+                            @TDValue
+                        </td>
                         <td class="text-left">@Items.AllotmentClass</td>
-                        <td>@Items.AccountGroupName</td>
-                        <td>@Items.AccountGroupCode</td>
+                        <td class="text-left" width="5%">@Items.AccountGroupName</td>
+                        <td width="5%">@Items.AccountGroupCode</td>
                         <td width="10%">
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
                                     data-original-title="" data-html="true" data-placement="right">

@@ -22,7 +22,31 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
-
+        public ActionResult RevisionYearTab()
+        {
+            FM_ChartOfAccounts_RevisionYear model = new FM_ChartOfAccounts_RevisionYear();
+            return PartialView("RevisionYear/RevisionIndex", model);
+        }
+        public ActionResult AllotmentClassTab()
+        {
+            FM_ChartOfAccounts_AllotmentClass model = new FM_ChartOfAccounts_AllotmentClass();
+            return PartialView("AllotmentClass/AllotmentClassIndex", model);
+        }
+        public ActionResult AccountGroupTab()
+        {
+            FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
+            return PartialView("AccountGroup/AccountGroupIndex", model);
+        }
+        public ActionResult MajorAccountGroupTab()
+        {
+            FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
+            return PartialView("MajorAccountGroup/MajorAccountGroupIndex", model);
+        }
+        public ActionResult SubMajorAccountGroupTab()
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            return PartialView("SubMajorAccountGroup/SubMajorAccountGroupIndex", model);
+        }
         #region RevisionYear
         //Table Revision Year
         public ActionResult Get_RevisionYearTable()
@@ -101,9 +125,13 @@ namespace TOSS_UPGRADE.Controllers
         //Delete Revision Year
         public ActionResult DeleteRevisionYear(FM_ChartOfAccounts_RevisionYear model, int RevisionYearID)
         {
-            RevisionYear tblBarangayName = (from e in TOSSDB.RevisionYears where e.RevisionYearID == RevisionYearID select e).FirstOrDefault();
-            TOSSDB.RevisionYears.Remove(tblBarangayName);
+            RevisionYear tblRevisionYear = (from e in TOSSDB.RevisionYears where e.RevisionYearID == RevisionYearID select e).FirstOrDefault();
+            TOSSDB.RevisionYears.Remove(tblRevisionYear);
+
+            AllotmentClass tblAllotment = (from e in TOSSDB.AllotmentClasses where e.RevisionYearID == RevisionYearID select e).FirstOrDefault();
+            TOSSDB.AllotmentClasses.Remove(tblAllotment);
             TOSSDB.SaveChanges();
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -191,8 +219,8 @@ namespace TOSS_UPGRADE.Controllers
         //Delete Allotment Class
         public ActionResult DeleteAllotmentClass(FM_ChartOfAccounts_AllotmentClass model, int AllotmentClassID)
         {
-            AllotmentClass tblBarangayName = (from e in TOSSDB.AllotmentClasses where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
-            TOSSDB.AllotmentClasses.Remove(tblBarangayName);
+            AllotmentClass tblAllotment = (from e in TOSSDB.AllotmentClasses where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
+            TOSSDB.AllotmentClasses.Remove(tblAllotment);
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -204,7 +232,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
             List<AccountGroupList> tbl_AllotmentClass = new List<AccountGroupList>();
 
-            var SQLQuery = "SELECT AccountGroupID,AccountGroupName,AccountGroupCode,RevisionYearDate,AllotmentClassName FROM DB_TOSS.dbo.AccountGroup,AllotmentClass,RevisionYear where AllotmentClass.AllotmentClassID = AccountGroup.AllotmentClassID AND RevisionYear.RevisionYearID = AccountGroup.RevisionYearID";
+            var SQLQuery = "SELECT AccountGroupID,AccountGroupName,AccountGroupCode,AllotmentClass.RevisionYearID,AllotmentClassName FROM DB_TOSS.dbo.AccountGroup,AllotmentClass where AllotmentClass.AllotmentClassID = AccountGroup.AllotmentClassID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -219,10 +247,10 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AllotmentClass.Add(new AccountGroupList()
                         {
                             AccountGroupID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[3]),
-                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[4]),
                             AccountGroupName = GlobalFunction.ReturnEmptyString(dr[1]),
                             AccountGroupCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                            RevisionYearDate = GlobalFunction.ReturnEmptyInt(dr[3]),
+                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[4]),
                         });
                     }
                 }
@@ -244,11 +272,10 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
             return PartialView("AccountGroup/_DynamicDDRevisionYearDate", model);
         }
-
         public ActionResult GetSelectedDynamicAccountGroupRevisionYear(int RevisionYearDateTempID)
         {
             FM_ChartOfAccounts_AccountGroup model = new FM_ChartOfAccounts_AccountGroup();
-            model.AccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.AccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true || s.RevisionYearID == RevisionYearDateTempID select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
             model.RevisionYearDate = RevisionYearDateTempID;
             return PartialView("AccountGroup/_DynamicDDRevisionYearDate", model);
         }
@@ -271,7 +298,6 @@ namespace TOSS_UPGRADE.Controllers
         {
             AccountGroup tblAccountGroup = new AccountGroup();
             tblAccountGroup.AllotmentClassID = model.AllotmentClassID;
-            tblAccountGroup.RevisionYearID = model.RevisionYearDate;
             tblAccountGroup.AccountGroupName = model.getAccountGroupcolumns.AccountGroupName;
             tblAccountGroup.AccountGroupCode = model.getAccountGroupcolumns.AccountGroupCode;
             TOSSDB.AccountGroups.Add(tblAccountGroup);
@@ -283,22 +309,21 @@ namespace TOSS_UPGRADE.Controllers
         {
             AccountGroup tblAllotmentClass = (from e in TOSSDB.AccountGroups where e.AccountGroupID == AccountGroupID select e).FirstOrDefault();
             model.getAccountGroupcolumns.AccountGroupID = tblAllotmentClass.AccountGroupID;
-            model.RevisionYearDateTempID = tblAllotmentClass.RevisionYearID;
             model.AllotmentClassIDTempID = tblAllotmentClass.AllotmentClassID;
+            model.RevisionYearDateTempID = tblAllotmentClass.AllotmentClass.RevisionYear.RevisionYearID;
             model.getAccountGroupcolumns.AccountGroupName = tblAllotmentClass.AccountGroupName;
             model.getAccountGroupcolumns.AccountGroupCode = tblAllotmentClass.AccountGroupCode;
             return PartialView("AccountGroup/_UpdateAccountGroup", model);
         }
         public ActionResult UpdateAccountGroup(FM_ChartOfAccounts_AccountGroup model)
         {
-            AccountGroup tblAccountGroup = (from e in TOSSDB.AccountGroups where e.AllotmentClassID == model.getAccountGroupcolumns.AccountGroupID select e).FirstOrDefault();
-            tblAccountGroup.RevisionYearID = model.RevisionYearDate;
+            AccountGroup tblAccountGroup = (from e in TOSSDB.AccountGroups where e.AccountGroupID == model.getAccountGroupcolumns.AccountGroupID select e).FirstOrDefault();
             tblAccountGroup.AllotmentClassID = model.AllotmentClassID;
             tblAccountGroup.AccountGroupName = model.getAccountGroupcolumns.AccountGroupName;
             tblAccountGroup.AccountGroupCode = model.getAccountGroupcolumns.AccountGroupCode;
             TOSSDB.Entry(tblAccountGroup);
             TOSSDB.SaveChanges();
-            return PartialView("AllotmentClass/_UpdateAllotmentClass", model);
+            return PartialView("AccountGroup/_UpdateAccountGroup", model);
         }
         //Delete Allotment Class
         public ActionResult DeleteAccountGroup(FM_ChartOfAccounts_AccountGroup model, int AccountGroupID)
@@ -316,7 +341,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
             List<MajorAccountGroupList> tbl_AllotmentClass = new List<MajorAccountGroupList>();
 
-            var SQLQuery = "SELECT MajorAccountGroupID,MajorAccountGroupName,MajorAccountGroupCode,RevisionYearDate,AccountGroupCode,AllotmentClassName,AccountGroupName FROM DB_TOSS.dbo.MajorAccountGroup,AccountGroup,RevisionYear,AllotmentClass where AccountGroup.AccountGroupID = MajorAccountGroup.AccountGroupID AND RevisionYear.RevisionYearID = MajorAccountGroup.RevisionYearID AND AllotmentClass.AllotmentClassID = MajorAccountGroup.AllotmentClassID";
+            var SQLQuery = "SELECT MajorAccountGroupID,MajorAccountGroupName,MajorAccountGroupCode,AccountGroup.AllotmentClassID,AccountGroupCode,AccountGroupName FROM DB_TOSS.dbo.MajorAccountGroup,AccountGroup where AccountGroup.AccountGroupID = MajorAccountGroup.AccountGroupID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -333,10 +358,10 @@ namespace TOSS_UPGRADE.Controllers
                             MajorAccountGroupID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             MajorAccountGroupName = GlobalFunction.ReturnEmptyString(dr[1]),
                             MajorAccountGroupCode = GlobalFunction.ReturnEmptyString(dr[2]),
-                            RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[3]),
+                            //RevisionYearDate = GlobalFunction.ReturnEmptyString(dr[3]),
                             AccountGroupCode = GlobalFunction.ReturnEmptyString(dr[4]),
-                            AllotmentClass = GlobalFunction.ReturnEmptyString(dr[5]),
-                            AccountGroupName = GlobalFunction.ReturnEmptyString(dr[6])
+                            AllotmentClass = GlobalFunction.ReturnEmptyInt(dr[3]),
+                            AccountGroupName = GlobalFunction.ReturnEmptyString(dr[5])
                         });
                     }
                 }
@@ -406,8 +431,8 @@ namespace TOSS_UPGRADE.Controllers
         {
             MajorAccountGroup tblMajorAccountGroup = new MajorAccountGroup();
             tblMajorAccountGroup.AccountGroupID = model.AccountGroupID;
-            tblMajorAccountGroup.RevisionYearID = model.RevisionYearDate;
-            tblMajorAccountGroup.AllotmentClassID = model.AllotmentClassID;
+            //tblMajorAccountGroup.RevisionYearID = model.RevisionYearDate;
+            //tblMajorAccountGroup.AllotmentClassID = model.AllotmentClassID;
             tblMajorAccountGroup.MajorAccountGroupName = model.getMajorAccountGroupcolumns.MajorAccountGroupName;
             tblMajorAccountGroup.MajorAccountGroupCode = model.getMajorAccountGroupcolumns.MajorAccountGroupCode;
             TOSSDB.MajorAccountGroups.Add(tblMajorAccountGroup);
@@ -419,8 +444,8 @@ namespace TOSS_UPGRADE.Controllers
         {
             MajorAccountGroup tblMajorAccountGroup = (from e in TOSSDB.MajorAccountGroups where e.MajorAccountGroupID == MajorAccountGroupID select e).FirstOrDefault();
             model.getMajorAccountGroupcolumns.MajorAccountGroupID = tblMajorAccountGroup.MajorAccountGroupID;
-            model.RevisionYearDateTempID1 = tblMajorAccountGroup.RevisionYearID;
-            model.AllotmentClassIDTempID1 = tblMajorAccountGroup.AllotmentClassID;
+            //model.RevisionYearDateTempID1 = tblMajorAccountGroup.RevisionYearID;
+            //model.AllotmentClassIDTempID1 = tblMajorAccountGroup.AllotmentClassID;
             model.AccountGroupIDTempID1 = tblMajorAccountGroup.AccountGroupID;
             model.getMajorAccountGroupcolumns.MajorAccountGroupName = tblMajorAccountGroup.MajorAccountGroupName;
             model.getMajorAccountGroupcolumns.MajorAccountGroupCode = tblMajorAccountGroup.MajorAccountGroupCode;
@@ -434,6 +459,9 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
+        #region SubMajor Account Group
+
         #endregion
     }
 }

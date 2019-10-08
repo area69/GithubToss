@@ -22,6 +22,21 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
+        public ActionResult DepartmentTab()
+        {
+            FM_ResponsibilityCenter_Department model = new FM_ResponsibilityCenter_Department();
+            return PartialView("Department/DepartmentIndex", model);
+        }
+        public ActionResult FunctionTab()
+        {
+            FM_ResponsibilityCenter_Function model = new FM_ResponsibilityCenter_Function();
+            return PartialView("Function/FunctionIndex", model);
+        }
+        public ActionResult SectionTab()
+        {
+            FM_ResponsibilityCenter_Section model = new FM_ResponsibilityCenter_Section();
+            return PartialView("Section/SectionIndex", model);
+        }
         #region Department
 
         //Get Add Position Partial View

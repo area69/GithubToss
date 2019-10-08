@@ -9,7 +9,7 @@
             <th>Revision Year</th>
             <th>Is Used?</th>
             <th>Remarks</th>
-            <th>Action</th>
+            <th width="5px">Action</th>
         </tr>
     </thead>
     <tbody class="text-center">
@@ -22,30 +22,30 @@
                 var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMRevisonYearController','Get_UpdateRevisionYear','" + @Items.RevisionYearID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
                 var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.RevisionYearID + ",&quot;Get_DeleteRevisionYear&quot;,&quot;FMRevisonYearController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                 var ActionContentProgram = ViewEdit + ViewDelete;
-                <tr>
-                    <td>@Items.RevisionYear</td>
-                    <td>
-                        @{
-                            var IsUsed = "";
-                            if (Items.IsUsed == true)
-                            {
-                                IsUsed = "Yes";
-                            }
-                            else if (Items.IsUsed == false)
-                            {
-                                IsUsed = "No";
-                            }
-                        }
-                        @IsUsed
-                    </td>
-                    <td>@Items.Remarks</td>
-                    <td width="10%">
-                        <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
-                                data-original-title="" data-html="true" data-placement="right">
-                            <i class="la la-bars"></i>
-                        </button>
-                    </td>
-                </tr>
+        <tr>
+            <td>@Items.RevisionYear</td>
+            <td>
+                @{
+                    var IsUsed = "";
+                    if (Items.IsUsed == true)
+                    {
+                        IsUsed = "Yes";
+                    }
+                    else if (Items.IsUsed == false)
+                    {
+                        IsUsed = "No";
+                    }
+                }
+                @IsUsed
+            </td>
+            <td class="text-left">@Items.Remarks</td>
+            <td width="10%">
+                <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                        data-original-title="" data-html="true" data-placement="right">
+                    <i class="la la-bars"></i>
+                </button>
+            </td>
+        </tr>
             }
         }
     </tbody>

@@ -4,7 +4,7 @@
 }
 @using TOSS_UPGRADE.Models;
 
-@using (Ajax.BeginForm("UpdateSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSectorController','Get_SectorTables','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSectorController','Get_SectorTables','UpdateMessageBox')", OnFailure = "OnFailure()", }))
 {
     @Html.HiddenFor(m => m.getSectorcolumns.SectorID, new { })
 
@@ -24,7 +24,7 @@
         <div class="col-md-8"></div>
         <div class="col-md-2">
             <button type="submit" class="btn bg-addbutton form-control black">
-                <b>Add</b>
+                <b>Update</b>
             </button>
         </div>
         <div class="col-md-2">

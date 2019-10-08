@@ -18,7 +18,6 @@ namespace TOSS_UPGRADE.Models
         public AllotmentClass()
         {
             this.AccountGroups = new HashSet<AccountGroup>();
-            this.MajorAccountGroups = new HashSet<MajorAccountGroup>();
         }
     
         public int AllotmentClassID { get; set; }
@@ -28,7 +27,5 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountGroup> AccountGroups { get; set; }
         public virtual RevisionYear RevisionYear { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MajorAccountGroup> MajorAccountGroups { get; set; }
     }
 }
