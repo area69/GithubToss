@@ -1,0 +1,10 @@
+﻿
+@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_SubMajorAccountGroup
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label class="mt-1"><b>Major Account Group</b></label>
+@Html.DropDownListFor(m => m.MajorAccountGroupNameID, Model.SubMajorAccountGroupList, new { @class = "form-control select2", id = "SubMajorAccountGroupMajorAccountGroupNameIDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMRevisonYearController','LoadDynamicLSubMajorAccountCode2','')" })
+

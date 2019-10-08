@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_ChartOfAccounts.SubMajorAccountGroupList>
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+    <thead class="text-center">
+        <tr>
+            <th>Revision Year</th>
+            <th>Allotment Class</th>
+            <th>Accounts</th>
+            <th>Major Account Group</th>
+            <th>Sub Major Account Group</th>
+            <th>Account Code</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMRevisonYearController','Get_UpdateMajorAccountGroup','" + @Items.SubMajorAccountGroupID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.SubMajorAccountGroupID + ",&quot;Get_DeleteMajorAccountGroup&quot;,&quot;FMRevisonYearController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                var ActionContentProgram = ViewEdit + ViewDelete;
+                <tr>
+                    <td>
+                        @{
+                            var SubID = Items.AllotmentClass;
+                            var SubSector = (from e in SISDB.AllotmentClasses where e.AllotmentClassID == SubID select e).FirstOrDefault();
+                            var TDValue = "";
+                            if (SubSector == null)
+                            {
+                                TDValue = "N/A";
+                            }
+                            else
+                            {
+                                TDValue = SubSector.RevisionYear.RevisionYearDate;
+                            }
+                        }
+                        @TDValue
+                    </td>
+                    <td>
+                        @{
+                            var SubID1 = Items.AllotmentClass;
+                            var SubSector1 = (from e in SISDB.AllotmentClasses where e.AllotmentClassID == SubID1 select e).FirstOrDefault();
+                            var TDValue1 = "";
+                            if (SubSector1 == null)
+                            {
+                                TDValue1 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue1 = SubSector.AllotmentClassName;
+                            }
+                        }
+                        @TDValue1
+                    </td>
+                    <td>@Items.AccountGroupName</td>
+                    <td>@Items.MajorAccountGroupName</td>
+                    <td>@Items.SubMajorAccountGroupName</td>
+                    <td>@Items.AccountGroupCode - @Items.MajorAccountGroupCode - @Items.SubMajorAccountGroupCode</td>
+                    <td width="10%">
+                        <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                data-original-title="" data-html="true" data-placement="right">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

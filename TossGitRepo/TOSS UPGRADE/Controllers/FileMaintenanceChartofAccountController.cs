@@ -386,7 +386,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetSelectedDynamicMajorAccountGroupRevisionYear(int RevisionYearDateTempID1)
         {
             FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
-            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true || s.RevisionYearID == RevisionYearDateTempID1 select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
             model.RevisionYearDate = RevisionYearDateTempID1;
             return PartialView("MajorAccountGroup/_DynamicDDRevisionYearDate", model);
         }
@@ -400,7 +400,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetSelectedDynamicMajorAccountGroupAllotmentClass(int RevisionYearID, int AllotmentClassIDTempID1)
         {
             FM_ChartOfAccounts_MajorAccountGroup model = new FM_ChartOfAccounts_MajorAccountGroup();
-            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.ToList() where s.RevisionYearID == RevisionYearID orderby s.AllotmentClassName ascending select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
+            model.MajorAccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.ToList() where s.RevisionYearID == RevisionYearID || s.AllotmentClassID == AllotmentClassIDTempID1 orderby s.AllotmentClassName ascending select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
             model.AllotmentClassID = AllotmentClassIDTempID1;
             return PartialView("MajorAccountGroup/_DynamicDDAllotmentClassName", model);
         }
@@ -444,11 +444,23 @@ namespace TOSS_UPGRADE.Controllers
         {
             MajorAccountGroup tblMajorAccountGroup = (from e in TOSSDB.MajorAccountGroups where e.MajorAccountGroupID == MajorAccountGroupID select e).FirstOrDefault();
             model.getMajorAccountGroupcolumns.MajorAccountGroupID = tblMajorAccountGroup.MajorAccountGroupID;
-            //model.RevisionYearDateTempID1 = tblMajorAccountGroup.RevisionYearID;
-            //model.AllotmentClassIDTempID1 = tblMajorAccountGroup.AllotmentClassID;
             model.AccountGroupIDTempID1 = tblMajorAccountGroup.AccountGroupID;
+            model.AllotmentClassIDTempID1 = tblMajorAccountGroup.AccountGroup.AllotmentClass.AllotmentClassID;
+            model.RevisionYearDateTempID1 = tblMajorAccountGroup.AccountGroup.AllotmentClass.RevisionYear.RevisionYearID;
             model.getMajorAccountGroupcolumns.MajorAccountGroupName = tblMajorAccountGroup.MajorAccountGroupName;
             model.getMajorAccountGroupcolumns.MajorAccountGroupCode = tblMajorAccountGroup.MajorAccountGroupCode;
+            return PartialView("MajorAccountGroup/_UpdateMajorAccountGroup", model);
+        }
+        public ActionResult UpdateMajorAccountGroup(FM_ChartOfAccounts_MajorAccountGroup model)
+        {
+            MajorAccountGroup tblMajorAccountGroup = (from e in TOSSDB.MajorAccountGroups where e.MajorAccountGroupID == model.getMajorAccountGroupcolumns.MajorAccountGroupID select e).FirstOrDefault();
+            tblMajorAccountGroup.AccountGroupID = model.AccountGroupID;
+            //tblMajorAccountGroup.RevisionYearID = model.RevisionYearDate;
+            //tblMajorAccountGroup.AllotmentClassID = model.AllotmentClassID;
+            tblMajorAccountGroup.MajorAccountGroupName = model.getMajorAccountGroupcolumns.MajorAccountGroupName;
+            tblMajorAccountGroup.MajorAccountGroupCode = model.getMajorAccountGroupcolumns.MajorAccountGroupCode;
+            TOSSDB.Entry(tblMajorAccountGroup);
+            TOSSDB.SaveChanges();
             return PartialView("MajorAccountGroup/_UpdateMajorAccountGroup", model);
         }
         //Delete Major Account Group
@@ -461,7 +473,88 @@ namespace TOSS_UPGRADE.Controllers
         }
         #endregion
         #region SubMajor Account Group
+        //Table Major Account Group
+        public ActionResult Get_SubMajorAccountGroupTable()
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            List<SubMajorAccountGroupList> tbl_SubMajorAccount = new List<SubMajorAccountGroupList>();
 
+            var SQLQuery = "SELECT SubMajorAccountGroupID,SubMajorAccountGroupName,SubMajorAccountGroupCode,MajorAccountGroupName,MajorAccountGroupCode,MajorAccountGroup.AccountGroupID FROM DB_TOSS.dbo.SubMajorAccountGroup,MajorAccountGroup where MajorAccountGroup.MajorAccountGroupID = SubMajorAccountGroup.MajorAccountGroupID";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_AccountGroupList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_SubMajorAccount.Add(new SubMajorAccountGroupList()
+                        {
+                            SubMajorAccountGroupID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            SubMajorAccountGroupName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            MajorAccountGroupCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                            MajorAccountGroupName = GlobalFunction.ReturnEmptyString(dr[3]),
+                            SubMajorAccountGroupCode = GlobalFunction.ReturnEmptyString(dr[4]),
+                            AccountGroupName = GlobalFunction.ReturnEmptyInt(dr[5])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getSubMajorAccountGroupList = tbl_SubMajorAccount.ToList();
+            return PartialView("SubMajorAccountGroup/_SubMajorAccountGroupTable", model.getSubMajorAccountGroupList);
+        }
+        //Get Add Sub Major Account Group Partial View
+        public ActionResult Get_SubMajorAddAccountGroup()
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            return PartialView("SubMajorAccountGroup/_AddSubMajorAccountGroup", model);
+        }
+        //Dropdown Revision Year
+        public ActionResult GetDynamicSubMajorAccountGroupRevisionYear()
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            model.SubMajorAccountGroupList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("SubMajorAccountGroup/_DynamicDDRevisionYearDate", model);
+        }
+        //Dropdown Allotment Class
+        public ActionResult GetDynamicSubMajorAccountGroupAllotmentClass(int RevisionYearID)
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            model.SubMajorAccountGroupList = new SelectList((from s in TOSSDB.AllotmentClasses.ToList() where s.RevisionYearID == RevisionYearID orderby s.AllotmentClassName ascending select new { AllotmentClassID = s.AllotmentClassID, AllotmentClassName = s.AllotmentClassName }), "AllotmentClassID", "AllotmentClassName");
+            return PartialView("SubMajorAccountGroup/_DynamicDDAllotmentClassName", model);
+        }
+        //Dropdown Account Group
+        public ActionResult GetDynamicSubMajorAccountGroupAccountGroupName(int AllotmentClassID)
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            model.SubMajorAccountGroupList = new SelectList((from s in TOSSDB.AccountGroups.Where(a => a.AllotmentClassID == AllotmentClassID).ToList() select new { AccountGroupID = s.AccountGroupID, AccountGroupName = s.AccountGroupName }), "AccountGroupID", "AccountGroupName");
+            return PartialView("SubMajorAccountGroup/_DynamicDDAccountGroupName", model);
+        }
+        public ActionResult GetDynamicSubMajorAccountGroupMajorAccountGroupName(int AccountGroupID)
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            model.SubMajorAccountGroupList = new SelectList((from s in TOSSDB.MajorAccountGroups.Where(a => a.AccountGroupID == AccountGroupID).ToList() select new { MajorAccountGroupID = s.MajorAccountGroupID, MajorAccountGroupName = s.MajorAccountGroupName }), "MajorAccountGroupID", "MajorAccountGroupName");
+            return PartialView("SubMajorAccountGroup/_DynamicDDMajorAccountName", model);
+        }
+        //Dropdown Account Group Code
+        public ActionResult GetSubMajorAccountCodeField(int AccountGroupID)
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            AccountGroup tblSector = (from e in TOSSDB.AccountGroups where e.AccountGroupID == AccountGroupID select e).FirstOrDefault();
+            model.AccountGroupCodeID = tblSector.AccountGroupCode + " - ";
+            return PartialView("SubMajorAccountGroup/_DynamicDDAccountGroupCode", model);
+        }
+        public ActionResult GetSubMajorAccountCodeField2(int MajorAccountGroupID)
+        {
+            FM_ChartOfAccounts_SubMajorAccountGroup model = new FM_ChartOfAccounts_SubMajorAccountGroup();
+            MajorAccountGroup tblSector = (from e in TOSSDB.MajorAccountGroups where e.MajorAccountGroupID == MajorAccountGroupID select e).FirstOrDefault();
+            model.MajorAccountGroupCodeID = tblSector.MajorAccountGroupCode + " - ";
+            return PartialView("SubMajorAccountGroup/_DynamicDDMajorAccountGroupCode", model);
+        }
         #endregion
     }
 }

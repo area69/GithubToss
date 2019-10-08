@@ -1,0 +1,6 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_SubMajorAccountGroup
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@Html.TextBoxFor(m => m.AccountGroupCodeID, new { @class = "accntCode black text-right pl-0 font-weight-bold", type = "text", id = "SubMajorAccountCode", @disabled = "disabled" })

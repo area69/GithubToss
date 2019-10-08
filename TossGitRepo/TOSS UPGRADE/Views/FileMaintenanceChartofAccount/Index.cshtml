@@ -307,7 +307,7 @@
                 url: '/FileMaintenanceChartofAccount/SubMajorAccountGroupTab',
             }).then(function (response) {
                 F.tab5 = D(response.data);
-                //F.Get_MajorAccountGroupTable();
+                F.Get_SubMajorAccountGroupTable();
             });
         }
         //Revision Year
@@ -567,6 +567,81 @@
                 params: { MajorAccountGroupID: MajorAccountGroupID }
             }).then(function (response) {
                 F.Get_MajorAccountGroupTable();
+            });
+        }
+
+        //Sub Major Account Group
+        F.Get_SubMajorAccountGroupTable = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_SubMajorAccountGroupTable',
+            }).then(function (response) {
+                $("#_SubMajorAccountGroupTableID").html(response.data);
+            });
+            F.Get_AddSubMajorAccountGroup();
+        }
+        F.Get_AddSubMajorAccountGroup = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_SubMajorAddAccountGroup',
+            }).then(function (response) {
+                $("#_SubMajorAccountGroupID").html(response.data);
+                F.LoadDynamicDDSubMajorAccountGroupRevisionYear();
+            });
+        }
+        F.LoadDynamicDDSubMajorAccountGroupRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicSubMajorAccountGroupRevisionYear',
+            }).then(function (response) {
+                $("#_SubMajorRevisionYearID").html(response.data);
+                F.LoadDynamicDDSubMajorAccountGroupAllotmentClass();
+            });
+        }
+        F.LoadDynamicDDSubMajorAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#SubMajorAccountGroupRevisionYearNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicSubMajorAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID }
+            }).then(function (response) {
+                $("#_SubMajorAllotmentClassID").html(response.data);
+                F.LoadDynamicDDSubMajorAccountGroupAccountGroupName();
+            });
+        }
+        F.LoadDynamicDDSubMajorAccountGroupAccountGroupName = function () {
+            var AllotmentClassID = $("#SubMajorAccountGroupAllotmentClassNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicSubMajorAccountGroupAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID }
+            }).then(function (response) {
+                $("#_SubMajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLSubMajorAccountCode();
+                F.LoadDynamicDDSubMajorAccountGroupMajorAccountGroupName();
+            });
+        }
+        F.LoadDynamicDDSubMajorAccountGroupMajorAccountGroupName = function () {
+            var AccountGroupID = $("#SubMajorAccountGroupAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicSubMajorAccountGroupMajorAccountGroupName',
+                params: { AccountGroupID: AccountGroupID }
+            }).then(function (response) {
+                $("#_DynamicMajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLSubMajorAccountCode2();
+            });
+        }
+        F.LoadDynamicLSubMajorAccountCode = function () {
+            var AccountGroupID = $("#SubMajorAccountGroupAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSubMajorAccountCodeField',
+                params: { AccountGroupID: AccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicSubMajorAccountCode1").html(response.data);
+            });
+        }
+        F.LoadDynamicLSubMajorAccountCode2 = function () {
+            var MajorAccountGroupID = $("#SubMajorAccountGroupMajorAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSubMajorAccountCodeField2',
+                params: { MajorAccountGroupID: MajorAccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicSubMajorAccountCode2").html(response.data);
             });
         }
     });

@@ -353,6 +353,9 @@
     <Compile Include="Models\SubFund.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SubMajorAccountGroup.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SubSector.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -9133,6 +9136,14 @@
     <Content Include="Views\FileMaintenanceChartofAccount\AccountGroup\AccountGroupIndex.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\MajorAccountGroup\MajorAccountGroupIndex.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\SubMajorAccountGroupIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_SubMajorAccountGroupTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_AddSubMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDAccountGroupName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDAllotmentClassName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDRevisionYearDate.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDMajorAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDMajorAccountName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

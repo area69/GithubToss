@@ -5,7 +5,7 @@
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-@using (Ajax.BeginForm("AddMajorAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_MajorAccountGroupTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateMajorAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_MajorAccountGroupTable','Successfully Update')", OnFailure = "OnFailure()", }))
 {
 
     @Html.HiddenFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupID, new { })

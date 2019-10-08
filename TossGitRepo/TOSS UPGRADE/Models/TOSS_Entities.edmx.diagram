@@ -27,7 +27,7 @@
         <EntityTypeShape EntityType="DB_TOSSModel.Level1Modules" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="DB_TOSSModel.Level2Modules" Width="1.5" PointX="5.25" PointY="1.125" />
         <EntityTypeShape EntityType="DB_TOSSModel.Level3Modules" Width="1.5" PointX="7.5" PointY="1.25" />
-        <EntityTypeShape EntityType="DB_TOSSModel.MajorAccountGroup" Width="1.5" PointX="21.5" PointY="6" />
+        <EntityTypeShape EntityType="DB_TOSSModel.MajorAccountGroup" Width="1.5" PointX="21.5" PointY="5.875" />
         <EntityTypeShape EntityType="DB_TOSSModel.OfficeType" Width="1.5" PointX="5.25" PointY="8.25" />
         <EntityTypeShape EntityType="DB_TOSSModel.ParentModule" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="DB_TOSSModel.Payee" Width="1.5" PointX="7.5" PointY="16.5" />
@@ -40,6 +40,7 @@
         <EntityTypeShape EntityType="DB_TOSSModel.Signatory_PositionTable" Width="1.5" PointX="7.5" PointY="8.625" />
         <EntityTypeShape EntityType="DB_TOSSModel.SubCollectorTable" Width="1.5" PointX="12" PointY="7.375" />
         <EntityTypeShape EntityType="DB_TOSSModel.SubFund" Width="1.5" PointX="5.25" PointY="16.625" />
+        <EntityTypeShape EntityType="DB_TOSSModel.SubMajorAccountGroup" Width="1.5" PointX="23.75" PointY="6" />
         <EntityTypeShape EntityType="DB_TOSSModel.SubSector" Width="1.5" PointX="3" PointY="17" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" />
@@ -62,6 +63,7 @@
         <AssociationConnector Association="DB_TOSSModel.FK_Level1Modules_ParentModules" />
         <AssociationConnector Association="DB_TOSSModel.FK_Level2Modules_Level1Modules" />
         <AssociationConnector Association="DB_TOSSModel.FK_Level3Modules_Level2Modules" />
+        <AssociationConnector Association="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount" />
         <AssociationConnector Association="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType" />
         <AssociationConnector Association="DB_TOSSModel.FK_ParentModules_ParentModules" />
         <AssociationConnector Association="DB_TOSSModel.FK_Payee_Signatory_DepartmentTable" />

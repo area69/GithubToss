@@ -14,11 +14,19 @@ namespace TOSS_UPGRADE.Models
     
     public partial class MajorAccountGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MajorAccountGroup()
+        {
+            this.SubMajorAccountGroups = new HashSet<SubMajorAccountGroup>();
+        }
+    
         public int MajorAccountGroupID { get; set; }
         public int AccountGroupID { get; set; }
         public string MajorAccountGroupName { get; set; }
         public string MajorAccountGroupCode { get; set; }
     
         public virtual AccountGroup AccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubMajorAccountGroup> SubMajorAccountGroups { get; set; }
     }
 }

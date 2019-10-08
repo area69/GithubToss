@@ -1,0 +1,16 @@
+﻿
+@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_SubMajorAccountGroup
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label class="mt-1"><b>Allotment Class</b></label>
+@Html.DropDownListFor(m => m.AllotmentClassID, Model.SubMajorAccountGroupList, new { @class = "form-control select2", id = "SubMajorAccountGroupAllotmentClassNameIDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMRevisonYearController','LoadDynamicDDSubMajorAccountGroupAccountGroupName','')" })
+
+@*<script>
+        $(function () {
+            $("#RevisionYearNameIDD").select2();
+        })
+    </script>*@
+

@@ -344,6 +344,15 @@
           <Property Name="FundID" Type="int" />
           <Property Name="SubFundName" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SubMajorAccountGroupID" />
+          </Key>
+          <Property Name="SubMajorAccountGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubMajorAccountGroupName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubMajorAccountGroupCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MajorAccountGroupID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SubSector">
           <Key>
             <PropertyRef Name="SubSectorID" />
@@ -701,6 +710,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubMajorAccount_SubMajorAccount">
+          <End Role="MajorAccountGroup" Type="Self.MajorAccountGroup" Multiplicity="1" />
+          <End Role="SubMajorAccountGroup" Type="Self.SubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorAccountGroup">
+              <PropertyRef Name="MajorAccountGroupID" />
+            </Principal>
+            <Dependent Role="SubMajorAccountGroup">
+              <PropertyRef Name="MajorAccountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubSector_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="1" />
           <End Role="SubSector" Type="Self.SubSector" Multiplicity="*" />
@@ -794,6 +815,7 @@
           <EntitySet Name="Signatory_PositionTable" EntityType="Self.Signatory_PositionTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCollectorTable" EntityType="Self.SubCollectorTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubFund" EntityType="Self.SubFund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubMajorAccountGroup" EntityType="Self.SubMajorAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubSector" EntityType="Self.SubSector" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="Self.FK_AccountableForm_Assignment_AccountableForm_Inventory">
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
@@ -911,6 +933,10 @@
             <End Role="Fund" EntitySet="Fund" />
             <End Role="SubFund" EntitySet="SubFund" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubMajorAccount_SubMajorAccount" Association="Self.FK_SubMajorAccount_SubMajorAccount">
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroup" />
+            <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroup" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubSector_Sector" Association="Self.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sector" />
             <End Role="SubSector" EntitySet="SubSector" />
@@ -1004,6 +1030,7 @@
           <EntitySet Name="Signatory_PositionTable" EntityType="DB_TOSSModel.Signatory_PositionTable" />
           <EntitySet Name="SubCollectorTables" EntityType="DB_TOSSModel.SubCollectorTable" />
           <EntitySet Name="SubFunds" EntityType="DB_TOSSModel.SubFund" />
+          <EntitySet Name="SubMajorAccountGroups" EntityType="DB_TOSSModel.SubMajorAccountGroup" />
           <EntitySet Name="SubSectors" EntityType="DB_TOSSModel.SubSector" />
           <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory">
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
@@ -1088,6 +1115,10 @@
           <AssociationSet Name="FK_Level3Modules_Level2Modules" Association="DB_TOSSModel.FK_Level3Modules_Level2Modules">
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubMajorAccount_SubMajorAccount" Association="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount">
+            <End Role="MajorAccountGroup" EntitySet="MajorAccountGroups" />
+            <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_OfficeType" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType">
             <End Role="OfficeType" EntitySet="OfficeTypes" />
@@ -1378,6 +1409,7 @@
           <Property Name="MajorAccountGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MajorAccountGroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountGroup" Relationship="DB_TOSSModel.FK_MajorAccountGroup_AccountGroup" FromRole="MajorAccountGroup" ToRole="AccountGroup" />
+          <NavigationProperty Name="SubMajorAccountGroups" Relationship="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount" FromRole="MajorAccountGroup" ToRole="SubMajorAccountGroup" />
         </EntityType>
         <EntityType Name="OfficeType">
           <Key>
@@ -1521,6 +1553,16 @@
           <Property Name="FundID" Type="Int32" />
           <Property Name="SubFundName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fund" Relationship="DB_TOSSModel.FK_SubFund_Fund" FromRole="SubFund" ToRole="Fund" />
+        </EntityType>
+        <EntityType Name="SubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SubMajorAccountGroupID" />
+          </Key>
+          <Property Name="SubMajorAccountGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubMajorAccountGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubMajorAccountGroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MajorAccountGroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MajorAccountGroup" Relationship="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount" FromRole="SubMajorAccountGroup" ToRole="MajorAccountGroup" />
         </EntityType>
         <EntityType Name="SubSector">
           <Key>
@@ -1783,6 +1825,18 @@
             </Principal>
             <Dependent Role="Level3Modules">
               <PropertyRef Name="Level2ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubMajorAccount_SubMajorAccount">
+          <End Type="DB_TOSSModel.MajorAccountGroup" Role="MajorAccountGroup" Multiplicity="1" />
+          <End Type="DB_TOSSModel.SubMajorAccountGroup" Role="SubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MajorAccountGroup">
+              <PropertyRef Name="MajorAccountGroupID" />
+            </Principal>
+            <Dependent Role="SubMajorAccountGroup">
+              <PropertyRef Name="MajorAccountGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2286,6 +2340,16 @@
                 <ScalarProperty Name="SubFundName" ColumnName="SubFundName" />
                 <ScalarProperty Name="FundID" ColumnName="FundID" />
                 <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubMajorAccountGroups">
+            <EntityTypeMapping TypeName="DB_TOSSModel.SubMajorAccountGroup">
+              <MappingFragment StoreEntitySet="SubMajorAccountGroup">
+                <ScalarProperty Name="MajorAccountGroupID" ColumnName="MajorAccountGroupID" />
+                <ScalarProperty Name="SubMajorAccountGroupCode" ColumnName="SubMajorAccountGroupCode" />
+                <ScalarProperty Name="SubMajorAccountGroupName" ColumnName="SubMajorAccountGroupName" />
+                <ScalarProperty Name="SubMajorAccountGroupID" ColumnName="SubMajorAccountGroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
