@@ -19,14 +19,15 @@ namespace TOSS_UPGRADE.Models.FM_ChartOfAccounts
         public IEnumerable<System.Web.Mvc.SelectListItem> SubMajorAccountGroupList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.SubMajorAccountGroup> getSubMajorAccountGroup { get; set; }
         public int RevisionYearDate { get; set; }
-        public int RevisionYearDateTempID1 { get; set; }
+        public int RevisionYearDateTempID2 { get; set; }
         public int AllotmentClassID { get; set; }
-        public int AllotmentClassIDTempID1 { get; set; }
+        public int AllotmentClassIDTempID2 { get; set; }
         public int AccountGroupID { get; set; }
         public string AccountGroupCodeID { get; set; }
+        public int AccountGroupIDTempID2 { get; set; }
         public string MajorAccountGroupCodeID { get; set; }
-        public string MajorAccountGroupNameID { get; set; }
-        public int AccountGroupIDTempID1 { get; set; }
+        public int MajorAccountGroupNameID { get; set; }
+        public int MajorAccountGroupNameTempID2 { get; set; }
     }
 
     public class SubMajorAccountGroupList

@@ -20,12 +20,12 @@ namespace TOSS_UPGRADE.Models.FM_ChartOfAccounts
         public IEnumerable<System.Web.Mvc.SelectListItem> MajorAccountGroupList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.MajorAccountGroup> getMajorAccountGroup { get; set; }
         public int RevisionYearDate { get; set; }
-        public int RevisionYearDateTempID1 { get; set; }
+        public int RevisionYearDateTempID { get; set; }
         public int AllotmentClassID { get; set; }
-        public int AllotmentClassIDTempID1 { get; set; }
+        public int AllotmentClassIDTempID { get; set; }
         public int AccountGroupID { get; set; }
         public string AccountGroupCodeID { get; set; }
-        public int AccountGroupIDTempID1 { get; set; }
+        public int AccountGroupIDTempID { get; set; }
     }
     public class MajorAccountGroupList
     {

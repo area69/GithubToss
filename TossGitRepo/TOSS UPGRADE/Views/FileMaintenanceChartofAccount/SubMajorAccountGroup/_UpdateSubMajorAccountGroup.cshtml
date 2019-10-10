@@ -1,0 +1,54 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_SubMajorAccountGroup
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("UpdateSubMajorAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_SubMajorAccountGroupTable','Successfully Update')", OnFailure = "OnFailure()", }))
+{
+    @Html.HiddenFor(m => m.getSubMajorAccountGroupcolumns.SubMajorAccountGroupID, new { })
+    @Html.HiddenFor(m => m.AccountGroupIDTempID2, new { id = "AccountGroupIDTempID2" })
+    @Html.HiddenFor(m => m.AllotmentClassIDTempID2, new { id = "AllotmentClassIDTempID2" })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID2, new { id = "RevisionYearDateTempID2" })
+    @Html.HiddenFor(m => m.MajorAccountGroupNameTempID2, new { id = "MajorAccountGroupNameTempID2" })
+<div class="row black">
+    <div class="col-md-1"></div>
+    <div class="col-md-2" id="_SubMajorRevisionYearID">
+    </div>
+    <div class="col-md-5" id="_SubMajorAllotmentClassID">
+    </div>
+    <div class="col-md-3" id="_SubMajorAccountGroupNameID">
+    </div>
+</div>
+    <div class="row black">
+        <div class="col-md-1"></div>
+        <div class="col-md-3" id="_DynamicMajorAccountGroupNameID">
+        </div>
+        <div class="col-md-4">
+            <label class="mt-1"><b>Sub Major Account Group</b></label>
+            @Html.TextBoxFor(m => m.getSubMajorAccountGroupcolumns.SubMajorAccountGroupName, new { @class = "form-control", type = "text" })
+
+        </div>
+        <div class="col-md-4 mt-1">
+            <label class="black"><b>Account Code</b></label>
+            <div class="row">
+                <div class="col-md-3 pr-0 mr-1" id="_DynamicSubMajorAccountCode1"></div>
+                <div class="col-md-1 px-0" id="_DynamicSubMajorAccountCode2"></div>
+                <div class="col-md-4 px-0">
+                    @Html.TextBoxFor(m => m.getSubMajorAccountGroupcolumns.SubMajorAccountGroupCode, new { @class = "form-control", type = "text" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Update</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMRevisonYearController','Get_AddSubMajorAccountGroup','')"><b>Cancel</b></button>
+        </div>
+    </div>
+
+}

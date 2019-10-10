@@ -1,0 +1,161 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_GeneralAccount
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("AddGeneralAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_GeneralAccountTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+
+    <div class="row black">
+        <div class="col-md-2" id="_GeneralRevisionYearID">
+        </div>
+        <div class="col-md-4" id="_GeneralAllotmentClassID">
+        </div>
+        <div class="col-md-2" id="_GeneralAccountGroupID">
+        </div>
+        <div class="col-md-4" id="_GeneralMajorAccountID">
+        </div>
+    </div>
+    <div class="row black">
+        <div class="col-md-4" id="_GeneralSubMajorAccountID">
+        </div>
+        <div class="col-md-5">
+            <label class="mt-1"><b>General Ledger / Contra Account / Sub Account</b></label>
+            @Html.TextBoxFor(m => m.getGeneralAccountcolumns.GeneralAccountName, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-3 mt-1">
+            <label class="black"><b>Account Code</b></label>
+            <div class="row">
+                <div class="col-md-6 px-0">
+                    <div class="row">
+                        <div class="col-md-4 mr-1 pr-0" id="_DynamicGeneralAccountCode1"></div>
+                        <div class="col-md-1 ml-1" id="_DynamicGeneralAccountCode2"></div>
+                        <div class="col-md-1" id="_DynamicGeneralAccountCode3"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.getGeneralAccountcolumns.GeneralAccountCode, new { @class = "form-control", type = "text" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-8">
+            <div class="row mt-2 text-center">
+                <div class="col-md-4 text-center">
+                    <fieldset>
+                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        <label><b>Miscellaneous Account?</b></label>
+                    </fieldset>
+                </div>
+                <div class="col-md-4 text-center">
+                    <fieldset>
+                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        <label><b>Contra Account?</b></label>
+                    </fieldset>
+                </div>
+                <div class="col-md-4 text-center">
+                    <fieldset>
+                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        <label><b>Sub Account?</b></label>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" id="_GeneralAccountNameID">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label class="mt-1"><b>With Reserve?</b></label>
+            <select class="form-control" onchange="WithReserveIDOnchange()" id="_WithReserveIDD">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+            @Html.HiddenFor(m => m.isReserve, new { id = "isReserveID" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>Reserve %?</b></label>
+            @Html.TextBoxFor(m => m.getGeneralAccountcolumns.ReservePercent, new { @class = "form-control", type = "text", id = "_ReserveID", @disabled = "disabled" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>For Release?</b></label>
+            <select class="form-control" id="isForReleaseDD" onchange="IsForReleaseOnChange()">
+                <option value="False">No</option>
+                <option value="True">Yes</option>
+            </select>
+            @Html.HiddenFor(m => m.isRelease, new { id = "isRelease" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>For Continuing?</b></label>
+            <select class="form-control" id="isContinuingDD" onchange="IsForContinuingOnChange()">
+                <option value="False">No</option>
+                <option value="True">Yes</option>
+            </select>
+            @Html.HiddenFor(m => m.isContinuing, new { id = "isContinuing" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>OBR Cash Advance?</b></label>
+            <select class="form-control" id="isCashAdvanceDD" onchange="IsForCashAdvanceChange()">
+                <option value="False">No</option>
+                <option value="True">Yes</option>
+            </select>
+            @Html.HiddenFor(m => m.isCashAdvance, new { id = "isCashAdvance" })
+        </div>
+        <div class="col-md-2">
+            <label class="mt-1"><b>Normal Balance</b></label>
+            <select class="form-control" id="isNormalBalDD" onchange="IsForNormalBalOnChange()">
+                <option value="False">Debit</option>
+                <option value="True">Credit</option>
+            </select>
+            @Html.HiddenFor(m => m.isNormalBalance, new { id = "isNormalBalance" })
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="reset" class="btn bg-headerbc form-control white">
+                <b>Cancel</b>
+            </button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        WithReserveIDOnchange()
+        IsForReleaseOnChange()
+        IsForContinuingOnChange()
+
+    })
+    function WithReserveIDOnchange() {
+        var _WithReserveIDD = $("#_WithReserveIDD").val();
+        if (_WithReserveIDD == true) {
+            $('#_ReserveID').removeAttr('disabled');
+            $("#isReserveID").val(_WithReserveIDD);
+        } else if (_WithReserveIDD == false) {
+            $('#_ReserveID').prop('disabled', true);
+            $("#isReserveID").val(_WithReserveIDD);
+        }
+    }
+    function IsForReleaseOnChange() {
+        var isForReleaseValue = $("#isForReleaseDD").val();
+        $("#isRelease").val(isForReleaseValue);
+    }
+    function IsForContinuingOnChange() {
+        var isContinuingValue = $("#isContinuingDD").val();
+        $("#isContinuing").val(isContinuingValue);
+    }
+    function IsForCashAdvanceChange() {
+        var isCashAdvanceValue = $("#isCashAdvanceDD").val();
+        $("#isCashAdvance").val(isCashAdvanceValue);
+    }
+    function IsForNormalBalOnChange() {
+        var isNormalBalValue = $("#isNormalBalDD").val();
+        $("#isNormalBalance").val(isNormalBalValue);
+    }
+</script>

@@ -279,6 +279,7 @@
     <Compile Include="Models\FM_Barangay\FM_Barangay_BarangayName.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_AccountGroup.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_AllotmentClass.cs" />
+    <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_GeneralAccount.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_MajorAccountGroup.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_RevisionYear.cs" />
     <Compile Include="Models\FM_ChartOfAccounts\FM_ChartOfAccounts_SubMajorAccountGroup.cs" />
@@ -299,6 +300,9 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Fund.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GeneralAccount.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IRA_Table.cs">
@@ -9144,6 +9148,19 @@
     <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDRevisionYearDate.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDMajorAccountGroupCode.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_DynamicDDMajorAccountName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\SubMajorAccountGroup\_UpdateSubMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\GeneralAccountIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_AddGeneralAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\GeneralAccountTable.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDAccountGroupName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDAllotmentClassName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDRevisionYearDate.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDMajorAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDMajorAccountName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDSubMajorAccountGroupName.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDSubMajorAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDGeneralAccountName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

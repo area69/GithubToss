@@ -21,13 +21,12 @@
         </div>
         <div class="col-md-3 mt-1">
             <div class="row">
-                <div class="col-md-7 pr-0">
-                    <label class="black"><b>Account Code</b></label>
-                    <div id="_DynamicMajorAccountCode"></div>
-                </div>
-                <div class="col-md-4 pl-0">
-                    <label style="visibility:hidden">Code</label>
-                    @Html.TextBoxFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupCode, new { @class = "form-control", type = "text" })
+                <label class="black"><b>Account Code</b></label>
+                <div class="row">
+                    <div class="col-md-5 pr-0" id="_DynamicMajorAccountCode"></div>
+                    <div class="col-md-4 px-0">
+                        @Html.TextBoxFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupCode, new { @class = "form-control", type = "text" })
+                    </div>
                 </div>
             </div>
         </div>

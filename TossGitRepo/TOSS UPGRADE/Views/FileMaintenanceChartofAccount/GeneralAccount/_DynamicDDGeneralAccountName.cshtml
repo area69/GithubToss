@@ -1,0 +1,14 @@
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_GeneralAccount
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label class="custom-form-margin"><b>General Ledger Account</b></label>
+@Html.DropDownListFor(m => m.GeneralAccountGroupNameID, Model.GeneralAccountList, new { @class = "form-control select2", id = "GeneralAccountGroupNameIDD" })
+
+<script>
+        $(function () {
+            $("#GeneralAccountGroupNameIDD").select2();
+        })
+    </script>

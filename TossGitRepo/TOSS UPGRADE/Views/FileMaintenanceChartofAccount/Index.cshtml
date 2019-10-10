@@ -30,7 +30,7 @@
                 <a class="nav-link" id="base-tab5" data-toggle="tab" aria-controls="tab5" href="#tab5" ng-click="SubMajorAccountGroupTab()" aria-expanded="false"><b>Sub Major Account Group</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab6" data-toggle="tab" aria-controls="tab6" href="#tab6" aria-expanded="false"><b>General Account</b></a>
+                <a class="nav-link" id="base-tab6" data-toggle="tab" aria-controls="tab6" href="#tab6" ng-click="GeneralAccountGroupTab()"  aria-expanded="false"><b>General Account</b></a>
             </li>
         </ul>
         <div class="tab-content px-1 pt-1">
@@ -55,206 +55,8 @@
                
             </div>
             @* General Account*@
-            <div role="tabpanel" class="tab-pane" id="tab6" aria-expanded="true" aria-labelledby="base-tab6">
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-md-12" @*id="DepartmentxID"*@>
-                            <div class="row black">
-                                <div class="col-md-2 pr-0">
-                                    <label class="mt-1"><b>Revision Year</b></label>
-                                    <select class="form-control">
-                                        <option>2015</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pr-0">
-                                    <label class="mt-1"><b>Allotment Class</b></label>
-                                    <select class="form-control">
-                                        <option>N / A</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 pr-0">
-                                    <label class="mt-1"><b>Accounts</b></label>
-                                    <select class="form-control">
-                                        <option>Asset</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="mt-1"><b>Major Account Group</b></label>
-                                    <select class="form-control">
-                                        <option>Property, Plant and Equipment</option>
-                                        <option>Financial Liabilities</option>
-                                        <option>Government Equity</option>
-                                        <option>Tax Revenue</option>
-                                        <option>Personnel Services</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row black">
-                                <div class="col-md-4 pr-0">
-                                    <label class="mt-1"><b>Sub Major Account Group</b></label>
-                                    <select class="form-control">
-                                        <option>Land</option>
-                                        <option>Payables</option>
-                                        <option>Government Equity</option>
-                                        <option>Tax Revenue - Individual and Corporation</option>
-                                        <option>Salaries and Wages</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 pr-0">
-                                    <label class="mt-1"><b>General Ledger / Contra Account / Sub Account</b></label>
-                                    <input type="text" class="form-control" />
-                                </div>
-                                @*<div class="col-md-2 pr-0">
-                                        <label class="mt-1"><b>Contra Account?</b></label>
-                                        <select class="form-control">
-                                            <option>No</option>
-                                        </select>
-                                    </div>*@
-                                <div class="col-md-2 px-0 text-center mt-4">
-                                    <fieldset>
-                                        <input type="checkbox" class="form-control icheckbox_square-red" />
-                                        <label><b>Contra Account?</b></label>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-2 px-0 text-center mt-4">
-                                    <fieldset>
-                                        <input type="checkbox" class="form-control icheckbox_square-red" />
-                                        <label><b>Sub Account?</b></label>
-                                    </fieldset>
-                                </div>
-
-                            </div>
-                            <div class="row black">
-                                <div class="col-md-5 pr-0">
-                                    <label class="mt-1"><b>General Ledger Account</b></label>
-                                    <select class="form-control">
-                                        <option></option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 pr-0 mt-1">
-                                    <label><b>Account Code</b></label>
-                                    <div class="input-group mt-0">
-                                        <span class="input-group-addon" id="basic-addon1"><b>1 - 07 - 01 - </b></span>
-                                        <input type="text" class="form-control" name="name" value="" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1"><b>With Reserve?</b></label>
-                                    <select class="form-control">
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="mt-1"><b>Reserve %?</b></label>
-                                    <input type="text" class="form-control" disabled />
-                                </div>
-
-                            </div>
-                            <div class="row black">
-                                <div class="col-md-3 pr-0">
-                                    <label class="mt-1"><b>For Release?</b></label>
-                                    <select class="form-control">
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2 pr-0">
-                                    <label class="mt-1"><b>For Continuing?</b></label>
-                                    <select class="form-control">
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 pr-0">
-                                    <label class="mt-1"><b>OBR Cash Advance?</b></label>
-                                    <select class="form-control">
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label style="visibility:hidden" class="mt-1">Hide</label>
-                                    <button type="submit" class="btn bg-addbutton form-control black" onclick="reload">
-                                        <b>Add</b>
-                                    </button>
-                                </div>
-                                <div class="col-md-2">
-                                    <label style="visibility:hidden" class="mt-1">Hide</label>
-                                    <button type="reset" class="btn bg-headerbc form-control white">
-                                        <b>Cancel</b>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-1" @*id="DepartmentTableID"*@>
-                        <div class="col-md-12">
-                            <table class="table table-striped zero-configuration table-bordered table-responsive text-center table-smss-hover no-footer m-0 w-100">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Revision Year</th>
-                                        <th>Allotment Class</th>
-                                        <th>Accounts</th>
-                                        <th>Major Account Group</th>
-                                        <th>Sub Major Account Group</th>
-                                        <th>General Account</th>
-                                        <th>Account Code</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Asset</td>
-                                        <td>Property, Plant and Equipment</td>
-                                        <td>Land</td>
-                                        <td>Land</td>
-                                        <td>1-07-01-010</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Liabilities</td>
-                                        <td>Financial Liabilities</td>
-                                        <td>Payables</td>
-                                        <td>Accounts Payables</td>
-                                        <td>2-01-01-10</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Equity</td>
-                                        <td>Government Equity</td>
-                                        <td>Government Equity</td>
-                                        <td>Prior Period Adjustment</td>
-                                        <td>3-01-01-020</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>N / A</td>
-                                        <td>Income</td>
-                                        <td>Tax Revenue</td>
-                                        <td>Tax Revenue - Individual and Corporation</td>
-                                        <td>Professinal Tax</td>
-                                        <td>4-01-01-020</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2015</td>
-                                        <td>Personal Service</td>
-                                        <td>Expenses</td>
-                                        <td>Personnel Services</td>
-                                        <td>Salaries and Wages</td>
-                                        <td>Salaries and Wages - Regular</td>
-                                        <td>5-01-01-10</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab6" aria-expanded="true" ng-bind-html="tab6"  aria-labelledby="base-tab6">
+              
             </div>
         </div>
     </div>
@@ -310,6 +112,16 @@
                 F.Get_SubMajorAccountGroupTable();
             });
         }
+        F.GeneralAccountGroupTab = function () {
+            F.tab6 = null;
+            P({
+                url: '/FileMaintenanceChartofAccount/GeneralAccountGroupTab',
+            }).then(function (response) {
+                F.tab6 = D(response.data);
+                F.Get_GeneralAccountTable();
+            });
+        }
+
         //Revision Year
         F.Get_RevisionYearTable = function () {
             P({
@@ -530,10 +342,10 @@
             });
         }
         F.LoadSelectedDynamicDDMajorAccountGroupRevisionYear = function () {
-            var RevisionYearDateTempID1 = $("#RevisionYearDateTempID1");
+            var RevisionYearDateTempID = $("#RevisionYearDateTempID").val();
             P({
-                url: '/FileMaintenanceChartofAccount/GetDynamicMajorAccountGroupRevisionYear',
-                params: { RevisionYearDateTempID1: RevisionYearDateTempID1}
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicMajorAccountGroupRevisionYear',
+                params: { RevisionYearDateTempID: RevisionYearDateTempID}
             }).then(function (response) {
                 $("#_MajorRevisionYearID").html(response.data);
                 F.LoadSelectedDynamicDDMajorAccountGroupAllotmentClass();
@@ -541,10 +353,10 @@
         } 
         F.LoadSelectedDynamicDDMajorAccountGroupAllotmentClass = function () {
             var RevisionYearID = $("#MajorAccountGroupRevisionYearNameIDD").val();
-            var AllotmentClassIDTempID1 = $("#AllotmentClassIDTempID1").val();
+            var AllotmentClassIDTempID = $("#AllotmentClassIDTempID").val();
             P({
                 url: '/FileMaintenanceChartofAccount/GetSelectedDynamicMajorAccountGroupAllotmentClass',
-                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID1: AllotmentClassIDTempID1}
+                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID: AllotmentClassIDTempID}
             }).then(function (response) {
                 $("#_MajorAllotmentClassID").html(response.data);
                 F.LoadSelectedDynamicDDMajorAccountGroupAccountGroupName();
@@ -552,10 +364,10 @@
         }
         F.LoadSelectedDynamicDDMajorAccountGroupAccountGroupName = function () {
             var AllotmentClassID = $("#MajorAccountGroupAllotmentClassNameIDD").val();
-            var AccountGroupIDTempID1 = $("#AccountGroupIDTempID1").val();
+            var AccountGroupIDTempID = $("#AccountGroupIDTempID").val();
             P({
                 url: '/FileMaintenanceChartofAccount/GetSelectedDynamicMajorAccountGroupAccountGroupName',
-                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID1: AccountGroupIDTempID1 }
+                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID: AccountGroupIDTempID }
             }).then(function (response) {
                 $("#_MajorAccountGroupNameID").html(response.data);
                 F.LoadDynamicLMajorAccountCode();
@@ -644,5 +456,170 @@
                 $("#_DynamicSubMajorAccountCode2").html(response.data);
             });
         }
+        F.Get_UpdateSubMajorAccountGroup = function (SubMajorAccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_UpdateSubMajorAccountGroup',
+                params: { SubMajorAccountGroupID: SubMajorAccountGroupID }
+            }).then(function (response) {
+                $("#_SubMajorAccountGroupID").html(response.data);
+                F.LoadSelectedDynamicDDSubMajorAccountGroupRevisionYear();
+            });
+        }
+        F.LoadSelectedDynamicDDSubMajorAccountGroupRevisionYear = function () {
+            var RevisionYearDateTempID2 = $("#RevisionYearDateTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicSubMajorAccountGroupRevisionYear',
+                params: { RevisionYearDateTempID2: RevisionYearDateTempID2 }
+            }).then(function (response) {
+                $("#_SubMajorRevisionYearID").html(response.data);
+                F.LoadSelectedDynamicDDSubMajorAccountGroupAllotmentClass();
+            });
+        } 
+        F.LoadSelectedDynamicDDSubMajorAccountGroupAllotmentClass = function () {
+            var RevisionYearID = $("#RevisionYearDateTempID2").val();
+            var AllotmentClassIDTempID2 = $("#AllotmentClassIDTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicSubMajorAccountGroupAllotmentClass',
+                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID2: AllotmentClassIDTempID2 }
+            }).then(function (response) {
+                $("#_SubMajorAllotmentClassID").html(response.data);
+                F.LoadSelectedDynamicDDSubMajorAccountGroupAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDSubMajorAccountGroupAccountGroupName = function () {
+            var AllotmentClassID = $("#SubMajorAccountGroupAllotmentClassNameIDD").val();
+            var AccountGroupIDTempID2 = $("#AccountGroupIDTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicSubMajorAccountGroupAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID2: AccountGroupIDTempID2 }
+            }).then(function (response) {
+                $("#_SubMajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLSubMajorAccountCode();
+                F.LoadSelectedDynamicDDSubMajorAccountGroupMajorAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDSubMajorAccountGroupMajorAccountGroupName = function () {
+            var AccountGroupID = $("#SubMajorAccountGroupAccountGroupNameIDD").val();
+            var MajorAccountGroupNameTempID2 = $("#MajorAccountGroupNameTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicSubMajorAccountGroupMajorAccountGroupName',
+                params: { AccountGroupID: AccountGroupID, MajorAccountGroupNameTempID2: MajorAccountGroupNameTempID2 }
+            }).then(function (response) {
+                $("#_DynamicMajorAccountGroupNameID").html(response.data);
+                F.LoadDynamicLSubMajorAccountCode2();
+            });
+        }
+        F.Get_DeleteSubMajorAccountGroup = function (SubMajorAccountGroupID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/DeleteSubMajorAccountGroup',
+                params: { SubMajorAccountGroupID: SubMajorAccountGroupID }
+            }).then(function (response) {
+                F.Get_SubMajorAccountGroupTable();
+            });
+        }
+
+        //General Account
+        F.Get_GeneralAccountTable = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_SubMajorAccountGroupTable',
+            }).then(function (response) {
+                $("#_GeneralAccountTableID").html(response.data);
+            });
+            F.Get_AddGeneralAccount();
+        }
+        F.Get_AddGeneralAccount = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_AddGeneralAccount',
+            }).then(function (response) {
+                $("#_GeneralAccountID").html(response.data);
+                F.LoadDynamicDDGeneralAccountRevisionYear();
+                F.LoadDynamicDDGeneralAccountName();
+            });
+        }
+        F.LoadDynamicDDGeneralAccountRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountRevisionYear',
+            }).then(function (response) {
+                $("#_GeneralRevisionYearID").html(response.data);
+                F.LoadDynamicDDGeneralAccountAllotmentClass();
+            });
+        }
+        F.LoadDynamicDDGeneralAccountAllotmentClass = function () {
+            var RevisionYearID = $("#GeneralAccountRevisionYearNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountAllotmentClass',
+                params: { RevisionYearID: RevisionYearID }
+            }).then(function (response) {
+                $("#_GeneralAllotmentClassID").html(response.data);
+                F.LoadDynamicDDGeneralAccountGroupName();
+            });
+        }
+        F.LoadDynamicDDGeneralAccountGroupName = function () {
+            var AllotmentClassID = $("#GeneralAccountAllotmentClassNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID }
+            }).then(function (response) {
+                $("#_GeneralAccountGroupID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode();
+                F.LoadDynamicDDGeneralAccountMajorAccountGroupName();
+            });
+        }
+        F.LoadDynamicDDGeneralAccountMajorAccountGroupName = function () {
+            var AccountGroupID = $("#GeneralAccountAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountMajorGroupName',
+                params: { AccountGroupID: AccountGroupID }
+            }).then(function (response) {
+                $("#_GeneralMajorAccountID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode2();
+                F.LoadDynamicDDGeneralAccountSubMajorAccountGroupName();
+            });
+        }
+        F.LoadDynamicLGeneralAccountCode = function () {
+            var AccountGroupID = $("#GeneralAccountAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetGeneralAccountCodeField',
+                params: { AccountGroupID: AccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicGeneralAccountCode1").html(response.data);
+            });
+        }
+        F.LoadDynamicLGeneralAccountCode2 = function () {
+            var MajorAccountGroupID = $("#GeneralAccountMajorAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetGeneralAccountCodeField2',
+                params: { MajorAccountGroupID: MajorAccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicGeneralAccountCode2").html(response.data);
+            });
+        }
+        F.LoadDynamicLGeneralAccountCode3 = function () {
+            var SubMajorAccountGroupID = $("#GeneralAccountSubMajorAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetGeneralAccountCodeField3',
+                params: { SubMajorAccountGroupID: SubMajorAccountGroupID },
+            }).then(function (response) {
+                $("#_DynamicGeneralAccountCode3").html(response.data);
+            });
+        }
+        F.LoadDynamicDDGeneralAccountSubMajorAccountGroupName = function () {
+            var MajorAccountGroupID = $("#GeneralAccountMajorAccountGroupNameIDD").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountSubMajorGroupName',
+                params: { MajorAccountGroupID: MajorAccountGroupID }
+            }).then(function (response) {
+                $("#_GeneralSubMajorAccountID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode3();
+            });
+        }
+        F.LoadDynamicDDGeneralAccountName = function () {
+            P({
+                url: '/FileMaintenanceChartofAccount/GetDynamicGeneralAccountName',
+            }).then(function (response) {
+                $("#_GeneralAccountNameID").html(response.data);
+            });
+        }
+        
     });
 </script>

@@ -177,6 +177,22 @@
           <Property Name="FundName" Type="varchar" MaxLength="50" />
           <Property Name="FundCode" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="GeneralAccount">
+          <Key>
+            <PropertyRef Name="GeneralAccountID" />
+          </Key>
+          <Property Name="GeneralAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GeneralAccountName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GeneralAccountCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubMajorAccountGroupID" Type="int" Nullable="false" />
+          <Property Name="isReserve" Type="bit" Nullable="false" />
+          <Property Name="ReservePercent" Type="int" />
+          <Property Name="isFullReserve" Type="bit" Nullable="false" />
+          <Property Name="isContinuing" Type="bit" Nullable="false" />
+          <Property Name="isOBRCashAdvance" Type="bit" Nullable="false" />
+          <Property Name="isNormalBalance" Type="bit" Nullable="false" />
+          <Property Name="isStatus" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="IRA_Table">
           <Key>
             <PropertyRef Name="IRAID" />
@@ -506,6 +522,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeneralAccount_SubMajorAccountGroup">
+          <End Role="SubMajorAccountGroup" Type="Self.SubMajorAccountGroup" Multiplicity="1" />
+          <End Role="GeneralAccount" Type="Self.GeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMajorAccountGroup">
+              <PropertyRef Name="SubMajorAccountGroupID" />
+            </Principal>
+            <Dependent Role="GeneralAccount">
+              <PropertyRef Name="SubMajorAccountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Level1Modules_Level1Modules">
           <End Role="Level1Modules" Type="Self.Level1Modules" Multiplicity="1" />
           <End Role="Level1Modules1" Type="Self.Level1Modules" Multiplicity="0..1" />
@@ -798,6 +826,7 @@
           <EntitySet Name="DVTypeTable" EntityType="Self.DVTypeTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Functions" EntityType="Self.Functions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fund" EntityType="Self.Fund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralAccount" EntityType="Self.GeneralAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRA_Table" EntityType="Self.IRA_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
@@ -864,6 +893,10 @@
           <AssociationSet Name="FK_Function_SubSector" Association="Self.FK_Function_SubSector">
             <End Role="SubSector" EntitySet="SubSector" />
             <End Role="Functions" EntitySet="Functions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralAccount_SubMajorAccountGroup" Association="Self.FK_GeneralAccount_SubMajorAccountGroup">
+            <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroup" />
+            <End Role="GeneralAccount" EntitySet="GeneralAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_Level1Modules" Association="Self.FK_Level1Modules_Level1Modules">
             <End Role="Level1Modules" EntitySet="Level1Modules" />
@@ -1013,6 +1046,7 @@
           <EntitySet Name="DVTypeTables" EntityType="DB_TOSSModel.DVTypeTable" />
           <EntitySet Name="Functions" EntityType="DB_TOSSModel.Function" />
           <EntitySet Name="Funds" EntityType="DB_TOSSModel.Fund" />
+          <EntitySet Name="GeneralAccounts" EntityType="DB_TOSSModel.GeneralAccount" />
           <EntitySet Name="IRA_Table" EntityType="DB_TOSSModel.IRA_Table" />
           <EntitySet Name="Level1Modules" EntityType="DB_TOSSModel.Level1Modules" />
           <EntitySet Name="Level2Modules" EntityType="DB_TOSSModel.Level2Modules" />
@@ -1099,6 +1133,10 @@
           <AssociationSet Name="FK_SubFund_Fund" Association="DB_TOSSModel.FK_SubFund_Fund">
             <End Role="Fund" EntitySet="Funds" />
             <End Role="SubFund" EntitySet="SubFunds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeneralAccount_SubMajorAccountGroup" Association="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup">
+            <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroups" />
+            <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_Level1Modules" Association="DB_TOSSModel.FK_Level1Modules_Level1Modules">
             <End Role="Level1Modules" EntitySet="Level1Modules" />
@@ -1351,6 +1389,23 @@
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_Fund" FromRole="Fund" ToRole="Signatory_DepartmentTable" />
           <NavigationProperty Name="SubFunds" Relationship="DB_TOSSModel.FK_SubFund_Fund" FromRole="Fund" ToRole="SubFund" />
         </EntityType>
+        <EntityType Name="GeneralAccount">
+          <Key>
+            <PropertyRef Name="GeneralAccountID" />
+          </Key>
+          <Property Name="GeneralAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GeneralAccountName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GeneralAccountCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubMajorAccountGroupID" Type="Int32" Nullable="false" />
+          <Property Name="isReserve" Type="Boolean" Nullable="false" />
+          <Property Name="ReservePercent" Type="Int32" />
+          <Property Name="isFullReserve" Type="Boolean" Nullable="false" />
+          <Property Name="isContinuing" Type="Boolean" Nullable="false" />
+          <Property Name="isOBRCashAdvance" Type="Boolean" Nullable="false" />
+          <Property Name="isNormalBalance" Type="Boolean" Nullable="false" />
+          <Property Name="isStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SubMajorAccountGroup" Relationship="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup" FromRole="GeneralAccount" ToRole="SubMajorAccountGroup" />
+        </EntityType>
         <EntityType Name="IRA_Table">
           <Key>
             <PropertyRef Name="IRAID" />
@@ -1562,6 +1617,7 @@
           <Property Name="SubMajorAccountGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SubMajorAccountGroupCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MajorAccountGroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GeneralAccounts" Relationship="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup" FromRole="SubMajorAccountGroup" ToRole="GeneralAccount" />
           <NavigationProperty Name="MajorAccountGroup" Relationship="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount" FromRole="SubMajorAccountGroup" ToRole="MajorAccountGroup" />
         </EntityType>
         <EntityType Name="SubSector">
@@ -1777,6 +1833,18 @@
             </Principal>
             <Dependent Role="SubFund">
               <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeneralAccount_SubMajorAccountGroup">
+          <End Type="DB_TOSSModel.SubMajorAccountGroup" Role="SubMajorAccountGroup" Multiplicity="1" />
+          <End Type="DB_TOSSModel.GeneralAccount" Role="GeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubMajorAccountGroup">
+              <PropertyRef Name="SubMajorAccountGroupID" />
+            </Principal>
+            <Dependent Role="GeneralAccount">
+              <PropertyRef Name="SubMajorAccountGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2156,6 +2224,23 @@
                 <ScalarProperty Name="FundCode" ColumnName="FundCode" />
                 <ScalarProperty Name="FundName" ColumnName="FundName" />
                 <ScalarProperty Name="FundID" ColumnName="FundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GeneralAccounts">
+            <EntityTypeMapping TypeName="DB_TOSSModel.GeneralAccount">
+              <MappingFragment StoreEntitySet="GeneralAccount">
+                <ScalarProperty Name="isStatus" ColumnName="isStatus" />
+                <ScalarProperty Name="isNormalBalance" ColumnName="isNormalBalance" />
+                <ScalarProperty Name="isOBRCashAdvance" ColumnName="isOBRCashAdvance" />
+                <ScalarProperty Name="isContinuing" ColumnName="isContinuing" />
+                <ScalarProperty Name="isFullReserve" ColumnName="isFullReserve" />
+                <ScalarProperty Name="ReservePercent" ColumnName="ReservePercent" />
+                <ScalarProperty Name="isReserve" ColumnName="isReserve" />
+                <ScalarProperty Name="SubMajorAccountGroupID" ColumnName="SubMajorAccountGroupID" />
+                <ScalarProperty Name="GeneralAccountCode" ColumnName="GeneralAccountCode" />
+                <ScalarProperty Name="GeneralAccountName" ColumnName="GeneralAccountName" />
+                <ScalarProperty Name="GeneralAccountID" ColumnName="GeneralAccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

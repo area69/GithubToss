@@ -1,6 +1,4 @@
-﻿
-
-@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_MajorAccountGroup
+﻿@model TOSS_UPGRADE.Models.FM_ChartOfAccounts.FM_ChartOfAccounts_MajorAccountGroup
 @{
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
@@ -9,9 +7,9 @@
 {
 
     @Html.HiddenFor(m => m.getMajorAccountGroupcolumns.MajorAccountGroupID, new { })
-    @Html.HiddenFor(m => m.AccountGroupIDTempID1, new { id = "AccountGroupIDTempID1" })
-    @Html.HiddenFor(m => m.AllotmentClassIDTempID1, new { id = "AllotmentClassIDTempID1" })
-    @Html.HiddenFor(m => m.RevisionYearDateTempID1, new { id = "RevisionYearDateTempID1" })
+    @Html.HiddenFor(m => m.AccountGroupIDTempID, new { id = "AccountGroupIDTempID" })
+    @Html.HiddenFor(m => m.AllotmentClassIDTempID, new { id = "AllotmentClassIDTempID" })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID, new { id = "RevisionYearDateTempID" })
     <div class="row">
         <div class="col-md-3" id="_MajorRevisionYearID">
         </div>
@@ -27,8 +25,9 @@
         </div>
         <div class="col-md-3 mt-1">
             <div class="row">
-                <div class="col-md-6 pr-0" id="_DynamicMajorAccountCode">
-
+                <div class="col-md-7 pr-0">
+                    <label class="black"><b>Account Code</b></label>
+                    <div id="_DynamicMajorAccountCode"></div>
                 </div>
                 <div class="col-md-5 pl-0">
                     <label style="visibility:hidden">Code</label>

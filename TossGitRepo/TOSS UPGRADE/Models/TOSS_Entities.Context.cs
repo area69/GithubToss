@@ -45,6 +45,7 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<DVTypeTable> DVTypeTables { get; set; }
         public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<Fund> Funds { get; set; }
+        public virtual DbSet<GeneralAccount> GeneralAccounts { get; set; }
         public virtual DbSet<IRA_Table> IRA_Table { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
         public virtual DbSet<Level2Modules> Level2Modules { get; set; }
