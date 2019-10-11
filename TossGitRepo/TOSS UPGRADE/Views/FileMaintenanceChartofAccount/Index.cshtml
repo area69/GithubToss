@@ -13,7 +13,7 @@
 </div>
 <div class="card-content black" id="FMRevisonYearController" ng-controller="FMRevisonYearController" ng-init="RevisionYearTab();">
     <div class="card">
-        <ul class="nav nav-tabs bg-headerbc nav-underline">
+        <ul class="nav nav-tabs bg-headerbc nav-linetriangle">
             <li class="nav-item">
                 <a class="nav-link active" id="base-tab1" data-toggle="pill" ng-click="RevisionYearTab()" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Revision Year</b></a>
             </li>
@@ -30,33 +30,40 @@
                 <a class="nav-link" id="base-tab5" data-toggle="tab" aria-controls="tab5" href="#tab5" ng-click="SubMajorAccountGroupTab()" aria-expanded="false"><b>Sub Major Account Group</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab6" data-toggle="tab" aria-controls="tab6" href="#tab6" ng-click="GeneralAccountGroupTab()"  aria-expanded="false"><b>General Account</b></a>
+                <a class="nav-link" id="base-tab6" data-toggle="tab" aria-controls="tab6" href="#tab6" ng-click="GeneralAccountGroupTab()" aria-expanded="false"><b>General Account</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="base-tab7" data-toggle="tab" aria-controls="tab7" href="#tab7" ng-click="SubsidiaryLedgerTab()" aria-expanded="false"><b>Subsidiary Ledger</b></a>
             </li>
         </ul>
         <div class="tab-content px-1 pt-1">
             @* Revision Year *@
             <div role="tabpanel" class="tab-pane active" id="tab1" ng-bind-html="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-               
+
             </div>
             @* Allotment Class *@
-            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" ng-bind-html="tab2"  aria-labelledby="base-tab2">
-               
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" ng-bind-html="tab2" aria-labelledby="base-tab2">
+
             </div>
             @* Account Group *@
             <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" ng-bind-html="tab3" aria-labelledby="base-tab3">
-          
+
             </div>
             @* Major Account Group *@
             <div role="tabpanel" class="tab-pane" id="tab4" aria-expanded="true" ng-bind-html="tab4" aria-labelledby="base-tab4">
-               
+
             </div>
             @* Sub Major Account Group *@
             <div role="tabpanel" class="tab-pane" id="tab5" aria-expanded="true" ng-bind-html="tab5" aria-labelledby="base-tab5">
-               
+
             </div>
             @* General Account*@
-            <div role="tabpanel" class="tab-pane" id="tab6" aria-expanded="true" ng-bind-html="tab6"  aria-labelledby="base-tab6">
-              
+            <div role="tabpanel" class="tab-pane" id="tab6" aria-expanded="true" ng-bind-html="tab6" aria-labelledby="base-tab6">
+
+            </div>
+            @* Subsidiary Ledger *@
+            <div role="tabpanel" class="tab-pane" id="tab7" aria-expanded="true" ng-bind-html="tab7" aria-labelledby="base-tab7">
+
             </div>
         </div>
     </div>
@@ -121,7 +128,15 @@
                 F.Get_GeneralAccountTable();
             });
         }
-
+        F.SubsidiaryLedgerTab = function () {
+            F.tab7 = null;
+            P({
+                url: '/FileMaintenanceChartofAccount/SubsidiaryLedgerTab',
+            }).then(function (response) {
+                F.tab7 = D(response.data);
+                //F.Get_GeneralAccountTable();
+            });
+        }
         //Revision Year
         F.Get_RevisionYearTable = function () {
             P({
@@ -419,9 +434,10 @@
         }
         F.LoadDynamicDDSubMajorAccountGroupAccountGroupName = function () {
             var AllotmentClassID = $("#SubMajorAccountGroupAllotmentClassNameIDD").val();
+            var AccountGroupIDTempID2 = $("#AccountGroupIDTempID2").val();
             P({
                 url: '/FileMaintenanceChartofAccount/GetDynamicSubMajorAccountGroupAccountGroupName',
-                params: { AllotmentClassID: AllotmentClassID }
+                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID2: AccountGroupIDTempID2 }
             }).then(function (response) {
                 $("#_SubMajorAccountGroupNameID").html(response.data);
                 F.LoadDynamicLSubMajorAccountCode();
@@ -521,7 +537,7 @@
         //General Account
         F.Get_GeneralAccountTable = function () {
             P({
-                url: '/FileMaintenanceChartofAccount/Get_SubMajorAccountGroupTable',
+                url: '/FileMaintenanceChartofAccount/Get_GeneralAccountTable',
             }).then(function (response) {
                 $("#_GeneralAccountTableID").html(response.data);
             });
@@ -621,5 +637,70 @@
             });
         }
         
+        F.Get_UpdateGeneralAccount = function (GeneralAccountID) {
+            P({
+                url: '/FileMaintenanceChartofAccount/Get_UpdateGeneralAccountGroup',
+                params: { GeneralAccountID: GeneralAccountID }
+            }).then(function (response) {
+                $("#_GeneralAccountID").html(response.data);
+                F.LoadSelectedDynamicDDGeneralAccountRevisionYear();
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralAccountRevisionYear = function () {
+            var RevisionYearDateTempID2 = $("#RevisionYearDateTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicGeneralAccountRevisionYear',
+                params: { RevisionYearDateTempID2: RevisionYearDateTempID2 }
+            }).then(function (response) {
+                $("#_GeneralRevisionYearID").html(response.data);
+                F.LoadSelectedDynamicDDGeneralAccountAllotmentClass();
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralAccountAllotmentClass = function () {
+            var RevisionYearID = $("#GeneralAccountRevisionYearNameIDD").val();
+            var AllotmentClassIDTempID2 = $("#AllotmentClassIDTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicGeneralAccountAllotmentClass',
+                params: { RevisionYearID: RevisionYearID, AllotmentClassIDTempID2: AllotmentClassIDTempID2 }
+            }).then(function (response) {
+                $("#_GeneralAllotmentClassID").html(response.data);
+                F.LoadSelectedDynamicDDGeneralAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralAccountGroupName = function () {
+            var AllotmentClassID = $("#GeneralAccountAllotmentClassNameIDD").val();
+            var AccountGroupIDTempID2 = $("#AccountGroupIDTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicGeneralAccountGroupName',
+                params: { AllotmentClassID: AllotmentClassID, AccountGroupIDTempID2: AccountGroupIDTempID2 }
+            }).then(function (response) {
+                $("#_GeneralAccountGroupID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode();
+                F.LoadSelectedDynamicDDGeneralAccountMajorAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralAccountMajorAccountGroupName = function () {
+            var AccountGroupID = $("#GeneralAccountAccountGroupNameIDD").val();
+            var MajorAccountGroupNameTempID2 = $("#MajorAccountGroupNameTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicGeneralAccountMajorGroupName',
+                params: { AccountGroupID: AccountGroupID, MajorAccountGroupNameTempID2: MajorAccountGroupNameTempID2}
+            }).then(function (response) {
+                $("#_GeneralMajorAccountID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode2();
+                F.LoadSelectedDynamicDDGeneralAccountSubMajorAccountGroupName();
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralAccountSubMajorAccountGroupName = function () {
+            var MajorAccountGroupID = $("#GeneralAccountMajorAccountGroupNameIDD").val();
+            var SubMajorAccountGroupNameTempID2 = $("#SubMajorAccountGroupNameTempID2").val();
+            P({
+                url: '/FileMaintenanceChartofAccount/GetSelectedDynamicGeneralAccountSubMajorGroupName',
+                params: { MajorAccountGroupID: MajorAccountGroupID, SubMajorAccountGroupNameTempID2: SubMajorAccountGroupNameTempID2 }
+            }).then(function (response) {
+                $("#_GeneralSubMajorAccountID").html(response.data);
+                F.LoadDynamicLGeneralAccountCode3();
+            });
+        }
     });
 </script>

@@ -6,6 +6,12 @@
 @using (Ajax.BeginForm("AddGeneralAccountGroup", "FileMaintenanceChartofAccount", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMRevisonYearController','Get_GeneralAccountTable','Successfully Saved')", OnFailure = "OnFailure()", }))
 {
 
+    @Html.HiddenFor(m => m.getGeneralAccountcolumns.GeneralAccountID, new { })
+    @Html.HiddenFor(m => m.RevisionYearDateTempID2, new { id = "RevisionYearDateTempID2" })
+    @Html.HiddenFor(m => m.AllotmentClassIDTempID2, new { id = "AllotmentClassIDTempID2" }) 
+    @Html.HiddenFor(m => m.AccountGroupIDTempID2, new { id = "AccountGroupIDTempID2" })
+    @Html.HiddenFor(m => m.MajorAccountGroupNameTempID2, new { id = "MajorAccountGroupNameTempID2" })
+    @Html.HiddenFor(m => m.SubMajorAccountGroupNameTempID2, new { id = "SubMajorAccountGroupNameTempID2" })
     <div class="row black">
         <div class="col-md-2" id="_GeneralRevisionYearID">
         </div>
@@ -125,14 +131,14 @@
         </div>
     </div>
 }
+
 <script>
     $(function () {
-        WithReserveIDOnchange()
-        IsForReleaseOnChange()
-        IsForContinuingOnChange()
-        IsForCashAdvanceChange()
-        IsForNormalBalOnChange()
-
+        $("#_WithReserveIDD").val($("#isReserveID").val());
+        $("#isForReleaseDD").val($("#isRelease").val());
+        $("#isContinuingDD").val($("#isContinuing").val());
+        $("#isCashAdvanceDD").val($("#isCashAdvance").val());
+        $("#isNormalBalDD").val($("#isNormalBalance").val());
     })
     function WithReserveIDOnchange() {
         var _WithReserveIDD = $("#_WithReserveIDD").val();

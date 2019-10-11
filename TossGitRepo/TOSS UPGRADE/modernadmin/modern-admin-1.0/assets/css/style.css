@@ -391,3 +391,24 @@ table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
     font-weight: normal;
 }
 
+.nav.nav-tabs.nav-linetriangle .nav-item a.nav-link {
+    position: relative;
+    display: block;
+    overflow: visible;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2.5;
+    border: none;
+    color: #f4f5f5;
+    overflow: visible;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.nav.nav-tabs.nav-linetriangle .nav-item a.nav-link:hover, .nav.nav-tabs.nav-linetriangler .nav-item a.nav-link:focus {
+        color: #FF4961;
+    }

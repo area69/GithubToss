@@ -1,0 +1,143 @@
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_ChartOfAccounts.GeneralAccountList>
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<table class="table table-striped zero-configuration table-bordered table-responsive text-center table-smss-hover no-footer m-0 w-100">
+    <thead class="text-center">
+        <tr>
+            <th>Revision Year</th>
+            <th>Allotment Class</th>
+            <th>Accounts</th>
+            <th>Major Account Group</th>
+            <th>Sub Major Account Group</th>
+            <th>General Account</th>
+            <th>Account Code</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMRevisonYearController','Get_UpdateGeneralAccount','" + @Items.GeneralAccountID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.GeneralAccountID + ",&quot;Get_DeleteSubMajorAccountGroup&quot;,&quot;FMRevisonYearController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                var ActionContentProgram = ViewEdit + ViewDelete;
+                <tr>
+                    <td>
+                        @{
+                            var SubID = Items.MajorAccountGroupName;
+                            var SubSector = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID select e).FirstOrDefault();
+                            var TDValue = "";
+                            if (SubSector == null)
+                            {
+                                TDValue = "N/A";
+                            }
+                            else
+                            {
+                                TDValue = SubSector.AccountGroup.AllotmentClass.RevisionYear.RevisionYearDate;
+                            }
+                        }
+                        @TDValue
+                    </td>
+                    <td>
+                        @{
+                            var SubID1 = Items.MajorAccountGroupName;
+                            var SubSector1 = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID1 select e).FirstOrDefault();
+                            var TDValue1 = "";
+                            if (SubSector1 == null)
+                            {
+                                TDValue1 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue1 = SubSector.AccountGroup.AllotmentClass.AllotmentClassName;
+                            }
+                        }
+                        @TDValue1
+                    </td>
+                    <td class="text-left">
+                        @{
+                            var SubID2 = Items.MajorAccountGroupName;
+                            var SubSector2 = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID2 select e).FirstOrDefault();
+                            var TDValue2 = "";
+                            if (SubSector2 == null)
+                            {
+                                TDValue2 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue2 = SubSector.AccountGroup.AccountGroupName;
+                            }
+                        }
+                        @TDValue2
+                    </td>
+                    <td class="text-left">
+                        @{
+                            var SubID5 = Items.MajorAccountGroupName;
+                            var SubSector5 = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID5 select e).FirstOrDefault();
+                            var TDValue5 = "";
+                            if (SubSector5 == null)
+                            {
+                                TDValue5 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue5 = SubSector.MajorAccountGroupName;
+                            }
+                        }
+                        @TDValue5
+                    </td>
+                    <td class="text-left">@Items.SubMajorAccountGroupName</td>
+                    <td class="text-left">@Items.GeneralAccountName</td>
+                    <td>
+                        @{
+                            var SubID3 = Items.MajorAccountGroupName;
+                            var SubSector3 = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID3 select e).FirstOrDefault();
+                            var TDValue3 = "";
+                            if (SubSector3 == null)
+                            {
+                                TDValue3 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue3 = SubSector.AccountGroup.AccountGroupCode;
+                            }
+                        }
+                        @{
+                            var SubID4 = Items.MajorAccountGroupName;
+                            var SubSector4 = (from e in SISDB.MajorAccountGroups where e.MajorAccountGroupID == SubID4 select e).FirstOrDefault();
+                            var TDValue4 = "";
+                            if (SubSector4 == null)
+                            {
+                                TDValue4 = "N/A";
+                            }
+                            else
+                            {
+                                TDValue4 = SubSector.MajorAccountGroupCode;
+                            }
+                        }
+
+                        @TDValue3 - @TDValue4 - @Items.SubMajorAccountGroupCode - @Items.GeneralAccountCode
+                    </td>
+                    <td width="10%">
+                        <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                data-original-title="" data-html="true" data-placement="right">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>
