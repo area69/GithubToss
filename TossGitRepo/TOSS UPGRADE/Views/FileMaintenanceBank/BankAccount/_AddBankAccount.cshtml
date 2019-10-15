@@ -1,0 +1,49 @@
+﻿@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("AddBankAccount", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBankController','Get_BankAccountTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+    <div class="row">
+        <div class="col-md-4 pr-0 form-group black">
+            <div id="_BankAccountBankID">
+
+            </div>
+        </div>
+        <div class="col-md-2 pr-0 form-group black">
+            <label><b>Account Number</b></label>
+            @Html.TextBoxFor(m => m.getBankAccountColumns.AccountNo, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-3 form-group black">
+            <label><b>Account Name</b></label>
+            @Html.TextBoxFor(m => m.getBankAccountColumns.AccountName, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-3 pl-0 form-group black" id="_DynamicDDFundTypeID">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 form-group black" id="_DynamicDDGeneralNameID">
+
+        </div>
+        <div class="col-md-2 px-0 form-group black" id="_DynamicCodeID">
+
+        </div>
+        <div class="col-md-5 form-group black" id="_DynamicDDAccountTypeID">
+
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-md-8"></div>
+        <div class="col-md-2">
+            <button type="submit" class="btn bg-addbutton form-control black">
+                <b>Add</b>
+            </button>
+        </div>
+        <div class="col-md-2">
+            <button type="reset" class="btn bg-headerbc form-control white">
+                <b>Cancel</b>
+            </button>
+        </div>
+    </div>
+}

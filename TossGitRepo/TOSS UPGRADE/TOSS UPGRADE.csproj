@@ -9164,6 +9164,16 @@
     <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_DynamicDDGeneralAccountName.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\GeneralAccount\_UpdateGeneralAccount.cshtml" />
     <Content Include="Views\FileMaintenanceChartofAccount\SubsidiaryLedger\SubsidiaryLedgerIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\BankAccountIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\Bank\BankIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountType\AccountTypeIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_AddBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_BankAccountTable.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDFundName.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDAccountType.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDGeneralAccountName.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDGeneralCode.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccount\_UpdateBankAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

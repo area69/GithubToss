@@ -14,6 +14,12 @@ namespace TOSS_UPGRADE.Models
     
     public partial class GeneralAccount
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GeneralAccount()
+        {
+            this.BankAccountTables = new HashSet<BankAccountTable>();
+        }
+    
         public int GeneralAccountID { get; set; }
         public string GeneralAccountName { get; set; }
         public string GeneralAccountCode { get; set; }
@@ -26,6 +32,8 @@ namespace TOSS_UPGRADE.Models
         public bool isNormalBalance { get; set; }
         public int isStatus { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BankAccountTable> BankAccountTables { get; set; }
         public virtual SubMajorAccountGroup SubMajorAccountGroup { get; set; }
     }
 }

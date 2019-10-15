@@ -1,0 +1,10 @@
+﻿@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label><b>Fund Type</b></label>
+@Html.DropDownListFor(m => m.BankAccountFundTypeID, Model.BankAccountBankList, new { @class = "form-control select2", id = "FundTypeIDDD" })
+
+

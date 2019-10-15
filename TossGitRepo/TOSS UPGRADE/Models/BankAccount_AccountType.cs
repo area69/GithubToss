@@ -14,7 +14,16 @@ namespace TOSS_UPGRADE.Models
     
     public partial class BankAccount_AccountType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BankAccount_AccountType()
+        {
+            this.BankAccountTables = new HashSet<BankAccountTable>();
+        }
+    
         public int AccountTypeID { get; set; }
         public string AccountType { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BankAccountTable> BankAccountTables { get; set; }
     }
 }

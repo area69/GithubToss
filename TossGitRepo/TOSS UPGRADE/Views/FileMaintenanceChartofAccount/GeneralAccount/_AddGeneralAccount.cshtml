@@ -44,19 +44,19 @@
             <div class="row mt-2 text-center">
                 <div class="col-md-4 text-center">
                     <fieldset>
-                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        @Html.CheckBoxFor(m => m.MiscellaneousAccount, htmlAttributes: new { @*@checked = true,*@ @class = "form-control icheckbox_square-red ", type = "checkbox"})
                         <label><b>Miscellaneous Account?</b></label>
                     </fieldset>
                 </div>
                 <div class="col-md-4 text-center">
                     <fieldset>
-                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        @Html.CheckBoxFor(m => m.ContraAccount, htmlAttributes: new { @*@checked = true,*@@class = "form-control icheckbox_square-red foo", type = "checkbox"})
                         <label><b>Contra Account?</b></label>
                     </fieldset>
                 </div>
                 <div class="col-md-4 text-center">
                     <fieldset>
-                        <input type="checkbox" class="form-control icheckbox_square-red">
+                        @Html.CheckBoxFor(m => m.ContraAccount, htmlAttributes: new { @*@checked = true,*@@class = "form-control icheckbox_square-red foo", type = "checkbox"})
                         <label><b>Sub Account?</b></label>
                     </fieldset>
                 </div>
@@ -132,7 +132,6 @@
         IsForContinuingOnChange()
         IsForCashAdvanceChange()
         IsForNormalBalOnChange()
-
     })
     function WithReserveIDOnchange() {
         var _WithReserveIDD = $("#_WithReserveIDD").val();
@@ -160,4 +159,15 @@
         var isNormalBalValue = $("#isNormalBalDD").val();
         $("#isNormalBalance").val(isNormalBalValue);
     }
+    function IsMiscAccount() {
+
+    }
+    $(".foo").on('change', function () {
+        fooValue = $(".foo").is(":checked") ? "true" : "false";
+        if (fooValue == "true") {
+            $('#GeneralAccountGroupNameIDD').removeAttr('disabled');
+        } else if (fooValue == "false") {
+            $('#GeneralAccountGroupNameIDD').prop('disabled', true);
+        }
+    });
 </script>

@@ -1,0 +1,12 @@
+﻿@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label><b>Code</b></label>
+@Html.TextBoxFor(m => m.BankAccountGeneralAccountCodeID, new { @class = "form-control select2 text-center", id = "GeneralAccountCodeIDDD", @disabled = "disabled"})
+
+
+
+

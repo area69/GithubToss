@@ -1,0 +1,11 @@
+﻿@model TOSS_UPGRADE.Models.FM_Bank.FM_Bank
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label><b>General Ledger Account</b></label>
+@Html.DropDownListFor(m => m.BankAccountGeneralAccountNameID, Model.BankAccountBankList, new { @class = "form-control select2", id = "GeneralAccountNameIDDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMBankController','LoadDynamicDDGeneralCode','')" })
+
+
+

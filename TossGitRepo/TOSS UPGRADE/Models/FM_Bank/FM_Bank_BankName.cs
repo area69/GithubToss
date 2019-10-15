@@ -42,6 +42,14 @@ namespace TOSS_UPGRADE.Models.FM_Bank
         public List<BankAccountList> getBankAccountList { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> BankAccountBankList { get; set; }
         public int BankAccountBankID { get; set; }
+        public int BankAccountBankTempID { get; set; }
+        public int BankAccountAccountTypeID { get; set; }
+        public int BankAccountAccountTypeTempID { get; set; }
+        public int BankAccountFundTypeID { get; set; }
+        public int BankAccountFundTypeTempID { get; set; }
+        public int BankAccountGeneralAccountNameID { get; set; }
+        public int BankAccountGeneralAccountNameTempID { get; set; }
+        public string BankAccountGeneralAccountCodeID { get; set; }
     }
     public class BankList
     {
@@ -61,8 +69,10 @@ namespace TOSS_UPGRADE.Models.FM_Bank
         public string BankName { get; set; }
         public string AccountName { get; set; }
         public string AccountNo { get; set; }
+        public int SubMajorAccountName { get; set; }
+        public string GeneralAccountName { get; set; }
+        public string GeneralAccountCode { get; set; }
         public string FundName { get; set; }
-        public string AccountCode { get; set; }
         public string AccountType { get; set; }
 
     }

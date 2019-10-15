@@ -16,142 +16,31 @@
     </div>
 </div>
 
-<div class="card-content" id="FMBankController" ng-controller="FMBankController" ng-init="InitAllFunction();">
+<div class="card-content" id="FMBankController" ng-controller="FMBankController" ng-init="BankTab();">
     <div class="card">
         <ul class="nav nav-tabs bg-headerbc nav-underline">
             <li class="nav-item">
-                <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Bank</b></a>
+                <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" ng-click="BankTab()" aria-expanded="true"><b>Bank</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Account Type</b></a>
+                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" ng-click="AccountTypeTab()" href="#tab2" aria-expanded="false"><b>Account Type</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>Bank Accounts</b></a>
+                <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" ng-click="BankAccountTab()" aria-expanded="false"><b>Bank Accounts</b></a>
             </li>
         </ul>
         <div class="tab-content px-1 pt-1">
             @* Bank *@
-            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-                <div class="content-body">
-                    <div id="_BankID"></div>
-                    <div class="row mt-1" id="_BankTableID">
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" ng-bind-html="tab1" aria-labelledby="base-tab1">
+                
             </div>
             @* Account Type *@
-            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" id="_AccountTypeID">
-                            
-                        </div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" id="AccountTypeTableID">
-                         
-                        </div>
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" ng-bind-html="tab2" aria-labelledby="base-tab2">
+              
             </div>
             @* Bank Accounts *@
-            <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
-                <div class="content-body">
-                    <div class="row">
-                        <div class="col-md-4 pr-0 form-group black">
-                            <div id="_BankAccountBankID">
-
-                            </div>
-                        </div>
-                        <div class="col-md-2 pr-0 form-group black">
-                            <label><b>Account Number</b></label>
-                            <input type="text" class="form-control black" value="" />
-                        </div>
-                        <div class="col-md-3 form-group black">
-                            <label><b>Account Name</b></label>
-                            <input type="text" class="form-control black" value="" />
-                        </div>
-                        <div class="col-md-3 pl-0 form-group black">
-                            <label><b>Fund Type</b></label>
-                                <select class="form-control">
-                                    <option>Special Education Fund</option>
-                                    <option>General Fund</option>
-                                    <option>Trust Fund</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 form-group black">
-                            <label><b>General Ledger Account</b></label>
-                                <select class="form-control">
-                                    <option>Cash in Bank - Local Currency,Current Account</option>
-                                    <option>Cash in Bank - Local Currency,Savings Account</option>
-                                </select>
-                        </div>
-                        <div class="col-md-2 px-0 form-group black">
-                            <label><b>Code</b></label>
-                            <input type="text" class="form-control" value="1-01-02-010" disabled />
-                        </div>
-                        <div class="col-md-5 form-group black">
-                            <label><b>Account Type</b></label>
-                                <select class="form-control">
-                                    <option>Joint Technical and Credit Assistance Program</option>
-                                    <option>Community Development Fund</option>
-                                    <option>Regular Savings Account</option>
-                                </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-2 pl-0">
-                            <button class="btn bg-addbutton form-control black"><b>Add</b></button>
-                        </div>
-                        <div class="col-md-2 pl-0">
-                            <button class="btn bg-headerbc form-control white"><b>Cancel</b></button>
-                        </div>
-                    </div>
-                    <div class="row mt-1" @*id="DepartmentTableID"*@>
-                        <div class="col-md-12">
-                            <table class="table table-striped table-responsive zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th><b>Bank Name</b></th>
-                                        <th><b>Account Number</b></th>
-                                        <th><b>Account Name</b></th>
-                                        <th><b>General Ledger Account</b></th>
-                                        <th><b>Code</b></th>
-                                        <th><b>Account Type</b></th>
-                                        <th><b>Fund</b></th>
-                                        <th><b>Action</b></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    <tr>
-                                        <td>Development Bank of the Philippines</td>
-                                        <td>012345678912</td>
-                                        <td>Regular Account</td>
-                                        <td>Cash in Bank - Local Currency, Current Account</td>
-                                        <td>1-01-02-010</td>
-                                        <td>Regular Savings Account</td>
-                                        <td>General Fund</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rizal Commercial Banking Corporation</td>
-                                        <td>013265498721</td>
-                                        <td>Sanguiniang Panlungsod</td>
-                                        <td>Cash in Bank - Local Currency, Savings Account</td>
-                                        <td>1-01-02-020</td>
-                                        <td>Regular Savings Account</td>
-                                        <td>General Fund</td>
-                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3" ng-bind-html="tab3">
+               
             </div>
         </div>
     </div>
@@ -162,14 +51,32 @@
     app.controller('FMBankController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
-        F.InitAllFunction = function () {
-            //Bank Table
-            F.Get_BankTable();
-
-            //Account Type
-            F.Get_AccountTypeTable();
-
-            F.LoadDynamicDDBank();
+        F.BankTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceBank/BankTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+                F.Get_BankTable();
+            });
+        }
+        F.AccountTypeTab = function () {
+            F.tab2 = null;
+            P({
+                url: '/FileMaintenanceBank/AccountTypeTab',
+            }).then(function (response) {
+                F.tab2 = D(response.data);
+                F.Get_AccountTypeTable();
+            });
+        }
+        F.BankAccountTab = function () {
+            F.tab3 = null;
+            P({
+                url: '/FileMaintenanceBank/BankAccountTab',
+            }).then(function (response) {
+                F.tab3 = D(response.data);
+                F.Get_BankAccountTable();
+            });
         }
 
         //Bank Name
@@ -241,11 +148,118 @@
 
         //Bank Account
 
+        F.Get_BankAccountTable = function () {
+            P({
+                url: '/FileMaintenanceBank/Get_BankAccountTable',
+            }).then(function (response) {
+                $("#_BankAccountTableID").html(response.data);
+            });
+            F.Get_AddBankAccount();
+        }
+        F.Get_AddBankAccount = function () {
+            P({
+                url: '/FileMaintenanceBank/Get_AddBankAccount',
+            }).then(function (response) {
+                $("#_BankAccountID").html(response.data);
+                F.LoadDynamicDDBank();
+                F.LoadDynamicDDAccountType();
+                F.LoadDynamicDDFundType();
+                F.LoadDynamicDDGeneralName();
+            });
+        }
         F.LoadDynamicDDBank = function () {
             P({
                 url: '/FileMaintenanceBank/GetDynamicBank',
             }).then(function (response) {
                 $("#_BankAccountBankID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDAccountType = function () {
+            P({
+                url: '/FileMaintenanceBank/GetDynamicAccountType',
+            }).then(function (response) {
+                $("#_DynamicDDAccountTypeID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDFundType = function () {
+            P({
+                url: '/FileMaintenanceBank/GetDynamicFundType',
+            }).then(function (response) {
+                $("#_DynamicDDFundTypeID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDGeneralName = function () {
+            P({
+                url: '/FileMaintenanceBank/GetDynamicGeneralAccount',
+            }).then(function (response) {
+                $("#_DynamicDDGeneralNameID").html(response.data);
+                F.LoadDynamicDDGeneralCode();
+            });
+        }
+        F.LoadDynamicDDGeneralCode = function () {
+            var GeneralAccountID = $("#GeneralAccountNameIDDD").val();
+            P({
+                url: '/FileMaintenanceBank/GetDynamicGeneralAccountCode',
+                params: { GeneralAccountID: GeneralAccountID },
+            }).then(function (response) {
+                $("#_DynamicCodeID").html(response.data);
+            });
+        }
+        F.Get_UpdateBankAccount = function (BankAccountID) {
+            P({
+                url: '/FileMaintenanceBank/Get_UpdateBankAccount',
+                params: { BankAccountID: BankAccountID }
+            }).then(function (response) {
+                $("#_BankAccountID").html(response.data);
+                F.LoadSelectedDynamicDDBank();
+                F.LoadSelectedSelectedDynamicDDAccountType();
+                F.LoadSelectedDynamicDDFundType();
+                F.LoadSelectedDynamicDDGeneralName();
+            });
+        }
+        F.LoadSelectedDynamicDDBank = function () {
+            var BankAccountBankTempID = $("#BankAccountBankTempID").val();
+            P({
+                url: '/FileMaintenanceBank/GetSelectedDynamicBank',
+                params: { BankAccountBankTempID: BankAccountBankTempID }
+            }).then(function (response) {
+                $("#_BankAccountBankID").html(response.data);
+            });
+        }
+        F.LoadSelectedSelectedDynamicDDAccountType = function () {
+            var BankAccountAccountTypeTempID = $("#BankAccountAccountTypeTempID").val();
+            P({
+                url: '/FileMaintenanceBank/GetSelectedDynamicAccountType',
+                params: { BankAccountAccountTypeTempID: BankAccountAccountTypeTempID }
+            }).then(function (response) {
+                $("#_DynamicDDAccountTypeID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDFundType = function () {
+            var BankAccountFundTypeTempID = $("#BankAccountFundTypeTempID").val();
+            P({
+                url: '/FileMaintenanceBank/GetSelectedDynamicFundType',
+                params: { BankAccountFundTypeTempID: BankAccountFundTypeTempID }
+            }).then(function (response) {
+                $("#_DynamicDDFundTypeID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDGeneralName = function () {
+            var BankAccountGeneralAccountNameTempID = $("#BankAccountGeneralAccountNameTempID").val();
+            P({
+                url: '/FileMaintenanceBank/GetSelectedDynamicGeneralAccount',
+                params: { BankAccountGeneralAccountNameTempID: BankAccountGeneralAccountNameTempID }
+            }).then(function (response) {
+                $("#_DynamicDDGeneralNameID").html(response.data);
+                F.LoadDynamicDDGeneralCode();
+            });
+        }
+        F.Get_DeleteBankAccount = function (BankAccountID) {
+            P({
+                url: '/FileMaintenanceBank/DeleteBankAccount',
+                params: { BankAccountID: BankAccountID }
+            }).then(function (response) {
+                F.Get_BankAccountTable();
             });
         }
         });

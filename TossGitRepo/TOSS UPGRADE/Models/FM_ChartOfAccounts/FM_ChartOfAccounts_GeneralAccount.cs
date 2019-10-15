@@ -18,6 +18,9 @@ namespace TOSS_UPGRADE.Models.FM_ChartOfAccounts
         public GeneralAccount getGeneralAccountcolumns { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> GeneralAccountList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.GeneralAccount> getGeneralAccount { get; set; }
+        public bool MiscellaneousAccount { get; set; }
+        public bool ContraAccount { get; set; }
+        public bool SubAccount { get; set; }
         public int RevisionYearDate { get; set; }
         public int RevisionYearDateTempID2 { get; set; }
         public int AllotmentClassID { get; set; }

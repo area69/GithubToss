@@ -5,7 +5,7 @@
 @using TOSS_UPGRADE.Models;
 
 <label class="custom-form-margin"><b>General Ledger Account</b></label>
-@Html.DropDownListFor(m => m.GeneralAccountGroupNameID, Model.GeneralAccountList, new { @class = "form-control select2", id = "GeneralAccountGroupNameIDD" })
+@Html.DropDownListFor(m => m.GeneralAccountGroupNameID, Model.GeneralAccountList, new { @class = "form-control select2", id = "GeneralAccountGroupNameIDD", @disabled = "disabled" })
 
 <script>
         $(function () {

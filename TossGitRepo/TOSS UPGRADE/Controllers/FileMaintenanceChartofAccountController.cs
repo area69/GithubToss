@@ -787,6 +787,10 @@ namespace TOSS_UPGRADE.Controllers
             tblSubMajorAccountGroup.GeneralAccountName = model.getGeneralAccountcolumns.GeneralAccountName;
             tblSubMajorAccountGroup.GeneralAccountCode = model.getGeneralAccountcolumns.GeneralAccountCode;
             tblSubMajorAccountGroup.SubMajorAccountGroupID = Convert.ToInt32(model.SubMajorAccountGroupNameID);
+            var StatusTemp1 = model.MiscellaneousAccount;
+            var StatusTemp2 = model.ContraAccount;
+            var StatusTemp3 = model.SubAccount;
+
             tblSubMajorAccountGroup.isReserve = model.isReserve;
             tblSubMajorAccountGroup.ReservePercent = model.getGeneralAccountcolumns.ReservePercent;
             tblSubMajorAccountGroup.isFullReserve = model.isRelease;

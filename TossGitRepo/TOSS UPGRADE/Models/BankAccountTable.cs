@@ -25,10 +25,15 @@ namespace TOSS_UPGRADE.Models
         public string AccountName { get; set; }
         public string AccountNo { get; set; }
         public int FundID { get; set; }
-        public string CurrentAccount { get; set; }
-        public int AccountCodeID { get; set; }
+        public int GeneralAccountID { get; set; }
         public int AccountTypeID { get; set; }
     
+        public virtual BankAccount_AccountType BankAccount_AccountType { get; set; }
+        public virtual BankAccountTable BankAccountTable1 { get; set; }
+        public virtual BankAccountTable BankAccountTable2 { get; set; }
+        public virtual BankTable BankTable { get; set; }
+        public virtual Fund Fund { get; set; }
+        public virtual GeneralAccount GeneralAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckInventoryTable> CheckInventoryTables { get; set; }
     }

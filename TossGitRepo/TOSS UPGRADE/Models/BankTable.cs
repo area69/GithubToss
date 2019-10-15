@@ -14,9 +14,18 @@ namespace TOSS_UPGRADE.Models
     
     public partial class BankTable
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BankTable()
+        {
+            this.BankAccountTables = new HashSet<BankAccountTable>();
+        }
+    
         public int BankID { get; set; }
         public string BankName { get; set; }
         public string BankCode { get; set; }
         public string BankAddress { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BankAccountTable> BankAccountTables { get; set; }
     }
 }
