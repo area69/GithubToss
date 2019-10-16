@@ -1,0 +1,10 @@
+﻿@model TOSS_UPGRADE.Models.FM_Barangay.FM_Barangay_BarangayName
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label><b>Account Number</b></label>
+@Html.DropDownListFor(m => m.AccountNumberID, Model.BarangayBankAccountList, new { @class = "form-control select2", id = "AccountNumberIDD"})
+
+

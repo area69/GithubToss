@@ -17,6 +17,7 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BankAccountTable()
         {
+            this.Barangay_BarangayBankAccount = new HashSet<Barangay_BarangayBankAccount>();
             this.CheckInventoryTables = new HashSet<CheckInventoryTable>();
         }
     
@@ -34,6 +35,8 @@ namespace TOSS_UPGRADE.Models
         public virtual BankTable BankTable { get; set; }
         public virtual Fund Fund { get; set; }
         public virtual GeneralAccount GeneralAccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Barangay_BarangayBankAccount> Barangay_BarangayBankAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckInventoryTable> CheckInventoryTables { get; set; }
     }

@@ -254,6 +254,9 @@
     <Compile Include="Models\BankTable.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Barangay_BarangayBankAccount.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Barangay_BarangayName.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -9174,6 +9177,15 @@
     <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDGeneralAccountName.cshtml" />
     <Content Include="Views\FileMaintenanceBank\BankAccount\_DynamicDDGeneralCode.cshtml" />
     <Content Include="Views\FileMaintenanceBank\BankAccount\_UpdateBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayName\BarangayNameIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayCollector\BarangayCollectorIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\BarangayBankAccountIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_BarangayBankAccountTable.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_AddBarangayBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_DynamicDDBarangayBankName.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_DynamicDDBarangayName.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_DynamicDDBankAccountNumber.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_UpdateBarangayBankAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9188,7 +9200,6 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
-    <Folder Include="Views\FileMaintenanceBarangay\BarangayBankAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

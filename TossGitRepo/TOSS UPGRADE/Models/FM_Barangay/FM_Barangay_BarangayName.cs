@@ -18,6 +18,10 @@ namespace TOSS_UPGRADE.Models.FM_Barangay
             getBarangayCollector = new List<Barangay_CollectorName>();
             getBarangayCollectorcolumns = new Barangay_CollectorName();
             getBarangayCollectorList = new List<BarangayCollectorList>();
+
+            getBarangayBankAccount = new List<Barangay_BarangayBankAccount>();
+            getBarangayBankAccountcolumns = new Barangay_BarangayBankAccount();
+            getBarangayBankAccountList = new List<BarangayBankAccountList>();
         }
         public List<BarangayNameList> getBarangayNameList { get; set; }
         public Barangay_BarangayName getBarangayNamecolumns { get; set; }
@@ -31,6 +35,16 @@ namespace TOSS_UPGRADE.Models.FM_Barangay
         public IEnumerable<TOSS_UPGRADE.Models.Barangay_CollectorName> getBarangayCollector { get; set; }
 
 
+        public List<BarangayBankAccountList> getBarangayBankAccountList { get; set; }
+        public Barangay_BarangayBankAccount getBarangayBankAccountcolumns { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> BarangayBankAccountList { get; set; }
+        public IEnumerable<TOSS_UPGRADE.Models.Barangay_BarangayBankAccount> getBarangayBankAccount { get; set; }
+        public int BankID { get; set; }
+        public int BarangayID { get; set; }
+        public int BankTempID { get; set; }
+        public int BarangayTempID { get; set; }
+        public int AccountNumberID { get; set; }
+        public int AccountNumberTempID { get; set; }
     }
     public class BarangayNameList
     {
@@ -44,5 +58,11 @@ namespace TOSS_UPGRADE.Models.FM_Barangay
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+    }
+    public class BarangayBankAccountList
+    {
+        public int BarangayBankAccountID { get; set; }
+        public string BarangayName { get; set; }
+        public int BankAccountID { get; set; }
     }
 }

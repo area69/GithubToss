@@ -106,6 +106,14 @@
           <Property Name="BankCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="BankAddress" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Barangay_BarangayBankAccount">
+          <Key>
+            <PropertyRef Name="BarangayBankAccountID" />
+          </Key>
+          <Property Name="BarangayBankAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BarangayID" Type="int" Nullable="false" />
+          <Property Name="BankAccountID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Barangay_BarangayName">
           <Key>
             <PropertyRef Name="BarangayID" />
@@ -521,6 +529,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Barangay_BarangayBankAccount_BankAccountTable">
+          <End Role="BankAccountTable" Type="Self.BankAccountTable" Multiplicity="1" />
+          <End Role="Barangay_BarangayBankAccount" Type="Self.Barangay_BarangayBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccountTable">
+              <PropertyRef Name="BankAccountID" />
+            </Principal>
+            <Dependent Role="Barangay_BarangayBankAccount">
+              <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Barangay_BarangayBankAccount_Barangay_BarangayName">
+          <End Role="Barangay_BarangayName" Type="Self.Barangay_BarangayName" Multiplicity="1" />
+          <End Role="Barangay_BarangayBankAccount" Type="Self.Barangay_BarangayBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay_BarangayName">
+              <PropertyRef Name="BarangayID" />
+            </Principal>
+            <Dependent Role="Barangay_BarangayBankAccount">
+              <PropertyRef Name="BarangayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CheckInventoryTable_BankAccountTable">
           <End Role="BankAccountTable" Type="Self.BankAccountTable" Multiplicity="1" />
           <End Role="CheckInventoryTable" Type="Self.CheckInventoryTable" Multiplicity="*" />
@@ -877,6 +909,7 @@
           <EntitySet Name="BankAccount_LedgerAccount" EntityType="Self.BankAccount_LedgerAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankAccountTable" EntityType="Self.BankAccountTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankTable" EntityType="Self.BankTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Barangay_BarangayBankAccount" EntityType="Self.Barangay_BarangayBankAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Barangay_BarangayName" EntityType="Self.Barangay_BarangayName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Barangay_CollectorName" EntityType="Self.Barangay_CollectorName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckInventoryTable" EntityType="Self.CheckInventoryTable" Schema="dbo" store:Type="Tables" />
@@ -952,6 +985,14 @@
           <AssociationSet Name="FK_BankAccountTable_GeneralAccount" Association="Self.FK_BankAccountTable_GeneralAccount">
             <End Role="GeneralAccount" EntitySet="GeneralAccount" />
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Barangay_BarangayBankAccount_BankAccountTable" Association="Self.FK_Barangay_BarangayBankAccount_BankAccountTable">
+            <End Role="BankAccountTable" EntitySet="BankAccountTable" />
+            <End Role="Barangay_BarangayBankAccount" EntitySet="Barangay_BarangayBankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Barangay_BarangayBankAccount_Barangay_BarangayName" Association="Self.FK_Barangay_BarangayBankAccount_Barangay_BarangayName">
+            <End Role="Barangay_BarangayName" EntitySet="Barangay_BarangayName" />
+            <End Role="Barangay_BarangayBankAccount" EntitySet="Barangay_BarangayBankAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="Self.FK_CheckInventoryTable_BankAccountTable">
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
@@ -1117,6 +1158,7 @@
           <EntitySet Name="BankAccount_LedgerAccount" EntityType="DB_TOSSModel.BankAccount_LedgerAccount" />
           <EntitySet Name="BankAccountTables" EntityType="DB_TOSSModel.BankAccountTable" />
           <EntitySet Name="BankTables" EntityType="DB_TOSSModel.BankTable" />
+          <EntitySet Name="Barangay_BarangayBankAccount" EntityType="DB_TOSSModel.Barangay_BarangayBankAccount" />
           <EntitySet Name="Barangay_BarangayName" EntityType="DB_TOSSModel.Barangay_BarangayName" />
           <EntitySet Name="Barangay_CollectorName" EntityType="DB_TOSSModel.Barangay_CollectorName" />
           <EntitySet Name="CheckInventoryTables" EntityType="DB_TOSSModel.CheckInventoryTable" />
@@ -1197,9 +1239,17 @@
             <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
             <End Role="BankAccountTable" EntitySet="BankAccountTables" />
           </AssociationSet>
+          <AssociationSet Name="FK_Barangay_BarangayBankAccount_BankAccountTable" Association="DB_TOSSModel.FK_Barangay_BarangayBankAccount_BankAccountTable">
+            <End Role="BankAccountTable" EntitySet="BankAccountTables" />
+            <End Role="Barangay_BarangayBankAccount" EntitySet="Barangay_BarangayBankAccount" />
+          </AssociationSet>
           <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable">
             <End Role="BankAccountTable" EntitySet="BankAccountTables" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Barangay_BarangayBankAccount_Barangay_BarangayName" Association="DB_TOSSModel.FK_Barangay_BarangayBankAccount_Barangay_BarangayName">
+            <End Role="Barangay_BarangayName" EntitySet="Barangay_BarangayName" />
+            <End Role="Barangay_BarangayBankAccount" EntitySet="Barangay_BarangayBankAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_Function_OfficeType" Association="DB_TOSSModel.FK_Function_OfficeType">
             <End Role="OfficeType" EntitySet="OfficeTypes" />
@@ -1403,6 +1453,7 @@
           <NavigationProperty Name="BankTable" Relationship="DB_TOSSModel.FK_BankAccountTable_BankTable" FromRole="BankAccountTable" ToRole="BankTable" />
           <NavigationProperty Name="Fund" Relationship="DB_TOSSModel.FK_BankAccountTable_Fund" FromRole="BankAccountTable" ToRole="Fund" />
           <NavigationProperty Name="GeneralAccount" Relationship="DB_TOSSModel.FK_BankAccountTable_GeneralAccount" FromRole="BankAccountTable" ToRole="GeneralAccount" />
+          <NavigationProperty Name="Barangay_BarangayBankAccount" Relationship="DB_TOSSModel.FK_Barangay_BarangayBankAccount_BankAccountTable" FromRole="BankAccountTable" ToRole="Barangay_BarangayBankAccount" />
           <NavigationProperty Name="CheckInventoryTables" Relationship="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable" FromRole="BankAccountTable" ToRole="CheckInventoryTable" />
         </EntityType>
         <EntityType Name="BankTable">
@@ -1415,12 +1466,23 @@
           <Property Name="BankAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BankAccountTables" Relationship="DB_TOSSModel.FK_BankAccountTable_BankTable" FromRole="BankTable" ToRole="BankAccountTable" />
         </EntityType>
+        <EntityType Name="Barangay_BarangayBankAccount">
+          <Key>
+            <PropertyRef Name="BarangayBankAccountID" />
+          </Key>
+          <Property Name="BarangayBankAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BarangayID" Type="Int32" Nullable="false" />
+          <Property Name="BankAccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BankAccountTable" Relationship="DB_TOSSModel.FK_Barangay_BarangayBankAccount_BankAccountTable" FromRole="Barangay_BarangayBankAccount" ToRole="BankAccountTable" />
+          <NavigationProperty Name="Barangay_BarangayName" Relationship="DB_TOSSModel.FK_Barangay_BarangayBankAccount_Barangay_BarangayName" FromRole="Barangay_BarangayBankAccount" ToRole="Barangay_BarangayName" />
+        </EntityType>
         <EntityType Name="Barangay_BarangayName">
           <Key>
             <PropertyRef Name="BarangayID" />
           </Key>
           <Property Name="BarangayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BarangayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Barangay_BarangayBankAccount" Relationship="DB_TOSSModel.FK_Barangay_BarangayBankAccount_Barangay_BarangayName" FromRole="Barangay_BarangayName" ToRole="Barangay_BarangayBankAccount" />
         </EntityType>
         <EntityType Name="Barangay_CollectorName">
           <Key>
@@ -1896,6 +1958,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Barangay_BarangayBankAccount_BankAccountTable">
+          <End Type="DB_TOSSModel.BankAccountTable" Role="BankAccountTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Barangay_BarangayBankAccount" Role="Barangay_BarangayBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BankAccountTable">
+              <PropertyRef Name="BankAccountID" />
+            </Principal>
+            <Dependent Role="Barangay_BarangayBankAccount">
+              <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CheckInventoryTable_BankAccountTable">
           <End Type="DB_TOSSModel.BankAccountTable" Role="BankAccountTable" Multiplicity="1" />
           <End Type="DB_TOSSModel.CheckInventoryTable" Role="CheckInventoryTable" Multiplicity="*" />
@@ -1905,6 +1979,18 @@
             </Principal>
             <Dependent Role="CheckInventoryTable">
               <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Barangay_BarangayBankAccount_Barangay_BarangayName">
+          <End Type="DB_TOSSModel.Barangay_BarangayName" Role="Barangay_BarangayName" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Barangay_BarangayBankAccount" Role="Barangay_BarangayBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay_BarangayName">
+              <PropertyRef Name="BarangayID" />
+            </Principal>
+            <Dependent Role="Barangay_BarangayBankAccount">
+              <PropertyRef Name="BarangayID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2313,6 +2399,15 @@
                 <ScalarProperty Name="BankCode" ColumnName="BankCode" />
                 <ScalarProperty Name="BankName" ColumnName="BankName" />
                 <ScalarProperty Name="BankID" ColumnName="BankID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Barangay_BarangayBankAccount">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Barangay_BarangayBankAccount">
+              <MappingFragment StoreEntitySet="Barangay_BarangayBankAccount">
+                <ScalarProperty Name="BankAccountID" ColumnName="BankAccountID" />
+                <ScalarProperty Name="BarangayID" ColumnName="BarangayID" />
+                <ScalarProperty Name="BarangayBankAccountID" ColumnName="BarangayBankAccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

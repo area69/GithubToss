@@ -11,125 +11,31 @@
     </div>
 </div>
 
-<div class="card-content black" id="FMBarangayController" ng-controller="FMBarangayController" ng-init="InitAllFunction();">
+<div class="card-content black" id="FMBarangayController" ng-controller="FMBarangayController" ng-init="BarangayNameTab();">
         <div class="card">
             <ul class="nav nav-tabs bg-headerbc nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Barangay Name</b></a>
+                    <a class="nav-link active" id="base-tab1" data-toggle="pill" aria-controls="tab1" ng-click="BarangayNameTab()"  href="#tab1" aria-expanded="true"><b>Barangay Name</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Barangay Collector</b></a>
+                    <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" ng-click="BarangayCollectorTab()"  aria-expanded="false"><b>Barangay Collector</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>Barangay Bank Account</b></a>
+                    <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" ng-click="BarangayBankAccountTab()"  aria-expanded="false"><b>Barangay Bank Account</b></a>
                 </li>
             </ul>
             <div class="tab-content px-1 pt-1">
                 @* Barangay Name *@
-                <div role="tabpanel" class="tab-pane active black" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-                    <div class="content-body">
-                        <div class="card-block">
-                            <div class="card-body box-shadow-2">
-                                <div class="card box-shadow-2" id="_BarangayNameID">
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="col-md-12" id="_BarangayNameTableID">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div role="tabpanel" class="tab-pane active black" id="tab1" aria-expanded="true" ng-bind-html="tab1" aria-labelledby="base-tab1">
+                   
                 </div>
                 @* Barangay Collector *@
-                <div role="tabpanel" class="tab-pane black" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
-                    <div class="content-body">
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-10" id="_BarangayCollectorID">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-10" id="_BarangayCollectorTableID">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div role="tabpanel" class="tab-pane black" id="tab2" aria-expanded="true" ng-bind-html="tab2" aria-labelledby="base-tab2">
+                  
                 </div>
                 @* Barangay Bank Account *@
-                <div role="tabpanel" class="tab-pane black" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
-                    <div class="content-body">
-                        <div class="card-block">
-                            <div class="row black">
-                                <div class="col-md-3 form-group">
-                                    <label><b>Barangay</b></label>
-                                    <select class="form-control">
-                                        <option>Barangay 1</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 form-group">
-                                    <label><b>Bank Name</b></label>
-                                    <select class="form-control">
-                                        <option>Land Bank of the Philippines</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <label><b>Account No.</b></label>
-                                    <input type="text" class="form-control" value="" />
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        <div class="col-md-6 form-group">
-                                            <label style="visibility:hidden">Position</label>
-                                            <button class="btn bg-addbutton black form-control"><b>Add</b></button>
-                                        </div>
-                                        <div class="col-md-6 form-group">
-                                            <label style="visibility:hidden">Position</label>
-                                            <button class="btn bg-headerbc white form-control"><b>Cancel</b></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                        <thead>
-                                            <tr>
-                                                <th>Barangay</th>
-                                                <th>Bank</th>
-                                                <th>Bank Account No</th>
-                                                <th width="5px;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Barangay 1</td>
-                                                <td>Land Bank of the Philippines</td>
-                                                <td>0442-1046-38</td>
-                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Barangay 2</td>
-                                                <td>Land Bank of the Philippines</td>
-                                                <td>0442-1046-97</td>
-                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div role="tabpanel" class="tab-pane black" id="tab3" aria-expanded="true" ng-bind-html="tab3" aria-labelledby="base-tab3">
+                    
                 </div>
             </div>
         </div>
@@ -139,14 +45,32 @@
     app.controller('FMBarangayController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
-        F.InitAllFunction = function () {
-            //Barangay Name
-            F.Get_BarangayNameTable();
-
-            //Barangay Collector
-            F.Get_BarangayCollectorNameTable();
-
-
+        F.BarangayNameTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceBarangay/BarangayNameTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+                F.Get_BarangayNameTable();
+            });
+        }
+        F.BarangayCollectorTab = function () {
+            F.tab2 = null;
+            P({
+                url: '/FileMaintenanceBarangay/BarangayCollectorTab',
+            }).then(function (response) {
+                F.tab2 = D(response.data);
+                F.Get_BarangayCollectorNameTable();
+            });
+        }
+        F.BarangayBankAccountTab = function () {
+            F.tab3 = null;
+            P({
+                url: '/FileMaintenanceBarangay/BarangayBankAccountTab',
+            }).then(function (response) {
+                F.tab3 = D(response.data);
+                F.Get_BarangayBankAccountTable();
+            });
         }
 
         //Barangay
@@ -217,6 +141,89 @@
             });
         }
 
+        //Barangay Bank Account
 
+        F.Get_BarangayBankAccountTable = function () {
+            P({
+                url: '/FileMaintenanceBarangay/Get_BarangayBankAccountTable',
+            }).then(function (response) {
+                $("#_BarangayBankAccountTableID").html(response.data);
+            });
+            F.Get_AddBarangayBankAccount();
+        }
+        F.Get_AddBarangayBankAccount = function () {
+            P({
+                url: '/FileMaintenanceBarangay/Get_AddBarangayBankAccount',
+            }).then(function (response) {
+                $("#_BarangayBankAccountID").html(response.data);
+                F.LoadDynamicDDBankName();
+                F.LoadDynamicDDBarangayName();
+            });
+        }
+        F.LoadDynamicDDBarangayName = function () {
+            P({
+                url: '/FileMaintenanceBarangay/GetDynamicBarangayName',
+            }).then(function (response) {
+                $("#_DynamicBarangayNameID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDBankName = function () {
+            P({
+                url: '/FileMaintenanceBarangay/GetDynamicBarangayBankName',
+            }).then(function (response) {
+                $("#_DynamicBankID").html(response.data);
+                F.LoadDynamicDDBankAccountNumber();
+            });
+        }
+        F.LoadDynamicDDBankAccountNumber = function () {
+            var BankID = $("#BarangayBankIDD").val();
+            P({
+                url: '/FileMaintenanceBarangay/GetDynamicBarangayBankAccountNumber',
+                params: { BankID: BankID }
+            }).then(function (response) {
+                $("#_DynamicAccountNo").html(response.data);
+            });
+        }
+
+
+        F.Get_UpdateBarangayBankAccount = function (BarangayBankAccountID) {
+            P({
+                url: '/FileMaintenanceBarangay/Get_UpdateBarangayBankAccount',
+                params: { BarangayBankAccountID: BarangayBankAccountID }
+            }).then(function (response) {
+                $("#_BarangayBankAccountID").html(response.data);
+                F.LoadSelectedDynamicDDBarangayName();
+                F.LoadSelectedDynamicDDBankName();
+            });
+        }
+        F.LoadSelectedDynamicDDBarangayName = function () {
+            var BarangayTempID = $("#BarangayTempID").val();
+            P({
+                url: '/FileMaintenanceBarangay/GetSelectedDynamicBarangayName',
+                params: { BarangayTempID: BarangayTempID }
+            }).then(function (response) {
+                $("#_DynamicBarangayNameID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDBankName = function () {
+            var BankTempID = $("#BankTempID").val();
+            P({
+                url: '/FileMaintenanceBarangay/GetSelectedDynamicBarangayBankName',
+                params: { BankTempID: BankTempID }
+            }).then(function (response) {
+                $("#_DynamicBankID").html(response.data);
+                F.LoadSelectedDynamicDDBankAccountNumber();
+            });
+        }
+        F.LoadSelectedDynamicDDBankAccountNumber = function () {
+            var BankID = $("#BarangayBankIDD").val();
+            var AccountNumberTempID = $("#AccountNumberTempID").val();
+            P({
+                url: '/FileMaintenanceBarangay/GetSelectedDynamicBarangayBankAccountNumber',
+                params: { BankID: BankID, AccountNumberTempID: AccountNumberTempID }
+            }).then(function (response) {
+                $("#_DynamicAccountNo").html(response.data);
+            });
+        }
     });
     </script>

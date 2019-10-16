@@ -146,6 +146,12 @@ function AngularGlobalAlertsCallingTwoActionNoModal(ControllerName, ActionName1,
         swalSuccess("Success", SuccessMess);
     });
 }
+function AngularGlobalAlertsCallingNoModalNoSuccessWithSingleFunc(ControllerName, ActionName1) {
+    var scope = angular.element(document.getElementById(ControllerName)).scope();
+    scope.$apply(function () {
+        eval("scope." + ActionName1 + "();");
+    });
+}
 function AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc(ControllerName, ActionName1, ActionName2) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
