@@ -288,8 +288,7 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return Json(tblBarangayAccount);
         }
-
-        //Get Collector Name
+        //Get Bank Account
         public ActionResult Get_UpdateBarangayBankAccount(FM_Barangay_BarangayName model, int BarangayBankAccountID)
         {
             Barangay_BarangayBankAccount tblBarangayName = (from e in TOSSDB.Barangay_BarangayBankAccount where e.BarangayBankAccountID == BarangayBankAccountID select e).FirstOrDefault();
@@ -298,6 +297,24 @@ namespace TOSS_UPGRADE.Controllers
             model.BankTempID = tblBarangayName.BankAccountTable.BankTable.BankID;
             model.AccountNumberTempID = tblBarangayName.BankAccountID;
             return PartialView("BarangayBankAccount/_UpdateBarangayBankAccount", model);
+        }
+        public ActionResult UpdateBarangayBankAccount(FM_Barangay_BarangayName model)
+        {
+            Barangay_BarangayBankAccount tblBarangayAccount = (from e in TOSSDB.Barangay_BarangayBankAccount where e.BarangayBankAccountID == model.getBarangayBankAccountcolumns.BarangayBankAccountID select e).FirstOrDefault();
+            tblBarangayAccount.BarangayID = model.BarangayID;
+            tblBarangayAccount.BankAccountID = model.AccountNumberID;
+            TOSSDB.Entry(tblBarangayAccount);
+            TOSSDB.SaveChanges();
+            return PartialView("BarangayBankAccount/_UpdateBarangayBankAccount", model);
+        }
+
+        //Delete Bank Account
+        public ActionResult DeleteBarangayBankAccount(FM_Barangay_BarangayName model, int BarangayBankAccountID)
+        {
+            Barangay_BarangayBankAccount tblBarangayName = (from e in TOSSDB.Barangay_BarangayBankAccount where e.BarangayBankAccountID == BarangayBankAccountID select e).FirstOrDefault();
+            TOSSDB.Barangay_BarangayBankAccount.Remove(tblBarangayName);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
         }
         #endregion
     }

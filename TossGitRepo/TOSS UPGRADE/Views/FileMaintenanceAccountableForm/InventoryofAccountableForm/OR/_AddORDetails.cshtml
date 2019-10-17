@@ -11,21 +11,21 @@
         </div>
         <div class="col-md-4 form-group">
             <label>Starting Stub No.</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id= "txtORInvStubNo" })
         </div>
         <div class="col-md-4 form-group">
-            <label>Quantity</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Quantity, new { @class = "form-control", type = "text", id = "txtORInvQty" })
+            <label>Number of Stubs</label>
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Quantity, new { @class = "form-control", type = "text", id = "txtORInvStub" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
             <label>Starting OR</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StartingOR, new { @class = "form-control", type = "text", id = "txtStrtORNo" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StartingOR, new { @class = "form-control", type = "text", id = "txtORInvStrtOR" })
         </div>
         <div class="col-md-4 form-group">
             <label>Ending OR</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtEndChkNo" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtORInvEndOR" , @disabled = "disabled"})
         </div>
         <div class="col-md-4 form-group">
             <label>OR Date</label>
@@ -34,7 +34,7 @@
     </div>
     <div class="row">
         <div class="col-md-8"></div>
-        <div class="col-md-2"><button type="submit" class="btn black bg-addbutton form-control"><b>Add</b></button></div>
+        <div class="col-md-2"><button type="submit" class="btn black bg-addbutton form-control" id="btnAddORInventory"><b>Add</b></button></div>
         <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control"><b>Cancel</b></button></div>
     </div>
 }
@@ -45,24 +45,101 @@
             LoadPickDatetime();
     })
 
+
     $("#txtStrtORNo").change(function () {
-        var startNo = $("#txtStrtORNo").val();
-        var countStartNo = startNo.toString().length;
-        var startNoQty = parseFloat($("#txtStrtORNo").val()) + parseFloat($("#txtORInvQty").val() - parseFloat(1));
-        var countEndNo = startNoQty.toString().length;
-        var number = "";
+        var StubQty = $("#txtORInvStub").val();
+        var StubNum = $("#txtORInvStubNo").val();
+        var StrtStub = $("#txtORInvStrtOR").val();
+        var EndStub = $("#txtORInvEndOR").val();
+        var formId = $("#drpFRMOR").val();
+        var formType = $("#drpFRMOR option:selected").text();
+        var qty = "50";
+        var Quantity = parseFloat(StubNum) * parseFloat(qty);
+        var orDate = $("#txtORInvDate").val();
+                    var i = 0;
+                    var stubNoAddedOne = 0;
 
-        for (i = 0; i < countStartNo; i++) {
-            number += "0";
-        }
+                    do {
 
-        var countZero = number.toString().length;
-        var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
+                        var runningNumber = 0;
+                        if (i == 0) {
+                            runningNumber = 0;
+                        } else if (i != 0) {
+                            runningNumber = 1;
+                        }
+                        stubNoAddedOne = stubNoAddedOne + runningNumber;
 
-        if ($("#txtStrtORNo").val() == "") {
-            $("#txtEndChkNo").val("");
-        } else {
-            $("#txtEndChkNo").val(res);
-        }
+                        var iterateQuantity = 0;
+
+                        if (i == 0) {
+                            iterateQuantity = i * qty;
+                        } else if (i != 0) {
+                            iterateQuantity = 50;
+                        }
+
+
+                        var countStartNo = StrtStub.toString().length;
+                        var startNoQty = parseFloat(StrtStub) + parseFloat(1 - parseFloat(1));
+                        var countEndNo = startNoQty.toString().length;
+                        var number = "";
+
+                        for (ii = 0; ii < countStartNo; ii++) {
+                            number += "0";
+                        }
+
+                        var countZero = number.toString().length;
+                        var res = number.toString().substring(0, countZero - countEndNo) + parseFloat(startNoQty + iterateQuantity);
+
+                        //End number
+                        var countEndNo = EndStub.toString().length;
+                        var endNoQty = parseFloat(StrtStub) + parseFloat(parseInt(qty)) - 1;
+                        var countEndNos = endNoQty.toString().length;
+                        var numberEnd = "";
+
+                        for (ii = 0; ii < countEndNo; ii++) {
+                            numberEnd += "0";
+                        }
+
+                        var countEndZero = numberEnd.toString().length;
+                        var resEnd = numberEnd.toString().substring(0, countEndZero - countEndNos) + parseFloat(endNoQty + iterateQuantity);
+
+                        StrtStub = res;
+                        EndStub = resEnd;
+                        //parseFloat(StrtStub) + parseFloat(1);
+                        StubNum = parseFloat(StubNum) + parseFloat(runningNumber);
+
+
+                        if (StubQty == "0" || StubQty == "" || isNaN(StubNum) || isNaN(StrtStub) || isNaN(EndStub) || isNaN(Quantity)) {
+                            var str = "<p><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>All fields are required.</p>";
+                            $("#dialog-Prompt").html("");
+                            $("#dialog-Prompt").append(str);
+                            $("#dialog-Prompt").dialog("open");
+                        } else {
+                            rowname = parseInt($("#hidORInventoryCounter").val()) + 1;
+                            if (!isNaN(rowname)) {
+                            } else {
+                                rowname = 1;
+                            }
+                            $("#hidORInventoryCounter").val(rowname);
+
+                            my = { id: rowname, edit: '', stubNo: StubNum, quantity: "50", startingNo: res, endingNo: resEnd, formType: formType, date: orDate, formORID: formId }
+                            jQuery("#LstFileMaintenanceORDetails").addRowData(rowname, my, 'first');
+                            $("#txtORInvStubNo").val("");
+                            $("#txtORInvStub").val("0");
+                            $("#txtORInvStrtOR").val("");
+                            $("#txtORInvEndOR").val("");
+                            $("#txtORInvDate").val(currentDate);
+
+                        }
+
+                        i++;
+
+
+                    }
+                    while (i < StubQty);
+                    
+            
+        
     });
+
 </script>

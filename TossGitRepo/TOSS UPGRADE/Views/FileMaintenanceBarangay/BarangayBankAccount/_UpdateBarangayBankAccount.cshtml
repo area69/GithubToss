@@ -3,18 +3,18 @@
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-@using (Ajax.BeginForm("AddBarangayBankAccount", "FileMaintenanceBarangay", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBarangayController','Get_BarangayBankAccountTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateBarangayBankAccount", "FileMaintenanceBarangay", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMBarangayController','Get_BarangayBankAccountTable','Successfully Updated')", OnFailure = "OnFailure()", }))
 {
     @Html.HiddenFor(m => m.getBarangayBankAccountcolumns.BarangayBankAccountID, new { })
-    @Html.TextBoxFor(m => m.BarangayTempID, new { id = "BarangayTempID" })
+    @Html.HiddenFor(m => m.BarangayTempID, new { id = "BarangayTempID" })
     @Html.HiddenFor(m => m.BankTempID, new { id = "BankTempID" })
     @Html.HiddenFor(m => m.AccountNumberTempID, new { id = "AccountNumberTempID" })
     <div class="row black">
-        <div class="col-md-3 form-group" id="_DynamicBarangayNameID">
+        <div class="col-md-2 form-group" id="_DynamicBarangayNameID">
         </div>
         <div class="col-md-4 form-group" id="_DynamicBankID">
         </div>
-        <div class="col-md-2" id="_DynamicAccountNo">
+        <div class="col-md-3" id="_DynamicAccountNo">
         </div>
         <div class="col-md-3">
             <div class="row">

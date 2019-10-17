@@ -184,8 +184,6 @@
                 $("#_DynamicAccountNo").html(response.data);
             });
         }
-
-
         F.Get_UpdateBarangayBankAccount = function (BarangayBankAccountID) {
             P({
                 url: '/FileMaintenanceBarangay/Get_UpdateBarangayBankAccount',
@@ -223,6 +221,14 @@
                 params: { BankID: BankID, AccountNumberTempID: AccountNumberTempID }
             }).then(function (response) {
                 $("#_DynamicAccountNo").html(response.data);
+            });
+        }
+        F.Get_DeleteBankAccount = function (BarangayBankAccountID) {
+            P({
+                url: '/FileMaintenanceBarangay/DeleteBarangayBankAccount',
+                params: { BarangayBankAccountID: BarangayBankAccountID }
+            }).then(function (response) {
+                F.Get_BarangayBankAccountTable();
             });
         }
     });

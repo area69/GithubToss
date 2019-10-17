@@ -21,8 +21,8 @@
                         var DeleteConfirmationMess = "Are you sure do you want to delete this Barangay Name?";
                         var DeleteSuccesMess = "Successfully Deleted";
 
-                        var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMBarangayController','Get_UpdateBarangayBankAccount','" + @Items.BankAccountID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
-                        var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.BankAccountID + ",&quot;Get_DeleteCollectorName&quot;,&quot;FMBarangayController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                        var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMBarangayController','Get_UpdateBarangayBankAccount','" + @Items.BarangayBankAccountID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                        var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.BarangayBankAccountID + ",&quot;Get_DeleteBankAccount&quot;,&quot;FMBarangayController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                         var ActionContentProgram = ViewEdit + ViewDelete;
                 <tr>
                     <td>@Items.BarangayName</td>
