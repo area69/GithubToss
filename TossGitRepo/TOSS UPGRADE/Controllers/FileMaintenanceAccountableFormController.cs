@@ -22,6 +22,21 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
+        public ActionResult AccountableFormTab()
+        {
+            FM_AccountableForm model = new FM_AccountableForm();
+            return PartialView("AccountableForm/AccountableFormIndex", model);
+        }
+        public ActionResult InventoryofAccountableFormTab()
+        {
+            FM_AccountableFormInventory model = new FM_AccountableFormInventory();
+            return PartialView("InventoryofAccountableForm/InventoryofAFIndex", model);
+        }
+        public ActionResult AssignmentofAccountableFormTab()
+        {
+            FM_AccountableForm model = new FM_AccountableForm();
+            return PartialView("AssignmentofAccountableForm/AssignmentofAFIndex", model);
+        }
         #region Accountable Form Details
         //Table Accountable Form
         public ActionResult Get_AccountableFormTable()

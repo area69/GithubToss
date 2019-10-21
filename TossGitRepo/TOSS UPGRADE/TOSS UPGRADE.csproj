@@ -9186,6 +9186,9 @@
     <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_DynamicDDBarangayName.cshtml" />
     <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_DynamicDDBankAccountNumber.cshtml" />
     <Content Include="Views\FileMaintenanceBarangay\BarangayBankAccount\_UpdateBarangayBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\AccountableFormIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\InventoryofAccountableForm\InventoryofAFIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\AssignmentofAFIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .accntCode {
     margin-top: 8px;
     border: 0px white;
-    background-color: white;
+    background-color: transparent;
     width: 80px;
     padding-left: 0px;
     margin-left: 0px;
@@ -412,3 +412,9 @@ table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
 .nav.nav-tabs.nav-linetriangle .nav-item a.nav-link:hover, .nav.nav-tabs.nav-linetriangler .nav-item a.nav-link:focus {
         color: #FF4961;
     }
+.menubackground {
+    background-color: #E9BDBB !important;
+}
+.rounded {
+    border-radius: 0.35rem !important;
+}
