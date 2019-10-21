@@ -21,6 +21,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int AFTempID { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.AccountableForm_Inventory> getAccountableFormInvt { get; set; }
         public int AccountableFormInvtID { get; set; }
+        public int hidORInventoryQuantity { get; set; }
     }
     public class AccountableFormInvtList
     {

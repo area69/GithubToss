@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label>Starting Stub No.</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id= "txtORInvStubNo" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id = "txtORInvStubNo" })
         </div>
         <div class="col-md-4 form-group">
             <label>Number of Stubs</label>
@@ -25,11 +25,11 @@
         </div>
         <div class="col-md-4 form-group">
             <label>Ending OR</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtORInvEndOR" , @disabled = "disabled"})
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtORInvEndOR", @readonly = "readonly" })
         </div>
         <div class="col-md-4 form-group">
             <label>OR Date</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text", id = "txtORInvDate" })
         </div>
     </div>
     <div class="row">
@@ -39,107 +39,31 @@
     </div>
 }
 <script>
-        $(function () {
-            LoadDataTable();
-            LoadPopOver();
-            LoadPickDatetime();
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+        LoadPickDatetime();
     })
+    $("#txtORInvStrtOR").change(function () {
+        var startNo = $("#txtORInvStrtOR").val();
+        var countStartNo = startNo.toString().length;
+        var startNoQty = parseFloat($("#txtORInvStrtOR").val()) + parseFloat($("#txtORInvStub").val() * 50 - parseFloat(1));
+        var countEndNo = startNoQty.toString().length;
+        var number = "";
 
+        for (i = 0; i < countStartNo; i++) {
+            number += "0";
+        }
 
-    $("#txtStrtORNo").change(function () {
-        var StubQty = $("#txtORInvStub").val();
-        var StubNum = $("#txtORInvStubNo").val();
-        var StrtStub = $("#txtORInvStrtOR").val();
-        var EndStub = $("#txtORInvEndOR").val();
-        var formId = $("#drpFRMOR").val();
-        var formType = $("#drpFRMOR option:selected").text();
-        var qty = "50";
-        var Quantity = parseFloat(StubNum) * parseFloat(qty);
-        var orDate = $("#txtORInvDate").val();
-                    var i = 0;
-                    var stubNoAddedOne = 0;
+        var countZero = number.toString().length;
+        var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
 
-                    do {
-
-                        var runningNumber = 0;
-                        if (i == 0) {
-                            runningNumber = 0;
-                        } else if (i != 0) {
-                            runningNumber = 1;
-                        }
-                        stubNoAddedOne = stubNoAddedOne + runningNumber;
-
-                        var iterateQuantity = 0;
-
-                        if (i == 0) {
-                            iterateQuantity = i * qty;
-                        } else if (i != 0) {
-                            iterateQuantity = 50;
-                        }
-
-
-                        var countStartNo = StrtStub.toString().length;
-                        var startNoQty = parseFloat(StrtStub) + parseFloat(1 - parseFloat(1));
-                        var countEndNo = startNoQty.toString().length;
-                        var number = "";
-
-                        for (ii = 0; ii < countStartNo; ii++) {
-                            number += "0";
-                        }
-
-                        var countZero = number.toString().length;
-                        var res = number.toString().substring(0, countZero - countEndNo) + parseFloat(startNoQty + iterateQuantity);
-
-                        //End number
-                        var countEndNo = EndStub.toString().length;
-                        var endNoQty = parseFloat(StrtStub) + parseFloat(parseInt(qty)) - 1;
-                        var countEndNos = endNoQty.toString().length;
-                        var numberEnd = "";
-
-                        for (ii = 0; ii < countEndNo; ii++) {
-                            numberEnd += "0";
-                        }
-
-                        var countEndZero = numberEnd.toString().length;
-                        var resEnd = numberEnd.toString().substring(0, countEndZero - countEndNos) + parseFloat(endNoQty + iterateQuantity);
-
-                        StrtStub = res;
-                        EndStub = resEnd;
-                        //parseFloat(StrtStub) + parseFloat(1);
-                        StubNum = parseFloat(StubNum) + parseFloat(runningNumber);
-
-
-                        if (StubQty == "0" || StubQty == "" || isNaN(StubNum) || isNaN(StrtStub) || isNaN(EndStub) || isNaN(Quantity)) {
-                            var str = "<p><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>All fields are required.</p>";
-                            $("#dialog-Prompt").html("");
-                            $("#dialog-Prompt").append(str);
-                            $("#dialog-Prompt").dialog("open");
-                        } else {
-                            rowname = parseInt($("#hidORInventoryCounter").val()) + 1;
-                            if (!isNaN(rowname)) {
-                            } else {
-                                rowname = 1;
-                            }
-                            $("#hidORInventoryCounter").val(rowname);
-
-                            my = { id: rowname, edit: '', stubNo: StubNum, quantity: "50", startingNo: res, endingNo: resEnd, formType: formType, date: orDate, formORID: formId }
-                            jQuery("#LstFileMaintenanceORDetails").addRowData(rowname, my, 'first');
-                            $("#txtORInvStubNo").val("");
-                            $("#txtORInvStub").val("0");
-                            $("#txtORInvStrtOR").val("");
-                            $("#txtORInvEndOR").val("");
-                            $("#txtORInvDate").val(currentDate);
-
-                        }
-
-                        i++;
-
-
-                    }
-                    while (i < StubQty);
-                    
-            
-        
+        if ($("#txtORInvStrtOR").val() == "") {
+            $("#txtORInvEndOR").val("");
+        } else {
+            $("#txtORInvEndOR").val(res);
+        }
     });
-
+    
 </script>
+
