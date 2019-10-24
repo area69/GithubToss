@@ -3,7 +3,6 @@
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-
 @using (Ajax.BeginForm("AddAccountableFormInventory", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_InvtAccountableFormTable','Accountable Form Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row">
@@ -34,7 +33,9 @@
     </div>
     <div class="row">
         <div class="col-md-8"></div>
-        <div class="col-md-2"><button type="submit" class="btn black bg-addbutton form-control" id="btnAddORInventory"><b>Add</b></button></div>
+        <div class="col-md-2">
+            <button type="button" class="btn black bg-addbutton form-control" id="add-row"><b>Add</b></button>
+           </div>
         <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control"><b>Cancel</b></button></div>
     </div>
 }
@@ -47,23 +48,90 @@
     $("#txtORInvStrtOR").change(function () {
         var startNo = $("#txtORInvStrtOR").val();
         var countStartNo = startNo.toString().length;
-        var startNoQty = parseFloat($("#txtORInvStrtOR").val()) + parseFloat($("#txtORInvStub").val() * 50 - parseFloat(1));
+        var qty = "50";
+        var startNoQty = parseFloat($("#txtORInvStrtOR").val()) + parseFloat($("#txtORInvStub").val() * qty - parseFloat(1));
         var countEndNo = startNoQty.toString().length;
         var number = "";
 
-        for (i = 0; i < countStartNo; i++) {
+        for (i = 1; i < countStartNo; i++) {
             number += "0";
         }
 
         var countZero = number.toString().length;
         var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
-
+        
         if ($("#txtORInvStrtOR").val() == "") {
             $("#txtORInvEndOR").val("");
         } else {
             $("#txtORInvEndOR").val(res);
         }
     });
-    
+
+    //$('#add-row').click(function () {
+    //    var numNewRows = parseInt($('#txtORInvStub').val());
+    //    var $tbody = $('table tbody');
+    //    var $row = $tbody.find('tr:last');
+    //    $tbody.append(new Array(numNewRows + 1).join($row[0].outerHTML));
+    //});
+
+    //$('#add-row').click(function () {
+    //    var formType = $("#AFIDDD option:selected").val();
+    //    if ($('#txtORInvStub').val() < 1) {
+    //        alert('Please enter number of rows to insert');
+    //    } else {
+    //        for (i = 1; i <= $('#txtORInvStub').val(); i++) {
+    //            $('table tr:last').clone(true).appendTo("tbody");
+    //        }
+    //    }
+    //});
+
+    //$('#add-row').click(function () {
+    //    if ($('#txtORInvStub').val() < 1) {
+    //        alert('Please enter number of rows to insert');
+    //    } else {
+    //        for (i = 1; i <= $('#txtORInvStub').val(); i++) {
+    //            var StubQty = $("#txtORInvStub").val();
+    //            var StubNum = $("#txtORInvStubNo").val();
+    //            var StrtStub = $("#txtORInvStrtOR").val();
+    //            var EndStub = $("#txtORInvEndOR").val();
+    //            var formType = $("#AFIDDD option:selected").text();
+    //            var qty = "50";
+    //            var isIssued = "No";
+    //            var orDate = $("#txtORInvDate").val();
+    //            var TableData = "<tr><td>" + formType + "</td><td>" + StubNum + "</td><td>" + StrtStub + "</td><td>" + EndStub + "</td><td>" + qty + "</td><td>" + orDate + "</td><td>" + isIssued + "</td></tr>";
+    //            $("table tbody").append(TableData);
+    //        }
+    //    }
+    //});
+
+    function removeRow(e) {
+        $('#ORTableID').DataTable().row($(e).parents('tr')).remove().draw(false);
+    };
+    $('#add-row').click(function () {
+        if ($('#txtORInvStub').val() < 1) {
+            alert('Please enter number of rows to insert');
+        } else {
+
+            var StubNum = $("#txtORInvStubNo").val();
+            var StrtStub = $("#txtORInvStrtOR").val();
+            var EndStub = $("#txtORInvEndOR").val();
+            var formType = $("#AFIDDD option:selected").text();
+            var qty = "50";
+            var isIssued = "No";
+            var orDate = $("#txtORInvDate").val()
+
+            for (i = 1; i <= $('#txtORInvStub').val(); i++) {
+                var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat($("#txtORInvStrtOR").val()));
+                if (startStubNoF < 0) {
+                    startStubNoF = startStubNoF * -1;
+                }
+                var EndStubNoF = parseFloat((startStubNoF + 50) - 1);
+                var NewRow = '<tr><td>' + formType + '</td><td>' + StubNum + '</td><td>' + startStubNoF + '</td><td>' + EndStubNoF + '</td><td>' + qty + '</td><td>' + orDate + '</td><td>' + isIssued + '</td><td><i title="Delete" class="ft-delete danger cursor-pointer font-large-1" onclick=\'removeRow(this)\'></i></td></tr >';
+                $('#ORTableID').DataTable().row.add($(NewRow)).draw();
+                StubNum++;
+            }
+        }
+    });
+
 </script>
 

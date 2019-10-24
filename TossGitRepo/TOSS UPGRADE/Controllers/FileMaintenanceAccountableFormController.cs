@@ -9,7 +9,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using TOSS_UPGRADE.Models.FM_AccountableForm;
-
 namespace TOSS_UPGRADE.Controllers
 {
     public class FileMaintenanceAccountableFormController : Controller
@@ -37,6 +36,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableForm model = new FM_AccountableForm();
             return PartialView("AssignmentofAccountableForm/AssignmentofAFIndex", model);
         }
+
         #region Accountable Form Details
         //Table Accountable Form
         public ActionResult Get_AccountableFormTable()
@@ -180,6 +180,7 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountableFormInvtID = AFIDTempID;
             return PartialView("InventoryofAccountableForm/OR/_DynamicDDAccountableForm", model);
         }
+
         //Add Accountable Form Inventory
         public JsonResult AddAccountableFormInventory(FM_AccountableFormInventory model)
         {
