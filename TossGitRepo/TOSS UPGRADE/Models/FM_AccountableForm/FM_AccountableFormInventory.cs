@@ -16,6 +16,10 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         }
         public List<AccountableFormInvtList> getAccountableFormInvtList { get; set; }
         public AccountableForm_Inventory getAccountableFormInvtcolumns { get; set; }
+
+        public List<AccountableForm_Inventory> getAccountableFormInvtcolumnsList { get; set; }
+
+
         public IEnumerable<System.Web.Mvc.SelectListItem> AccountableFormInvtList { get; set; }
 
         public int AFTempID { get; set; }
