@@ -36,9 +36,8 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableForm model = new FM_AccountableForm();
             return PartialView("AssignmentofAccountableForm/AssignmentofAFIndex", model);
         }
-
         #region Accountable Form Details
-        //Table Accountable Form
+            //Table Accountable Form
         public ActionResult Get_AccountableFormTable()
         {
             FM_AccountableForm model = new FM_AccountableForm();
@@ -147,7 +146,7 @@ namespace TOSS_UPGRADE.Controllers
                             AF = GlobalFunction.ReturnEmptyString(dr[10]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
-                            StratingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
+                            StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
                             Date = GlobalFunction.ReturnEmptyString(dr[6]),
                             isIssued = GlobalFunction.ReturnEmptyBool(dr[7])
@@ -172,7 +171,6 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountableFormInvtList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() where s.isCTC == false && s.Description != "Cash Ticket" && s.Description != "Parking Ticket" orderby s.AccountFormName ascending select new { AccountFormID = s.AccountFormID, AccountFormName = s.AccountFormName }), "AccountFormID", "AccountFormName");
             return PartialView("InventoryofAccountableForm/OR/_DynamicDDAccountableForm", model);
         }
-
         public ActionResult GetSelectedDynamicAccountableform(int AFIDTempID)
         {
             FM_AccountableFormInventory model = new FM_AccountableFormInventory();
@@ -180,21 +178,24 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountableFormInvtID = AFIDTempID;
             return PartialView("InventoryofAccountableForm/OR/_DynamicDDAccountableForm", model);
         }
-
         //Add Accountable Form Inventory
-        public JsonResult AddAccountableFormInventory(FM_AccountableFormInventory model)
+        public ActionResult AddAccountableFormInventory(FM_AccountableFormInventory model)
         {
             AccountableForm_Inventory tblAccountableFormInventory = new AccountableForm_Inventory();
-            tblAccountableFormInventory.AccountFormID = model.AccountableFormInvtID;
-            tblAccountableFormInventory.StubNo = model.getAccountableFormInvtcolumns.StubNo;
-            tblAccountableFormInventory.Quantity = 50;
-            tblAccountableFormInventory.StartingOR = model.getAccountableFormInvtcolumns.StartingOR;
-            tblAccountableFormInventory.EndingOR = model.getAccountableFormInvtcolumns.EndingOR;
-            tblAccountableFormInventory.isIssued = false;
-            tblAccountableFormInventory.Date = model.getAccountableFormInvtcolumns.Date;
-            tblAccountableFormInventory.AFTableID = 1;
-            TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
-            TOSSDB.SaveChanges();
+            foreach(var item in model.Accountable)
+            {
+                tblAccountableFormInventory.StubNo = item.StubNo;
+                tblAccountableFormInventory.AccountFormID = model.AccountableFormInvtID;
+                tblAccountableFormInventory.StubNo = model.getAccountableFormInvtcolumns.StubNo;
+                tblAccountableFormInventory.Quantity = 50;
+                tblAccountableFormInventory.StartingOR = model.getAccountableFormInvtcolumns.StartingOR;
+                tblAccountableFormInventory.EndingOR = model.getAccountableFormInvtcolumns.EndingOR;
+                tblAccountableFormInventory.isIssued = false;
+                tblAccountableFormInventory.Date = model.getAccountableFormInvtcolumns.Date;
+                tblAccountableFormInventory.AFTableID = 1;
+                TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
+                TOSSDB.SaveChanges();
+            }
             return Json(tblAccountableFormInventory);
         }
         //Get Position Update
@@ -210,7 +211,6 @@ namespace TOSS_UPGRADE.Controllers
             model.getAccountableFormInvtcolumns.Date = tblAccountableFormInventory.Date;
             return PartialView("InventoryofAccountableForm/OR/_UpdateORDetails", model);
         }
-
         //Update Accountable Form
         public ActionResult UpdateAccountableFormInventory(FM_AccountableFormInventory model)
         {
@@ -225,7 +225,6 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return PartialView("InventoryofAccountableForm/OR/_UpdateORDetails", model);
         }
-
         //Delete Accountable Form
         public ActionResult DeleteAccountableFormInventory(FM_AccountableFormInventory model, int AFORID)
         {
@@ -272,7 +271,7 @@ namespace TOSS_UPGRADE.Controllers
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             AF = GlobalFunction.ReturnEmptyString(dr[10]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
-                            StratingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
+                            StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
                             Date = GlobalFunction.ReturnEmptyString(dr[6]),
                         });
@@ -366,7 +365,7 @@ namespace TOSS_UPGRADE.Controllers
                             AF = GlobalFunction.ReturnEmptyString(dr[10]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
-                            StratingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
+                            StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
                             Date = GlobalFunction.ReturnEmptyString(dr[6]),
                         });
@@ -451,6 +450,6 @@ namespace TOSS_UPGRADE.Controllers
         }
         #endregion
         #endregion
-
+        
     }
 }
