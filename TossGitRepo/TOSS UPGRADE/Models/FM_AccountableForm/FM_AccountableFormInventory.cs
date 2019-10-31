@@ -31,14 +31,13 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
     public class AccountableFormInvtList
     {
         public int AFORID { get; set; }
-        public string AF { get; set; }
+        public int AF { get; set; }
         public int StubNo { get; set; }
         public int Quantity { get; set; }
         public int StartingOR { get; set; }
         public int EndingOR { get; set; }
         public string Date { get; set; }
         public bool isIssued { get; set; }
-
     }
 
 }

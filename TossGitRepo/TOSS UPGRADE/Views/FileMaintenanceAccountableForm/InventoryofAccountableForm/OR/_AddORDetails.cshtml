@@ -43,7 +43,7 @@
         <div class="col-md-8"></div>
         <div class="col-md-2">
             <button type="button" class="btn black bg-addbutton form-control" id="show-button" onclick="SaveORTable()"><b>Add</b></button>
-            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulk()" id=""><b>Submit</b></button>
+            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulk()" id=""><b>Save Bulk</b></button>
             <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSave"><b>Submit</b></button>
         </div>
         <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button"><b>Cancel</b></button></div>
@@ -129,9 +129,6 @@
         debugger
         for (i = 1; i <= $('#txtORInvStub').val(); i++) {
             var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
-            console.log($("#txtORInvStubNo").val());
-            console.log($("#txtORInvStrtOR").val());
-
             if (startStubNoF < 0) {
                 startStubNoF = startStubNoF * -1;
             }
@@ -152,7 +149,6 @@
             StubNum++;
         }
         $.each(ORarray, function (index, value) {
-         
                 BodyContent += '<tr><td>' + value.formType + '</td>'
                 BodyContent += '<td>' + value.StubNum + '</td>'
                 BodyContent += '<td>' + value.StrtStub + '</td>'
@@ -169,14 +165,13 @@
     function SaveBulk() {
         console.log(ORarray);
         debugger
-        $.each(ORarray, function (index, value) {
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formType + "' id='Date" + m + "'/>"
+        $.each(ORarray, function (value) {
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formType + "' id='AF" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.Date + "' id='Date" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.startStubNoF + "' id='StartingOR" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStubNoF + "' id='EndingOR" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.qty + "' id='Quantity" + m + "'/>"
-
             $("#NewOR").html(NewORModel);
             m++;
         });

@@ -143,12 +143,12 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyString(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
-                            Date = GlobalFunction.ReturnEmptyString(dr[6]),
+                            Date = GlobalFunction.ReturnEmptyDateTime(dr[6]),
                             isIssued = GlobalFunction.ReturnEmptyBool(dr[7])
                         });
                     }
@@ -184,19 +184,18 @@ namespace TOSS_UPGRADE.Controllers
             AccountableForm_Inventory tblAccountableFormInventory = new AccountableForm_Inventory();
             foreach(var item in model.Accountable)
             {
+                tblAccountableFormInventory.AccountFormID = item.AF;
                 tblAccountableFormInventory.StubNo = item.StubNo;
-                tblAccountableFormInventory.AccountFormID = model.AccountableFormInvtID;
-                tblAccountableFormInventory.StubNo = model.getAccountableFormInvtcolumns.StubNo;
-                tblAccountableFormInventory.Quantity = 50;
-                tblAccountableFormInventory.StartingOR = model.getAccountableFormInvtcolumns.StartingOR;
-                tblAccountableFormInventory.EndingOR = model.getAccountableFormInvtcolumns.EndingOR;
-                tblAccountableFormInventory.isIssued = false;
-                tblAccountableFormInventory.Date = model.getAccountableFormInvtcolumns.Date;
+                tblAccountableFormInventory.Quantity = item.Quantity;
+                tblAccountableFormInventory.StartingOR = item.StartingOR;
+                tblAccountableFormInventory.EndingOR = item.EndingOR;
+                tblAccountableFormInventory.isIssued = item.isIssued;
+                tblAccountableFormInventory.Date = item.Date;
                 tblAccountableFormInventory.AFTableID = 1;
                 TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
                 TOSSDB.SaveChanges();
             }
-            return Json(tblAccountableFormInventory);
+            return Json(tblAccountableFormInventory, JsonRequestBehavior.AllowGet);
         }
         //Get Position Update
         public ActionResult Get_UpdateAccountableFormInventory(FM_AccountableFormInventory model, int AFORID)
@@ -269,11 +268,11 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyString(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
-                            Date = GlobalFunction.ReturnEmptyString(dr[6]),
+                            Date = GlobalFunction.ReturnEmptyDateTime(dr[6]),
                         });
                     }
                 }
@@ -362,12 +361,12 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyString(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
-                            Date = GlobalFunction.ReturnEmptyString(dr[6]),
+                            Date = GlobalFunction.ReturnEmptyDateTime(dr[6]),
                         });
                     }
                 }
