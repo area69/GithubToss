@@ -143,7 +143,7 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[1]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
@@ -268,7 +268,8 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[1]),
+                            StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
@@ -281,20 +282,25 @@ namespace TOSS_UPGRADE.Controllers
             model.getAccountableFormInvtList = tbl_AccountableFormInvt.ToList();
             return PartialView("InventoryofAccountableForm/CT/_CTDetailsTable", model.getAccountableFormInvtList);
         }
-
+         
         //Add Accountable Form Inventory
         public JsonResult AddAccountableFormInventoryCT(FM_AccountableFormInventory model)
         {
             AccountableForm_Inventory tblAccountableFormInventory = new AccountableForm_Inventory();
-            tblAccountableFormInventory.AccountFormID = model.AccountableFormInvtID;
-            tblAccountableFormInventory.Quantity = model.getAccountableFormInvtcolumns.Quantity;
-            tblAccountableFormInventory.StartingOR = model.getAccountableFormInvtcolumns.StartingOR;
-            tblAccountableFormInventory.EndingOR = model.getAccountableFormInvtcolumns.EndingOR;
-            tblAccountableFormInventory.Date = model.getAccountableFormInvtcolumns.Date;
-            tblAccountableFormInventory.AFTableID = 2;
-            TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
-            TOSSDB.SaveChanges();
-            return Json(tblAccountableFormInventory);
+            foreach (var item in model.Accountable)
+            {
+                tblAccountableFormInventory.AccountFormID = item.AF;
+                tblAccountableFormInventory.StubNo = item.StubNo;
+                tblAccountableFormInventory.Quantity = item.Quantity;
+                tblAccountableFormInventory.StartingOR = item.StartingOR;
+                tblAccountableFormInventory.EndingOR = item.EndingOR;
+                tblAccountableFormInventory.isIssued = item.isIssued;
+                tblAccountableFormInventory.Date = item.Date;
+                tblAccountableFormInventory.AFTableID = 2;
+                TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
+                TOSSDB.SaveChanges();
+            }
+            return Json(tblAccountableFormInventory, JsonRequestBehavior.AllowGet);
         }
         //Get Position Update
         public ActionResult GetSelectedDynamicAccountableformCT(int AFIDTempIDCT)

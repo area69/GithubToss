@@ -29,7 +29,22 @@
                         var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + Items.AF + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + Items.AFORID + ",&quot;Get_DeleteAccountableFormInventory&quot;,&quot;FMAccountableFormController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                         var ActionContentProgram = ViewEdit + ViewDelete;
                         <tr>
-                            <td>@Items.AF</td>
+                            <td>
+                                @{
+                                    var AFID = Items.AF;
+                                    var AF = (from e in SISDB.AccountableFormTables where e.AccountFormID == AFID select e).FirstOrDefault();
+                                    var TDValue = "";
+                                    if (AF == null)
+                                    {
+                                        TDValue = "N/A";
+                                    }
+                                    else
+                                    {
+                                        TDValue = AF.AccountFormName;
+                                    }
+                                }
+                                @TDValue
+                            </td>
                             <td>@Items.StubNo</td>
                             <td>@Items.StartingOR</td>
                             <td>@Items.EndingOR</td>

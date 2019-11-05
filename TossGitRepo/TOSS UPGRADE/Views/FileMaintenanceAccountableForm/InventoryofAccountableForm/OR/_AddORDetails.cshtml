@@ -43,7 +43,7 @@
         <div class="col-md-8"></div>
         <div class="col-md-2">
             <button type="button" class="btn black bg-addbutton form-control" id="show-button" onclick="SaveORTable()"><b>Add</b></button>
-            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulk()" id=""><b>Save Bulk</b></button>
+            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulk()" id="_SaveButtonID"><b>Save Bulk</b></button>
             <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSave"><b>Submit</b></button>
         </div>
         <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button"><b>Cancel</b></button></div>
@@ -87,33 +87,18 @@
             $("#txtORInvEndOR").val(res);
         }
     });
-    function removeRow(e) {
-        $('#ORTableID').DataTable().row($(e).parents('tr')).remove().draw(false);
-    };
 
-    //$('#show-button').click(function () {
-    //    if ($('#txtORInvStub').val() < 1) {
-    //        alert('Please enter number of rows to insert');
-    //    } else {
-    //        var StubNum = $("#txtORInvStubNo").val();
-    //        var StrtStub = $("#txtORInvStrtOR").val();
-    //        var EndStub = $("#txtORInvEndOR").val();
-    //        var formType = $("#AFIDDD option:selected").text();
-    //        var qty = "50";
-    //        var isIssued = "No";
-    //        var orDate = $("#txtORInvDate").val()
-    //        for (i = 1; i <= $('#txtORInvStub').val(); i++) {
-    //            var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
-    //            if (startStubNoF < 0) {
-    //                startStubNoF = startStubNoF * -1;
-    //            }
-    //            var EndStubNoF = parseFloat((startStubNoF + parseFloat(qty)) - 1);
-    //            var NewRow = '<tr><td>' + formType + '</td><td>' + StubNum + '</td><td>' + startStubNoF + '</td><td>' + EndStubNoF + '</td><td>' + qty + '</td><td>' + orDate + '</td><td>' + isIssued + '</td><td><i title="Delete" class="ft-delete danger cursor-pointer font-large-1" onclick=\'removeRow(this)\'></i></td></tr >';
-    //            $('#ORTableID').DataTable().row.add($(NewRow)).draw();
-    //            StubNum++;
-    //        }
-    //    }
-    //});
+    $(document).ready(function () {
+        $("#show-button").click(function () {
+            $("#_SaveButtonID").show()
+            $("#show-button").hide()
+        });
+        $("#hide-button").click(function () {
+            $("#show-button").show()
+            $("#_SaveButtonID").hide()
+        });
+    });
+    
     var ORarray = [];
     var NewORModel = "";
     var m = 0;
@@ -125,7 +110,6 @@
         var isIssued = "No";
         var StubNum = $("#txtORInvStubNo").val();
         var StrtStub = $("#txtORInvStrtOR").val();
-        var EndStub = $("#txtORInvEndOR").val();
         debugger
         for (i = 1; i <= $('#txtORInvStub').val(); i++) {
             var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
@@ -139,7 +123,7 @@
                 "StubNum": StubNum,
                 "StrtStub": startStubNoF,
                 "EndStub": EndStubNoF,
-                "formType": $("#AFIDDD option:selected").text(),
+                "formType": $("#AFIDDD option:selected").val(),
                 "orDate": $("#txtORInvDate").val(),
                 "Quantity": qty,
                 "IsIssued": isIssued,
@@ -156,22 +140,91 @@
                 BodyContent += '<td>' + value.Quantity + '</td>'
                 BodyContent += '<td>' + value.orDate + '</td>'
                 BodyContent += '<td>' + value.IsIssued + '</td>'
-                BodyContent += '<td><i title="Delete" class="ft-delete danger cursor-pointer font-large-1" onclick=\'removeRow(' + index + ' )  \'></i></td></tr >'
-                x++;
-                value.StubNum++;
+            BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1 mr-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
+            x++;
         })
         $('#ORtbody').html(BodyContent);
     }
+    function removeRow(index) {
+        if (ORarray.length != 1) {
+            delete ORarray[index];
+            var tempdata = [];
+            var y = 1;
+            $.each(ORarray, function (index, value) {
+                if (value != undefined) {
+                    var data =
+                    {
+                        "Count": y,
+                        "StubNum": value.StubNum,
+                        "StrtStub": value.StrtStub,
+                        "EndStub": value.EndStub,
+                        "formType": value.formType,
+                        "orDate": value.orDate,
+                        "Quantity": value.Quantity,
+                        "IsIssued": value.IsIssued,
+                    }
+                    tempdata.push(data);
+                    y++;
+                }
+            });
+            ORarray = [];
+            $.each(tempdata, function (index, value) {
+                var datas =
+                {
+                    "Count": x,
+                    "StubNum": value.StubNum,
+                    "StrtStub": value.StrtStub,
+                    "EndStub": value.EndStub,
+                    "formType": value.formType,
+                    "orDate": value.orDate,
+                    "Quantity": value.Quantity,
+                    "IsIssued": value.IsIssued,
+                }
+                ORarray.push(datas);
+                var x = 1;
+                var BodyContent = '';
+                $.each(ORarray, function (index, value) {
+                    BodyContent += '<tr><td>' + value.formType + '</td>'
+                    BodyContent += '<td>' + value.StubNum + '</td>'
+                    BodyContent += '<td>' + value.StrtStub + '</td>'
+                    BodyContent += '<td>' + value.EndStub + '</td>'
+                    BodyContent += '<td>' + value.Quantity + '</td>'
+                    BodyContent += '<td>' + value.orDate + '</td>'
+                    BodyContent += '<td>' + value.IsIssued + '</td>'
+                    BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
+        $("#ORtbody").html(BodyContent);
+                    x++;
+                });
+            });
+        }
+        else {
+            ORarray = [];
+            $('#ORtbody').html("<center><span>No Data Available</span></center>");
+        }
+    }
+    //function UpdateOR(index) {
+    //        $("#AFIDDD").val(ORarray[index].formType),
+    //        $("#txtORInvStubNo").val(ORarray[index].StubNum),
+    //        $("#txtORInvStrtOR").val(ORarray[index].StrtStub),
+    //        $("#txtORInvEndOR").val(ORarray[index].EndStub),
+    //        $("#txtORInvDate").val(ORarray[index].orDate),
+    //        $("#btnSaveTip").text("Save Changes")
+    //    TipsButtonFunction = "ORDeleteAdd(" + index + ")"
+    //}
+    //function ORDeleteAdd(index) {
+    //    removeRow(index);
+    //    SaveORTable();
+    //}
     function SaveBulk() {
         console.log(ORarray);
         debugger
-        $.each(ORarray, function (value) {
+        $.each(ORarray, function (index, value) {
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formType + "' id='AF" + m + "'/>"
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.Date + "' id='Date" + m + "'/>"
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.orDate + "' id='Date" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.startStubNoF + "' id='StartingOR" + m + "'/>"
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStubNoF + "' id='EndingOR" + m + "'/>"
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.qty + "' id='Quantity" + m + "'/>"
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.Quantity + "' id='Quantity" + m + "'/>"
             $("#NewOR").html(NewORModel);
             m++;
         });
