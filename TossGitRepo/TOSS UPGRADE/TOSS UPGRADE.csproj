@@ -9189,6 +9189,7 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\AccountableFormIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\InventoryofAccountableForm\InventoryofAFIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\AssignmentofAFIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\InventoryofAccountableForm\CT\CashTicketIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

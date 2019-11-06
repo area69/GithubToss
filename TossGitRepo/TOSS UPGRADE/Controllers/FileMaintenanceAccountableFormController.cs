@@ -316,6 +316,7 @@ namespace TOSS_UPGRADE.Controllers
             model.getAccountableFormInvtcolumns.AFORID = tblAccountableFormInventory.AFORID;
             model.AFTempID = tblAccountableFormInventory.AccountFormID;
             model.getAccountableFormInvtcolumns.StartingOR = tblAccountableFormInventory.StartingOR;
+            model.getAccountableFormInvtcolumns.StubNo = tblAccountableFormInventory.StubNo;
             model.getAccountableFormInvtcolumns.EndingOR = tblAccountableFormInventory.EndingOR;
             model.getAccountableFormInvtcolumns.Quantity = tblAccountableFormInventory.Quantity;
             model.getAccountableFormInvtcolumns.Date = tblAccountableFormInventory.Date;
@@ -367,7 +368,7 @@ namespace TOSS_UPGRADE.Controllers
                         tbl_AccountableFormInvt.Add(new AccountableFormInvtList()
                         {
                             AFORID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            AF = GlobalFunction.ReturnEmptyInt(dr[10]),
+                            AF = GlobalFunction.ReturnEmptyInt(dr[1]),
                             StubNo = GlobalFunction.ReturnEmptyInt(dr[2]),
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[3]),
                             StartingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
@@ -391,8 +392,8 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicAccountableformCTC()
         {
             FM_AccountableFormInventory model = new FM_AccountableFormInventory();
-            model.AccountableFormInvtList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() where s.isCTC == true && s.Description != "Cash Ticket" select new { AccountFormID = s.AccountFormID, AccountFormName = s.AccountFormName }), "AccountFormID", "AccountFormName");
-            return PartialView("InventoryofAccountableForm/OR/_DynamicDDAccountableForm", model);
+            model.AccountableFormInvtList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() where s.isCTC == true && s.Description != "Cash Ticket" && s.Description != "Parking Ticket" select new { AccountFormID = s.AccountFormID, AccountFormName = s.AccountFormName }), "AccountFormID", "AccountFormName");
+            return PartialView("InventoryofAccountableForm/CTC/_DynamicDDAccountableFormCTC", model);
         }
         public ActionResult GetSelectedDynamicAccountableformCTC(int AFIDTempIDCTC)
         {
@@ -405,16 +406,20 @@ namespace TOSS_UPGRADE.Controllers
         public JsonResult AddAccountableFormInventoryCTC(FM_AccountableFormInventory model)
         {
             AccountableForm_Inventory tblAccountableFormInventory = new AccountableForm_Inventory();
-            tblAccountableFormInventory.AccountFormID = model.AccountableFormInvtID;
-            tblAccountableFormInventory.StubNo = model.getAccountableFormInvtcolumns.StubNo;
-            tblAccountableFormInventory.Quantity = model.getAccountableFormInvtcolumns.Quantity;
-            tblAccountableFormInventory.StartingOR = model.getAccountableFormInvtcolumns.StartingOR;
-            tblAccountableFormInventory.EndingOR = model.getAccountableFormInvtcolumns.EndingOR;
-            tblAccountableFormInventory.Date = model.getAccountableFormInvtcolumns.Date;
-            tblAccountableFormInventory.AFTableID = 3;
-            TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
-            TOSSDB.SaveChanges();
-            return Json(tblAccountableFormInventory);
+            foreach (var item in model.Accountable)
+            {
+                tblAccountableFormInventory.AccountFormID = item.AF;
+                tblAccountableFormInventory.StubNo = item.StubNo;
+                tblAccountableFormInventory.Quantity = item.Quantity;
+                tblAccountableFormInventory.StartingOR = item.StartingOR;
+                tblAccountableFormInventory.EndingOR = item.EndingOR;
+                tblAccountableFormInventory.isIssued = item.isIssued;
+                tblAccountableFormInventory.Date = item.Date;
+                tblAccountableFormInventory.AFTableID = 3;
+                TOSSDB.AccountableForm_Inventory.Add(tblAccountableFormInventory);
+                TOSSDB.SaveChanges();
+            }
+            return Json(tblAccountableFormInventory, JsonRequestBehavior.AllowGet);
         }
         //Get Position Update
         public ActionResult Get_UpdateAccountableFormInventoryCTC(FM_AccountableFormInventory model, int AFORID)

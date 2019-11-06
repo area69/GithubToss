@@ -11,58 +11,203 @@
         </div>
         <div class="col-md-4 form-group">
             <label>Starting Stub No.</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id = "txtCTCInvStubNo" })
         </div>
         <div class="col-md-4 form-group">
-            <label>Quantity</label>
+            <label>Number of Stubs</label>
             @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Quantity, new { @class = "form-control", type = "text", id = "txtCTCInvQty" })
         </div>
     </div>
     <div class="row">
         <div class="col-md-4 form-group">
-            <label>Starting OR</label>
+            <label>Starting CTC</label>
             @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StartingOR, new { @class = "form-control", type = "text", id = "txtStrtCTCNo" })
         </div>
         <div class="col-md-4 form-group">
-            <label>Ending OR</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtEndCTCNo" })
+            <label>Ending CTC</label>
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtEndCTCNo", @readonly = "readonly" })
         </div>
         <div class="col-md-4 form-group">
-            <label>OR Date</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text" })
+            <label>CTC Date</label>
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text", id = "txtCTCDate" })
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-8"></div>
-        <div class="col-md-2"><button type="submit" class="btn black bg-addbutton form-control"><b>Add</b></button></div>
-        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control"><b>Cancel</b></button></div>
+        <div class="col-md-2">
+            <button type="button" class="btn black bg-addbutton form-control" id="show-buttonCTC" onclick="SaveCTCTable()"><b>Add</b></button>
+            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulkCTC()" id="_SaveButtonIDCTC"><b>Save Bulk</b></button>
+            <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSaveCTC"><b>Submit</b></button>
+        </div>
+        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-buttonCTC"><b>Cancel</b></button></div>
     </div>
+    <div class="" id="NewCTC"></div>
 }
-    <script>
-        $(function () {
-            LoadDataTable();
-            LoadPopOver();
-            LoadPickDatetime();
-        })
+<style>
+    #show-buttonCTC {
+        cursor: pointer;
+    }
 
-        $("#txtStrtCTCNo").change(function () {
-            var startNo = $("#txtStrtCTCNo").val();
-            var countStartNo = startNo.toString().length;
-            var startNoQty = parseFloat($("#txtStrtCTCNo").val()) + parseFloat($("#txtCTCInvQty").val() - parseFloat(1));
-            var countEndNo = startNoQty.toString().length;
-            var number = "";
+    #_SaveButtonIDCTC {
+        cursor: pointer;
+        display: none;
+    }
+</style>
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+        LoadPickDatetime();
+    })
+    $("#txtStrtCTCNo").change(function () {
+        var startNo = $("#txtStrtCTCNo").val();
+        var countStartNo = startNo.toString().length;
+        var qty = "50";
+        var startNoQty = parseFloat($("#txtStrtCTCNo").val()) + parseFloat($("#txtCTCInvQty").val() * qty - parseFloat(1));
+        var countEndNo = startNoQty.toString().length;
+        var number = "";
 
-            for (i = 0; i < countStartNo; i++) {
-                number += "0";
-            }
+        for (i = 0; i < countStartNo; i++) {
+            number += "0";
+        }
 
-            var countZero = number.toString().length;
-            var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
+        var countZero = number.toString().length;
+        var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
 
-            if ($("#txtStrtCTCNo").val() == "") {
-                $("#txtEndCTCNo").val("");
-            } else {
-                $("#txtEndCTCNo").val(res);
-            }
+        if ($("#txtStrtCTCNo").val() == "") {
+            $("#txtEndCTCNo").val("");
+        } else {
+            $("#txtEndCTCNo").val(res);
+        }
+    });
+
+    $(document).ready(function () {
+        $("#show-buttonCTC").click(function () {
+            $("#_SaveButtonIDCTC").show()
+            $("#show-buttonCTC").hide()
         });
-    </script>
+        $("#hide-buttonCTC").click(function () {
+            $("#show-buttonCTC").show()
+            $("#_SaveButtonIDCTC").hide()
+        });
+    });
+    var CTCarray = [];
+    var NewCTCModel = "";
+    var m = 0;
+
+    function SaveCTCTable() {
+        var BodyContent = '';
+        var x = 1;
+        var qty = 50;
+        var isIssued = "No";
+        var StubNum = $("#txtCTCInvStubNo").val();
+        var StrtStub = $("#txtStrtCTCNo").val();
+        debugger
+        for (i = 1; i <= $('#txtCTCInvQty').val(); i++) {
+            var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
+            if (startStubNoF < 0) {
+                startStubNoF = startStubNoF * -1;
+            }
+            var EndStubNoF = parseFloat((startStubNoF + parseFloat(qty)) - 1);
+            var CTCTableDatas =
+            {
+                "Count": x,
+                "StubNum": StubNum,
+                "StrtStub": startStubNoF,
+                "EndStub": EndStubNoF,
+                "formTypeCTC": $("#AFIDDDCTCCTC option:selected").val(),
+                "CTCDate": $("#txtCTCDate").val(),
+                "Quantity": qty,
+                "IsIssued": isIssued,
+            }
+            CTCarray.push(CTCTableDatas);
+            x++;
+            StubNum++;
+        }
+        $.each(CTCarray, function (index, value) {
+            BodyContent += '<tr><td>' + value.formTypeCTC + '</td>'
+            BodyContent += '<td>' + value.StubNum + '</td>'
+            BodyContent += '<td>' + value.StrtStub + '</td>'
+            BodyContent += '<td>' + value.EndStub + '</td>'
+            BodyContent += '<td>' + value.Quantity + '</td>'
+            BodyContent += '<td>' + value.CTCDate + '</td>'
+            BodyContent += '<td>' + value.IsIssued + '</td>'
+            BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1 mr-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
+            x++;
+        })
+        $('#CTCtbody').html(BodyContent);
+    };
+    function removeRow(index) {
+        if (CTCarray.length != 1) {
+            delete CTCarray[index];
+            var tempdata = [];
+            var y = 1;
+            $.each(CTCarray, function (index, value) {
+                if (value != undefined) {
+                    var data =
+                    {
+                        "Count": y,
+                        "StubNum": value.StubNum,
+                        "StrtStub": value.StrtStub,
+                        "EndStub": value.EndStub,
+                        "formTypeCTC": value.formTypeCTC,
+                        "CTCDate": value.CTCDate,
+                        "Quantity": value.Quantity,
+                        "IsIssued": value.IsIssued,
+                    }
+                    tempdata.push(data);
+                    y++;
+                }
+            });
+            CTCarray = [];
+            $.each(tempdata, function (index, value) {
+                var datas =
+                {
+                    "Count": x,
+                    "StubNum": value.StubNum,
+                    "StrtStub": value.StrtStub,
+                    "EndStub": value.EndStub,
+                    "formTypeCTC": value.formTypeCTC,
+                    "CTCDate": value.CTCDate,
+                    "Quantity": value.Quantity,
+                    "IsIssued": value.IsIssued,
+                }
+                CTCarray.push(datas);
+                var x = 1;
+                var BodyContent = '';
+                $.each(CTCarray, function (index, value) {
+                    BodyContent += '<tr><td>' + value.formTypeCTC + '</td>'
+                    BodyContent += '<td>' + value.StubNum + '</td>'
+                    BodyContent += '<td>' + value.Quantity + '</td>'
+                    BodyContent += '<td>' + value.StrtStub + '</td>'
+                    BodyContent += '<td>' + value.EndStub + '</td>'
+                    BodyContent += '<td>' + value.CTCDate + '</td>'
+                    BodyContent += '<td>' + value.IsIssued + '</td>'
+                    BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1 mr-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
+                    $("#CTCtbody").html(BodyContent);
+                    x++;
+                });
+            });
+        }
+        else {
+            CTCarray = [];
+            $('#CTCtbody').html("<center><span>No Data Available</span></center>");
+        }
+    }
+    function SaveBulkCTC() {
+        console.log(CTCarray);
+        debugger
+        $.each(CTCarray, function (index, value) {
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formTypeCTC + "' id='AF" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.CTCDate + "' id='Date" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.Quantity + "' id='Quantity" + m + "'/>"
+            $("#NewCTC").html(NewCTModel);
+            m++;
+        });
+        $('#btnSaveCTC').click()
+    }
+</script>
