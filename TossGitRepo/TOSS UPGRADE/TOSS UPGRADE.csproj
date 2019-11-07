@@ -277,6 +277,7 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FM_AccountableForm\FM_AccountableForm.cs" />
+    <Compile Include="Models\FM_AccountableForm\FM_AccountableFormAssignment.cs" />
     <Compile Include="Models\FM_AccountableForm\FM_AccountableFormInventory.cs" />
     <Compile Include="Models\FM_Bank\FM_Bank_BankName.cs" />
     <Compile Include="Models\FM_Barangay\FM_Barangay_BarangayName.cs" />
