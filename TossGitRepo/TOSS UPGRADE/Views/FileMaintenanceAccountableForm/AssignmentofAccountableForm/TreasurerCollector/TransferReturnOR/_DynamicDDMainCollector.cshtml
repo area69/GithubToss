@@ -1,9 +1,9 @@
-﻿@model TOSS_UPGRADE.Models.FM_CollectionAndDeposit.FM_CollectionAndDeposit_AssignmentAF
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
 @{
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 
-<label class="mt-1">Main Collector</label>
-@Html.DropDownListFor(m => m.AccountableTCTRORMainCID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "MainCOIDDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMCollectionDepositController','LoadDynamicSubCollector','LoadDynamicTCTRORStubNo')" })
+<label class="mt-1">Old Collector</label>
+@Html.DropDownListFor(m => m.AccountableTCTRORMainCID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "MainCOIDDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMAccountableFormController','LoadDynamicSubCollector','LoadDynamicTCTRORStubNo')" })
 

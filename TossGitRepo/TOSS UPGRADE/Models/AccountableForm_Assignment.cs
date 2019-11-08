@@ -18,7 +18,8 @@ namespace TOSS_UPGRADE.Models
         public int CollectorID { get; set; }
         public int FundID { get; set; }
         public int AFORID { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.DateTime DateIssued { get; set; }
+        public Nullable<System.DateTime> DateTransferred { get; set; }
         public Nullable<int> SubCollectorID { get; set; }
         public Nullable<bool> IsTransferred { get; set; }
         public Nullable<bool> IsConsumed { get; set; }

@@ -1,10 +1,10 @@
-﻿@model TOSS_UPGRADE.Models.FM_CollectionAndDeposit.FM_CollectionAndDeposit_AssignmentAF
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
 @{
     DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 
-<label class="mt-1">Sub Collector</label>
+<label class="mt-1">New Collector</label>
 @Html.DropDownListFor(m => m.AccountableTCTRORSubCID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "SubCOIDDD" })
 
 

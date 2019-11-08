@@ -24,29 +24,39 @@
                     @{
                         foreach (var Items in Model)
                         {
-                            var Transfer = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\" data-toggle=\"modal\" data-target=\"#addTransferReturnModal\" ng-click=\"Get_TransferReturnORTable()\"><i class='la la-share - square mr-1'></i><b>Transfer</b></button>";
+                            var Transfer = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\" data-toggle=\"modal\" data-target=\"#addTransferReturnModal\" onclick=\"AngularGlobalView('FMAccountableFormController', 'Get_TransferReturnORTable', '')\"><i class='la la-share - square mr-1'></i><b>Transfer</b></button>";
                             var ActionContentProgram = Transfer;
                     <tr>
                         <td>@Items.CollectorName</td>
                         <td>
                             @{
-                                DateTime DateofHearing = Convert.ToDateTime(Items.Date);
+                                DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
                             }
 
                             @DateofHearing.ToString("MMMM dd, yyyy")
                         </td>
                         <td>
                             @{
-                                DateTime DateofHearing1 = Convert.ToDateTime(Items.Date);
+                                var DateID = Items.DateTransfered;
+                                var TDValue = "";
+                                if (DateID == "N/A")
+                                {
+                                    TDValue = "N/A";
+                                }
+                                else
+                                {
+                                    DateTime DateTransfered = Convert.ToDateTime(Items.DateTransfered);
+                                    TDValue = DateTransfered.ToString("MMMM dd, yyyy");
+                                }
                             }
-
-                            @DateofHearing1.ToString("MMMM dd, yyyy")
+                            @TDValue
                         </td>
                         <td>@Items.FundType - ( @Items.AF )</td>
                         <td>@Items.StubNo</td>
                         <td>@Items.StratingOR</td>
                         <td>@Items.EndingOR</td>
                         <td>@Items.Quantity</td>
+                       @* <td><button class="btn btn-sm btn-block black bg-addbutton border-0" type="button" data-toggle="modal" data-target="#addTransferReturnModal" onclick="AngularGlobalView('FMAccountableFormController','Get_TransferReturnORTable','"+ 1 +"'"><i class='la la-share - square mr-1'></i><b>Transfer</b></button></td>*@
                         <td>
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
                                     data-original-title="" data-html="true" data-placement="right">

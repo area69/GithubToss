@@ -22,7 +22,7 @@ namespace TOSS_UPGRADE.Models
     
         public int AFORID { get; set; }
         public int AccountFormID { get; set; }
-        public int StubNo { get; set; }
+        public Nullable<int> StubNo { get; set; }
         public int Quantity { get; set; }
         public int StartingOR { get; set; }
         public int EndingOR { get; set; }

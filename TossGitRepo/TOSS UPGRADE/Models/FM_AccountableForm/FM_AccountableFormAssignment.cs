@@ -37,6 +37,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int AccountableTCTRORSubCID { get; set; }
         public int AccountableTCTRORStubNoID { get; set; }
 
+        public string AccountableTCTROROrDescID { get; set; }
         public int AccountableTCTRORQuantityID { get; set; }
         public int AccountableTCTRORStartingORID { get; set; }
         public int AccountableTCTROREndingORID { get; set; }
@@ -58,7 +59,8 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int Quantity { get; set; }
         public int StratingOR { get; set; }
         public int EndingOR { get; set; }
-        public string Date { get; set; }
+        public string DateIssued { get; set; }
+        public string DateTransfered { get; set; }
         public bool isConsumed { get; set; }
         public bool isDefault { get; set; }
     }
@@ -72,7 +74,8 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int Quantity { get; set; }
         public int StratingOR { get; set; }
         public int EndingOR { get; set; }
-        public string Date { get; set; }
+        public string DateIssued { get; set; }
+        public string DateTransferred { get; set; }
         public string SubCollector { get; set; }
         public bool IsTransferred { get; set; }
     }

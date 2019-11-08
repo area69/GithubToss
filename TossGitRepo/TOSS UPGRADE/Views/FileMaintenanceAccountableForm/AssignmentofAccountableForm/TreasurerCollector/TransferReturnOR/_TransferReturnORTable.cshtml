@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_CollectionAndDeposit.AFTransferReturnORList>
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_AccountableForm.AFTransferReturnORList>
 @{
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
@@ -11,13 +11,16 @@
                     <table class="table table-striped zero-configuration table-bordered text-center dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
                         <thead>
                             <tr>
-                                <th>Main Collector</th>
-                                <th>Sub Collector</th>
+                                <th>Old Collector</th>
+                                <th>New Collector</th>
+                                <th>Date Issued</th>
+                                <th>Date Transferred</th>
+                                <th>OR Description</th>
                                 <th width="5%">Stub No.</th>
                                 <th width="5%">Quantity</th>
                                 <th width="5%">Starting OR</th>
                                 <th width="5%">Ending OR</th>
-                                <th width="5%">Is Transferred?</th>
+                                @*<th width="5%">Is Transferred?</th>*@
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -31,31 +34,55 @@
                             <tr>
                                 <td>@Items.CollectorName</td>
                                 <td>@Items.SubCollector</td>
+                                <td>
+                                    @{
+                                        DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
+                                    }
+
+                                    @DateofHearing.ToString("MMMM dd, yyyy")
+                                </td>
+                                <td>
+                                    @{
+                                        var DateID = Items.DateTransferred;
+                                        var TDValue = "";
+                                        if (DateID == "N/A")
+                                        {
+                                            TDValue = "N/A";
+                                        }
+                                        else
+                                        {
+                                            DateTime DateTransferred = Convert.ToDateTime(Items.DateTransferred);
+                                            TDValue = DateTransferred.ToString("MMMM dd, yyyy");
+                                        }
+                                    }
+                                    @TDValue
+                                </td>
+                                <td>@Items.AF</td>
                                 <td>@Items.StubNo</td>
                                 <td>@Items.Quantity</td>
                                 <td>@Items.StratingOR</td>
                                 <td>@Items.EndingOR</td>
-                                <td>
-                                    @{
-                                        var IsTransferred = "";
-                                        if (Items.IsTransferred == true)
-                                        {
-                                            IsTransferred = "Yes";
-                                        }
-                                        else if (Items.IsTransferred == false)
-                                        {
-                                            IsTransferred = "No";
-                                        }
-
-                                    }
-                                    @IsTransferred
-                                </td>
                                 @*<td>
-                                    <button class="buttonEf iconhoverEdit"><i class="ft-edit"></i></button>
-                                    <button class="buttonEf iconhoverDelete" ><i class="ft-delete"></i></button>
-                                </td>*@
+            @{
+                var IsTransferred = "";
+                if (Items.IsTransferred == true)
+                {
+                    IsTransferred = "Yes";
+                }
+                else if (Items.IsTransferred == false)
+                {
+                    IsTransferred = "No";
+                }
+
+            }
+            @IsTransferred
+        </td>*@
+                                @*<td>
+            <button class="buttonEf iconhoverEdit"><i class="ft-edit"></i></button>
+            <button class="buttonEf iconhoverDelete" ><i class="ft-delete"></i></button>
+        </td>*@
                                 <td>
-                                    <button class="btn btn-sm btn-icon btn-block black bg-addbutton border-0 font-medium-1" type="button" onclick="AngularGlobalEdit('FMCollectionDepositController','Get_UpdateTransferReturnOR','@Items.AssignAFID')"><i class="la la-caret-left"></i>Return</button>
+                                    <button class="btn btn-sm btn-icon btn-block black bg-addbutton border-0 font-medium-1" type="button" onclick="AngularGlobalEdit('FMAccountableFormController','Get_UpdateTransferReturnOR','@Items.AssignAFID')"><i class="la la-caret-left"></i>Return</button>
                                 </td>
                             </tr>
                                 }
