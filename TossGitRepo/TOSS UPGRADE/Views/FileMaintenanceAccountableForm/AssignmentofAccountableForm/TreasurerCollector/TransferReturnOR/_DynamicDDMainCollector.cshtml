@@ -5,5 +5,5 @@
 @using TOSS_UPGRADE.Models;
 
 <label class="mt-1">Old Collector</label>
-@Html.DropDownListFor(m => m.AccountableTCTRORMainCID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "MainCOIDDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMAccountableFormController','LoadDynamicSubCollector','LoadDynamicTCTRORStubNo')" })
-
+@Html.HiddenFor(m => m.AccountableTCTRORMainCID, new { @class = "form-control select2 text-center", id = "MainCOIDDD", @disabled = "disabled" })
+@Html.TextBoxFor(m => m.AccountableTCTRORMainName, new { @class = "form-control select2 text-center", id = "MainCOIDDD", @disabled = "disabled" })

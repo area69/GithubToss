@@ -3,19 +3,20 @@
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
+
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
             <table class="table table-striped zero-configuration table-bordered text-center dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
                 <thead>
                     <tr>
-                        <th>Collector<br />Name</th>
-                        <th>Date<br />Issued</th>
-                        <th>Date<br />Transferred</th>
-                        <th>OR<br />Description</th>
-                        <th>Stub<br />No.</th>
-                        <th>Starting<br />OR</th>
-                        <th>Ending<br />OR</th>
+                        <th>Collector Name</th>
+                        <th>Date Issued</th>
+                        <th>Date Transferred</th>
+                        <th>OR Description</th>
+                        <th>Stub No.</th>
+                        <th>Starting OR</th>
+                        <th>Ending OR</th>
                         <th>Qty</th>
                         <th>Action</th>
                     </tr>
@@ -24,46 +25,38 @@
                     @{
                         foreach (var Items in Model)
                         {
-                            var Transfer = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\" data-toggle=\"modal\" data-target=\"#addTransferReturnModal\" onclick=\"AngularGlobalView('FMAccountableFormController', 'Get_TransferReturnORTable', '')\"><i class='la la-share - square mr-1'></i><b>Transfer</b></button>";
-                            var ActionContentProgram = Transfer;
-                    <tr>
-                        <td>@Items.CollectorName</td>
-                        <td>
-                            @{
-                                DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
-                            }
+                            <tr>
+                                <td>@Items.CollectorName</td>
+                                <td>
+                                    @{
+                                        DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
+                                    }
 
-                            @DateofHearing.ToString("MMMM dd, yyyy")
-                        </td>
-                        <td>
-                            @{
-                                var DateID = Items.DateTransfered;
-                                var TDValue = "";
-                                if (DateID == "N/A")
-                                {
-                                    TDValue = "N/A";
-                                }
-                                else
-                                {
-                                    DateTime DateTransfered = Convert.ToDateTime(Items.DateTransfered);
-                                    TDValue = DateTransfered.ToString("MMMM dd, yyyy");
-                                }
-                            }
-                            @TDValue
-                        </td>
-                        <td>@Items.FundType - ( @Items.AF )</td>
-                        <td>@Items.StubNo</td>
-                        <td>@Items.StratingOR</td>
-                        <td>@Items.EndingOR</td>
-                        <td>@Items.Quantity</td>
-                       @* <td><button class="btn btn-sm btn-block black bg-addbutton border-0" type="button" data-toggle="modal" data-target="#addTransferReturnModal" onclick="AngularGlobalView('FMAccountableFormController','Get_TransferReturnORTable','"+ 1 +"'"><i class='la la-share - square mr-1'></i><b>Transfer</b></button></td>*@
-                        <td>
-                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
-                                    data-original-title="" data-html="true" data-placement="right">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
+                                    @DateofHearing.ToString("MMMM dd, yyyy")
+                                </td>
+                                <td>
+                                    @{
+                                        var DateID = Items.DateTransfered;
+                                        var TDValue = "";
+                                        if (DateID == "N/A")
+                                        {
+                                            TDValue = "N/A";
+                                        }
+                                        else
+                                        {
+                                            DateTime DateTransfered = Convert.ToDateTime(Items.DateTransfered);
+                                            TDValue = DateTransfered.ToString("MMMM dd, yyyy");
+                                        }
+                                    }
+                                    @TDValue
+                                </td>
+                                <td>@Items.FundType - ( @Items.AF )</td>
+                                <td>@Items.StubNo</td>
+                                <td>@Items.StratingOR</td>
+                                <td>@Items.EndingOR</td>
+                                <td>@Items.Quantity</td>
+                                <td><button class="btn btn-sm btn-block black bg-addbutton border-0" type="button" data-toggle="modal" data-target="#addTransferReturnModal" onclick="AngularGlobalView('FMAccountableFormController','Get_DataTransferReturnOR','@Items.AssignAFID')"><i class='la la-share - square mr-1'></i><b>Transfer</b></button></td>
+                            </tr>
                         }
                     }
                 </tbody>

@@ -3,6 +3,7 @@
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
+
 <div class="card-content collapse show">
     <div class="card-body box-shadow-2">
         <div class="row">
@@ -28,63 +29,64 @@
                             @{
                                 foreach (var Items in Model)
                                 {
-                                    //var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+
+                                     //var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
                                     //var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                                     //var ActionContentProgram = ViewEdit + ViewDelete;
-                            <tr>
-                                <td>@Items.CollectorName</td>
-                                <td>@Items.SubCollector</td>
-                                <td>
-                                    @{
-                                        DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
-                                    }
+                                    <tr>
+                                        <td>@Items.CollectorName</td>
+                                        <td>@Items.SubCollector</td>
+                                        <td>
+                                            @{
+                                                DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
+                                            }
 
-                                    @DateofHearing.ToString("MMMM dd, yyyy")
-                                </td>
-                                <td>
-                                    @{
-                                        var DateID = Items.DateTransferred;
-                                        var TDValue = "";
-                                        if (DateID == "N/A")
-                                        {
-                                            TDValue = "N/A";
-                                        }
-                                        else
-                                        {
-                                            DateTime DateTransferred = Convert.ToDateTime(Items.DateTransferred);
-                                            TDValue = DateTransferred.ToString("MMMM dd, yyyy");
-                                        }
-                                    }
-                                    @TDValue
-                                </td>
-                                <td>@Items.AF</td>
-                                <td>@Items.StubNo</td>
-                                <td>@Items.Quantity</td>
-                                <td>@Items.StratingOR</td>
-                                <td>@Items.EndingOR</td>
-                                @*<td>
-            @{
-                var IsTransferred = "";
-                if (Items.IsTransferred == true)
-                {
-                    IsTransferred = "Yes";
-                }
-                else if (Items.IsTransferred == false)
-                {
-                    IsTransferred = "No";
-                }
+                                            @DateofHearing.ToString("MMMM dd, yyyy")
+                                        </td>
+                                        <td>
+                                            @{
+                                                var DateID = Items.DateTransferred;
+                                                var TDValue = "";
+                                                if (DateID == "N/A")
+                                                {
+                                                    TDValue = "N/A";
+                                                }
+                                                else
+                                                {
+                                                    DateTime DateTransferred = Convert.ToDateTime(Items.DateTransferred);
+                                                    TDValue = DateTransferred.ToString("MMMM dd, yyyy");
+                                                }
+                                            }
+                                            @TDValue
+                                        </td>
+                                        <td>@Items.AF</td>
+                                        <td>@Items.StubNo</td>
+                                        <td>@Items.Quantity</td>
+                                        <td>@Items.StratingOR</td>
+                                        <td>@Items.EndingOR</td>
+                                        @*<td>
+                        @{
+                            var IsTransferred = "";
+                            if (Items.IsTransferred == true)
+                            {
+                                IsTransferred = "Yes";
+                            }
+                            else if (Items.IsTransferred == false)
+                            {
+                                IsTransferred = "No";
+                            }
 
-            }
-            @IsTransferred
-        </td>*@
-                                @*<td>
-            <button class="buttonEf iconhoverEdit"><i class="ft-edit"></i></button>
-            <button class="buttonEf iconhoverDelete" ><i class="ft-delete"></i></button>
-        </td>*@
-                                <td>
-                                    <button class="btn btn-sm btn-icon btn-block black bg-addbutton border-0 font-medium-1" type="button" onclick="AngularGlobalEdit('FMAccountableFormController','Get_UpdateTransferReturnOR','@Items.AssignAFID')"><i class="la la-caret-left"></i>Return</button>
-                                </td>
-                            </tr>
+                        }
+                        @IsTransferred
+                    </td>*@
+                                        @*<td>
+                        <button class="buttonEf iconhoverEdit"><i class="ft-edit"></i></button>
+                        <button class="buttonEf iconhoverDelete" ><i class="ft-delete"></i></button>
+                    </td>*@
+                                        <td>
+                                            <button class="btn btn-sm btn-icon btn-block black bg-addbutton border-0 font-medium-1" type="button" onclick="AngularGlobalEdit2withSwal('FMAccountableFormController','Get_UpdateTransferReturnOR','@Items.AssignAFID', 'Successfully Return this OR', 'Get_AccountableFormAssignmentTable')"><i class="la la-caret-left"></i>Return</button>
+                                        </td>
+                                    </tr>
                                 }
                             }
                         </tbody>

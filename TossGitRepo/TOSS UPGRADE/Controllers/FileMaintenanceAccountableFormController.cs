@@ -129,7 +129,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableFormInventory model = new FM_AccountableFormInventory();
             List<AccountableFormInvtList> tbl_AccountableFormInvt = new List<AccountableFormInvtList>();
 
-            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.AccountableForm_Inventory,dbo.AccountableFormTable where AccountableForm_Inventory.AFTableID = 1 and AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID ";
+            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.AccountableForm_Inventory,dbo.AccountableFormTable where AccountableForm_Inventory.AFTableID = 1 and AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID order by StubNo asc ";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -588,10 +588,45 @@ namespace TOSS_UPGRADE.Controllers
             model.getAccountableFormAssList = tbl_AccountableFormAss.ToList();
             return PartialView("AssignmentofAccountableForm/TreasurerCollector/_TreasurerCollectorTable", model.getAccountableFormAssList);
         }
-        public ActionResult Get_AddTransferReturnOR()
+        public ActionResult Get_AddTransferReturnOR(FM_AccountableFormAssignment model, int AssignAFID)
+        {
+            AccountableForm_Assignment tblAssignAF = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == AssignAFID select e).FirstOrDefault();
+            model.getAFTransferReturnORAssigncolumns.AssignAFID = tblAssignAF.AssignAFID;
+            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_AddTransferReturnOR", model);
+        }
+        public ActionResult GetDynamicMainCollector(FM_AccountableFormAssignment model, int AssignAFID)
+        {
+            AccountableForm_Assignment tblAssignAF = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == AssignAFID select e).FirstOrDefault();
+            model.AccountableTCTRORMainCID = tblAssignAF.CollectorID;
+            model.AccountableTCTRORMainName = tblAssignAF.CollectorTable.CollectorName;
+            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDMainCollector", model);
+        }
+        public ActionResult GetDynamicSubCollector(int CollectorID)
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_AddTransferReturnOR", model);
+            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.SubCollectorTables.ToList() where s.SubCollectorID != CollectorID select new { SubCollectorID = s.SubCollectorID, SubCollectorName = s.SubCollectorName }), "SubCollectorID", "SubCollectorName");
+            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDSubCollector", model);
+        }
+        public ActionResult GetDynamicTCTRORStubNo(FM_AccountableFormAssignment model, int CollectorID)
+        {
+            AccountableForm_Assignment tblAssignAF = (from e in TOSSDB.AccountableForm_Assignment where e.CollectorID == CollectorID select e).FirstOrDefault();
+            model.AccountableTCTRORStubNoID = Convert.ToInt32(tblAssignAF.AccountableForm_Inventory.StubNo);
+            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDTransferReturnORStubNo", model);
+        }
+        public ActionResult GetDynamicTCTRORPV(int AssignAFID)
+        {
+            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
+            AccountableForm_Assignment tblAFIventory = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == AssignAFID select e).FirstOrDefault();
+            if (tblAFIventory != null)
+            {
+
+                model.AccountableTCTRORStartingORID = tblAFIventory.AccountableForm_Inventory.StartingOR;
+                model.AccountableTCTROREndingORID = tblAFIventory.AccountableForm_Inventory.EndingOR;
+                model.AccountableTCTRORQuantityID = tblAFIventory.AccountableForm_Inventory.Quantity;
+                model.AccountableTCTROROrDescID = tblAFIventory.AccountableForm_Inventory.AccountableFormTable.AccountFormName;
+            }
+
+            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_AddTransferReturnPVOR", model);
         }
         public ActionResult Get_TransferReturnORTable()
         {
@@ -632,28 +667,10 @@ namespace TOSS_UPGRADE.Controllers
             model.getAFTransferReturnORList = tbl_AFTransferReturnOR.ToList();
             return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_TransferReturnORTable", model.getAFTransferReturnORList);
         }
-
-        public ActionResult GetDynamicMainCollector()
-        {
-            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.CollectorTables.ToList() select new { CollectorID = s.CollectorID, CollectorName = s.CollectorName }), "CollectorID", "CollectorName");
-            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDMainCollector", model);
-        }
-        public ActionResult GetDynamicSubCollector(int CollectorID)
-        {
-            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.SubCollectorTables.ToList() where s.SubCollectorID != CollectorID select new { SubCollectorID = s.SubCollectorID, SubCollectorName = s.SubCollectorName }), "SubCollectorID", "SubCollectorName");
-            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDSubCollector", model);
-        }
-        public ActionResult GetDynamicTCTRORStubNo(int CollectorID)
-        {
-            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.AccountableForm_Assignment.ToList() where s.CollectorID == CollectorID && s.IsTransferred == null select new { AssignAFID = s.AssignAFID, StubNo = s.AccountableForm_Inventory.StubNo }), "AssignAFID", "StubNo");
-            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_DynamicDDTransferReturnORStubNo", model);
-        }
         public JsonResult AddTransferReturnOR(FM_AccountableFormAssignment model)
         {
-            AccountableForm_Assignment tblAccountableFormInventory = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == model.AccountableTCTRORStubNoID select e).FirstOrDefault();
+            AccountableForm_Assignment tblAccountableFormInventory = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == model.getAFTransferReturnORAssigncolumns.AssignAFID
+ select e).FirstOrDefault();
             tblAccountableFormInventory.SubCollectorID = model.AccountableTCTRORSubCID;
             tblAccountableFormInventory.DateTransferred = model.getAFTransferReturnORAssigncolumns.DateTransferred;
             tblAccountableFormInventory.IsTransferred = true;
@@ -661,22 +678,6 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return Json("");
         }
-
-        public ActionResult GetDynamicTCTRORPV(int StubNo)
-        {
-            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            AccountableForm_Inventory tblAFIventory = (from e in TOSSDB.AccountableForm_Inventory where e.StubNo == StubNo select e).FirstOrDefault();
-            if (tblAFIventory != null)
-            {
-                model.AccountableTCTRORStartingORID = tblAFIventory.StartingOR;
-                model.AccountableTCTROREndingORID = tblAFIventory.EndingOR;
-                model.AccountableTCTRORQuantityID = tblAFIventory.Quantity;
-                model.AccountableTCTROROrDescID = tblAFIventory.AccountableFormTable.AccountFormName;
-            }
-
-            return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_AddTransferReturnPVOR", model);
-        }
-
         //Get Update AF Transfer / Return OR
         public ActionResult Get_UpdateAFTransferReturnOR(FM_AccountableFormAssignment model, int AssignAFID)
         {
@@ -688,8 +689,8 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
         }
-        #endregion
 
+        #endregion
         #region Field Collector
         public ActionResult Get_AddAssignFieldCollector()
         {

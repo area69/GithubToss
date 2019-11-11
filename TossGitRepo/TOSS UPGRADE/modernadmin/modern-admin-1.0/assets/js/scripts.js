@@ -64,6 +64,14 @@ function AngularGlobalEdit2(ControllerName, ActionName1, IDParams, ActionName2) 
         eval("scope." + ActionName2 + "();");
     })
 }
+function AngularGlobalEdit2withSwal(ControllerName, ActionName1, IDParams, SuccessMess, ActionName2) {
+    var scope = angular.element(document.getElementById(ControllerName)).scope();
+    scope.$apply(function () {
+        eval("scope." + ActionName1 + "(" + IDParams + ");");
+        swalSuccess("Success", SuccessMess);
+        eval("scope." + ActionName2 + "();");
+    })
+}
 function AngularGlobalView(ControllerName, ActionName, IDParams) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
@@ -131,6 +139,14 @@ function AngularGlobalAlertsCallingNoModalandSuccess(ControllerName, ActionName,
 
 }
 
+function AngularGlobalAlertsCallingNoModalTwoFunc(ControllerName, ActionName1, ActionName2, SuccessMess) {
+    var scope = angular.element(document.getElementById(ControllerName)).scope();
+    scope.$apply(function () {
+        eval("scope." + ActionName1 + "();");
+        eval("scope." + ActionName2 + "();");
+        swalSuccess("Success", SuccessMess);
+    });
+}
 function AngularGlobalAlertsCallingNoModal(ControllerName, ActionName,  SuccessMess) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {

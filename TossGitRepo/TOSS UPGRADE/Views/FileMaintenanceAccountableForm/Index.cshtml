@@ -403,19 +403,22 @@
             }).then(function (response) {
                 $("#_TransferReturnORTableID").html(response.data);
                 });
-            F.Get_AddTransferReturnOR();
         }
-        F.Get_AddTransferReturnOR = function () {
+        F.Get_DataTransferReturnOR = function (AssignAFID) { 
             P({
                 url: '/FileMaintenanceAccountableForm/Get_AddTransferReturnOR',
+                params: { AssignAFID: AssignAFID },
             }).then(function (response) {
                 $("#_TransferReturnORID").html(response.data);
+                F.Get_TransferReturnORTable();
                 F.LoadDynamicMainCollector();
             });
         }
         F.LoadDynamicMainCollector = function () {
+            var AssignAFID = $("#AssignAFIDDDD").val();
             P({
                 url: '/FileMaintenanceAccountableForm/GetDynamicMainCollector',
+                params: { AssignAFID: AssignAFID },
             }).then(function (response) {
                 $("#_DynamicMainCollectorID").html(response.data);
                 F.LoadDynamicSubCollector();
@@ -442,13 +445,13 @@
             });
         }
         F.LoadDynamicDDTRPVOR = function () {
-            var StubNo = $("#TRORStubNoIDDDD option:selected").text();
-            if (StubNo == null || StubNo == "") {
-                StubNo = 0;
+            var AssignAFID = $("#AssignAFIDDDD").val();
+            if (AssignAFID == null || AssignAFID == "") {
+                AssignAFID = 0;
             }
             P({
                 url: '/FileMaintenanceAccountableForm/GetDynamicTCTRORPV',
-                params: { StubNo: StubNo }
+                params: { AssignAFID: AssignAFID }
             }).then(function (response) {
                 $("#_TransferReturnORIDPV").html(response.data);
             });
@@ -459,9 +462,8 @@
                 params: { AssignAFID: AssignAFID },
             }).then(function (response) {
                 F.Get_TransferReturnORTable();
-                });
+            });
         }
-
         //Field Collector
         F.Get_AddAssignFieldCollector = function () {
             P({
@@ -550,5 +552,7 @@
                 F.Get_AccountableFormAssignmentFCTable();
             });
         }
+
+
     });
 </script>

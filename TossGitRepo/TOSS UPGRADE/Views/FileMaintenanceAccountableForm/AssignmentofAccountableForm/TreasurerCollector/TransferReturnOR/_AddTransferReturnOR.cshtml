@@ -5,8 +5,9 @@
 @using TOSS_UPGRADE.Models;
 
 
-@using (Ajax.BeginForm("AddTransferReturnOR", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_TransferReturnORTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("AddTransferReturnOR", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalTwoFunc('FMAccountableFormController','Get_TransferReturnORTable','Get_AccountableFormAssignmentTable','Successfully Saved')", OnFailure = "OnFailure()", }))
 {
+    @Html.HiddenFor(m => m.getAFTransferReturnORAssigncolumns.AssignAFID, new { id = "AssignAFIDDDD" })
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
