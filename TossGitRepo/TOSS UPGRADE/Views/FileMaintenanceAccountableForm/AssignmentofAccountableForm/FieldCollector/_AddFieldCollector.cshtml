@@ -1,9 +1,9 @@
-﻿@model TOSS_UPGRADE.Models.FM_CollectionAndDeposit.FM_CollectionAndDeposit_AssignmentAF
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
 @{
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-@using (Ajax.BeginForm("AddAccountableFormAssignFieldCollector", "FileMaintenanceCollectionDeposit", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMCollectionDepositController','Get_AccountableFormAssignmentFCTable','Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("AddAccountableFormAssignFieldCollector", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AccountableFormAssignmentFCTable','Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row">
         <div class="col-md-3 form-group" id="_FCCollectorID">
@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-3 form-group">
             <label>Date Issued</label>
-            @Html.TextBoxFor(m => m.getAccountableFormAssigncolumns.Date, new { @class = "form-control pickadate", type = "text" })
+            @Html.TextBoxFor(m => m.getAccountableFormAssigncolumns.DateIssued, new { @class = "form-control pickadate", type = "text" })
         </div>
     </div>
     <div class="row">

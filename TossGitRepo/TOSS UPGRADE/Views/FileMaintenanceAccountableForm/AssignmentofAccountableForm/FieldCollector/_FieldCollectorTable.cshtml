@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_CollectionAndDeposit.AccountableFormAssignmentList>
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_AccountableForm.AccountableFormAssignmentList>
 @{
     DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
@@ -9,13 +9,13 @@
                 <thead>
                     <tr>
                         <th>Collector</th>
-                        <th>OR<br />Type</th>
-                        <th>Stub<br />No.</th>
-                        <th>Starting<br />OR</th>
-                        <th>Ending<br />OR</th>
+                        <th>OR Type</th>
+                        <th>Stub No.</th>
+                        <th>Starting OR</th>
+                        <th>Ending OR</th>
                         <th>Quantity</th>
-                        <th>Is<br />Consumed</th>
-                        <th>Is<br />Default</th>
+                        <th>Consumed?</th>
+                        <th>Default?</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -25,7 +25,22 @@
                         {
                             <tr>
                                 <td>@Items.CollectorName</td>
-                                <td>@Items.FundType-(@Items.AF)</td>
+                                <td>
+                                    @{
+                                        var SubFundID = Items.SubFundID;
+                                        var SubFund = (from e in SISDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
+                                        var TDValueSubFund = "";
+                                        if (SubFund == null)
+                                        {
+                                            TDValueSubFund = "N/A";
+                                        }
+                                        else
+                                        {
+                                            TDValueSubFund = "(" + SubFund.Fund.FundName + "-" + SubFund.SubFundName + ")";
+                                        }
+                                    }
+                                    @TDValueSubFund - @Items.AF
+                                </td>
                                 <td>@Items.StubNo</td>
                                 <td>@Items.StratingOR</td>
                                 <td>@Items.EndingOR</td>
@@ -61,7 +76,8 @@
                                     @isDefault
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm bg-addbutton black font-small-3" onclick="AngularGlobalEdit('FMCollectionDepositController','Get_UpdateAFSetAsDefault','@Items.AssignAFID')">Set as Default</button>
+                                    <button type="button" class="btn btn-sm btn-block black bg-addbutton border-0" title="Set as Default" onclick="AngularGlobalEdit('FMAccountableFormController','Get_UpdateAFSetAsDefault','@Items.AssignAFID')"><i class="la la-save"></i></button>
+                                    <button type="button" class="btn btn-sm btn-block black bg-headerbc border-0" title="Remove this OR" @*onclick="AngularGlobalEdit('FMAccountableFormController','Get_UpdateAFSetAsDefault','@Items.AssignAFID')"*@><i class="la la-remove"></i></button>
                                 </td>
                             </tr>
                         }

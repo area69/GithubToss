@@ -125,6 +125,8 @@
             }).then(function (response) {
                 F.tab3 = D(response.data);
                 F.Get_AccountableFormAssignmentTable();
+                F.Get_AccountableFormAssignmentFCTable();
+
             });
         }
 
@@ -464,6 +466,7 @@
                 F.Get_TransferReturnORTable();
             });
         }
+
         //Field Collector
         F.Get_AddAssignFieldCollector = function () {
             P({

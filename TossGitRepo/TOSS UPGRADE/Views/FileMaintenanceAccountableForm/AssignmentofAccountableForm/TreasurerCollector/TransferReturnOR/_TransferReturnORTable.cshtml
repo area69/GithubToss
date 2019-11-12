@@ -59,7 +59,22 @@
                                             }
                                             @TDValue
                                         </td>
-                                        <td>@Items.AF</td>
+                                        <td>
+                                            @{
+                                                var SubFundID = Items.SubFundID;
+                                                var SubFund = (from e in SISDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
+                                                var TDValueSubFund = "";
+                                                if (SubFund == null)
+                                                {
+                                                    TDValueSubFund = "N/A";
+                                                }
+                                                else
+                                                {
+                                                    TDValueSubFund = "( " + SubFund.Fund.FundName + " - " + SubFund.SubFundName + " )";
+                                                }
+                                            }
+                                            @TDValueSubFund - @Items.AF
+                                        </td>
                                         <td>@Items.StubNo</td>
                                         <td>@Items.Quantity</td>
                                         <td>@Items.StratingOR</td>

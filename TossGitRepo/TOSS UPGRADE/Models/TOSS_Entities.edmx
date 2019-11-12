@@ -11,7 +11,7 @@
           </Key>
           <Property Name="AssignAFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CollectorID" Type="int" Nullable="false" />
-          <Property Name="FundID" Type="int" Nullable="false" />
+          <Property Name="SubFundID" Type="int" Nullable="false" />
           <Property Name="AFORID" Type="int" Nullable="false" />
           <Property Name="DateIssued" Type="date" Nullable="false" />
           <Property Name="DateTransferred" Type="date" />
@@ -407,6 +407,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_Fund">
+          <End Role="SubFund" Type="Self.SubFund" Multiplicity="1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubFund">
+              <PropertyRef Name="SubFundID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="SubFundID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -947,6 +959,10 @@
             <End Role="CollectorTable" EntitySet="CollectorTable" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_Fund" Association="Self.FK_AccountableForm_Assignment_Fund">
+            <End Role="SubFund" EntitySet="SubFund" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_SubCollectorTable" Association="Self.FK_AccountableForm_Assignment_SubCollectorTable">
             <End Role="SubCollectorTable" EntitySet="SubCollectorTable" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
@@ -1196,6 +1212,10 @@
             <End Role="CollectorTable" EntitySet="CollectorTables" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_Fund" Association="DB_TOSSModel.FK_AccountableForm_Assignment_Fund">
+            <End Role="SubFund" EntitySet="SubFunds" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_SubCollectorTable" Association="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable">
             <End Role="SubCollectorTable" EntitySet="SubCollectorTables" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
@@ -1351,7 +1371,7 @@
           </Key>
           <Property Name="AssignAFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CollectorID" Type="Int32" Nullable="false" />
-          <Property Name="FundID" Type="Int32" Nullable="false" />
+          <Property Name="SubFundID" Type="Int32" Nullable="false" />
           <Property Name="AFORID" Type="Int32" Nullable="false" />
           <Property Name="DateIssued" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DateTransferred" Type="DateTime" Precision="0" />
@@ -1361,6 +1381,7 @@
           <Property Name="IsDefault" Type="Boolean" />
           <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Assignment" ToRole="AccountableForm_Inventory" />
           <NavigationProperty Name="CollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" FromRole="AccountableForm_Assignment" ToRole="CollectorTable" />
+          <NavigationProperty Name="SubFund" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_Fund" FromRole="AccountableForm_Assignment" ToRole="SubFund" />
           <NavigationProperty Name="SubCollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable" FromRole="AccountableForm_Assignment" ToRole="SubCollectorTable" />
         </EntityType>
         <EntityType Name="AccountableForm_Inventory">
@@ -1779,6 +1800,7 @@
           <Property Name="SubFundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FundID" Type="Int32" />
           <Property Name="SubFundName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_Fund" FromRole="SubFund" ToRole="AccountableForm_Assignment" />
           <NavigationProperty Name="Fund" Relationship="DB_TOSSModel.FK_SubFund_Fund" FromRole="SubFund" ToRole="Fund" />
         </EntityType>
         <EntityType Name="SubMajorAccountGroup">
@@ -1825,6 +1847,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_Fund">
+          <End Type="DB_TOSSModel.SubFund" Role="SubFund" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubFund">
+              <PropertyRef Name="SubFundID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="SubFundID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2303,7 +2337,7 @@
                 <ScalarProperty Name="DateTransferred" ColumnName="DateTransferred" />
                 <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
                 <ScalarProperty Name="AFORID" ColumnName="AFORID" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
                 <ScalarProperty Name="CollectorID" ColumnName="CollectorID" />
                 <ScalarProperty Name="AssignAFID" ColumnName="AssignAFID" />
               </MappingFragment>

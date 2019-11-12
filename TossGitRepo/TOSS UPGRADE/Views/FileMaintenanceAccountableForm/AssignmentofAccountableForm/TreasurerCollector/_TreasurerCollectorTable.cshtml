@@ -12,7 +12,7 @@
                     <tr>
                         <th>Collector Name</th>
                         <th>Date Issued</th>
-                        <th>Date Transferred</th>
+                        @*<th>Date Transferred</th>*@
                         <th>OR Description</th>
                         <th>Stub No.</th>
                         <th>Starting OR</th>
@@ -34,7 +34,7 @@
 
                                     @DateofHearing.ToString("MMMM dd, yyyy")
                                 </td>
-                                <td>
+                                @*<td>
                                     @{
                                         var DateID = Items.DateTransfered;
                                         var TDValue = "";
@@ -49,13 +49,30 @@
                                         }
                                     }
                                     @TDValue
+                                </td>*@
+                                <td>
+                                    @{
+                                        var SubFundID = Items.SubFundID;
+                                        var SubFund = (from e in SISDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
+                                        var TDValueSubFund = "";
+                                        if (SubFund == null)
+                                        {
+                                            TDValueSubFund = "N/A";
+                                        }
+                                        else
+                                        {
+                                            TDValueSubFund = "( " + SubFund.Fund.FundName + " - " + SubFund.SubFundName + " )";
+                                        }
+                                    }
+                                    @TDValueSubFund - @Items.AF
                                 </td>
-                                <td>@Items.FundType - ( @Items.AF )</td>
                                 <td>@Items.StubNo</td>
                                 <td>@Items.StratingOR</td>
                                 <td>@Items.EndingOR</td>
                                 <td>@Items.Quantity</td>
-                                <td><button class="btn btn-sm btn-block black bg-addbutton border-0" type="button" data-toggle="modal" data-target="#addTransferReturnModal" onclick="AngularGlobalView('FMAccountableFormController','Get_DataTransferReturnOR','@Items.AssignAFID')"><i class='la la-share - square mr-1'></i><b>Transfer</b></button></td>
+                                <td><button class="btn btn-sm btn-block black bg-addbutton border-0" title="Assign this OR" type="button" data-toggle="modal" data-target="#addTransferReturnModal" onclick="AngularGlobalView('FMAccountableFormController','Get_DataTransferReturnOR','@Items.AssignAFID')"><i class='la la-share - square'></i></button>
+                                    <button class="btn btn-sm btn-block black bg-headerbc border-0" title="Remove this OR" type="button" @*onclick="AngularGlobalView('FMAccountableFormController','Get_DataTransferReturnOR','@Items.AssignAFID')"*@><i class='la la-remove - square'></i></button>
+                                </td>
                             </tr>
                         }
                     }

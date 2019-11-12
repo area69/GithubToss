@@ -55,7 +55,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
     {
         public int AssignAFID { get; set; }
         public string CollectorName { get; set; }
-        public string FundType { get; set; }
+        public int SubFundID { get; set; }
         public string AF { get; set; }
         public int StubNo { get; set; }
         public int Quantity { get; set; }
@@ -70,7 +70,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
     {
         public int AssignAFID { get; set; }
         public string CollectorName { get; set; }
-        public string FundType { get; set; }
+        public int SubFundID { get; set; }
         public string AF { get; set; }
         public int StubNo { get; set; }
         public int Quantity { get; set; }

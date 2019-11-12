@@ -6,72 +6,150 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body box-shadow-2">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-3 pr-0 form-group">
-                                    <label><input type="radio" name="optradio" checked><b>Treasurer's Collection</b></label>
-                                </div>
-                                <div class="col-md-2 px-0 form-group">
-                                    <label><input type="radio" name="optradio"><b>Field Collectors</b></label>
-                                </div>
-                                <div class="col-md-2 px-0 form-group">
-                                    <label><input type="radio" name="optradio"><b>Cash Tickets</b></label>
-                                </div>
-                                <div class="col-md-4 px-0 form-group">
-                                    <label><input type="radio" name="optradio"><b>Community Tax Certificate Collectors</b></label>
-                                </div>
-                                <div class="col-md-1 px-0 form-group">
-                                    <label><input type="radio" name="optradio"><b>PATAS</b></label>
+                        <div align="center">
+                            <table style="padding: 5px 0 5px 0;" class="font-weight-normal">
+                                <tr>
+                                    <td>
+                                        <label><input type="radio" name="radio" id="radioTCAssignAF">Treasurer Collection</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioFCAssignAF">Field Collectors</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioCTAssignAF">Cash Tickets</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioBrgyCAssignAF">Barangay Collectors</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioCTCAssignAF">Community Tax Certificate Collectors</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioBPLSAssignAF">BPLS</label>
+                                    @*</td>
+                                    <td>*@
+                                        <label><input type="radio" name="radio" id="radioPATASAssignAF">PATAS</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    @* Treasurer's Collection Div  *@
+                    <div id="DivTreasurerORASF">
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>Treasurer's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                <div id="_TreasurerCollectionID" class="font-weight-bold ">
+
                                 </div>
                             </div>
+                            <div class="mt-1" id="_TreasurerCollectionTableID">
+
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            </div>
-            <div id="DivTreasurerORAssignment">
-                <div class="card-header bg-carheadercolor mt-1">
-                    <h4 class="card-title black"><b>Treasurer's OR Details</b></h4>
-                </div>
-                <div class="card-content collapse show">
-                    <div class="card-body box-shadow-2">
-                        <div class="card-body px-1 card-body rounded menubackground">
-                            <div id="_TreasurerCollectionID" class="font-weight-bold">
 
-                            </div>
-                        </div>
-                        <div class="mt-1" id="_TreasurerCollectionTableID">
+                    @* Transfer / Return Modal *@
+                    <div class="col-lg-8 col-md-8 col-sm-12 center">
+                        <div class="modal animated zoomIn text-left" id="addTransferReturnModal" role="dialog">
+                            <div class="modal-dialog" style="max-width:1320px" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-headerbc white">
+                                        <h6 class="modal-title white"><i class="la la-plus mr-1"></i><b>Field Collector OR Details</b></h6>
+                                        <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+                                    </div>
+                                    <div class="modal-body skin skin-square">
+                                        <div class="row">
+                                            <div class="col-md-12" id="_TransferReturnORID">
 
-                        </div>
-                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-md-12" id="_TransferReturnORTableID">
 
-                </div>
-            </div>
-            @* Transfer / Return Modal *@
-            <div class="col-lg-8 col-md-8 col-sm-12 center">
-                <div class="modal animated zoomIn text-left" id="addTransferReturnModal" role="dialog">
-                    <div class="modal-dialog" style="max-width:1320px" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-headerbc white">
-                                <h6 class="modal-title white"><i class="la la-plus mr-1"></i><b>Transfer / Return OR Series</b></h6>
-                                <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-                            </div>
-                            <div class="modal-body skin skin-square">
-                                <div class="row">
-                                    <div class="col-md-12" id="_TransferReturnORID">
-
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mt-1">
-                                    <div class="col-md-12" id="_TransferReturnORTableID">
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+
+                    @* Field Collectors *@
+                    <div id="DivFieldCollectorASF">
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>Treasurer's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                @* Field Collection Partial View *@
+                                <div id="_FieldCollectionID" class="font-weight-bold">
+
+                                </div>
+                            </div>
+                            @* Treasurer Collection Partial View Table *@
+                            <div id="_FieldCollectionTableID" class="mt-1">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Cash Tickets *@
+                    <div id="DivCashTicketASF">
+                        <label>Cash Tickets</label>
+                    </div>
+                    @* CTC Collectors *@
+                    <div id="DivCTCCollectorASF">
+                        <label>CTC Collector</label>
+                    </div>
+                    @* PATAS *@
+                    <div id="DivPATAS">
+                        <label>PATAS</label>
+                    </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
+</div>
+</div>
+<script>
+    //Assignment of Accountable Form
+    $("#radioTCAssignAF").attr("checked", true);
+    $("input[id='radioTCAssignAF']").click(function () {
+        $("#DivTreasurerORASF").show();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").hide();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioFCAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").show();
+        $("#DivCashTicketASF").hide();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioCTAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").show();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioCTCAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").hide();
+        $("#DivCTCCollectorASF").show();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioPATASAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").hide();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivPATAS").show();
+    });
+</script>
