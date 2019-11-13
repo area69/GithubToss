@@ -86,14 +86,6 @@ function AngularGlobalDelete(IDParams, ActionName, ControllerName,) {
     })
 }
 
-function AngularGlobalDeleteTwoFunc(IDParams, ActionName1, ControllerName, ActionName2) {
-    var scope = angular.element(document.getElementById(ControllerName)).scope();
-    scope.$apply(function () {
-        eval("scope." + ActionName1 + "(" + IDParams + ");");
-        eval("scope." + ActionName2 + "();");
-    })
-}
-
 function AngularGlobalAlertsCalling(ControllerName, ActionName, ModalName, SuccessMess) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {

@@ -689,7 +689,20 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult DeleteAccountableFormAssignmentTC(FM_AccountableFormAssignment model, int AssignAFID)
+        {
+            AccountableForm_Assignment tblAccountableFormAss = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == AssignAFID select e).FirstOrDefault();
+            AccountableForm_Inventory tblAccountableFormInventory = (from e in TOSSDB.AccountableForm_Inventory where e.AFORID == tblAccountableFormAss.AFORID select e).FirstOrDefault();
+            tblAccountableFormInventory.isIssued = false;
+            TOSSDB.Entry(tblAccountableFormInventory);
+            TOSSDB.SaveChanges();
 
+            AccountableForm_Assignment tblAccountableFormAssignment = (from e in TOSSDB.AccountableForm_Assignment where e.AssignAFID == AssignAFID select e).FirstOrDefault();
+            TOSSDB.AccountableForm_Assignment.Remove(tblAccountableFormAssignment);
+            TOSSDB.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
         #endregion
         #region Field Collector
         public ActionResult Get_AddAssignFieldCollector()

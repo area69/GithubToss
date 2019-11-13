@@ -466,6 +466,14 @@
                 F.Get_TransferReturnORTable();
             });
         }
+        F.Get_DeleteAccountableFormAssignmentTC = function (AssignAFID) {
+            P({
+                url: '/FileMaintenanceAccountableForm/DeleteAccountableFormAssignmentTC',
+                params: { AssignAFID: AssignAFID }
+            }).then(function (response) {
+                F.Get_AccountableFormAssignmentTable();
+            });
+        }
 
         //Field Collector
         F.Get_AddAssignFieldCollector = function () {

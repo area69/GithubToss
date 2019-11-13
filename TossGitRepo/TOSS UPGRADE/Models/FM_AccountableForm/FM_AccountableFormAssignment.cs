@@ -50,6 +50,8 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int AccountableFormAssignmentQuantityID { get; set; }
         public int AccountableFormAssignmentStubNoID { get; set; }
 
+        public int AFORID { get; set; }
+
     }
     public class AccountableFormAssignmentList
     {
