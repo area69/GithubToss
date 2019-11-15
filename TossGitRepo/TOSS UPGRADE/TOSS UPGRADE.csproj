@@ -9191,6 +9191,13 @@
     <Content Include="Views\FileMaintenanceAccountableForm\InventoryofAccountableForm\InventoryofAFIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\AssignmentofAFIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\InventoryofAccountableForm\CT\CashTicketIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_AddCashTicket.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_CashTicketTable.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDCollectorOfficerCT.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDCTFundType.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDCTAF.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDStartCTNo.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_AddCashTicketIvntAF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

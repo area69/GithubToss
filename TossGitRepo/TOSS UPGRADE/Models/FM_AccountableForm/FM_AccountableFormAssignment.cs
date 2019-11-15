@@ -49,7 +49,6 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int AccountableFormAssignmentEndingORID { get; set; }
         public int AccountableFormAssignmentQuantityID { get; set; }
         public int AccountableFormAssignmentStubNoID { get; set; }
-
         public int AFORID { get; set; }
 
     }
@@ -83,4 +82,5 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public string SubCollector { get; set; }
         public bool IsTransferred { get; set; }
     }
+
 }

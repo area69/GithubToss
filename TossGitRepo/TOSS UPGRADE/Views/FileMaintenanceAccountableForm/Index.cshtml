@@ -126,7 +126,7 @@
                 F.tab3 = D(response.data);
                 F.Get_AccountableFormAssignmentTable();
                 F.Get_AccountableFormAssignmentFCTable();
-
+                F.Get_AddAssignCashTicket();
             });
         }
 
@@ -464,6 +464,7 @@
                 params: { AssignAFID: AssignAFID },
             }).then(function (response) {
                 F.Get_TransferReturnORTable();
+                F.Get_AccountableFormAssignmentTable();
             });
         }
         F.Get_DeleteAccountableFormAssignmentTC = function (AssignAFID) {
@@ -563,7 +564,72 @@
                 F.Get_AccountableFormAssignmentFCTable();
             });
         }
+        F.Get_DeleteAccountableFormAssignmentFC = function (AssignAFID) {
+            P({
+                url: '/FileMaintenanceAccountableForm/DeleteAccountableFormAssignmentFC',
+                params: { AssignAFID: AssignAFID }
+            }).then(function (response) {
+                F.Get_AccountableFormAssignmentFCTable();
+            });
+        }
 
+        //Cash Ticket
+        F.Get_AddAssignCashTicket = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddAssignCashTicket',
+            }).then(function (response) {
+                $("#_CashTicketID").html(response.data);
+                F.LoadDynamicAFCollectorCT();
+                F.LoadDynamicDDASFFundTypeCT();
+                F.LoadDynamicDDASFAFCT();
+                //F.Get_InvtAccountableFormTable();
+                //F.Get_AddAssignTreasurerCollector();
+            });
+        }
+        F.LoadDynamicAFCollectorCT = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFCollectorCT',
+            }).then(function (response) {
+                $("#_CTCollectorID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDASFFundTypeCT = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicASFFundTypeCT',
+            }).then(function (response) {
+                $("#_CTFundID").html(response.data);
+            });
+        }
+        F.LoadDynamicDDASFAFCT = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFASFCT',
+            }).then(function (response) {
+                $("#_CTAFDDID").html(response.data);
+                F.LoadDynamicASFStartCTNo();
+            });
+        }
+        F.LoadDynamicASFStartCTNo = function () {
+            var AccountFormID = $("#AFIDDDASFCT").val();
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFStartCTNo',
+                params: { AccountFormID: AccountFormID }
+            }).then(function (response) {
+                $("#_CTStartCTNoIDDD").html(response.data);
+                F.LoadDynamicDDASFInvtCT();
+            });
+        }
+        F.LoadDynamicDDASFInvtCT = function () {
+            var AFORID = $("#StartIDDDDCT option:selected").val();
+            if (AFORID == null || AFORID == "") {
+                AFORID = 0;
+            }
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddAssignAFCT',
+                params: { AFORID: AFORID }
+            }).then(function (response) {
+                $("#_CTInventorAFIDD").html(response.data);
+            });
+        }
 
     });
 </script>

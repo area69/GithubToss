@@ -51,7 +51,6 @@
 
                         </div>
                     </div>
-
                     @* Transfer / Return Modal *@
                     <div class="col-lg-8 col-md-8 col-sm-12 center">
                         <div class="modal animated zoomIn text-left" id="addTransferReturnModal" role="dialog">
@@ -77,11 +76,10 @@
                             </div>
                         </div>
                     </div>
-
                     @* Field Collectors *@
                     <div id="DivFieldCollectorASF">
                         <div class="card-header bg-carheadercolor mt-1">
-                            <h4 class="card-title black"><b>Treasurer's OR Details</b></h4>
+                            <h4 class="card-title black"><b>Field Collector's OR Details</b></h4>
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body box-shadow-2 rounded menubackground">
@@ -96,10 +94,42 @@
                             </div>
                         </div>
                     </div>
-
                     @* Cash Tickets *@
                     <div id="DivCashTicketASF">
-                        <label>Cash Tickets</label>
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>Cash Ticket's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                @* Cash Ticket Collection Partial View *@
+                                <div class="font-weight-bold" id="_CashTicketID">
+                      
+                                </div>
+                            </div>
+                            @* Cash Ticket Collection Partial View Table *@
+                            <div class="mt-1">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-responsive table-striped zero-configuration table-bordered text-center scroll-horizontal table-smss-hover no-footer m-0 w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th>Collector</th>
+                                                    <th>CT Type</th>
+                                                    <th>Stub No.</th>
+                                                    <th>Starting CT</th>
+                                                    <th>Ending CT</th>
+                                                    <th>Quantity</th>
+                                                    <th>Consumed?</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     @* CTC Collectors *@
                     <div id="DivCTCCollectorASF">
