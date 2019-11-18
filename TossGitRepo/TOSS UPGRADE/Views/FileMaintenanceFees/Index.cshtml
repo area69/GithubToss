@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Field Type of Fees";
+}
+
+<script>
+    $("#fees").addClass("active");
+</script>
+<div class="content-header row">
+    <div class="content-header-left col-md-6 mb-2">
+        <h3 class="content-header"><b>Field Type of Fees</b></h3>
+    </div>
+</div>
+
+<div class="content-body font-weight-bold black">
+    <div class="content-body">
+        <div class="row black" id="FMFeeController" ng-controller="FMFeeController" ng-init="InitAllFunction();">
+            <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+                <div class="card" style="border: 1px solid; border-color: #EABEBB">
+                    <div class="card-block">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-block">
+                                        <div class="card-body">
+                                            <div id="_FeeID">
+
+                                            </div>
+                                            <div class="row" id="_FeeTableID">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8 col-md-8 col-sm-12 center">
+                                <div class="modal animated zoomIn text-left" id="addFeeCategoryModal" role="dialog">
+                                    <div class="modal-dialog" style="max-width:800px" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-headerbc white">
+                                                <h6 class="modal-title white"><i class="la la-plus mr-1"></i><b>Field Category</b></h6>
+                                                <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+                                            </div>
+                                            <div class="modal-body skin skin-square">
+                                                <div class="row" id="_FeeCategoryID">
+
+                                                </div>
+                                                <div class="row mt-1">
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    @*Angular Function*@
+    app.controller('FMFeeController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        F.InitAllFunction = function () {
+            //Internal Revenue Allotment Table
+            F.Get_FeeTable();
+        }
+        @* Message Box *@
+        F.SuccessMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Added", SuccessMess);
+        }
+        F.UpdateMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Update", SuccessMess);
+        }
+        F.DeleteMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Deleted", SuccessMess);
+        }
+
+        F.Get_FeeTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_FieldFeeTable',
+            }).then(function (response) {
+                $("#_FeeTableID").html(response.data);
+            });
+            F.Get_AddFees();
+        }
+        F.Get_AddFees = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddFieldFees',
+            }).then(function (response) {
+                $("#_FeeID").html(response.data);
+            });
+        }
+
+        F.Get_AddFeeCategory = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddFeeCategory',
+            }).then(function (response) {
+                $("#_FeeCategoryID").html(response.data);
+            });
+        }
+    });
+</script>

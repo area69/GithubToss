@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_Fees.FieldFeeList>
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<div class="table-responsive">
+    <table class="table table-striped table-bordered zero-configuration text-center dataTable table-smss-hover no-footer m-0 w-100">
+        <thead>
+            <tr>
+                <th>Fee Description</th>
+                <th>Account Code</th>
+                <th>Rate</th>
+                <th>Fee Category</th>
+                <th>OR Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var Items in Model)
+                {
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Successfully Deleted";
+
+                    var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMPayeeController','Get_UpdatePayee','" + @Items.FieldFeeID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                    var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.FieldFeeID + ",&quot;Get_DeletePayee&quot;,&quot;FMPayeeController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                    var ActionContentProgram = ViewEdit + ViewDelete;
+                    <tr>
+                        <td>@Items.FieldFeeDescription</td>
+                        <td>@Items.AccountCode</td>
+                        <td>@Items.Rate</td>
+                        <td>@Items.FeeCategory</td>
+                        <td>@Items.FundType</td>
+                        @*<td>
+                        <button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMGeneralReferenceController','Get_UpdateInternalRevenueAllotment','@Items.IRAID')"><i class="ft-edit"></i></button>
+                        <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.IRAID ,&quot;Get_DeleteInternalRevenueAllotment&quot;,&quot;FMGeneralReferenceController&quot;)')"><i class="ft-delete"></i></button>
+                    </td>*@
+                        <td>
+                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                    data-original-title="" data-html="true" data-placement="right">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

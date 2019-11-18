@@ -5,7 +5,7 @@
 @using TOSS_UPGRADE.Models;
 
 
-<label class="mt-1"><b>Revision Year</b></label>
+<label><b>Revision Year</b></label>
 @Html.DropDownListFor(m => m.RevisionYearDate, Model.GeneralAccountList, new { @class = "form-control select2", id = "GeneralAccountRevisionYearNameIDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMRevisonYearController','LoadDynamicDDGeneralAccountAllotmentClass','')" })
 
 

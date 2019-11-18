@@ -5,5 +5,5 @@
 }
 @using TOSS_UPGRADE.Models;
 
-<label class="mt-1"><b>Accounts</b></label>
+<label><b>Accounts</b></label>
 @Html.DropDownListFor(m => m.AccountGroupID, Model.GeneralAccountList, new { @class = "form-control select2", id = "GeneralAccountAccountGroupNameIDD", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMRevisonYearController','LoadDynamicLGeneralAccountCode','LoadDynamicDDGeneralAccountMajorAccountGroupName')" })

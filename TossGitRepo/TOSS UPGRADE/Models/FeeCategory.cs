@@ -12,23 +12,20 @@ namespace TOSS_UPGRADE.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AccountableFormTable
+    public partial class FeeCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AccountableFormTable()
+        public FeeCategory()
         {
-            this.AccountableForm_Inventory = new HashSet<AccountableForm_Inventory>();
-            this.FeeCategories = new HashSet<FeeCategory>();
+            this.FieldFees = new HashSet<FieldFee>();
         }
     
+        public int FeeCategoryID { get; set; }
+        public string FeeCategoryName { get; set; }
         public int AccountFormID { get; set; }
-        public string AccountFormName { get; set; }
-        public string Description { get; set; }
-        public bool isCTC { get; set; }
     
+        public virtual AccountableFormTable AccountableFormTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountableForm_Inventory> AccountableForm_Inventory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FeeCategory> FeeCategories { get; set; }
+        public virtual ICollection<FieldFee> FieldFees { get; set; }
     }
 }

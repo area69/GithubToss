@@ -44,6 +44,8 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<CheckMaintenanceTable> CheckMaintenanceTables { get; set; }
         public virtual DbSet<CollectorTable> CollectorTables { get; set; }
         public virtual DbSet<DVTypeTable> DVTypeTables { get; set; }
+        public virtual DbSet<FeeCategory> FeeCategories { get; set; }
+        public virtual DbSet<FieldFee> FieldFees { get; set; }
         public virtual DbSet<Function> Functions { get; set; }
         public virtual DbSet<Fund> Funds { get; set; }
         public virtual DbSet<GeneralAccount> GeneralAccounts { get; set; }
