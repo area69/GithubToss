@@ -9210,6 +9210,10 @@
     <Content Include="Views\FileMaintenanceFees\_AddFees.cshtml" />
     <Content Include="Views\FileMaintenanceFees\_FeesTable.cshtml" />
     <Content Include="Views\FileMaintenanceFees\FeeCategory\_AddFeeCategory.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\FeeCategory\_FeeCategoryTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\FeeCategory\_DynamicDDAccountableFormDescription.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\FeeCategory\_UpdateFeeCategory.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\_DynamicDDFeeCategoryName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

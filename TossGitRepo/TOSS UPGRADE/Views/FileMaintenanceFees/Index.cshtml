@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @* Fee Category Modal *@
                             <div class="col-lg-8 col-md-8 col-sm-12 center">
                                 <div class="modal animated zoomIn text-left" id="addFeeCategoryModal" role="dialog">
                                     <div class="modal-dialog" style="max-width:800px" role="document">
@@ -43,11 +43,15 @@
                                                 <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
                                             </div>
                                             <div class="modal-body skin skin-square">
-                                                <div class="row" id="_FeeCategoryID">
+                                                <div class="row">
+                                                    <div class="col-md-12" id="_FeeCategoryID">
 
+                                                    </div>
                                                 </div>
                                                 <div class="row mt-1">
-                                                   
+                                                   <div class="col-md-12" id="_FeeCategoryTableID">
+
+                                                   </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,14 +103,66 @@
                 url: '/FileMaintenanceFees/Get_AddFieldFees',
             }).then(function (response) {
                 $("#_FeeID").html(response.data);
+                F.GetDynamicFeeCategory();
             });
         }
 
+        F.GetDynamicFeeCategory = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicFeeCategory',
+            }).then(function (response) {
+                $("#_DDFeeCategoryID").html(response.data);
+            });
+        }
+        F.Get_FeeCategoryTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_FeeCategoryTable',
+            }).then(function (response) {
+                $("#_FeeCategoryTableID").html(response.data);
+            });
+            F.Get_AddFeeCategory();
+            F.GetDynamicFeeCategory();
+        }
         F.Get_AddFeeCategory = function () {
             P({
                 url: '/FileMaintenanceFees/Get_AddFeeCategory',
             }).then(function (response) {
                 $("#_FeeCategoryID").html(response.data);
+                F.LoadDynamicDDAccountableFormDescription();
+            });
+        }
+        F.LoadDynamicDDAccountableFormDescription = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicAccountableFormDescription',
+            }).then(function (response) {
+                $("#_AFTypeORID").html(response.data);
+            });
+        }
+
+        F.LoadSelectedDynamicDDAccountableFormDescription = function () {
+            var AccountFormTempID = $("#AccountFormTempID").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicAccountableFormDescription',
+                params: { AccountFormTempID: AccountFormTempID }
+            }).then(function (response) {
+                $("#_AFTypeORID").html(response.data);
+            });
+        }
+        F.Get_UpdateFeeCategory = function (FeeCategoryID) {
+            P({
+                url: '/FileMaintenanceFees/Get_UpdateFeeCategory',
+                params: { FeeCategoryID: FeeCategoryID }
+            }).then(function (response) {
+                $("#_FeeCategoryID").html(response.data);
+                F.LoadSelectedDynamicDDAccountableFormDescription();
+            });
+        }
+        F.Get_DeleteFeeCategory = function (FeeCategoryID) {
+            P({
+                url: '/FileMaintenanceFees/DeleteFeeCategory',
+                params: { FeeCategoryID: FeeCategoryID }
+            }).then(function (response) {
+                F.Get_FeeCategoryTable();
             });
         }
     });

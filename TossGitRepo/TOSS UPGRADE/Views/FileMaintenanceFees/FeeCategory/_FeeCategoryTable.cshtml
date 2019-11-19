@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TOSS_UPGRADE.Models.FM_Fees.FeeCategoryList>
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<div class="table-responsive">
+    <table class="table table-striped table-bordered zero-configuration text-center dataTable table-smss-hover no-footer m-0 w-100">
+        <thead>
+            <tr>
+                <th>Fee Category</th>
+                <th>OR Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var Items in Model)
+                {
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Successfully Deleted";
+
+                    var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMFeeController','Get_UpdateFeeCategory','" + @Items.FeeCategoryID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                    var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.FeeCategoryID + ",&quot;Get_DeleteFeeCategory&quot;,&quot;FMFeeController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                    var ActionContentProgram = ViewEdit + ViewDelete;
+                    <tr>
+                        <td>@Items.FeeCategoryName</td>
+                        <td>@Items.AccountForm</td>
+                        <td>
+                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                    data-original-title="" data-html="true" data-placement="right">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

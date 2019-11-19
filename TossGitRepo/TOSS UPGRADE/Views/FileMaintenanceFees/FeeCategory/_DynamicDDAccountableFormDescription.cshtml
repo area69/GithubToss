@@ -1,0 +1,15 @@
+﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>OR Type</b></label>
+@Html.DropDownListFor(m => m.AccountFormID, Model.FeeCategoryList, new { @class = "form-control select2", id = "ORTypeIDD" })
+<script>
+    $(function () {
+        $("#ORTypeIDD").select2();
+    })
+</script>
+
