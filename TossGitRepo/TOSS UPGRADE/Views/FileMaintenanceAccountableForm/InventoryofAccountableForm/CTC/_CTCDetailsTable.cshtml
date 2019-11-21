@@ -52,7 +52,7 @@
                                 <td>@Items.EndingOR</td>
                                 <td>
                                     @{
-                                        DateTime DateofHearing = Convert.ToDateTime(Items.Date);
+                                        DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
                                     }
 
                                     @DateofHearing.ToString("MMMM dd, yyyy")

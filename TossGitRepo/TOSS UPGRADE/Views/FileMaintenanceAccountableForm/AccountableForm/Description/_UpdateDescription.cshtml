@@ -1,0 +1,33 @@
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableForm
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdateDescription", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AFDescriptionTable','Description Successfully Update')", OnFailure = "OnFailure()", }))
+{
+<div class="row">
+    @Html.HiddenFor(m => m.getDescriptionColumns.AFDescriptionID, new { })
+    <div class="col-md-7 mr-1 pr-0">
+        <label>Description</label>
+        @Html.TextBoxFor(m => m.getDescriptionColumns.DescriptionName, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-2 px-0 mr-1">
+        <label style="visibility:hidden">Department</label>
+        <button type="submit" class="btn bg-addbutton form-control black"><b>Update</b></button>
+    </div>
+    <div class="col-md-2 px-0">
+        <label style="visibility:hidden">Department</label>
+        <button class="btn bg-headerbc form-control white"  type="button" onclick="AngularGlobalEdit('FMAccountableFormController','Get_AddDescription','')"><b>Cancel</b></button>
+    </div>
+</div>
+}
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>
+
+
+

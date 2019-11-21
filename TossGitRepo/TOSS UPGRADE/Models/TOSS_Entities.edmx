@@ -30,7 +30,7 @@
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="StartingOR" Type="int" Nullable="false" />
           <Property Name="EndingOR" Type="int" Nullable="false" />
-          <Property Name="Date" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateIssued" Type="date" Nullable="false" />
           <Property Name="isIssued" Type="bit" Nullable="false" />
           <Property Name="AFTableID" Type="int" Nullable="false" />
         </EntityType>
@@ -40,7 +40,8 @@
           </Key>
           <Property Name="AccountFormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccountFormName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AFDescriptionID" Type="int" Nullable="false" />
+          <Property Name="QuantityValue" Type="int" Nullable="false" />
           <Property Name="isCTC" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AccountGroup">
@@ -62,6 +63,13 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsLock" Type="bit" />
           <Property Name="PersonalInfoID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="AF_Description">
+          <Key>
+            <PropertyRef Name="AFDescriptionID" />
+          </Key>
+          <Property Name="AFDescriptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescriptionName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="AllotmentClass">
           <Key>
@@ -453,15 +461,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
-          <End Role="AccountableFormTable" Type="Self.AccountableFormTable" Multiplicity="1" />
-          <End Role="AccountableForm_Inventory" Type="Self.AccountableForm_Inventory" Multiplicity="*" />
+        <Association Name="FK_AccountableFormTable_AF_Description">
+          <End Role="AF_Description" Type="Self.AF_Description" Multiplicity="1" />
+          <End Role="AccountableFormTable" Type="Self.AccountableFormTable" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AccountableFormTable">
-              <PropertyRef Name="AccountFormID" />
+            <Principal Role="AF_Description">
+              <PropertyRef Name="AFDescriptionID" />
             </Principal>
-            <Dependent Role="AccountableForm_Inventory">
-              <PropertyRef Name="AccountFormID" />
+            <Dependent Role="AccountableFormTable">
+              <PropertyRef Name="AFDescriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -594,18 +602,6 @@
             </Principal>
             <Dependent Role="CheckInventoryTable">
               <PropertyRef Name="BankAccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FeeCategory_AccountableFormTable">
-          <End Role="AccountableFormTable" Type="Self.AccountableFormTable" Multiplicity="1" />
-          <End Role="FeeCategory" Type="Self.FeeCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountableFormTable">
-              <PropertyRef Name="AccountFormID" />
-            </Principal>
-            <Dependent Role="FeeCategory">
-              <PropertyRef Name="AccountFormID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -984,6 +980,7 @@
           <EntitySet Name="AccountableFormTable" EntityType="Self.AccountableFormTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountGroup" EntityType="Self.AccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AF_Description" EntityType="Self.AF_Description" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AllotmentClass" EntityType="Self.AllotmentClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankAccount_AccountType" EntityType="Self.BankAccount_AccountType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BankAccount_LedgerAccount" EntityType="Self.BankAccount_LedgerAccount" Schema="dbo" store:Type="Tables" />
@@ -1036,9 +1033,9 @@
             <End Role="SubCollectorTable" EntitySet="SubCollectorTable" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
-          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="Self.FK_AccountableForm_Inventory_AccountableFormTable">
+          <AssociationSet Name="FK_AccountableFormTable_AF_Description" Association="Self.FK_AccountableFormTable_AF_Description">
+            <End Role="AF_Description" EntitySet="AF_Description" />
             <End Role="AccountableFormTable" EntitySet="AccountableFormTable" />
-            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountGroup_AllotmentClass" Association="Self.FK_AccountGroup_AllotmentClass">
             <End Role="AllotmentClass" EntitySet="AllotmentClass" />
@@ -1083,10 +1080,6 @@
           <AssociationSet Name="FK_CheckInventoryTable_BankAccountTable" Association="Self.FK_CheckInventoryTable_BankAccountTable">
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FeeCategory_AccountableFormTable" Association="Self.FK_FeeCategory_AccountableFormTable">
-            <End Role="AccountableFormTable" EntitySet="AccountableFormTable" />
-            <End Role="FeeCategory" EntitySet="FeeCategory" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldFee_FieldFee" Association="Self.FK_FieldFee_FieldFee">
             <End Role="FeeCategory" EntitySet="FeeCategory" />
@@ -1255,6 +1248,7 @@
           <EntitySet Name="AccountableFormTables" EntityType="DB_TOSSModel.AccountableFormTable" />
           <EntitySet Name="AccountGroups" EntityType="DB_TOSSModel.AccountGroup" />
           <EntitySet Name="Accounts" EntityType="DB_TOSSModel.Account" />
+          <EntitySet Name="AF_Description" EntityType="DB_TOSSModel.AF_Description" />
           <EntitySet Name="AllotmentClasses" EntityType="DB_TOSSModel.AllotmentClass" />
           <EntitySet Name="BankAccount_AccountType" EntityType="DB_TOSSModel.BankAccount_AccountType" />
           <EntitySet Name="BankAccount_LedgerAccount" EntityType="DB_TOSSModel.BankAccount_LedgerAccount" />
@@ -1307,13 +1301,9 @@
             <End Role="SubCollectorTable" EntitySet="SubCollectorTables" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
-          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable">
+          <AssociationSet Name="FK_AccountableFormTable_AF_Description" Association="DB_TOSSModel.FK_AccountableFormTable_AF_Description">
+            <End Role="AF_Description" EntitySet="AF_Description" />
             <End Role="AccountableFormTable" EntitySet="AccountableFormTables" />
-            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FeeCategory_AccountableFormTable" Association="DB_TOSSModel.FK_FeeCategory_AccountableFormTable">
-            <End Role="AccountableFormTable" EntitySet="AccountableFormTables" />
-            <End Role="FeeCategory" EntitySet="FeeCategories" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountGroup_AllotmentClass" Association="DB_TOSSModel.FK_AccountGroup_AllotmentClass">
             <End Role="AllotmentClass" EntitySet="AllotmentClasses" />
@@ -1497,11 +1487,10 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="StartingOR" Type="Int32" Nullable="false" />
           <Property Name="EndingOR" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssued" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="isIssued" Type="Boolean" Nullable="false" />
           <Property Name="AFTableID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Inventory" ToRole="AccountableForm_Assignment" />
-          <NavigationProperty Name="AccountableFormTable" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableForm_Inventory" ToRole="AccountableFormTable" />
         </EntityType>
         <EntityType Name="AccountableFormTable">
           <Key>
@@ -1509,10 +1498,10 @@
           </Key>
           <Property Name="AccountFormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccountFormName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AFDescriptionID" Type="Int32" Nullable="false" />
+          <Property Name="QuantityValue" Type="Int32" Nullable="false" />
           <Property Name="isCTC" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableFormTable" ToRole="AccountableForm_Inventory" />
-          <NavigationProperty Name="FeeCategories" Relationship="DB_TOSSModel.FK_FeeCategory_AccountableFormTable" FromRole="AccountableFormTable" ToRole="FeeCategory" />
+          <NavigationProperty Name="AF_Description" Relationship="DB_TOSSModel.FK_AccountableFormTable_AF_Description" FromRole="AccountableFormTable" ToRole="AF_Description" />
         </EntityType>
         <EntityType Name="AccountGroup">
           <Key>
@@ -1536,6 +1525,14 @@
           <Property Name="IsLock" Type="Boolean" />
           <Property Name="PersonalInfoID" Type="Guid" />
           <NavigationProperty Name="PersonalInformation" Relationship="DB_TOSSModel.FK_Accounts_PersonalInformation" FromRole="Account" ToRole="PersonalInformation" />
+        </EntityType>
+        <EntityType Name="AF_Description">
+          <Key>
+            <PropertyRef Name="AFDescriptionID" />
+          </Key>
+          <Property Name="AFDescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescriptionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountableFormTables" Relationship="DB_TOSSModel.FK_AccountableFormTable_AF_Description" FromRole="AF_Description" ToRole="AccountableFormTable" />
         </EntityType>
         <EntityType Name="AllotmentClass">
           <Key>
@@ -1662,7 +1659,6 @@
           <Property Name="FeeCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FeeCategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AccountFormID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AccountableFormTable" Relationship="DB_TOSSModel.FK_FeeCategory_AccountableFormTable" FromRole="FeeCategory" ToRole="AccountableFormTable" />
           <NavigationProperty Name="FieldFees" Relationship="DB_TOSSModel.FK_FieldFee_FieldFee" FromRole="FeeCategory" ToRole="FieldFee" />
         </EntityType>
         <EntityType Name="FieldFee">
@@ -2004,27 +2000,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
-          <End Type="DB_TOSSModel.AccountableFormTable" Role="AccountableFormTable" Multiplicity="1" />
-          <End Type="DB_TOSSModel.AccountableForm_Inventory" Role="AccountableForm_Inventory" Multiplicity="*" />
+        <Association Name="FK_AccountableFormTable_AF_Description">
+          <End Type="DB_TOSSModel.AF_Description" Role="AF_Description" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableFormTable" Role="AccountableFormTable" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AccountableFormTable">
-              <PropertyRef Name="AccountFormID" />
+            <Principal Role="AF_Description">
+              <PropertyRef Name="AFDescriptionID" />
             </Principal>
-            <Dependent Role="AccountableForm_Inventory">
-              <PropertyRef Name="AccountFormID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FeeCategory_AccountableFormTable">
-          <End Type="DB_TOSSModel.AccountableFormTable" Role="AccountableFormTable" Multiplicity="1" />
-          <End Type="DB_TOSSModel.FeeCategory" Role="FeeCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountableFormTable">
-              <PropertyRef Name="AccountFormID" />
-            </Principal>
-            <Dependent Role="FeeCategory">
-              <PropertyRef Name="AccountFormID" />
+            <Dependent Role="AccountableFormTable">
+              <PropertyRef Name="AFDescriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2526,7 +2510,7 @@
               <MappingFragment StoreEntitySet="AccountableForm_Inventory">
                 <ScalarProperty Name="AFTableID" ColumnName="AFTableID" />
                 <ScalarProperty Name="isIssued" ColumnName="isIssued" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
                 <ScalarProperty Name="EndingOR" ColumnName="EndingOR" />
                 <ScalarProperty Name="StartingOR" ColumnName="StartingOR" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -2540,7 +2524,8 @@
             <EntityTypeMapping TypeName="DB_TOSSModel.AccountableFormTable">
               <MappingFragment StoreEntitySet="AccountableFormTable">
                 <ScalarProperty Name="isCTC" ColumnName="isCTC" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="QuantityValue" ColumnName="QuantityValue" />
+                <ScalarProperty Name="AFDescriptionID" ColumnName="AFDescriptionID" />
                 <ScalarProperty Name="AccountFormName" ColumnName="AccountFormName" />
                 <ScalarProperty Name="AccountFormID" ColumnName="AccountFormID" />
               </MappingFragment>
@@ -2565,6 +2550,14 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AF_Description">
+            <EntityTypeMapping TypeName="DB_TOSSModel.AF_Description">
+              <MappingFragment StoreEntitySet="AF_Description">
+                <ScalarProperty Name="DescriptionName" ColumnName="DescriptionName" />
+                <ScalarProperty Name="AFDescriptionID" ColumnName="AFDescriptionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

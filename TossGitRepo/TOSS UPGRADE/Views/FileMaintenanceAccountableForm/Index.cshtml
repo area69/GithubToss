@@ -138,14 +138,31 @@
                 $("#_AccountableFormTableID").html(response.data);
             });
             F.Get_AddAccountableForm();
-            F.LoadDynamicDDAccountableForm();
-            F.LoadDynamicDDAccountableFormCT();
+            //F.LoadDynamicDDAccountableForm();
+            //F.LoadDynamicDDAccountableFormCT();
         }
         F.Get_AddAccountableForm = function () {
             P({
                 url: '/FileMaintenanceAccountableForm/Get_AddAccountableForm',
             }).then(function (response) {
                 $("#_AccountableFormID").html(response.data);
+                F.LoadDynamicDDDescriptionName();
+            });
+        }
+        F.LoadDynamicDDDescriptionName = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAccountableFormDescription',
+            }).then(function (response) {
+                $("#_DescriptionID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDDescriptionName = function () {
+            var DescriptionTempID = $("#DescriptionTempID").val();
+            P({
+                url: '/FileMaintenanceAccountableForm/GetSelectedDynamicAccountableFormDescription',
+                params: { DescriptionTempID: DescriptionTempID }
+            }).then(function (response) {
+                $("#_DescriptionID").html(response.data);
             });
         }
         F.Get_UpdateAccountableForm = function (AccountFormID) {
@@ -154,6 +171,7 @@
                 params: { AccountFormID: AccountFormID }
             }).then(function (response) {
                 $("#_AccountableFormID").html(response.data);
+                F.LoadSelectedDynamicDDDescriptionName();
                 });
         }
         F.Get_DeleteAccountableForm = function (AccountFormID) {
@@ -162,6 +180,40 @@
                 params: { AccountFormID: AccountFormID }
             }).then(function (response) {
                 F.Get_AccountableFormTable();
+            });
+        }
+        
+        F.Get_AFDescriptionTable = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AFDescriptionTable',
+            }).then(function (response) {
+                $("#_DescriptionTableID").html(response.data);
+            });
+            F.Get_AddDescription();
+            F.LoadDynamicDDDescriptionName();
+        }
+        F.Get_AddDescription = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddDescription',
+            }).then(function (response) {
+                $("#_DescriptionxID").html(response.data);
+            });
+        }
+        F.Get_UpdateDescription = function (AFDescriptionID) {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_UpdateDescription',
+                params: { AFDescriptionID: AFDescriptionID }
+            }).then(function (response) {
+                $("#_DescriptionxID").html(response.data);
+            });
+        }
+        F.Get_DeleteDescription = function (AFDescriptionID) {
+            P({
+                url: '/FileMaintenanceAccountableForm/DeleteDescription',
+                params: { AFDescriptionID: AFDescriptionID }
+            }).then(function (response) {
+                F.Get_AFDescriptionTable();
+                F.LoadDynamicDDDescriptionName();
             });
         }
 
@@ -197,7 +249,7 @@
             }).then(function (response) {
                 $("#_ORDetailsID").html(response.data);
                 F.LoadSelectedDynamicDDAF();
-            });
+                });
         }
         F.LoadSelectedDynamicDDAF = function () {
             var AFIDTempID = $("#AFIDTempID").val();
@@ -206,7 +258,7 @@
                 params: { AFIDTempID: AFIDTempID }
             }).then(function (response) {
                 $("#_ORAFID").html(response.data);
-            });
+                });
         }
         F.Get_DeleteAccountableFormInventory = function (AFORID) {
             P({

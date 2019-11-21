@@ -1,16 +1,15 @@
 ﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormInventory
 @{
-                /**/
+    /**/
 
-                DB_TOSSEntities SISDB = new DB_TOSSEntities();
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 @using (Ajax.BeginForm("AddAccountableFormInventory", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_InvtAccountableFormTable','Accountable Form Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
-    {
-@*@using (Html.BeginForm("BulkData", "FileMaintenanceAccountableForm", FormMethod.Post))
-{*@
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+    @Html.TextBoxFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValue" })
     <div class="row">
         <div class="col-md-4 form-group" id="_ORAFID">
         </div>
@@ -34,9 +33,9 @@
         </div>
         <div class="col-md-4 form-group">
             <label>OR Date</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text", id = "txtORInvDate" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.DateIssued, new { @class = "form-control pickadate", type = "text", id = "txtORInvDate" })
         </div>
-       
+
 
     </div>
     <div class="row">
@@ -69,7 +68,7 @@
     $("#txtORInvStrtOR").change(function () {
         var startNo = $("#txtORInvStrtOR").val();
         var countStartNo = startNo.toString().length;
-        var qty = "50";
+        var qty = $("#txtORInvQuantityValue").val();
         var startNoQty = parseFloat($("#txtORInvStrtOR").val()) + parseFloat($("#txtORInvStub").val() * qty - parseFloat(1));
         var countEndNo = startNoQty.toString().length;
         var number = "";
@@ -98,7 +97,7 @@
             $("#_SaveButtonID").hide()
         });
     });
-    
+
     var ORarray = [];
     var NewORModel = "";
     var m = 0;
@@ -106,7 +105,7 @@
 
         var BodyContent = '';
         var x = 1;
-        var qty = 50;
+        var qty = $("#txtORInvQuantityValue").val();
         var isIssued = "No";
         var StubNum = $("#txtORInvStubNo").val();
         var StrtStub = $("#txtORInvStrtOR").val();
@@ -133,13 +132,13 @@
             StubNum++;
         }
         $.each(ORarray, function (index, value) {
-                BodyContent += '<tr><td>' + value.formType + '</td>'
-                BodyContent += '<td>' + value.StubNum + '</td>'
-                BodyContent += '<td>' + value.StrtStub + '</td>'
-                BodyContent += '<td>' + value.EndStub + '</td>'
-                BodyContent += '<td>' + value.Quantity + '</td>'
-                BodyContent += '<td>' + value.orDate + '</td>'
-                BodyContent += '<td>' + value.IsIssued + '</td>'
+            BodyContent += '<tr><td>' + value.formType + '</td>'
+            BodyContent += '<td>' + value.StubNum + '</td>'
+            BodyContent += '<td>' + value.StrtStub + '</td>'
+            BodyContent += '<td>' + value.EndStub + '</td>'
+            BodyContent += '<td>' + value.Quantity + '</td>'
+            BodyContent += '<td>' + value.orDate + '</td>'
+            BodyContent += '<td>' + value.IsIssued + '</td>'
             BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1 mr-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
             x++;
         })
@@ -192,7 +191,7 @@
                     BodyContent += '<td>' + value.orDate + '</td>'
                     BodyContent += '<td>' + value.IsIssued + '</td>'
                     BodyContent += '<td><i title="Delete" class=\'ft-delete danger cursor-pointer font-large-1\' onclick=\'removeRow(' + index + ' )\'></i></td></tr >'
-        $("#ORtbody").html(BodyContent);
+                    $("#ORtbody").html(BodyContent);
                     x++;
                 });
             });
@@ -220,7 +219,7 @@
         debugger
         $.each(ORarray, function (index, value) {
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formType + "' id='AF" + m + "'/>"
-            NewORModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.orDate + "' id='Date" + m + "'/>"
+            NewORModel += "<input type='hidden' name='Accountable[" + m + "].DateIssued' value='" + value.orDate + "' id='Date" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
             NewORModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"

@@ -7,6 +7,7 @@
 @using (Ajax.BeginForm("AddAccountableFormInventoryCT", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_InvtAccountableFormTableCT','Accountable Form Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
 {
 <div class="card-content collapse show">
+    @Html.TextBoxFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValueCT" })
     <div class="row">
         <div class="col-md-4 form-group" id="_CTAFID">
         </div>
@@ -30,7 +31,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label>CT Date</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text", id = "txtInvDateCT" })
+            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.DateIssued, new { @class = "form-control pickadate", type = "text", id = "txtInvDateCT" })
         </div>
     </div>
     <div class="row">
@@ -56,7 +57,7 @@
         display: none;
     }
 </style>
-    <script>
+<script>
         $(function () {
             LoadDataTable();
             LoadPopOver();
@@ -73,48 +74,23 @@
             });
         });
         $("#txtStrtCTNo").change(function () {
-            var afID = $("#AFIDDDCT option:selected").text();
-            if (afID == "AF-55PT") {
-                var startNo = $("#txtStrtCTNo").val();
-                var countStartNo = startNo.toString().length;
-                var qty = "300";
-                var startNoQty = parseFloat($("#txtStrtCTNo").val()) + parseFloat($("#txtCTInvQty").val() * qty - parseFloat(1));
-                var countEndNo = startNoQty.toString().length;
-                var number = "";
+            var startNo = $("#txtStrtCTNo").val();
+            var countStartNo = startNo.toString().length;
+            var qty = $("#txtORInvQuantityValueCT").val();
+            var startNoQty = parseFloat($("#txtStrtCTNo").val()) + parseFloat($("#txtCTInvQty").val() * qty - parseFloat(1));
+            var countEndNo = startNoQty.toString().length;
+            var number = "";
 
-                for (i = 0; i < countStartNo; i++) {
-                    number += "0";
-                }
-
-                var countZero = number.toString().length;
-                var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
-
-                if ($("#txtStrtCTNo").val() == "") {
-                    $("#txtEndCTNo").val("");
-                } else {
-                    $("#txtEndCTNo").val(res);
-                }
+            for (i = 0; i < countStartNo; i++) {
+                number += "0";
             }
-            else {
-                var startNo = $("#txtStrtCTNo").val();
-                var countStartNo = startNo.toString().length;
-                var qty = "2000";
-                var startNoQty = parseFloat($("#txtStrtCTNo").val()) + parseFloat($("#txtCTInvQty").val() * qty - parseFloat(1));
-                var countEndNo = startNoQty.toString().length;
-                var number = "";
+            var countZero = number.toString().length;
+            var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
 
-                for (i = 0; i < countStartNo; i++) {
-                    number += "0";
-                }
-
-                var countZero = number.toString().length;
-                var res = number.toString().substring(0, countZero - countEndNo) + startNoQty;
-
-                if ($("#txtStrtCTNo").val() == "") {
-                    $("#txtEndCTNo").val("");
-                } else {
-                    $("#txtEndCTNo").val(res);
-                }
+            if ($("#txtStrtCTNo").val() == "") {
+                $("#txtEndCTNo").val("");
+            } else {
+                $("#txtEndCTNo").val(res);
             }
 
         })
@@ -128,15 +104,7 @@
             var isIssued = "No";
             var StubNum = $("#txtCTInvStubNo").val();
             var StrtStub = $("#txtStrtCTNo").val();
-            var afID = $("#AFIDDDCT option:selected").text();
-            if (afID == "AF-55PT") {
-                var qty = 300;
-            }
-            else {
-                var qty = 2000;
-            }
-            debugger
-     
+            var qty = $("#txtORInvQuantityValueCT").val();
             for (i = 1; i <= $('#txtCTInvQty').val(); i++) {
                 var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
                 if (startStubNoF < 0) {
@@ -233,7 +201,7 @@
             debugger
             $.each(CTarray, function (index, value) {
                 NewCTModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formType + "' id='AF" + m + "'/>"
-                NewCTModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.CTDate + "' id='Date" + m + "'/>"
+                NewCTModel += "<input type='hidden' name='Accountable[" + m + "].DateIssued' value='" + value.CTDate + "' id='Date" + m + "'/>"
                 NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
                 NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
                 NewCTModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"

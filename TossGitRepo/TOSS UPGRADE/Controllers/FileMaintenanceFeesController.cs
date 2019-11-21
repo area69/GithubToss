@@ -77,7 +77,6 @@ namespace TOSS_UPGRADE.Controllers
             FM_Fees_Fee model = new FM_Fees_Fee();
             return PartialView("FeeCategory/_AddFeeCategory", model);
         }
-
         public ActionResult Get_FeeCategoryTable()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
@@ -108,7 +107,6 @@ namespace TOSS_UPGRADE.Controllers
             model.getFeeCategoryList = tbl_Fees.ToList();
             return PartialView("FeeCategory/_FeeCategoryTable", model.getFeeCategoryList);
         }
-
         public JsonResult AddFeeCategory(FM_Fees_Fee model)
         {
             FeeCategory tblFeeCategory = new FeeCategory();
@@ -118,24 +116,20 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return Json(tblFeeCategory);
         }
-
         //Dropdown Fund
         public ActionResult GetDynamicAccountableFormDescription()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.Description }), "AccountFormID", "Description");
+            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.AF_Description.DescriptionName }), "AccountFormID", "Description");
             return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
-
         public ActionResult GetSelectedDynamicAccountableFormDescription(int AccountFormTempID)
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.Description }), "AccountFormID", "Description");
+            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.AF_Description.DescriptionName }), "AccountFormID", "Description");
             model.AccountFormID = AccountFormTempID;
             return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
-
-
         //Get Update Internal Revenue Allotment
         public ActionResult Get_UpdateFeeCategory(FM_Fees_Fee model, int FeeCategoryID)
         {
@@ -145,7 +139,6 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountFormTempID = tblFeeCategory.AccountFormID;
             return PartialView("FeeCategory/_UpdateFeeCategory", model);
         }
-
         //Update Internal Revenue Allotment
         public ActionResult UpdateFeeCategory(FM_Fees_Fee model)
         {
@@ -156,7 +149,6 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return PartialView("FeeCategory/_UpdateFeeCategory", model);
         }
-
         //Delete Internal Revenue Allotment
         public ActionResult DeleteFeeCategory(FM_Fees_Fee model, int FeeCategoryID)
         {

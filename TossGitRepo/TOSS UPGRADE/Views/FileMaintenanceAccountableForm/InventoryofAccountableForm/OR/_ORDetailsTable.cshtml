@@ -26,7 +26,7 @@
                         var DeleteSuccesMess = "Accountable Form Deleted";
 
                         var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMAccountableFormController','Get_UpdateAccountableFormInventory','" + Items.AFORID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
-                        var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + Items.AF + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + Items.AFORID + ",&quot;Get_DeleteAccountableFormInventory&quot;,&quot;FMAccountableFormController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                        var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + Items.AFORID + ",&quot;Get_DeleteAccountableFormInventory&quot;,&quot;FMAccountableFormController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                         var ActionContentProgram = ViewEdit + ViewDelete;
                         <tr>
                             <td>
@@ -51,7 +51,7 @@
                             <td>@Items.Quantity</td>
                             <td>
                                 @{
-                                    DateTime DateofHearing = Convert.ToDateTime(Items.Date);
+                                    DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
                                 }
 
                                 @DateofHearing.ToString("MMMM dd, yyyy")

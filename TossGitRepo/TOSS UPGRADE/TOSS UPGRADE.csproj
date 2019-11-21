@@ -240,6 +240,9 @@
     <Compile Include="Models\AccountGroup.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AF_Description.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AllotmentClass.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -9214,6 +9217,10 @@
     <Content Include="Views\FileMaintenanceFees\FeeCategory\_DynamicDDAccountableFormDescription.cshtml" />
     <Content Include="Views\FileMaintenanceFees\FeeCategory\_UpdateFeeCategory.cshtml" />
     <Content Include="Views\FileMaintenanceFees\_DynamicDDFeeCategoryName.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\_DynamicDDDescriptionName.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_AddDescription.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_DescriptionTable.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_UpdateDescription.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

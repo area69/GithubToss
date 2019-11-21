@@ -32,6 +32,7 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<AccountableFormTable> AccountableFormTables { get; set; }
         public virtual DbSet<AccountGroup> AccountGroups { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AF_Description> AF_Description { get; set; }
         public virtual DbSet<AllotmentClass> AllotmentClasses { get; set; }
         public virtual DbSet<BankAccount_AccountType> BankAccount_AccountType { get; set; }
         public virtual DbSet<BankAccount_LedgerAccount> BankAccount_LedgerAccount { get; set; }

@@ -26,12 +26,11 @@ namespace TOSS_UPGRADE.Models
         public int Quantity { get; set; }
         public int StartingOR { get; set; }
         public int EndingOR { get; set; }
-        public string Date { get; set; }
+        public System.DateTime DateIssued { get; set; }
         public bool isIssued { get; set; }
         public int AFTableID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountableForm_Assignment> AccountableForm_Assignment { get; set; }
-        public virtual AccountableFormTable AccountableFormTable { get; set; }
     }
 }

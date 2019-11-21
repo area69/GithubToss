@@ -6,43 +6,45 @@
 
 @using (Ajax.BeginForm("AddAccountableFormInventoryCTC", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_InvtAccountableFormTableCTC','Accountable Form Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
 {
-    <div class="row">
-        <div class="col-md-4 form-group" id="_CTCAFID">
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Starting Stub No.</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id = "txtCTCInvStubNo" })
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Number of Stubs</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Quantity, new { @class = "form-control", type = "text", id = "txtCTCInvQty" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Starting CTC</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StartingOR, new { @class = "form-control", type = "text", id = "txtStrtCTCNo" })
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Ending CTC</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtEndCTCNo", @readonly = "readonly" })
-        </div>
-        <div class="col-md-4 form-group">
-            <label>CTC Date</label>
-            @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Date, new { @class = "form-control pickadate", type = "text", id = "txtCTCDate" })
-        </div>
-    </div>
+    @Html.TextBoxFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValueCTC" })
 
-    <div class="row">
-        <div class="col-md-8"></div>
-        <div class="col-md-2">
-            <button type="button" class="btn black bg-addbutton form-control" id="show-buttonCTC" onclick="SaveCTCTable()"><b>Add</b></button>
-            <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulkCTC()" id="_SaveButtonIDCTC"><b>Save Bulk</b></button>
-            <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSaveCTC"><b>Submit</b></button>
-        </div>
-        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-buttonCTC"><b>Cancel</b></button></div>
+<div class="row">
+    <div class="col-md-4 form-group" id="_CTCAFID">
     </div>
-    <div class="" id="NewCTC"></div>
+    <div class="col-md-4 form-group">
+        <label>Starting Stub No.</label>
+        @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StubNo, new { @class = "form-control", type = "text", id = "txtCTCInvStubNo" })
+    </div>
+    <div class="col-md-4 form-group">
+        <label>Number of Stubs</label>
+        @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.Quantity, new { @class = "form-control", type = "text", id = "txtCTCInvQty" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 form-group">
+        <label>Starting CTC</label>
+        @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.StartingOR, new { @class = "form-control", type = "text", id = "txtStrtCTCNo" })
+    </div>
+    <div class="col-md-4 form-group">
+        <label>Ending CTC</label>
+        @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.EndingOR, new { @class = "form-control", type = "text", id = "txtEndCTCNo", @readonly = "readonly" })
+    </div>
+    <div class="col-md-4 form-group">
+        <label>CTC Date</label>
+        @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.DateIssued, new { @class = "form-control pickadate", type = "text", id = "txtCTCDate" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-2">
+        <button type="button" class="btn black bg-addbutton form-control" id="show-buttonCTC" onclick="SaveCTCTable()"><b>Add</b></button>
+        <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulkCTC()" id="_SaveButtonIDCTC"><b>Save Bulk</b></button>
+        <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSaveCTC"><b>Submit</b></button>
+    </div>
+    <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-buttonCTC"><b>Cancel</b></button></div>
+</div>
+<div class="" id="NewCTC"></div>
 }
 <style>
     #show-buttonCTC {
@@ -63,7 +65,7 @@
     $("#txtStrtCTCNo").change(function () {
         var startNo = $("#txtStrtCTCNo").val();
         var countStartNo = startNo.toString().length;
-        var qty = "50";
+        var qty = $("#txtORInvQuantityValueCTC").val();
         var startNoQty = parseFloat($("#txtStrtCTCNo").val()) + parseFloat($("#txtCTCInvQty").val() * qty - parseFloat(1));
         var countEndNo = startNoQty.toString().length;
         var number = "";
@@ -99,7 +101,7 @@
     function SaveCTCTable() {
         var BodyContent = '';
         var x = 1;
-        var qty = 50;
+        var qty = $("#txtORInvQuantityValueCTC").val();
         var isIssued = "No";
         var StubNum = $("#txtCTCInvStubNo").val();
         var StrtStub = $("#txtStrtCTCNo").val();
@@ -200,7 +202,7 @@
         debugger
         $.each(CTCarray, function (index, value) {
             NewCTModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formTypeCTC + "' id='AF" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].Date' value='" + value.CTCDate + "' id='Date" + m + "'/>"
+            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].DateIssued' value='" + value.CTCDate + "' id='Date" + m + "'/>"
             NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
             NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
             NewCTModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"

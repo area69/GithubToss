@@ -5,7 +5,26 @@
 @using TOSS_UPGRADE.Models;
 
 <label>Accountable Form</label>
-@Html.DropDownListFor(m => m.AccountableFormInvtID, Model.AccountableFormInvtList, new { @class = "form-control select2", id = "AFIDDD" })
+@Html.DropDownListFor(m => m.AccountableFormInvtID, Model.AccountableFormInvtList, new { @class = "form-control select2", id = "AFIDDD", onchange="LoadQTYVal()" })
 
 
 
+
+<script>
+    $(function () {
+        LoadQTYVal();
+    })
+    function LoadQTYVal() {
+        var AccFormDD = $("#AFIDDD").val();
+        $.ajax({
+            url: "/FileMaintenanceAccountableForm/GetQTYVal",
+            data: { AccFormDD: AccFormDD },
+            success: function (data) {
+                $("#txtORInvQuantityValue").val(data);
+
+            }
+
+        })
+    }
+
+</script>

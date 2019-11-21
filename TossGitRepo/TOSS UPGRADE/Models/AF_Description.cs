@@ -12,19 +12,18 @@ namespace TOSS_UPGRADE.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FeeCategory
+    public partial class AF_Description
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FeeCategory()
+        public AF_Description()
         {
-            this.FieldFees = new HashSet<FieldFee>();
+            this.AccountableFormTables = new HashSet<AccountableFormTable>();
         }
     
-        public int FeeCategoryID { get; set; }
-        public string FeeCategoryName { get; set; }
-        public int AccountFormID { get; set; }
+        public int AFDescriptionID { get; set; }
+        public string DescriptionName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FieldFee> FieldFees { get; set; }
+        public virtual ICollection<AccountableFormTable> AccountableFormTables { get; set; }
     }
 }
