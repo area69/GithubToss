@@ -9221,6 +9221,10 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_AddDescription.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_DescriptionTable.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_UpdateDescription.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\_DynamicDDRevisionYear.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\_DynamicFundType.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\_DynamicDDGeneralAccountCode.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\_UpdateFees.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

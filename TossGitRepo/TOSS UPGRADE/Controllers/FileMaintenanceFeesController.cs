@@ -22,7 +22,6 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
-
         #region Field Fees
         //Table Field Fees
         public ActionResult Get_FieldFeeTable()
@@ -30,7 +29,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_Fees_Fee model = new FM_Fees_Fee();
             List<FieldFeeList> tbl_Fees = new List<FieldFeeList>();
 
-            var SQLQuery = "SELECT * FROM DB_TOSS.dbo.FieldFee";
+            var SQLQuery = "SELECT FieldFeeID,FieldFeeDescription,GeneralAccount.GeneralAccountID,Rate,FeeCategory.FeeCategoryID,SubFund.SubFundID FROM DB_TOSS.dbo.FieldFee,GeneralAccount,FeeCategory,SubFund where GeneralAccount.GeneralAccountID = FieldFee.GeneralAccountID AND FeeCategory.FeeCategoryID = FieldFee.FeeCategoryID AND SubFund.SubFundID = FieldFee.SubFundID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -44,12 +43,12 @@ namespace TOSS_UPGRADE.Controllers
                     {
                         tbl_Fees.Add(new FieldFeeList()
                         {
-                            FieldFeeID = Convert.ToInt32(dr[0]),
+                            FieldFeeID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             FieldFeeDescription = GlobalFunction.ReturnEmptyString(dr[1]),
-                            Rate = GlobalFunction.ReturnEmptyString(dr[2]),
-                            AccountCode = GlobalFunction.ReturnEmptyString(dr[3]),
-                            FundType = GlobalFunction.ReturnEmptyString(dr[4]),
-                            FeeCategory = GlobalFunction.ReturnEmptyString(dr[5]),
+                            Rate = GlobalFunction.ReturnEmptyString(dr[3]),
+                            AccountCode = GlobalFunction.ReturnEmptyInt(dr[2]),
+                            FeeCategory = GlobalFunction.ReturnEmptyInt(dr[4]),
+                            FundType = GlobalFunction.ReturnEmptyInt(dr[5]),
                         });
                     }
                 }
@@ -70,6 +69,148 @@ namespace TOSS_UPGRADE.Controllers
             model.FieldFeeList = new SelectList((from s in TOSSDB.FeeCategories.ToList() select new { FeeCategoryID = s.FeeCategoryID, FeeCategoryName = s.FeeCategoryName }), "FeeCategoryID", "FeeCategoryName");
             return PartialView("_DynamicDDFeeCategoryName", model);
         }
+        public ActionResult GetDynamicRevisionYear()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.FieldFeeList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("_DynamicDDRevisionYear", model);
+        }
+        public ActionResult GetDynamicFundType()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+           // model.FieldFeeList = new SelectList((from s in TOSSDB.SubFunds.ToList() select new { SubFundID = s.SubFundID, SubFundName = s.Fund.FundName + " - " + s.SubFundName }), "SubFundID", "SubFundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList()) {
+                for(var i= 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i==0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i]== ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym +" - "+ item.SubFundName,
+                });
+                Acronym = "";
+               
+            }
+            model.FieldFeeList = new SelectList(model.fieldFeeDDs.ToList(), "SubFundID", "FundName");
+
+            return PartialView("_DynamicFundType", model);
+        }
+        public ActionResult GetDynamicGeneralAccountCode()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.FieldFeeList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode +" - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
+            return PartialView("_DynamicDDGeneralAccountCode", model);
+        }   
+        //Get Add Field Fees
+        public JsonResult AddFieldFee(FM_Fees_Fee model)
+        {
+            FieldFee tblFieldFee = new FieldFee();
+            tblFieldFee.FieldFeeDescription = model.getFieldFeecolumns.FieldFeeDescription;
+            tblFieldFee.Rate = model.getFieldFeecolumns.Rate;
+            tblFieldFee.GeneralAccountID = model.AccountCodeID;
+            tblFieldFee.SubFundID = model.FundTypeID;
+            tblFieldFee.FeeCategoryID = model.AFDescriptionID;
+            tblFieldFee.ORRequired = model.isRequired;
+            TOSSDB.FieldFees.Add(tblFieldFee);
+            TOSSDB.SaveChanges();
+            return Json(tblFieldFee);
+        }
+        public ActionResult GetSelectedDynamicFeeCategory(int FeeCategoryTempID)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.FieldFeeList = new SelectList((from s in TOSSDB.FeeCategories.ToList() select new { FeeCategoryID = s.FeeCategoryID, FeeCategoryName = s.FeeCategoryName }), "FeeCategoryID", "FeeCategoryName");
+            model.FeeCategoryID = FeeCategoryTempID;
+            return PartialView("_DynamicDDFeeCategoryName", model);
+        }
+        public ActionResult GetSelectedDynamicRevisionYear(int RevisionYearTempID)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.FieldFeeList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.RevisionYearID = RevisionYearTempID;
+            return PartialView("_DynamicDDRevisionYear", model);
+        }
+        public ActionResult GetSelectedDynamicFundType(int FundTypeTempID)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.FieldFeeList = new SelectList(model.fieldFeeDDs.ToList(), "SubFundID", "FundName");
+            model.FundTypeID = FundTypeTempID;
+            return PartialView("_DynamicFundType", model);
+        }
+        public ActionResult GetSelectedDynamicGeneralAccountCode(int AccountCodeTempID)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.FieldFeeList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode + " - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
+            model.AccountCodeID = AccountCodeTempID;
+            return PartialView("_DynamicDDGeneralAccountCode", model);
+        }
+        //Get Update Field Fees
+        public ActionResult Get_UpdateFieldFee(FM_Fees_Fee model, int FieldFeeID)
+        {
+            FieldFee tblFieldFee = (from e in TOSSDB.FieldFees where e.FieldFeeID == FieldFeeID select e).FirstOrDefault();
+            model.getFieldFeecolumns.FieldFeeID = tblFieldFee.FieldFeeID;
+            model.getFieldFeecolumns.FieldFeeDescription = tblFieldFee.FieldFeeDescription;
+            model.getFieldFeecolumns.Rate = tblFieldFee.Rate;
+            model.AccountCodeTempID = tblFieldFee.GeneralAccountID;
+            model.FundTypeTempID = tblFieldFee.SubFundID;
+            model.FeeCategoryTempID = tblFieldFee.FeeCategoryID;
+            model.RevisionYearTempID = tblFieldFee.GeneralAccount.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AllotmentClass.RevisionYear.RevisionYearID;
+            model.isRequired = tblFieldFee.ORRequired;
+            return PartialView("_UpdateFees", model);
+        }
+        public ActionResult UpdateFieldFee(FM_Fees_Fee model)
+        {
+            FieldFee tblFieldFee = (from e in TOSSDB.FieldFees where e.FieldFeeID == model.getFieldFeecolumns.FieldFeeID select e).FirstOrDefault();
+            tblFieldFee.FieldFeeDescription = model.getFieldFeecolumns.FieldFeeDescription;
+            tblFieldFee.Rate = model.getFieldFeecolumns.Rate;
+            tblFieldFee.GeneralAccountID = model.AccountCodeID;
+            tblFieldFee.SubFundID = model.FundTypeID;
+            tblFieldFee.FeeCategoryID = model.AFDescriptionID;
+            tblFieldFee.ORRequired = model.isRequired;
+            TOSSDB.FieldFees.Add(tblFieldFee);
+            TOSSDB.SaveChanges();
+            return PartialView("_UpdateFees", model);
+        }
+        //Delete Field Fees
+        public ActionResult DeleteFieldFee(FM_Fees_Fee model, int FieldFeeID)
+        {
+            FieldFee tblFieldFees = (from e in TOSSDB.FieldFees where e.FieldFeeID == FieldFeeID select e).FirstOrDefault();
+            TOSSDB.FieldFees.Remove(tblFieldFees);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
         #endregion
         #region Fee Category
         public ActionResult Get_AddFeeCategory()
@@ -82,7 +223,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_Fees_Fee model = new FM_Fees_Fee();
             List<FeeCategoryList> tbl_Fees = new List<FeeCategoryList>();
 
-            var SQLQuery = "SELECT FeeCategoryID, FeeCategoryName, AccountableFormTable.Description FROM DB_TOSS.dbo.FeeCategory,dbo.AccountableFormTable where dbo.AccountableFormTable.AccountFormID = dbo.FeeCategory.AccountFormID";
+            var SQLQuery = "SELECT FeeCategoryID, FeeCategoryName,AF_Description.DescriptionName FROM DB_TOSS.dbo.FeeCategory,dbo.AF_Description where dbo.AF_Description.AFDescriptionID = dbo.FeeCategory.AFDescriptionID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -98,7 +239,7 @@ namespace TOSS_UPGRADE.Controllers
                         {
                             FeeCategoryID = Convert.ToInt32(dr[0]),
                             FeeCategoryName = GlobalFunction.ReturnEmptyString(dr[1]),
-                            AccountForm = GlobalFunction.ReturnEmptyString(dr[2]),
+                            AFDescription = GlobalFunction.ReturnEmptyString(dr[2]),
                         });
                     }
                 }
@@ -111,7 +252,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             FeeCategory tblFeeCategory = new FeeCategory();
             tblFeeCategory.FeeCategoryName = model.getFeeCategorycolumns.FeeCategoryName;
-            tblFeeCategory.AccountFormID = model.AccountFormID;
+            tblFeeCategory.AFDescriptionID = model.AFDescriptionID;
             TOSSDB.FeeCategories.Add(tblFeeCategory);
             TOSSDB.SaveChanges();
             return Json(tblFeeCategory);
@@ -120,14 +261,14 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicAccountableFormDescription()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.AF_Description.DescriptionName }), "AccountFormID", "Description");
+            model.FeeCategoryList = new SelectList((from s in TOSSDB.AF_Description.ToList() select new { AFDescriptionID = s.AFDescriptionID, DescriptionName = s.DescriptionName }), "AFDescriptionID", "DescriptionName");
             return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
         public ActionResult GetSelectedDynamicAccountableFormDescription(int AccountFormTempID)
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            model.FeeCategoryList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() select new { AccountFormID = s.AccountFormID, Description = s.AF_Description.DescriptionName }), "AccountFormID", "Description");
-            model.AccountFormID = AccountFormTempID;
+            model.FeeCategoryList = new SelectList((from s in TOSSDB.AF_Description.ToList() select new { AFDescriptionID = s.AFDescriptionID, DescriptionName = s.DescriptionName }), "AFDescriptionID", "DescriptionName");
+            model.AFDescriptionID = AccountFormTempID;
             return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
         //Get Update Internal Revenue Allotment
@@ -136,7 +277,7 @@ namespace TOSS_UPGRADE.Controllers
             FeeCategory tblFeeCategory = (from e in TOSSDB.FeeCategories where e.FeeCategoryID == FeeCategoryID select e).FirstOrDefault();
             model.getFeeCategorycolumns.FeeCategoryID = tblFeeCategory.FeeCategoryID;
             model.getFeeCategorycolumns.FeeCategoryName = tblFeeCategory.FeeCategoryName;
-            model.AccountFormTempID = tblFeeCategory.AccountFormID;
+            model.AccountFormTempID = tblFeeCategory.AFDescriptionID;
             return PartialView("FeeCategory/_UpdateFeeCategory", model);
         }
         //Update Internal Revenue Allotment
@@ -144,7 +285,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             FeeCategory tblFeeCategory = (from e in TOSSDB.FeeCategories where e.FeeCategoryID == model.getFeeCategorycolumns.FeeCategoryID select e).FirstOrDefault();
             tblFeeCategory.FeeCategoryName = model.getFeeCategorycolumns.FeeCategoryName;
-            tblFeeCategory.AccountFormID = model.AccountFormID;
+            tblFeeCategory.AFDescriptionID = model.AFDescriptionID;
             TOSSDB.Entry(tblFeeCategory);
             TOSSDB.SaveChanges();
             return PartialView("FeeCategory/_UpdateFeeCategory", model);

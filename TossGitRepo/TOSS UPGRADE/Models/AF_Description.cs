@@ -18,6 +18,7 @@ namespace TOSS_UPGRADE.Models
         public AF_Description()
         {
             this.AccountableFormTables = new HashSet<AccountableFormTable>();
+            this.FeeCategories = new HashSet<FeeCategory>();
         }
     
         public int AFDescriptionID { get; set; }
@@ -25,5 +26,7 @@ namespace TOSS_UPGRADE.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccountableFormTable> AccountableFormTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeeCategory> FeeCategories { get; set; }
     }
 }

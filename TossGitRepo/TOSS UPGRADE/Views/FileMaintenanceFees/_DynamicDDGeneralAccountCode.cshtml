@@ -1,0 +1,17 @@
+﻿
+@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>Account Code</b></label>
+@Html.DropDownListFor(m => m.AccountCodeID, Model.FieldFeeList, new { @class = "form-control select2", id = "AccountCodeIDD" })
+<script>
+    $(function () {
+        $("#AccountCodeIDD").select2();
+    })
+</script>
+
+

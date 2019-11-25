@@ -178,7 +178,7 @@
           </Key>
           <Property Name="FeeCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeCategoryName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AccountFormID" Type="int" Nullable="false" />
+          <Property Name="AFDescriptionID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldFee">
           <Key>
@@ -186,10 +186,11 @@
           </Key>
           <Property Name="FieldFeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FieldFeeDescription" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Rate" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="0" />
           <Property Name="GeneralAccountID" Type="int" Nullable="false" />
           <Property Name="SubFundID" Type="int" Nullable="false" />
           <Property Name="FeeCategoryID" Type="int" Nullable="false" />
+          <Property Name="ORRequired" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Functions">
           <Key>
@@ -602,6 +603,18 @@
             </Principal>
             <Dependent Role="CheckInventoryTable">
               <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeeCategory_AF_Description">
+          <End Role="AF_Description" Type="Self.AF_Description" Multiplicity="1" />
+          <End Role="FeeCategory" Type="Self.FeeCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AF_Description">
+              <PropertyRef Name="AFDescriptionID" />
+            </Principal>
+            <Dependent Role="FeeCategory">
+              <PropertyRef Name="AFDescriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1081,6 +1094,10 @@
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
           </AssociationSet>
+          <AssociationSet Name="FK_FeeCategory_AF_Description" Association="Self.FK_FeeCategory_AF_Description">
+            <End Role="AF_Description" EntitySet="AF_Description" />
+            <End Role="FeeCategory" EntitySet="FeeCategory" />
+          </AssociationSet>
           <AssociationSet Name="FK_FieldFee_FieldFee" Association="Self.FK_FieldFee_FieldFee">
             <End Role="FeeCategory" EntitySet="FeeCategory" />
             <End Role="FieldFee" EntitySet="FieldFee" />
@@ -1317,6 +1334,10 @@
             <End Role="PersonalInformation" EntitySet="PersonalInformations" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
+          <AssociationSet Name="FK_FeeCategory_AF_Description" Association="DB_TOSSModel.FK_FeeCategory_AF_Description">
+            <End Role="AF_Description" EntitySet="AF_Description" />
+            <End Role="FeeCategory" EntitySet="FeeCategories" />
+          </AssociationSet>
           <AssociationSet Name="FK_AllotmentClass_AllotmentClass" Association="DB_TOSSModel.FK_AllotmentClass_AllotmentClass">
             <End Role="RevisionYear" EntitySet="RevisionYears" />
             <End Role="AllotmentClass" EntitySet="AllotmentClasses" />
@@ -1533,6 +1554,7 @@
           <Property Name="AFDescriptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DescriptionName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AccountableFormTables" Relationship="DB_TOSSModel.FK_AccountableFormTable_AF_Description" FromRole="AF_Description" ToRole="AccountableFormTable" />
+          <NavigationProperty Name="FeeCategories" Relationship="DB_TOSSModel.FK_FeeCategory_AF_Description" FromRole="AF_Description" ToRole="FeeCategory" />
         </EntityType>
         <EntityType Name="AllotmentClass">
           <Key>
@@ -1658,7 +1680,8 @@
           </Key>
           <Property Name="FeeCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FeeCategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AccountFormID" Type="Int32" Nullable="false" />
+          <Property Name="AFDescriptionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AF_Description" Relationship="DB_TOSSModel.FK_FeeCategory_AF_Description" FromRole="FeeCategory" ToRole="AF_Description" />
           <NavigationProperty Name="FieldFees" Relationship="DB_TOSSModel.FK_FieldFee_FieldFee" FromRole="FeeCategory" ToRole="FieldFee" />
         </EntityType>
         <EntityType Name="FieldFee">
@@ -1667,10 +1690,11 @@
           </Key>
           <Property Name="FieldFeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FieldFeeDescription" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Rate" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="GeneralAccountID" Type="Int32" Nullable="false" />
           <Property Name="SubFundID" Type="Int32" Nullable="false" />
           <Property Name="FeeCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ORRequired" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="FeeCategory" Relationship="DB_TOSSModel.FK_FieldFee_FieldFee" FromRole="FieldFee" ToRole="FeeCategory" />
           <NavigationProperty Name="GeneralAccount" Relationship="DB_TOSSModel.FK_FieldFee_GeneralAccount" FromRole="FieldFee" ToRole="GeneralAccount" />
           <NavigationProperty Name="SubFund" Relationship="DB_TOSSModel.FK_FieldFee_SubFund" FromRole="FieldFee" ToRole="SubFund" />
@@ -2045,6 +2069,18 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="PersonalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeeCategory_AF_Description">
+          <End Type="DB_TOSSModel.AF_Description" Role="AF_Description" Multiplicity="1" />
+          <End Type="DB_TOSSModel.FeeCategory" Role="FeeCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AF_Description">
+              <PropertyRef Name="AFDescriptionID" />
+            </Principal>
+            <Dependent Role="FeeCategory">
+              <PropertyRef Name="AFDescriptionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2677,7 +2713,7 @@
           <EntitySetMapping Name="FeeCategories">
             <EntityTypeMapping TypeName="DB_TOSSModel.FeeCategory">
               <MappingFragment StoreEntitySet="FeeCategory">
-                <ScalarProperty Name="AccountFormID" ColumnName="AccountFormID" />
+                <ScalarProperty Name="AFDescriptionID" ColumnName="AFDescriptionID" />
                 <ScalarProperty Name="FeeCategoryName" ColumnName="FeeCategoryName" />
                 <ScalarProperty Name="FeeCategoryID" ColumnName="FeeCategoryID" />
               </MappingFragment>
@@ -2686,6 +2722,7 @@
           <EntitySetMapping Name="FieldFees">
             <EntityTypeMapping TypeName="DB_TOSSModel.FieldFee">
               <MappingFragment StoreEntitySet="FieldFee">
+                <ScalarProperty Name="ORRequired" ColumnName="ORRequired" />
                 <ScalarProperty Name="FeeCategoryID" ColumnName="FeeCategoryID" />
                 <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
                 <ScalarProperty Name="GeneralAccountID" ColumnName="GeneralAccountID" />

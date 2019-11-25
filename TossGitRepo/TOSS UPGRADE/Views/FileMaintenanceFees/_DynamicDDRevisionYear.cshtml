@@ -1,0 +1,10 @@
+﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>Revison Year</b></label>
+@Html.DropDownListFor(m => m.RevisionYearID, Model.FieldFeeList, new { @class = "form-control select2", id = "RevisionYearIDD" })
+

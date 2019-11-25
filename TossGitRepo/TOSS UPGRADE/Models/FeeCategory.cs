@@ -22,8 +22,9 @@ namespace TOSS_UPGRADE.Models
     
         public int FeeCategoryID { get; set; }
         public string FeeCategoryName { get; set; }
-        public int AccountFormID { get; set; }
+        public int AFDescriptionID { get; set; }
     
+        public virtual AF_Description AF_Description { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FieldFee> FieldFees { get; set; }
     }

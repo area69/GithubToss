@@ -16,10 +16,11 @@ namespace TOSS_UPGRADE.Models
     {
         public int FieldFeeID { get; set; }
         public string FieldFeeDescription { get; set; }
-        public decimal Rate { get; set; }
+        public Nullable<decimal> Rate { get; set; }
         public int GeneralAccountID { get; set; }
         public int SubFundID { get; set; }
         public int FeeCategoryID { get; set; }
+        public bool ORRequired { get; set; }
     
         public virtual FeeCategory FeeCategory { get; set; }
         public virtual GeneralAccount GeneralAccount { get; set; }

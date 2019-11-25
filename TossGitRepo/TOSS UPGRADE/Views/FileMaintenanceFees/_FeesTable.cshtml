@@ -22,19 +22,60 @@
                     var DeleteConfirmationMess = "Are you sure do you want to delete this?";
                     var DeleteSuccesMess = "Successfully Deleted";
 
-                    var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMPayeeController','Get_UpdatePayee','" + @Items.FieldFeeID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
-                    var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.FieldFeeID + ",&quot;Get_DeletePayee&quot;,&quot;FMPayeeController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
+                    var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMFeeController','Get_UpdateFieldFee','" + @Items.FieldFeeID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
+                    var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.FieldFeeID + ",&quot;Get_DeleteFieldFee&quot;,&quot;FMFeeController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                     var ActionContentProgram = ViewEdit + ViewDelete;
                     <tr>
                         <td>@Items.FieldFeeDescription</td>
-                        <td>@Items.AccountCode</td>
+                        <td>
+                            @{
+                                var SubID = Items.AccountCode;
+                                var SubSector = (from e in SISDB.GeneralAccounts where e.GeneralAccountID == SubID select e).FirstOrDefault();
+                                var TDValue = "";
+                                if (SubSector == null)
+                                {
+                                    TDValue = "N/A";
+                                }
+                                else
+                                {
+                                    TDValue = SubSector.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode +"-"+ SubSector.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode+"-"+ SubSector.SubMajorAccountGroup.SubMajorAccountGroupCode+"-"+SubSector.GeneralAccountCode +" - "+ SubSector.GeneralAccountName;
+                                }
+                            }
+                            @TDValue
+                        </td>
                         <td>@Items.Rate</td>
-                        <td>@Items.FeeCategory</td>
-                        <td>@Items.FundType</td>
-                        @*<td>
-                        <button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMGeneralReferenceController','Get_UpdateInternalRevenueAllotment','@Items.IRAID')"><i class="ft-edit"></i></button>
-                        <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.IRAID ,&quot;Get_DeleteInternalRevenueAllotment&quot;,&quot;FMGeneralReferenceController&quot;)')"><i class="ft-delete"></i></button>
-                    </td>*@
+                        <td>
+                            @{
+                                var SubID1 = Items.FeeCategory;
+                                var SubSector1 = (from e in SISDB.FeeCategories where e.FeeCategoryID == SubID1 select e).FirstOrDefault();
+                                var TDValue1 = "";
+                                if (SubSector1 == null)
+                                {
+                                    TDValue1 = "N/A";
+                                }
+                                else
+                                {
+                                    TDValue1 = SubSector1.FeeCategoryName;
+                                }
+                            }
+                            @TDValue1
+                        </td>
+                        <td>
+                            @{
+                                var SubID2 = Items.FundType;
+                                var SubSector2 = (from e in SISDB.SubFunds where e.SubFundID == SubID2 select e).FirstOrDefault();
+                                var TDValue2 = "";
+                                if (SubSector2 == null)
+                                {
+                                    TDValue2 = "N/A";
+                                }
+                                else
+                                {
+                                    TDValue2 = SubSector2.Fund.FundName +" - "+ SubSector2.SubFundName;
+                                }
+                            }
+                            @TDValue2
+                        </td>
                         <td>
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
                                     data-original-title="" data-html="true" data-placement="right">
@@ -42,7 +83,7 @@
                             </button>
                         </td>
                     </tr>
-                }
+                }   
             }
         </tbody>
     </table>

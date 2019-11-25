@@ -1,11 +1,18 @@
 ﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
 @{
-    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+                /**/
+
+                DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
 
-@using (Ajax.BeginForm("AddFieldFee", "FileMaintenanceFees", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMFeeController','Get_FeeTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateFieldFee", "FileMaintenanceFees", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMFeeController','Get_FeeTable','UpdateMessageBox')", OnFailure = "OnFailure()", }))
 {
+    @Html.HiddenFor(m => m.getFieldFeecolumns.FieldFeeID, new { })
+    @Html.HiddenFor(m => m.RevisionYearTempID, new { id = "RevisionYearTempID" })
+    @Html.HiddenFor(m => m.FundTypeTempID, new { id = "FundTypeTempID" })
+    @Html.HiddenFor(m => m.AccountCodeTempID, new { id = "AccountCodeTempID" })
+    @Html.HiddenFor(m => m.FeeCategoryTempID, new { id = "FeeCategoryTempID" })
     <div class="row">
         <div class="col-md-2 col-sm-3">
             <div class="form-group" id="_DDRevisionYrID">
@@ -13,7 +20,7 @@
         </div>
         <div class="col-md-5 col-sm-3">
             <div class="form-group">
-                <label>Fee Description</label>   
+                <label>Fee Description</label>
                 @Html.TextBoxFor(m => m.getFieldFeecolumns.FieldFeeDescription, new { @class = "form-control", type = "text" })
             </div>
         </div>
@@ -58,9 +65,9 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>With OR Required</label>
-                        <select class="form-control" onchange="WithRequiredORIDOnchange()" id="_WithRequiredIDD">
-                            <option value="false">No</option>
-                            <option value="true">Yes</option>
+                        <select class="form-control" onchange="IsRequiredOnChange()" id="_WithRequiredIDD">
+                            <option value="False">No</option>
+                            <option value="True">Yes</option>
                         </select>
                         @Html.HiddenFor(m => m.isRequired, new { id = "isRequiredID" })
                     </div>
@@ -73,7 +80,7 @@
         <div class="col-md-8 col-sm-8"></div>
         <div class="col-md-2 col-sm-2 text-right">
             <div class="form-group">
-                <button type="submit" class="bottom-right form-control black" style="background-color: #F0AD4E;"><b>Save</b></button>
+                <button type="submit" class="bottom-right form-control black bg-addbutton"><b>Save</b></button>
             </div>
         </div>
         <div class="col-md-2 col-sm-2 text-right">
@@ -85,18 +92,18 @@
 }
 <script>
     $(function () {
-        LoadDataTable();
-        WithRequiredORIDOnchange()
-        LoadPopOver();
+        $("#_WithRequiredIDD").val($("#isRequiredID").val());
+        IsRequiredOnChange()
     })
-    function WithRequiredORIDOnchange() {
-        var _WithRequiredIDD = $("#_WithRequiredIDD").val();
-        if (_WithRequiredIDD == "false") {
+    function IsRequiredOnChange() {
+        var isRequiredValue = $("#_WithRequiredIDD").val();
+        if (isRequiredValue == "False") {
             $('#_RequiredID').removeAttr('disabled');
-            $("#isRequiredID").val(_WithRequiredIDD);
-        } else if (_WithRequiredIDD == "true") {
+            $("#isRequiredID").val(isRequiredValue);
+        } else if (isRequiredValue == "True") {
             $('#_RequiredID').prop('disabled', true);
-            $("#isRequiredID").val(_WithRequiredIDD);
+            document.getElementById("_RequiredID").value = "";
+            $("#isRequiredID").val(isRequiredValue);
         }
     }
 </script>
