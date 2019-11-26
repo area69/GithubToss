@@ -9,6 +9,9 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using TOSS_UPGRADE.Models.FM_AccountableForm;
+using TOSS_UPGRADE.Models.GlobalClass;
+
+
 namespace TOSS_UPGRADE.Controllers
 {
     public class FileMaintenanceAccountableFormController : Controller
@@ -265,8 +268,6 @@ namespace TOSS_UPGRADE.Controllers
             }
             return Json(data,JsonRequestBehavior.AllowGet);
         }
-        
-
         public ActionResult GetSelectedDynamicAccountableform(int AFIDTempID)
         {
             FM_AccountableFormInventory model = new FM_AccountableFormInventory();
@@ -558,7 +559,6 @@ namespace TOSS_UPGRADE.Controllers
         }
         #endregion
         #endregion
-
         //Assignment of Accountable Form
         #region Treasurer Collector
         public ActionResult Get_AddAssignTreasurerCollector()
@@ -569,7 +569,30 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicASFFundType()
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.SubFunds.ToList() select new { SubFundID = s.SubFundID, SubFundName = "( " + s.Fund.FundName + " - " + s.SubFundName + " )" }), "SubFundID", "SubFundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.AccountableFormAssignmentList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             return PartialView("AssignmentofAccountableForm/TreasurerCollector/_DynamicDDTCFundType", model);
         }
         //public ActionResult GetDynamicAFASF()
@@ -642,12 +665,6 @@ namespace TOSS_UPGRADE.Controllers
 
             return Json("");
         }
-        //public ActionResult GetAccountFormID(int AFORID)
-        //{
-        //    var AFI = (from e in TOSSDB.AccountableForm_Inventory where e.AFORID == AFORID select e).FirstOrDefault();
-        //    var result = new { AccountFormID = AFI.AccountFormID };
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
         public ActionResult Get_AccountableFormAssignmentTable()
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
@@ -799,7 +816,6 @@ namespace TOSS_UPGRADE.Controllers
 
             return RedirectToAction("Index");
         }
-
         #endregion
         #region Field Collector
         public ActionResult Get_AddAssignFieldCollector()
@@ -810,7 +826,30 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicASFFundTypeFC()
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.SubFunds.ToList() select new { SubFundID = s.SubFundID, SubFundName = "( " + s.Fund.FundName + " - " + s.SubFundName + " )" }), "SubFundID", "SubFundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.AccountableFormAssignmentList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             return PartialView("AssignmentofAccountableForm/FieldCollector/_DynamicDDFCFundType", model);
         }
         public ActionResult GetDynamicAFASFFC()
@@ -955,7 +994,31 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicASFFundTypeCT()
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
-            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.SubFunds.ToList() select new { SubFundID = s.SubFundID, SubFundName = "( " + s.Fund.FundName + " - " + s.SubFundName + " )" }), "SubFundID", "SubFundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.AccountableFormAssignmentList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
+
             return PartialView("AssignmentofAccountableForm/CashTicket/_DynamicDDCTFundType", model);
         }
         public ActionResult GetDynamicAFASFCT()

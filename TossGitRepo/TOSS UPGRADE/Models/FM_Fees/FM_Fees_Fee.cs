@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 
 namespace TOSS_UPGRADE.Models.FM_Fees
@@ -21,12 +22,16 @@ namespace TOSS_UPGRADE.Models.FM_Fees
             getFeeCategorycolumns = new FeeCategory();
             getFeeCategoryList = new List<FeeCategoryList>();
 
-            fieldFeeDDs = new List<FieldFeeDD>();
+            // fieldFeeDDs = new List<FieldFeeDD>();
+            globalClasses = new GlobalClasses();
         }
         public List<FieldFeeList> getFieldFeeList { get; set; }
         public FieldFee getFieldFeecolumns { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FieldFeeList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.FieldFee> getFieldFee { get; set; }
+
+        public GlobalClasses globalClasses { get; set; }
+
 
         public List<FeeCategoryList> getFeeCategoryList { get; set; }
         public FeeCategory getFeeCategorycolumns { get; set; }
@@ -43,7 +48,7 @@ namespace TOSS_UPGRADE.Models.FM_Fees
         public int FeeCategoryTempID { get; set; }
         public int AccountCodeID { get; set; }
         public int AccountCodeTempID { get; set; }
-        public List<FieldFeeDD> fieldFeeDDs { get; set; }
+        //public List<FieldFeeDD> fieldFeeDDs { get; set; }
         public bool isRequired { get; set; }
         public int AccountFormTempID { get; set; }
     }
@@ -52,7 +57,7 @@ namespace TOSS_UPGRADE.Models.FM_Fees
     {
         public int FieldFeeID { get; set; }
         public string FieldFeeDescription { get; set; }
-        public string Rate { get; set; }
+        public int Rate { get; set; }
         public int AccountCode { get; set; }
         public int FundType { get; set; }
         public int FeeCategory { get; set; }
@@ -63,10 +68,10 @@ namespace TOSS_UPGRADE.Models.FM_Fees
         public string FeeCategoryName { get; set; }
         public string AFDescription { get; set; }
     }
-    public class FieldFeeDD
-    {
-        public int SubFundID { get; set; }
-        public string FundName { get; set; }
+    //public class FieldFeeDD
+    //{
+    //    public int SubFundID { get; set; }
+    //    public string FundName { get; set; }
 
-    }
+    //}
 }

@@ -321,6 +321,7 @@
     <Compile Include="Models\GeneralAccount.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GlobalClass\GlobalClasses.cs" />
     <Compile Include="Models\IRA_Table.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>

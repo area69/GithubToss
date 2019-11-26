@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using TOSS_UPGRADE.Models.FM_Fees;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 namespace TOSS_UPGRADE.Controllers
 {
@@ -45,7 +46,7 @@ namespace TOSS_UPGRADE.Controllers
                         {
                             FieldFeeID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             FieldFeeDescription = GlobalFunction.ReturnEmptyString(dr[1]),
-                            Rate = GlobalFunction.ReturnEmptyString(dr[3]),
+                            Rate = GlobalFunction.ReturnEmptyInt(dr[3]),
                             AccountCode = GlobalFunction.ReturnEmptyInt(dr[2]),
                             FeeCategory = GlobalFunction.ReturnEmptyInt(dr[4]),
                             FundType = GlobalFunction.ReturnEmptyInt(dr[5]),
@@ -78,8 +79,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult GetDynamicFundType()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-           // model.FieldFeeList = new SelectList((from s in TOSSDB.SubFunds.ToList() select new { SubFundID = s.SubFundID, SubFundName = s.Fund.FundName + " - " + s.SubFundName }), "SubFundID", "SubFundName");
-            var Acronym = "";
+           var Acronym = "";
             foreach (var item in TOSSDB.SubFunds.ToList()) {
                 for(var i= 0; i < item.Fund.FundName.Length;)
                 {
@@ -93,7 +93,7 @@ namespace TOSS_UPGRADE.Controllers
                     }
                     i++;
                 }
-                model.fieldFeeDDs.Add(new FieldFeeDD
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
                 {
                     SubFundID = item.SubFundID,
                     FundName = Acronym +" - "+ item.SubFundName,
@@ -101,7 +101,7 @@ namespace TOSS_UPGRADE.Controllers
                 Acronym = "";
                
             }
-            model.FieldFeeList = new SelectList(model.fieldFeeDDs.ToList(), "SubFundID", "FundName");
+            model.FieldFeeList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
 
             return PartialView("_DynamicFundType", model);
         }
@@ -119,7 +119,7 @@ namespace TOSS_UPGRADE.Controllers
             tblFieldFee.Rate = model.getFieldFeecolumns.Rate;
             tblFieldFee.GeneralAccountID = model.AccountCodeID;
             tblFieldFee.SubFundID = model.FundTypeID;
-            tblFieldFee.FeeCategoryID = model.AFDescriptionID;
+            tblFieldFee.FeeCategoryID = model.FeeCategoryID;
             tblFieldFee.ORRequired = model.isRequired;
             TOSSDB.FieldFees.Add(tblFieldFee);
             TOSSDB.SaveChanges();
@@ -157,7 +157,7 @@ namespace TOSS_UPGRADE.Controllers
                     }
                     i++;
                 }
-                model.fieldFeeDDs.Add(new FieldFeeDD
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
                 {
                     SubFundID = item.SubFundID,
                     FundName = Acronym + " - " + item.SubFundName,
@@ -165,7 +165,7 @@ namespace TOSS_UPGRADE.Controllers
                 Acronym = "";
 
             }
-            model.FieldFeeList = new SelectList(model.fieldFeeDDs.ToList(), "SubFundID", "FundName");
+            model.FieldFeeList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             model.FundTypeID = FundTypeTempID;
             return PartialView("_DynamicFundType", model);
         }
@@ -197,9 +197,9 @@ namespace TOSS_UPGRADE.Controllers
             tblFieldFee.Rate = model.getFieldFeecolumns.Rate;
             tblFieldFee.GeneralAccountID = model.AccountCodeID;
             tblFieldFee.SubFundID = model.FundTypeID;
-            tblFieldFee.FeeCategoryID = model.AFDescriptionID;
+            tblFieldFee.FeeCategoryID = model.FeeCategoryID;
             tblFieldFee.ORRequired = model.isRequired;
-            TOSSDB.FieldFees.Add(tblFieldFee);
+            TOSSDB.Entry(tblFieldFee);
             TOSSDB.SaveChanges();
             return PartialView("_UpdateFees", model);
         }

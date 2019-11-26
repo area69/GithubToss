@@ -4,10 +4,8 @@
 }
 @using TOSS_UPGRADE.Models;
 <label><b>Description</b></label>
-<span class="input-group-append" id="button-addon2">
 @Html.DropDownListFor(m => m.DescriptionID, Model.AccountableFormList, new { @class = "form-control select2", id = "DescriptionIDD" })
-<button class="btn bg-addbutton" type="button" data-toggle="modal" data-target="#addDescriptionModal" onclick="AngularGlobalView('FMAccountableFormController','Get_AFDescriptionTable','')"><strong>+</strong></button>
-</span>
+
 <script>
     $(function () {
         $("#DescriptionIDD").select2();

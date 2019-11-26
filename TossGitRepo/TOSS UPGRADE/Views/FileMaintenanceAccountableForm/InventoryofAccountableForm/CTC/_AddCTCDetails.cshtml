@@ -6,7 +6,7 @@
 
 @using (Ajax.BeginForm("AddAccountableFormInventoryCTC", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_InvtAccountableFormTableCTC','Accountable Form Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
 {
-    @Html.TextBoxFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValueCTC" })
+    @Html.HiddenFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValueCTC" })
 
 <div class="row">
     <div class="col-md-4 form-group" id="_CTCAFID">

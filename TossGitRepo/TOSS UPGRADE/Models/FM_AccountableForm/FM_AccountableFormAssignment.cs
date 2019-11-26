@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 namespace TOSS_UPGRADE.Models.FM_AccountableForm
 {
@@ -16,21 +17,19 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
             getAFTransferReturnORAssign = new List<AccountableForm_Assignment>();
             getAFTransferReturnORAssigncolumns = new AccountableForm_Assignment();
             getAFTransferReturnORList = new List<AFTransferReturnORList>();
+            globalClasses = new GlobalClasses();
         }
         public AccountableForm_Assignment getAccountableFormAssigncolumns { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.AccountableForm_Assignment> getAccountableFormAssign { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> AccountableFormAssignmentList { get; set; }
         public List<AccountableFormAssignmentList> getAccountableFormAssList { get; set; }
-
-
+        public GlobalClasses globalClasses { get; set;  }
         public AccountableForm_Assignment getAFTransferReturnORAssigncolumns { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.AccountableForm_Assignment> getAFTransferReturnORAssign { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> AFTransferReturnORList { get; set; }
         public List<AFTransferReturnORList> getAFTransferReturnORList { get; set; }
         public int AccountableFormAssignmentID { get; set; }
         public int AccountableFormAssignmentAFID { get; set; }
-
-
         public int AccountableTCTRORAssignAFID { get; set; }
         public int AccountableTCTRORID { get; set; }
         public int AccountableTCTRORMainCID { get; set; }

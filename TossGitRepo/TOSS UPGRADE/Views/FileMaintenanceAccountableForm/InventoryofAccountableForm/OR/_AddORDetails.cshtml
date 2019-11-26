@@ -9,7 +9,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @Html.TextBoxFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValue" })
+    @Html.HiddenFor(m => m.hidORInventoryQuantity, new { id = "txtORInvQuantityValue" })
     <div class="row">
         <div class="col-md-4 form-group" id="_ORAFID">
         </div>
