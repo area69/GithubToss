@@ -1,14 +1,15 @@
-﻿<div class="row">
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<div class="row">
     <div class="col-md-3 form-group" id="_CTCollectorID">
-      
+
     </div>
     <div class="col-md-3 form-group" id="_CTFundID">
     </div>
-    <div class="col-md-3 form-group">
-        <label>Type of Fee</label>
-        <select class="form-control">
-            <option>Cash Ticket - Market</option>
-        </select>
+    <div class="col-md-3 form-group" id="_CTTypeofFeeID">
     </div>
     <div class="col-md-3 form-group" id="_CTAFDDID">
     </div>
@@ -21,15 +22,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
-        <label>Amount</label>
-        <input class="form-control" disabled value="10000" />
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <label>Date</label>
         <input class="form-control pickadate" />
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-6"></div>
     <div class="col-md-2">
         <label style="visibility:hidden">Date</label>
         <button class="btn black bg-addbutton form-control" type="submit"><b>Save</b></button>

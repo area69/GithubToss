@@ -6,7 +6,7 @@
 @using TOSS_UPGRADE.Models;
 
 <label>Accountable Form</label>
-@Html.DropDownListFor(m => m.AccountableFormAssignmentAFID, Model.AccountableFormAssignmentList.Distinct(), new { @class = "form-control select2", id = "AFIDDDASFCT", onchange = "AngularGlobalFunctions('FMAccountableFormController','LoadDynamicASFStartCTNo','')" })
+@Html.DropDownListFor(m => m.AccountableFormAssignmentAFID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "AFIDDDASFCT", onchange = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMAccountableFormController','LoadDynamicASFStartCTNo','TotalAmountValue()')" })
 
 
 

@@ -47,7 +47,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableForm model = new FM_AccountableForm();
             List<AccountableFormList> tbl_AccountableForm = new List<AccountableFormList>();
 
-            var SQLQuery = "SELECT AccountFormID,AccountFormName,AF_Description.DescriptionName,QuantityValue,isCTC FROM DB_TOSS.dbo.AccountableFormTable,dbo.AF_Description where dbo.AF_Description.AFDescriptionID = dbo.AccountableFormTable.AFDescriptionID";
+            var SQLQuery = "SELECT AccountFormID,AccountFormName,AF_Description.DescriptionName,QuantityValue,CashTicketValue,isCTC FROM DB_TOSS.dbo.AccountableFormTable,dbo.AF_Description where dbo.AF_Description.AFDescriptionID = dbo.AccountableFormTable.AFDescriptionID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -63,9 +63,10 @@ namespace TOSS_UPGRADE.Controllers
                         {
                             AccountFormID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             AccountFormName = GlobalFunction.ReturnEmptyString(dr[1]),
-                            isCTC = GlobalFunction.ReturnEmptyBool(dr[4]),
+                            isCTC = GlobalFunction.ReturnEmptyBool(dr[5]),
                             Description = GlobalFunction.ReturnEmptyString(dr[2]),
-                            QuantityValue = GlobalFunction.ReturnEmptyString(dr[3])
+                            QuantityValue = GlobalFunction.ReturnEmptyString(dr[3]),
+                            CashTicketValue = GlobalFunction.ReturnEmptyInt(dr[4])
                         });
                     }
                 }
@@ -87,6 +88,7 @@ namespace TOSS_UPGRADE.Controllers
             tblAccountableForm.AccountFormName = model.getAccountableFormcolumns.AccountFormName;
             tblAccountableForm.AFDescriptionID = model.DescriptionID;
             tblAccountableForm.QuantityValue = model.getAccountableFormcolumns.QuantityValue;
+            tblAccountableForm.CashTicketValue = model.getAccountableFormcolumns.CashTicketValue;
             tblAccountableForm.isCTC = model.isForCTCID;
             TOSSDB.AccountableFormTables.Add(tblAccountableForm);
             TOSSDB.SaveChanges();
@@ -114,6 +116,7 @@ namespace TOSS_UPGRADE.Controllers
             model.isForCTCID = tblAccountableForm.isCTC;
             model.DescriptionTempID = tblAccountableForm.AFDescriptionID;
             model.getAccountableFormcolumns.QuantityValue = tblAccountableForm.QuantityValue;
+            model.getAccountableFormcolumns.CashTicketValue = tblAccountableForm.CashTicketValue;
             return PartialView("AccountableForm/_UpdateAccountableForm", model);
         }
         //Update Accountable Form
@@ -123,6 +126,7 @@ namespace TOSS_UPGRADE.Controllers
             tblAccountableForm.AccountFormName = model.getAccountableFormcolumns.AccountFormName;
             tblAccountableForm.AFDescriptionID = model.DescriptionID;
             tblAccountableForm.QuantityValue = model.getAccountableFormcolumns.QuantityValue;
+            tblAccountableForm.CashTicketValue = model.getAccountableFormcolumns.CashTicketValue;
             tblAccountableForm.isCTC = model.isForCTCID;
             TOSSDB.Entry(tblAccountableForm);
             TOSSDB.SaveChanges();
@@ -350,7 +354,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableFormInventory model = new FM_AccountableFormInventory();
             List<AccountableFormInvtList> tbl_AccountableFormInvt = new List<AccountableFormInvtList>();
 
-            var SQLQuery = "SELECT AFORID,AccountableFormTable.AccountFormID,StubNo,StartingOR,EndingOR,Quantity,DateIssued,isIssued FROM DB_TOSS.dbo.AccountableForm_Inventory,dbo.AccountableFormTable where AccountableForm_Inventory.AFTableID = 2 and AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID";
+            var SQLQuery = "SELECT AFORID,AccountableFormTable.AccountFormID,StubNo,StartingOR,EndingOR,Quantity,DateIssued,isIssued,AccountableFormTable.CashTicketValue FROM DB_TOSS.dbo.AccountableForm_Inventory,dbo.AccountableFormTable where AccountableForm_Inventory.AFTableID = 2 and AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -372,6 +376,7 @@ namespace TOSS_UPGRADE.Controllers
                             Quantity = GlobalFunction.ReturnEmptyInt(dr[5]),
                             DateIssued = GlobalFunction.ReturnEmptyString(dr[6]),
                             isIssued = GlobalFunction.ReturnEmptyBool(dr[7]),
+                            CashTicketVal = GlobalFunction.ReturnEmptyInt(dr[8]),
                         });
                     }
                 }
@@ -991,6 +996,12 @@ namespace TOSS_UPGRADE.Controllers
             model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.CollectorTables.ToList() select new { CollectorID = s.CollectorID, CollectorName = s.CollectorName }), "CollectorID", "CollectorName");
             return PartialView("AssignmentofAccountableForm/CashTicket/_DynamicDDCollectorOfficerCT", model);
         }
+        public ActionResult GetDynamicTypeofFee(int SubFundID)
+        {
+            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
+            model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.FieldFees.ToList() where s.SubFundID == SubFundID select new { FieldFeeID = s.FieldFeeID, FieldFeeDescription = s.FieldFeeDescription }), "FieldFeeID", "FieldFeeDescription");
+            return PartialView("AssignmentofAccountableForm/CashTicket/_DynamicDDTypeofFee", model);
+        }
         public ActionResult GetDynamicASFFundTypeCT()
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
@@ -1025,6 +1036,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
             model.AccountableFormAssignmentList = new SelectList((from s in TOSSDB.AccountableFormTables.ToList() where s.isCTC == false && s.AF_Description.DescriptionName == "Cash Ticket" || s.AF_Description.DescriptionName == "Parking Ticket" orderby s.AccountFormName ascending select new { AccountFormID = s.AccountFormID, AccountFormName = s.AccountFormName }), "AccountFormID", "AccountFormName");
+
             return PartialView("AssignmentofAccountableForm/CashTicket/_DynamicDDCTAF", model);
         }
         public ActionResult GetDynamicAFStartCTNo(int AccountFormID)
@@ -1041,6 +1053,7 @@ namespace TOSS_UPGRADE.Controllers
             {
                 model.AccountableFormAssignmentEndingORID = tblAFIventory.EndingOR;
                 model.AccountableFormAssignmentQuantityID = tblAFIventory.Quantity;
+                model.AccountableFormAssignmentCashTicketValueID = Convert.ToInt32(tblAFIventory.AccountableFormTable.CashTicketValue);
                 if (tblAFIventory.StubNo != 0)
                 {
                     model.AccountableFormAssignmentStubNoID = Convert.ToInt32(tblAFIventory.StubNo);

@@ -24,13 +24,14 @@
         <div class="row">
             <div class="col-md-4 form-group">
                 <label><b>Cash Ticket Value</b></label>
-                <input type="text" class="form-control" name="name" value="" disabled />
+                @*<input type="text" class="form-control text-right" id="isCashTicketValueID" disabled />*@
+                @Html.TextBoxFor(m => m.getAccountableFormcolumns.CashTicketValue, new { @class = "form-control text-right", type = "text", id = "isCashTicketValueID", @disabled = "disabled" })
             </div>
             <div class="col-md-4 form-group">
                 <label><b>For CTC</b></label>
                 <select class="form-control" id="isForCTCDD" onchange="isForCTCOnChange()">
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
                 </select>
                 @Html.HiddenFor(m => m.isForCTCID, new { id = "isForCTCID" })
             </div>
@@ -47,8 +48,8 @@
                 <button type="submit" class="btn bg-addbutton black form-control"><b>Add</b></button>
             </div>
             <div class="col-md-6">
-                <label style="visibility:hidden">Description</label>
-                <button type="reset" class="btn bg-headerbc white form-control"><b>Cancel</b></button>
+                <label style="visibility:hidden">Description</label>   
+                <button type="reset" class="bottom-right form-control bg-headerbc white" onclick="AngularGlobalEdit('FMAccountableFormController','Get_AddAccountableForm','')"><b>Cancel</b></button>
             </div>
         </div>
     </div>
@@ -61,5 +62,9 @@
     function isForCTCOnChange() {
         var isForCTCValue = $("#isForCTCDD").val();
         $("#isForCTCID").val(isForCTCValue);
+    }
+    function IsDeptHeadOnChange() {
+        var isDeptHeadValue = $("#isDeptHeadDD").val();
+        $("#isDeptHeadID").val(isDeptHeadValue);
     }
 </script>

@@ -32,6 +32,7 @@
                     <tr>
                         <td>
                             @{
+                                var word = "";
                                 var AFID = Items.AF;
                                 var AF = (from e in SISDB.AccountableFormTables where e.AccountFormID == AFID select e).FirstOrDefault();
                                 var TDValue = "";
@@ -41,10 +42,11 @@
                                 }
                                 else
                                 {
-                                    TDValue = AF.AccountFormName;
+                                    word = AF.AF_Description.DescriptionName;
+                                    TDValue = AF.AccountFormName +" ( "+ word + " @ " + @Items.CashTicketVal.ToString("0.00") + " )";
                                 }
                             }
-                            @TDValue
+                            @TDValue 
                         </td>
                         <td>@Items.StubNo</td>
                         <td>@Items.Quantity</td>

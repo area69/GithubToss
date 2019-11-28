@@ -6,51 +6,52 @@
     <edmx:Diagrams>
       <Diagram DiagramId="40de8afaeb1b4b14a3300d2a7328d1ef" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="DB_TOSSModel.AccountableForm_Assignment" Width="1.5" PointX="8.25" PointY="21.375" />
-        <EntityTypeShape EntityType="DB_TOSSModel.AccountableForm_Inventory" Width="1.5" PointX="6" PointY="31.125" />
-        <EntityTypeShape EntityType="DB_TOSSModel.AccountableFormTable" Width="1.5" PointX="3" PointY="44.125" />
+        <EntityTypeShape EntityType="DB_TOSSModel.AccountableForm_Inventory" Width="1.5" PointX="6" PointY="41" />
+        <EntityTypeShape EntityType="DB_TOSSModel.AccountableFormTable" Width="1.5" PointX="3.75" PointY="41.375" />
         <EntityTypeShape EntityType="DB_TOSSModel.AccountGroup" Width="1.5" PointX="1.5" PointY="31.625" />
         <EntityTypeShape EntityType="DB_TOSSModel.Account" Width="1.5" PointX="8" PointY="5" />
-        <EntityTypeShape EntityType="DB_TOSSModel.AF_Description" Width="1.5" PointX="0.75" PointY="41.375" />
+        <EntityTypeShape EntityType="DB_TOSSModel.AF_Description" Width="1.5" PointX="1.5" PointY="41.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.AllotmentClass" Width="1.5" PointX="1.5" PointY="34.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.BankAccount_AccountType" Width="1.5" PointX="0.75" PointY="20.375" />
-        <EntityTypeShape EntityType="DB_TOSSModel.BankAccount_LedgerAccount" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DB_TOSSModel.BankAccount_LedgerAccount" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.BankAccountTable" Width="1.5" PointX="3" PointY="11.625" />
         <EntityTypeShape EntityType="DB_TOSSModel.BankTable" Width="1.5" PointX="0.75" PointY="9.125" />
         <EntityTypeShape EntityType="DB_TOSSModel.Barangay_BarangayBankAccount" Width="1.5" PointX="8.25" PointY="12.625" />
         <EntityTypeShape EntityType="DB_TOSSModel.Barangay_BarangayName" Width="1.5" PointX="6" PointY="8.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Barangay_CollectorName" Width="1.5" PointX="8.75" PointY="8.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.CheckInventoryTable" Width="1.5" PointX="5.25" PointY="17.25" />
-        <EntityTypeShape EntityType="DB_TOSSModel.CheckMaintenanceTable" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Barangay_CollectorName" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_TOSSModel.CheckInventoryTable" Width="1.5" PointX="5.25" PointY="17" />
+        <EntityTypeShape EntityType="DB_TOSSModel.CheckMaintenanceTable" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.CollectorTable" Width="1.5" PointX="6" PointY="28.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.DVTypeTable" Width="1.5" PointX="10.75" PointY="3.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.FeeCategory" Width="1.5" PointX="3" PointY="41.25" />
+        <EntityTypeShape EntityType="DB_TOSSModel.DVTypeTable" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DB_TOSSModel.FeeCategory" Width="1.5" PointX="3" PointY="19.25" />
         <EntityTypeShape EntityType="DB_TOSSModel.FieldFee" Width="1.5" PointX="5.25" PointY="21.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.Function" Width="1.5" PointX="11.25" PointY="11.75" />
         <EntityTypeShape EntityType="DB_TOSSModel.Fund" Width="1.5" PointX="0.75" PointY="12.5" />
         <EntityTypeShape EntityType="DB_TOSSModel.GeneralAccount" Width="1.5" PointX="0.75" PointY="15.875" />
-        <EntityTypeShape EntityType="DB_TOSSModel.IRA_Table" Width="1.5" PointX="10.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Level1Modules" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Level2Modules" Width="1.5" PointX="5.25" PointY="1.125" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Level3Modules" Width="1.5" PointX="7.5" PointY="1.25" />
+        <EntityTypeShape EntityType="DB_TOSSModel.IRA_Table" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Level1Modules" Width="1.5" PointX="8" PointY="1" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Level2Modules" Width="1.5" PointX="10.25" PointY="1.125" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Level3Modules" Width="1.5" PointX="12.5" PointY="1.25" />
         <EntityTypeShape EntityType="DB_TOSSModel.MajorAccountGroup" Width="1.5" PointX="1.5" PointY="28.625" />
-        <EntityTypeShape EntityType="DB_TOSSModel.OfficeType" Width="1.5" PointX="3.75" PointY="8.5" />
-        <EntityTypeShape EntityType="DB_TOSSModel.ParentModule" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="DB_TOSSModel.OfficeType" Width="1.5" PointX="3.75" PointY="4.625" />
+        <EntityTypeShape EntityType="DB_TOSSModel.ParentModule" Width="1.5" PointX="5.75" PointY="1.125" />
         <EntityTypeShape EntityType="DB_TOSSModel.Payee" Width="1.5" PointX="8.25" PointY="17" />
         <EntityTypeShape EntityType="DB_TOSSModel.PersonalInformation" Width="1.5" PointX="5.75" PointY="5" />
         <EntityTypeShape EntityType="DB_TOSSModel.RevisionYear" Width="1.5" PointX="1.5" PointY="37.75" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Section" Width="1.5" PointX="13.5" PointY="12.5" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Sector" Width="1.5" PointX="3.75" PointY="5.25" />
-        <EntityTypeShape EntityType="DB_TOSSModel.SignatoriesTable" Width="1.5" PointX="16.5" PointY="11.875" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Section" Width="1.5" PointX="16.5" PointY="12.5" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Sector" Width="1.5" PointX="3.75" PointY="26.375" />
+        <EntityTypeShape EntityType="DB_TOSSModel.SignatoriesTable" Width="1.5" PointX="13.5" PointY="11.875" />
         <EntityTypeShape EntityType="DB_TOSSModel.Signatory_DepartmentTable" Width="1.5" PointX="6" PointY="11.375" />
-        <EntityTypeShape EntityType="DB_TOSSModel.Signatory_PositionTable" Width="1.5" PointX="14.25" PointY="9.625" />
-        <EntityTypeShape EntityType="DB_TOSSModel.SubCollectorTable" Width="1.5" PointX="6" PointY="26.5" />
+        <EntityTypeShape EntityType="DB_TOSSModel.Signatory_PositionTable" Width="1.5" PointX="11.25" PointY="8.625" />
+        <EntityTypeShape EntityType="DB_TOSSModel.SubCollectorTable" Width="1.5" PointX="6" PointY="26.375" />
         <EntityTypeShape EntityType="DB_TOSSModel.SubFund" Width="1.5" PointX="3" PointY="22.125" />
         <EntityTypeShape EntityType="DB_TOSSModel.SubMajorAccountGroup" Width="1.5" PointX="1.5" PointY="25.625" />
-        <EntityTypeShape EntityType="DB_TOSSModel.SubSector" Width="1.5" PointX="3.75" PointY="26.25" />
+        <EntityTypeShape EntityType="DB_TOSSModel.SubSector" Width="1.5" PointX="3.75" PointY="7.5" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_Fund" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable" />
+        <AssociationConnector Association="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountableFormTable_AF_Description" />
         <AssociationConnector Association="DB_TOSSModel.FK_AccountGroup_AllotmentClass" />
         <AssociationConnector Association="DB_TOSSModel.FK_MajorAccountGroup_AccountGroup" />

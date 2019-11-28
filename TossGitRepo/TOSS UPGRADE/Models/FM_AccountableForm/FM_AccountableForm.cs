@@ -38,6 +38,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int AccountFormID { get; set; }
         public string AccountFormName { get; set; }
         public string QuantityValue { get; set; }
+        public int CashTicketValue { get; set; }
         public string Description { get; set; }
         public bool isCTC { get; set; }
     }

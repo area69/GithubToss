@@ -11,37 +11,49 @@
     @Html.HiddenFor(m => m.getAccountableFormcolumns.AccountFormID, new { })
     @Html.HiddenFor(m => m.DescriptionTempID, new { id = "DescriptionTempID" })
     <div class="row black">
-        <div class="col-md-2"></div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-5 form-group">
             <label><b>Accountable Form</b></label>
             @Html.TextBoxFor(m => m.getAccountableFormcolumns.AccountFormName, new { @class = "form-control", type = "text" })
         </div>
-        <div class="col-md-2 form-group">
-            <label><b>For CTC</b></label>
-            <select class="form-control" id="isForCTCDD" onchange="isForCTCOnChange()">
-                <option value="True">Yes</option>
-                <option value="False">No</option>
-            </select>
-            @Html.HiddenFor(m => m.isForCTCID, new { id = "isForCTCID" })
-        </div>
-        <div class="col-md-2 form-group">
-            <label><b>Quantity Value</b></label>
-            @Html.TextBoxFor(m => m.getAccountableFormcolumns.QuantityValue, new { @class = "form-control text-right", type = "text" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
         <div class="col-md-5 form-group" id="_DescriptionID">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2 form-group">
+            <label style="visibility:hidden">Description</label>
+            <button type="button" class="btn bg-addbutton black form-control" data-toggle="modal" data-target="#addDescriptionModal" onclick="AngularGlobalView('FMAccountableFormController','Get_AFDescriptionTable','')"><b>New Description</b></button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label><b>Cash Ticket Value</b></label>
+                    @*<input type="text" class="form-control text-right" id="isCashTicketValueID" disabled />*@
+                    @Html.TextBoxFor(m => m.getAccountableFormcolumns.CashTicketValue, new { @class = "form-control text-right", type = "text", id = "isCashTicketValueID", @disabled = "disabled" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label><b>For CTC</b></label>
+                    <select class="form-control" id="isForCTCDD" onchange="isForCTCOnChange()">
+                        <option value="True">Yes</option>
+                        <option value="False">No</option>
+                    </select>
+                    @Html.HiddenFor(m => m.isForCTCID, new { id = "isForCTCID" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label><b>Quantity Value</b></label>
+                    @Html.TextBoxFor(m => m.getAccountableFormcolumns.QuantityValue, new { @class = "form-control text-right", type = "text" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-md-6">
                     <label style="visibility:hidden">Description</label>
-                    <button type="submit" class="btn bg-addbutton black form-control"><b>Add</b></button>
+                    <button type="submit" class="btn bg-addbutton black form-control"><b>Update</b></button>
                 </div>
                 <div class="col-md-6">
-                    <label style="visibility:hidden">Description</label>
-                    <button type="reset" class="btn form-control white bg-headerbc" onclick="AngularGlobalEdit('FMAccountableFormController','Get_AddAccountableForm','')"><b>Cancel</b></button>
+                    <label style="visibility:hidden">Description</label>   
+                    <button type="reset" class="bottom-right form-control bg-headerbc white" onclick="AngularGlobalEdit('FMAccountableFormController','Get_AddAccountableForm','')"><b>Cancel</b></button>
                 </div>
             </div>
         </div>

@@ -4,10 +4,11 @@
 }
 @using TOSS_UPGRADE.Models;
 <label><b>Description</b></label>
-@Html.DropDownListFor(m => m.DescriptionID, Model.AccountableFormList, new { @class = "form-control select2", id = "DescriptionIDD" })
+@Html.DropDownListFor(m => m.DescriptionID, Model.AccountableFormList, new { @class = "form-control select2", id = "DescriptionIDD", onchange = "CashTicketValueIDOnchange()" })
 
 <script>
     $(function () {
         $("#DescriptionIDD").select2();
+        CashTicketValueIDOnchange()
     })
 </script>

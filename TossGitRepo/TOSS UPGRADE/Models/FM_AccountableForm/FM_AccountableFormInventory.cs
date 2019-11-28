@@ -36,6 +36,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int Quantity { get; set; }
         public int StartingOR { get; set; }
         public int EndingOR { get; set; }
+        public int CashTicketVal { get; set; }
         public string DateIssued { get; set; }
         public bool isIssued { get; set; }
     }

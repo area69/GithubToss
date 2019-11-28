@@ -52,7 +52,7 @@
 </style>
 <script>
     //Inventory of Accountable Form
-   
+ 
     //Assignment of Accountable Form
     $("#radioTCAssignAF").attr("checked", true);
     $("input[id='radioTCAssignAF']").click(function () {
@@ -90,6 +90,17 @@
         $("#DivCTCCollectorASF").hide();
         $("#DivPATAS").show();
     });
+
+
+    function CashTicketValueIDOnchange() {
+        var _CashTicketIDD = $("#DescriptionIDD option:selected").text();
+        if (_CashTicketIDD == "Cash Ticket" || _CashTicketIDD == "Parking Ticket") {
+            $('#isCashTicketValueID').removeAttr('disabled');
+        }
+        else {
+            $('#isCashTicketValueID').prop('disabled', true);
+        }
+    }
 </script>
 
 <script>
@@ -634,6 +645,7 @@
                 F.LoadDynamicAFCollectorCT();
                 F.LoadDynamicDDASFFundTypeCT();
                 F.LoadDynamicDDASFAFCT();
+
                 //F.Get_InvtAccountableFormTable();
                 //F.Get_AddAssignTreasurerCollector();
             });
@@ -650,6 +662,16 @@
                 url: '/FileMaintenanceAccountableForm/GetDynamicASFFundTypeCT',
             }).then(function (response) {
                 $("#_CTFundID").html(response.data);
+                F.LoadDynamicTypeofFee();
+            });
+        }
+        F.LoadDynamicTypeofFee = function () {
+            var SubFundID = $("#FundTypeIDDDCT").val();
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicTypeofFee',
+                params: { SubFundID: SubFundID}
+            }).then(function (response) {
+                $("#_CTTypeofFeeID").html(response.data);
             });
         }
         F.LoadDynamicDDASFAFCT = function () {
@@ -682,6 +704,5 @@
                 $("#_CTInventorAFIDD").html(response.data);
             });
         }
-
     });
 </script>

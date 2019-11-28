@@ -41,6 +41,7 @@
           <Property Name="AccountFormID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AccountFormName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AFDescriptionID" Type="int" Nullable="false" />
+          <Property Name="CashTicketValue" Type="int" />
           <Property Name="QuantityValue" Type="int" Nullable="false" />
           <Property Name="isCTC" Type="bit" Nullable="false" />
         </EntityType>
@@ -459,6 +460,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="SubCollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
+          <End Role="AccountableFormTable" Type="Self.AccountableFormTable" Multiplicity="1" />
+          <End Role="AccountableForm_Inventory" Type="Self.AccountableForm_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableFormTable">
+              <PropertyRef Name="AccountFormID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Inventory">
+              <PropertyRef Name="AccountFormID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1046,6 +1059,10 @@
             <End Role="SubCollectorTable" EntitySet="SubCollectorTable" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="Self.FK_AccountableForm_Inventory_AccountableFormTable">
+            <End Role="AccountableFormTable" EntitySet="AccountableFormTable" />
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableFormTable_AF_Description" Association="Self.FK_AccountableFormTable_AF_Description">
             <End Role="AF_Description" EntitySet="AF_Description" />
             <End Role="AccountableFormTable" EntitySet="AccountableFormTable" />
@@ -1318,6 +1335,10 @@
             <End Role="SubCollectorTable" EntitySet="SubCollectorTables" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Inventory_AccountableFormTable" Association="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable">
+            <End Role="AccountableFormTable" EntitySet="AccountableFormTables" />
+            <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableFormTable_AF_Description" Association="DB_TOSSModel.FK_AccountableFormTable_AF_Description">
             <End Role="AF_Description" EntitySet="AF_Description" />
             <End Role="AccountableFormTable" EntitySet="AccountableFormTables" />
@@ -1512,6 +1533,7 @@
           <Property Name="isIssued" Type="Boolean" Nullable="false" />
           <Property Name="AFTableID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Inventory" ToRole="AccountableForm_Assignment" />
+          <NavigationProperty Name="AccountableFormTable" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableForm_Inventory" ToRole="AccountableFormTable" />
         </EntityType>
         <EntityType Name="AccountableFormTable">
           <Key>
@@ -1520,8 +1542,10 @@
           <Property Name="AccountFormID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccountFormName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AFDescriptionID" Type="Int32" Nullable="false" />
+          <Property Name="CashTicketValue" Type="Int32" />
           <Property Name="QuantityValue" Type="Int32" Nullable="false" />
           <Property Name="isCTC" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Inventory_AccountableFormTable" FromRole="AccountableFormTable" ToRole="AccountableForm_Inventory" />
           <NavigationProperty Name="AF_Description" Relationship="DB_TOSSModel.FK_AccountableFormTable_AF_Description" FromRole="AccountableFormTable" ToRole="AF_Description" />
         </EntityType>
         <EntityType Name="AccountGroup">
@@ -2021,6 +2045,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="SubCollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Inventory_AccountableFormTable">
+          <End Type="DB_TOSSModel.AccountableFormTable" Role="AccountableFormTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.AccountableForm_Inventory" Role="AccountableForm_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountableFormTable">
+              <PropertyRef Name="AccountFormID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Inventory">
+              <PropertyRef Name="AccountFormID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2561,6 +2597,7 @@
               <MappingFragment StoreEntitySet="AccountableFormTable">
                 <ScalarProperty Name="isCTC" ColumnName="isCTC" />
                 <ScalarProperty Name="QuantityValue" ColumnName="QuantityValue" />
+                <ScalarProperty Name="CashTicketValue" ColumnName="CashTicketValue" />
                 <ScalarProperty Name="AFDescriptionID" ColumnName="AFDescriptionID" />
                 <ScalarProperty Name="AccountFormName" ColumnName="AccountFormName" />
                 <ScalarProperty Name="AccountFormID" ColumnName="AccountFormID" />

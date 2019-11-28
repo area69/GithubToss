@@ -9226,6 +9226,7 @@
     <Content Include="Views\FileMaintenanceFees\_DynamicFundType.cshtml" />
     <Content Include="Views\FileMaintenanceFees\_DynamicDDGeneralAccountCode.cshtml" />
     <Content Include="Views\FileMaintenanceFees\_UpdateFees.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDTypeofFee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

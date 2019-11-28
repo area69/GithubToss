@@ -45,9 +45,12 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
 
         public int AccountableFACollectorID { get; set; }
         public int AccountableFormAssignmentFundID { get; set; }
+        public int AccountableFormAssignmentTypeofFeeID { get; set; }
+        public int AccountableFormAssignmentCashTicketValueID { get; set; }
         public int AccountableFormAssignmentEndingORID { get; set; }
         public int AccountableFormAssignmentQuantityID { get; set; }
         public int AccountableFormAssignmentStubNoID { get; set; }
+        public int AccountableFormAssignmentTotalAmountID { get; set; }
         public int AFORID { get; set; }
 
     }

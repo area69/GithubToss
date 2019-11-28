@@ -10,6 +10,7 @@
                 <th>Accountable Form</th>
                 <th>Description</th>
                 <th>Quantity Value</th>
+                <th>Ticket Value</th>
                 <th>For CTC</th>
                 <th>Action</th>
             </tr>
@@ -28,6 +29,20 @@
                         <td>@Items.AccountFormName</td>
                         <td>@Items.Description</td>
                         <td>@Items.QuantityValue</td>
+                        <td class="text-right">
+                            @{
+                                var CashTicketValue = "";
+                                if (Items.CashTicketValue == 0)
+                                {
+                                    CashTicketValue = "N/A";
+                                }
+                                else
+                                {
+                                    CashTicketValue = Items.CashTicketValue.ToString("0.00");
+                                }
+                            }
+                            @CashTicketValue
+                        </td>
                         <td>
                             @{
                                 var isCTCValue = "";
