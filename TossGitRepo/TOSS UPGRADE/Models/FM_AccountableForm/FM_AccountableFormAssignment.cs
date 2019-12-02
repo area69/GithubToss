@@ -45,6 +45,7 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
 
         public int AccountableFACollectorID { get; set; }
         public int AccountableFormAssignmentFundID { get; set; }
+        public int AccountableFormAssignmentBarangayID { get; set; }
         public int AccountableFormAssignmentTypeofFeeID { get; set; }
         public int AccountableFormAssignmentCashTicketValueID { get; set; }
         public int AccountableFormAssignmentEndingORID { get; set; }
@@ -64,6 +65,9 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public int Quantity { get; set; }
         public int StratingOR { get; set; }
         public int EndingOR { get; set; }
+        public int TotalAmount { get; set; }
+        public string FieldFee { get; set; }
+        public string BarangayName { get; set; }
         public string DateIssued { get; set; }
         public string DateTransfered { get; set; }
         public bool isConsumed { get; set; }
@@ -84,5 +88,4 @@ namespace TOSS_UPGRADE.Models.FM_AccountableForm
         public string SubCollector { get; set; }
         public bool IsTransferred { get; set; }
     }
-
 }

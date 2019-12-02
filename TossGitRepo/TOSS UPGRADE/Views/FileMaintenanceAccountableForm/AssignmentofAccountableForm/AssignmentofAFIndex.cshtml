@@ -6,33 +6,21 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body box-shadow-2">
-                        <div align="center">
-                            <table style="padding: 5px 0 5px 0;" class="font-weight-normal">
-                                <tr>
-                                    <td>
-                                        <label><input type="radio" name="radio" id="radioTCAssignAF">Treasurer Collection</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioFCAssignAF">Field Collectors</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioCTAssignAF">Cash Tickets</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioBrgyCAssignAF">Barangay Collectors</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioCTCAssignAF">Community Tax Certificate Collectors</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioBPLSAssignAF">BPLS</label>
-                                    @*</td>
-                                    <td>*@
-                                        <label><input type="radio" name="radio" id="radioPATASAssignAF">PATAS</label>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div align="center">
+                        <table style="padding: 5px 0 5px 0;" class="font-weight-normal">
+                            <tr>
+                                <td>
+                                    <label><input type="radio" name="radio" id="radioTCAssignAF">Treasurer Collection</label>
+                                    <label><input type="radio" name="radio" id="radioFCAssignAF">Field Collectors</label>
+                                    <label><input type="radio" name="radio" id="radioCTAssignAF">Cash Tickets</label>
+                                    <label><input type="radio" name="radio" id="radioBrgyCAssignAF">Barangay Collectors</label>
+                                    <label><input type="radio" name="radio" id="radioCTCAssignAF">Community Tax Certificate Collectors</label>
+                                    <label><input type="radio" name="radio" id="radioBPLSAssignAF">BPLS</label>
+                                    <label><input type="radio" name="radio" id="radioPATASAssignAF">PATAS</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                     @* Treasurer's Collection Div  *@
                     <div id="DivTreasurerORASF">
@@ -103,27 +91,117 @@
                             <div class="card-body box-shadow-2 rounded menubackground">
                                 @* Cash Ticket Collection Partial View *@
                                 <div class="font-weight-bold" id="_CashTicketID">
-                      
+
                                 </div>
                             </div>
                             @* Cash Ticket Collection Partial View Table *@
-                            <div class="mt-1">
+                            <div class="mt-1" id="_CastTicketTableID">
+                            </div>
+                        </div>
+                    </div>
+                    @* Barangay Collectors *@
+                    <div id="DivBrgyCollectorASF">
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>Barangay Collector's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                @* Barangay Collectors Partial View *@
+                                <div class="font-weight-bold" id="_BrgyCollectorID">
+
+                                </div>
+                            </div>
+                            @* Barangay Collectors Partial View Table *@
+                            <div class="mt-1" id="_BrgyCollectorTableID">
+                            </div>
+                        </div>
+                    </div>
+                    @* CTC Collectors *@
+                    <div id="DivCTCCollectorASF">
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>Community Tax Certificate Collector's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                @* Community Tax Certificate Collectors Partial View *@
+                                <div class="font-weight-bold" @*id="_BrgyCollectorID"*@>
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <label>Collecting Officer</label>
+                                            <select class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Fund Type</label>
+                                            <select class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Accountable Form</label>
+                                            <select class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Type of Fee</label>
+                                            <select class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <label>Starting CTC No.</label>
+                                            <select class="form-control">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Stub No.</label>
+                                            <input type="text" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Ending CTC</label>
+                                            <input type="text" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label>Quantity</label>
+                                            <input type="text" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 form-group">
+                                            <label>Date Issued</label>
+                                            <input type="text" class="form-control pickadate" />
+                                        </div>
+                                        <div class="col-md-6 form-group"></div>
+                                        <div class="col-md-2 form-group">
+                                            <label style="visibility:hidden">Date</label>
+                                            <button class="btn black bg-addbutton form-control" type="submit"><b>Save</b></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @* Community Tax Certificate Collectors Partial View Table *@
+                            <div class="mt-1" @*id="_BrgyCollectorTableID"*@>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table class="table table-responsive table-striped zero-configuration table-bordered text-center scroll-horizontal table-smss-hover no-footer m-0 w-100">
+                                        <table class="table table-striped zero-configuration table-bordered text-center scroll-horizontal table-smss-hover no-footer m-0 w-100">
                                             <thead>
                                                 <tr>
                                                     <th>Collector</th>
-                                                    <th>CT Type</th>
+                                                    <th>OR Type</th>
                                                     <th>Stub No.</th>
-                                                    <th>Starting CT</th>
-                                                    <th>Ending CT</th>
+                                                    <th>Starting OR</th>
+                                                    <th>Ending OR</th>
                                                     <th>Quantity</th>
-                                                    <th>Consumed?</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                              
                                             </tbody>
                                         </table>
                                     </div>
@@ -131,19 +209,20 @@
                             </div>
                         </div>
                     </div>
-                    @* CTC Collectors *@
-                    <div id="DivCTCCollectorASF">
-                        <label>CTC Collector</label>
-                    </div>
                     @* PATAS *@
                     <div id="DivPATAS">
                         <label>PATAS</label>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
+<style>
+    #DivCashTickets, #DivCommunityTaxCertificate, #DivFieldCollectorASF, #DivCashTicketASF, #DivCTCCollectorASF, #DivPATAS, #DivBrgyCollectorASF {
+        display: none;
+    }
+</style>
 <script>
     //Assignment of Accountable Form
     $("#radioTCAssignAF").attr("checked", true);
@@ -151,6 +230,7 @@
         $("#DivTreasurerORASF").show();
         $("#DivFieldCollectorASF").hide();
         $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
         $("#DivPATAS").hide();
     });
@@ -158,6 +238,7 @@
         $("#DivTreasurerORASF").hide();
         $("#DivFieldCollectorASF").show();
         $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
         $("#DivPATAS").hide();
     });
@@ -165,6 +246,15 @@
         $("#DivTreasurerORASF").hide();
         $("#DivFieldCollectorASF").hide();
         $("#DivCashTicketASF").show();
+        $("#DivBrgyCollectorASF").hide();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioBrgyCAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").show();
         $("#DivCTCCollectorASF").hide();
         $("#DivPATAS").hide();
     });
@@ -172,6 +262,7 @@
         $("#DivTreasurerORASF").hide();
         $("#DivFieldCollectorASF").hide();
         $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").show();
         $("#DivPATAS").hide();
     });
@@ -179,6 +270,7 @@
         $("#DivTreasurerORASF").hide();
         $("#DivFieldCollectorASF").hide();
         $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
         $("#DivPATAS").show();
     });

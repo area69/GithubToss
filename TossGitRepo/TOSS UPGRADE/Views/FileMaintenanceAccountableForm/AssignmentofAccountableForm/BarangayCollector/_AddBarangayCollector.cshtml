@@ -1,26 +1,28 @@
 ﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
 @{
-    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+                /**/
+
+                DB_TOSSEntities SISDB = new DB_TOSSEntities();
 }
 @using TOSS_UPGRADE.Models;
-@using (Ajax.BeginForm("AddAccountableFormAssignCashTicket", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AFAssignmentCashTicketTable','Accountable Form Assignment Successfully Saved')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("AddAccountableFormAssignBrgyCollectors", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AFAssignmentBrgyCollectorTable','Accountable Form Assignment Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row">
-        <div class="col-md-3 form-group" id="_CTCollectorID">
-
+        <div class="col-md-3 form-group" id="_BarangayNameIDBC">
         </div>
-        <div class="col-md-3 form-group" id="_CTFundID">
+        <div class="col-md-3 form-group" id="_CollectorIDBC">
         </div>
-        <div class="col-md-3 form-group" id="_CTTypeofFeeID">
+        <div class="col-md-3 form-group" id="_FundTypeIDBC">
         </div>
-        <div class="col-md-3 form-group" id="_CTAFDDID">
+        <div class="col-md-3 form-group" id="_AccountFormIDBC">
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 form-group" id="_CTStartCTNoIDDD">
+        <div class="col-md-4" id="_TypeofFeeIDBC">
         </div>
-        <div class="col-md-9" id="_CTInventorAFIDD">
-
+        <div class="col-md-2" id="_StartORIDBC">
+        </div>
+        <div class="col-md-6" id="_AFBrgyInvIDBC">
         </div>
     </div>
     <div class="row">

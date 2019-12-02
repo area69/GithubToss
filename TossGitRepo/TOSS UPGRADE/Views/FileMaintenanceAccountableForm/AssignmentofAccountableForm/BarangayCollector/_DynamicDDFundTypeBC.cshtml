@@ -1,0 +1,12 @@
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label>Fund Type</label>
+@Html.DropDownListFor(m => m.AccountableFormAssignmentFundID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "FundTypeIDDDBC", onchange = "AngularGlobalFunctions('FMAccountableFormController','LoadDynamicTypeofFeeBC','')" })
+
+
+

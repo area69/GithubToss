@@ -17,12 +17,15 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Barangay_BarangayName()
         {
+            this.AccountableForm_Assignment = new HashSet<AccountableForm_Assignment>();
             this.Barangay_BarangayBankAccount = new HashSet<Barangay_BarangayBankAccount>();
         }
     
         public int BarangayID { get; set; }
         public string BarangayName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountableForm_Assignment> AccountableForm_Assignment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Barangay_BarangayBankAccount> Barangay_BarangayBankAccount { get; set; }
     }

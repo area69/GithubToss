@@ -14,6 +14,12 @@ namespace TOSS_UPGRADE.Models
     
     public partial class FieldFee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public FieldFee()
+        {
+            this.AccountableForm_Assignment = new HashSet<AccountableForm_Assignment>();
+        }
+    
         public int FieldFeeID { get; set; }
         public string FieldFeeDescription { get; set; }
         public Nullable<decimal> Rate { get; set; }
@@ -22,6 +28,8 @@ namespace TOSS_UPGRADE.Models
         public int FeeCategoryID { get; set; }
         public bool ORRequired { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccountableForm_Assignment> AccountableForm_Assignment { get; set; }
         public virtual FeeCategory FeeCategory { get; set; }
         public virtual GeneralAccount GeneralAccount { get; set; }
         public virtual SubFund SubFund { get; set; }

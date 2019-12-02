@@ -14,8 +14,11 @@
           <Property Name="SubFundID" Type="int" Nullable="false" />
           <Property Name="AFORID" Type="int" Nullable="false" />
           <Property Name="DateIssued" Type="date" Nullable="false" />
+          <Property Name="FieldFeeID" Type="int" />
+          <Property Name="TotalAmount" Type="int" />
           <Property Name="DateTransferred" Type="date" />
           <Property Name="SubCollectorID" Type="int" />
+          <Property Name="BarangayID" Type="int" />
           <Property Name="IsTransferred" Type="bit" />
           <Property Name="IsConsumed" Type="bit" />
           <Property Name="IsDefault" Type="bit" />
@@ -427,6 +430,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AccountableForm_Assignment_Barangay_BarangayName">
+          <End Role="Barangay_BarangayName" Type="Self.Barangay_BarangayName" Multiplicity="0..1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay_BarangayName">
+              <PropertyRef Name="BarangayID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="BarangayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AccountableForm_Assignment_CollectorTable">
           <End Role="CollectorTable" Type="Self.CollectorTable" Multiplicity="1" />
           <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
@@ -436,6 +451,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_FieldFee">
+          <End Role="FieldFee" Type="Self.FieldFee" Multiplicity="0..1" />
+          <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldFee">
+              <PropertyRef Name="FieldFeeID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="FieldFeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1047,8 +1074,16 @@
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_Barangay_BarangayName" Association="Self.FK_AccountableForm_Assignment_Barangay_BarangayName">
+            <End Role="Barangay_BarangayName" EntitySet="Barangay_BarangayName" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_CollectorTable" Association="Self.FK_AccountableForm_Assignment_CollectorTable">
             <End Role="CollectorTable" EntitySet="CollectorTable" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_FieldFee" Association="Self.FK_AccountableForm_Assignment_FieldFee">
+            <End Role="FieldFee" EntitySet="FieldFee" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_Fund" Association="Self.FK_AccountableForm_Assignment_Fund">
@@ -1323,8 +1358,16 @@
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_Barangay_BarangayName" Association="DB_TOSSModel.FK_AccountableForm_Assignment_Barangay_BarangayName">
+            <End Role="Barangay_BarangayName" EntitySet="Barangay_BarangayName" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_CollectorTable" Association="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable">
             <End Role="CollectorTable" EntitySet="CollectorTables" />
+            <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccountableForm_Assignment_FieldFee" Association="DB_TOSSModel.FK_AccountableForm_Assignment_FieldFee">
+            <End Role="FieldFee" EntitySet="FieldFees" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountableForm_Assignment_Fund" Association="DB_TOSSModel.FK_AccountableForm_Assignment_Fund">
@@ -1509,13 +1552,18 @@
           <Property Name="SubFundID" Type="Int32" Nullable="false" />
           <Property Name="AFORID" Type="Int32" Nullable="false" />
           <Property Name="DateIssued" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FieldFeeID" Type="Int32" />
+          <Property Name="TotalAmount" Type="Int32" />
           <Property Name="DateTransferred" Type="DateTime" Precision="0" />
           <Property Name="SubCollectorID" Type="Int32" />
+          <Property Name="BarangayID" Type="Int32" />
           <Property Name="IsTransferred" Type="Boolean" />
           <Property Name="IsConsumed" Type="Boolean" />
           <Property Name="IsDefault" Type="Boolean" />
           <NavigationProperty Name="AccountableForm_Inventory" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory" FromRole="AccountableForm_Assignment" ToRole="AccountableForm_Inventory" />
+          <NavigationProperty Name="Barangay_BarangayName" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_Barangay_BarangayName" FromRole="AccountableForm_Assignment" ToRole="Barangay_BarangayName" />
           <NavigationProperty Name="CollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_CollectorTable" FromRole="AccountableForm_Assignment" ToRole="CollectorTable" />
+          <NavigationProperty Name="FieldFee" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_FieldFee" FromRole="AccountableForm_Assignment" ToRole="FieldFee" />
           <NavigationProperty Name="SubFund" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_Fund" FromRole="AccountableForm_Assignment" ToRole="SubFund" />
           <NavigationProperty Name="SubCollectorTable" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_SubCollectorTable" FromRole="AccountableForm_Assignment" ToRole="SubCollectorTable" />
         </EntityType>
@@ -1652,6 +1700,7 @@
           </Key>
           <Property Name="BarangayID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BarangayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_Barangay_BarangayName" FromRole="Barangay_BarangayName" ToRole="AccountableForm_Assignment" />
           <NavigationProperty Name="Barangay_BarangayBankAccount" Relationship="DB_TOSSModel.FK_Barangay_BarangayBankAccount_Barangay_BarangayName" FromRole="Barangay_BarangayName" ToRole="Barangay_BarangayBankAccount" />
         </EntityType>
         <EntityType Name="Barangay_CollectorName">
@@ -1719,6 +1768,7 @@
           <Property Name="SubFundID" Type="Int32" Nullable="false" />
           <Property Name="FeeCategoryID" Type="Int32" Nullable="false" />
           <Property Name="ORRequired" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccountableForm_Assignment" Relationship="DB_TOSSModel.FK_AccountableForm_Assignment_FieldFee" FromRole="FieldFee" ToRole="AccountableForm_Assignment" />
           <NavigationProperty Name="FeeCategory" Relationship="DB_TOSSModel.FK_FieldFee_FieldFee" FromRole="FieldFee" ToRole="FeeCategory" />
           <NavigationProperty Name="GeneralAccount" Relationship="DB_TOSSModel.FK_FieldFee_GeneralAccount" FromRole="FieldFee" ToRole="GeneralAccount" />
           <NavigationProperty Name="SubFund" Relationship="DB_TOSSModel.FK_FieldFee_SubFund" FromRole="FieldFee" ToRole="SubFund" />
@@ -2012,6 +2062,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AccountableForm_Assignment_Barangay_BarangayName">
+          <End Type="DB_TOSSModel.Barangay_BarangayName" Role="Barangay_BarangayName" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barangay_BarangayName">
+              <PropertyRef Name="BarangayID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="BarangayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AccountableForm_Assignment_CollectorTable">
           <End Type="DB_TOSSModel.CollectorTable" Role="CollectorTable" Multiplicity="1" />
           <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
@@ -2021,6 +2083,18 @@
             </Principal>
             <Dependent Role="AccountableForm_Assignment">
               <PropertyRef Name="CollectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccountableForm_Assignment_FieldFee">
+          <End Type="DB_TOSSModel.FieldFee" Role="FieldFee" Multiplicity="0..1" />
+          <End Type="DB_TOSSModel.AccountableForm_Assignment" Role="AccountableForm_Assignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldFee">
+              <PropertyRef Name="FieldFeeID" />
+            </Principal>
+            <Dependent Role="AccountableForm_Assignment">
+              <PropertyRef Name="FieldFeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2567,8 +2641,11 @@
                 <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="IsConsumed" ColumnName="IsConsumed" />
                 <ScalarProperty Name="IsTransferred" ColumnName="IsTransferred" />
+                <ScalarProperty Name="BarangayID" ColumnName="BarangayID" />
                 <ScalarProperty Name="SubCollectorID" ColumnName="SubCollectorID" />
                 <ScalarProperty Name="DateTransferred" ColumnName="DateTransferred" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="FieldFeeID" ColumnName="FieldFeeID" />
                 <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
                 <ScalarProperty Name="AFORID" ColumnName="AFORID" />
                 <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />

@@ -9227,6 +9227,15 @@
     <Content Include="Views\FileMaintenanceFees\_DynamicDDGeneralAccountCode.cshtml" />
     <Content Include="Views\FileMaintenanceFees\_UpdateFees.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDTypeofFee.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_AddBarangayCollector.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_BarangayCollectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDBarangayName.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDCollectorOfficerBC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDFundTypeBC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDAFBC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDStartORNo.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDTypeofFeeBC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_AddBarangayCollectorInvAF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9241,6 +9250,7 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
+    <Folder Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
