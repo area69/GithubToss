@@ -1,0 +1,10 @@
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label>Starting OR</label>
+@Html.DropDownListFor(m => m.AccountableFormAssignmentID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "StartIDDDDCTC", onchange = "AngularGlobalFunctions('FMAccountableFormController','LoadDynamicDDASFInvtCTC','')" })
+
+

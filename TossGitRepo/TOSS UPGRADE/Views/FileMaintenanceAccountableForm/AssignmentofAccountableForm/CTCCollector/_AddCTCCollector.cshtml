@@ -1,0 +1,42 @@
+﻿@model TOSS_UPGRADE.Models.FM_AccountableForm.FM_AccountableFormAssignment
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+@using (Ajax.BeginForm("AddAccountableFormAssignCTCCollectors", "FileMaintenanceAccountableForm", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMAccountableFormController','Get_AFAssignmentCTCCollectorTable','Accountable Form Assignment Successfully Saved')", OnFailure = "OnFailure()", }))
+{
+    <div class="row">
+        <div class="col-md-3 form-group" id="_CollectorIDCTC">
+        </div>
+        <div class="col-md-3 form-group" id="_FundTypeIDCTC">
+        </div>
+        <div class="col-md-3 form-group" id="_AFIDCTC">
+        </div>
+        <div class="col-md-3 form-group" id="_TypeofFeeIDCTC">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 form-group" id="_StartORIDCTC">
+        </div>
+        <div class="col-md-9" id="_AFCTCInvIDCTC">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label>Date Issued</label>
+            @Html.TextBoxFor(m => m.getAccountableFormAssigncolumns.DateIssued, new { @class = "form-control pickadate", type = "text" })
+        </div>
+        <div class="col-md-6 form-group"></div>
+        <div class="col-md-2 form-group">
+            <label style="visibility:hidden">Date</label>
+            <button class="btn black bg-addbutton form-control" type="submit"><b>Save</b></button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+        LoadPickDatetime();
+    })
+</script>

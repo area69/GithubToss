@@ -124,88 +124,31 @@
                         <div class="card-content collapse show">
                             <div class="card-body box-shadow-2 rounded menubackground">
                                 @* Community Tax Certificate Collectors Partial View *@
-                                <div class="font-weight-bold" @*id="_BrgyCollectorID"*@>
-                                    <div class="row">
-                                        <div class="col-md-3 form-group">
-                                            <label>Collecting Officer</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Fund Type</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Accountable Form</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Type of Fee</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 form-group">
-                                            <label>Starting CTC No.</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Stub No.</label>
-                                            <input type="text" class="form-control" disabled />
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Ending CTC</label>
-                                            <input type="text" class="form-control" disabled />
-                                        </div>
-                                        <div class="col-md-3 form-group">
-                                            <label>Quantity</label>
-                                            <input type="text" class="form-control" disabled />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4 form-group">
-                                            <label>Date Issued</label>
-                                            <input type="text" class="form-control pickadate" />
-                                        </div>
-                                        <div class="col-md-6 form-group"></div>
-                                        <div class="col-md-2 form-group">
-                                            <label style="visibility:hidden">Date</label>
-                                            <button class="btn black bg-addbutton form-control" type="submit"><b>Save</b></button>
-                                        </div>
-                                    </div>
+                                <div class="font-weight-bold" id="_CTCCollectorID">
+
                                 </div>
                             </div>
                             @* Community Tax Certificate Collectors Partial View Table *@
-                            <div class="mt-1" @*id="_BrgyCollectorTableID"*@>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-striped zero-configuration table-bordered text-center scroll-horizontal table-smss-hover no-footer m-0 w-100">
-                                            <thead>
-                                                <tr>
-                                                    <th>Collector</th>
-                                                    <th>OR Type</th>
-                                                    <th>Stub No.</th>
-                                                    <th>Starting OR</th>
-                                                    <th>Ending OR</th>
-                                                    <th>Quantity</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                              
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div class="mt-1" id="_CTCCollectorTableID">
+
+                            </div>
+                        </div>
+                    </div>
+                    @* BPLS *@
+                    <div id="DivBPLS">
+                        <div class="card-header bg-carheadercolor mt-1">
+                            <h4 class="card-title black"><b>BPLS's OR Details</b></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-2 rounded menubackground">
+                                @* BPLS Partial View *@
+                                <div class="font-weight-bold" @*id="_CTCCollectorID"*@>
+
                                 </div>
+                            </div>
+                            @* BPLS Partial View Table *@
+                            <div class="mt-1" @*id="_CTCCollectorTableID"*@>
+
                             </div>
                         </div>
                     </div>
@@ -219,7 +162,7 @@
     </div>
 </div>
 <style>
-    #DivCashTickets, #DivCommunityTaxCertificate, #DivFieldCollectorASF, #DivCashTicketASF, #DivCTCCollectorASF, #DivPATAS, #DivBrgyCollectorASF {
+    #DivCashTickets, #DivCommunityTaxCertificate, #DivFieldCollectorASF, #DivCashTicketASF, #DivCTCCollectorASF, #DivPATAS, #DivBrgyCollectorASF, #DivBPLS {
         display: none;
     }
 </style>
@@ -232,6 +175,7 @@
         $("#DivCashTicketASF").hide();
         $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").hide();
         $("#DivPATAS").hide();
     });
     $("input[id='radioFCAssignAF']").click(function () {
@@ -240,6 +184,7 @@
         $("#DivCashTicketASF").hide();
         $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").hide();
         $("#DivPATAS").hide();
     });
     $("input[id='radioCTAssignAF']").click(function () {
@@ -248,6 +193,7 @@
         $("#DivCashTicketASF").show();
         $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").hide();
         $("#DivPATAS").hide();
     });
     $("input[id='radioBrgyCAssignAF']").click(function () {
@@ -256,6 +202,7 @@
         $("#DivCashTicketASF").hide();
         $("#DivBrgyCollectorASF").show();
         $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").hide();
         $("#DivPATAS").hide();
     });
     $("input[id='radioCTCAssignAF']").click(function () {
@@ -264,6 +211,16 @@
         $("#DivCashTicketASF").hide();
         $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").show();
+        $("#DivBPLS").hide();
+        $("#DivPATAS").hide();
+    });
+    $("input[id='radioBPLSAssignAF']").click(function () {
+        $("#DivTreasurerORASF").hide();
+        $("#DivFieldCollectorASF").hide();
+        $("#DivCashTicketASF").hide();
+        $("#DivBrgyCollectorASF").hide();
+        $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").show();
         $("#DivPATAS").hide();
     });
     $("input[id='radioPATASAssignAF']").click(function () {
@@ -272,6 +229,7 @@
         $("#DivCashTicketASF").hide();
         $("#DivBrgyCollectorASF").hide();
         $("#DivCTCCollectorASF").hide();
+        $("#DivBPLS").hide();
         $("#DivPATAS").show();
     });
 </script>

@@ -9236,6 +9236,14 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDStartORNo.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_DynamicDDTypeofFeeBC.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_AddBarangayCollectorInvAF.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_AddCTCCollector.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_CTCCollectorTable.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_DynamicDDCollectorOfficerCTC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_DynamicDDFundTypeCTC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_DynamicDDTypeofFeeCTC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_DynamicDDAFCTC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_DynamicDDStartORNoCTC.cshtml" />
+    <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_AddCTCCollectorInvtCTC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9250,7 +9258,7 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
-    <Folder Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\" />
+    <Folder Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BPLS\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

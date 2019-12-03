@@ -135,6 +135,7 @@
                 F.Get_AccountableFormAssignmentFCTable();
                 F.Get_AFAssignmentCashTicketTable();
                 F.Get_AFAssignmentBrgyCollectorTable();
+                F.Get_AFAssignmentCTCCollectorTable();
             });
         }
 
@@ -810,6 +811,88 @@
         }
 
         //Community Tax Certificate Collectors
+        F.Get_AFAssignmentCTCCollectorTable = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AFAssignmentCTCCollectorTable',
+            }).then(function (response) {
+                $("#_CTCCollectorTableID").html(response.data);
+            });
+            F.Get_AddAssignCTCCollector();
+        }
+        F.Get_AddAssignCTCCollector = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddAssignCTCCollector',
+            }).then(function (response) {
+                $("#_CTCCollectorID").html(response.data);
+                F.LoadDynamicAFCollectorCTC();
+                F.LoadDynamicDDASFFundTypeCTC();
+                F.LoadDynamicDDASFAFCTC();
+            });
+        }
+        F.LoadDynamicAFCollectorCTC = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFCollectorCTC',
+            }).then(function (response) {
+                $("#_CollectorIDCTC").html(response.data);
+            });
+        }
+        F.LoadDynamicDDASFFundTypeCTC = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicASFFundTypeCTC',
+            }).then(function (response) {
+                $("#_FundTypeIDCTC").html(response.data);
+                F.LoadDynamicTypeofFeeCTC();
+            });
+        }
+        F.LoadDynamicTypeofFeeCTC = function () {
+            var SubFundID = $("#FundTypeIDDDASFCTC").val();
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicTypeofFeeCTC',
+                params: { SubFundID: SubFundID }
+            }).then(function (response) {
+                $("#_TypeofFeeIDCTC").html(response.data);
+            });
+        }
+        F.LoadDynamicDDASFAFCTC = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFASFCTC',
+            }).then(function (response) {
+                $("#_AFIDCTC").html(response.data);
+                F.LoadDynamicASFStartORCTC();
+            });
+        }
+        F.LoadDynamicASFStartORCTC = function () {
+            var AccountFormID = $("#AFIDDDASFCTC").val();
+            P({
+                url: '/FileMaintenanceAccountableForm/GetDynamicAFStartORNoCTC',
+                params: { AccountFormID: AccountFormID }
+            }).then(function (response) {
+                $("#_StartORIDCTC").html(response.data);
+                F.LoadDynamicDDASFInvtCTC();
+            });
+        }
+        F.LoadDynamicDDASFInvtCTC = function () {
+            var AFORID = $("#StartIDDDDCTC option:selected").val();
+            if (AFORID == null || AFORID == "") {
+                AFORID = 0;
+            }
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddAssignAFCTC',
+                params: { AFORID: AFORID }
+            }).then(function (response) {
+                $("#_AFCTCInvIDCTC").html(response.data);
+            });
+        }
+        F.DeleteAccountableFormAssignCTCCollector = function (AssignAFID) {
+            P({
+                url: '/FileMaintenanceAccountableForm/DeleteAccountableFormAssignCTCCollectors',
+                params: { AssignAFID: AssignAFID }
+            }).then(function (response) {
+                F.Get_AFAssignmentCTCCollectorTable();
+            });
+        }
+
+        //BPLS
 
     });
 </script>
