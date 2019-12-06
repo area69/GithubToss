@@ -47,47 +47,6 @@
 </div>
 
 <script>
-    //Inventory of Accountable Form
- 
-    //Assignment of Accountable Form
-    $("#radioTCAssignAF").attr("checked", true);
-    $("input[id='radioTCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").show();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioFCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").show();
-        $("#DivCashTicketASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioCTAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").show();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioCTCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivCTCCollectorASF").show();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioPATASAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivPATAS").show();
-    });
-
-
     function CashTicketValueIDOnchange() {
         var _CashTicketIDD = $("#DescriptionIDD option:selected").text();
         if (_CashTicketIDD == "Cash Ticket" || _CashTicketIDD == "Parking Ticket") {
@@ -98,13 +57,16 @@
         }
     }
 </script>
-
+<style>
+    #DivCashTickets, #DivCommunityTaxCertificate, #DivFieldCollectorASF, #DivCashTicketASF, #DivCTCCollectorASF, #DivPATAS, #DivBrgyCollectorASF, #DivBPLS {
+        display: none;
+    }
+</style>
 <script>
     @* Angular Function *@
     app.controller('FMAccountableFormController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
-
-
+        
         F.AccountableFormTab = function () {
             F.tab1 = null;
             P({
@@ -136,6 +98,7 @@
                 F.Get_AFAssignmentCashTicketTable();
                 F.Get_AFAssignmentBrgyCollectorTable();
                 F.Get_AFAssignmentCTCCollectorTable();
+                F.Get_AFAssignmentBPLSTable();
             });
         }
 
@@ -893,6 +856,23 @@
         }
 
         //BPLS
-
+        F.Get_AFAssignmentBPLSTable = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AFAssignmentBPLSTable',
+            }).then(function (response) {
+                $("#_BPLSTableID").html(response.data);
+            });
+            F.Get_AddAssignBPLS();
+        }
+        F.Get_AddAssignBPLS = function () {
+            P({
+                url: '/FileMaintenanceAccountableForm/Get_AddAssignBPLS',
+            }).then(function (response) {
+                $("#_BPLSID").html(response.data);
+                //F.LoadDynamicAFCollectorCTC();
+                //F.LoadDynamicDDASFFundTypeCTC();
+                //F.LoadDynamicDDASFAFCTC();
+            });
+        }
     });
 </script>

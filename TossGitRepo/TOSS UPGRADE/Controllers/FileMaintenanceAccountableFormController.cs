@@ -675,7 +675,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
             List<AccountableFormAssignmentList> tbl_AccountableFormAss = new List<AccountableFormAssignmentList>();
 
-            var SQLQuery = "SELECT AccountableForm_Assignment.AssignAFID,CollectorTable.CollectorName,dbo.AccountableForm_Assignment.DateIssued,dbo.AccountableForm_Assignment.DateTransferred,AccountableForm_Inventory.StubNo,AccountableForm_Inventory.StartingOR,AccountableForm_Inventory.EndingOR,AccountableForm_Inventory.Quantity, AccountableFormTable.AccountFormName,SubFund.SubFundID, dbo.AccountableForm_Assignment.IsTransferred FROM DB_TOSS.dbo.AccountableForm_Assignment,dbo.AccountableForm_Inventory,dbo.CollectorTable,dbo.SubFund,AccountableFormTable where AccountableForm_Inventory.AFORID = AccountableForm_Assignment.AFORID AND dbo.CollectorTable.CollectorID = AccountableForm_Assignment.CollectorID AND dbo.SubFund.SubFundID = dbo.AccountableForm_Assignment.SubFundID AND dbo.AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID and AccountableForm_Assignment.IsTransferred IS NULL and AccountableForm_Assignment.IsConsumed IS NULL and AccountableForm_Assignment.IsDefault IS NULL and AccountableForm_Assignment.BarangayID IS NULL";
+            var SQLQuery = "SELECT AccountableForm_Assignment.AssignAFID,CollectorTable.CollectorName,dbo.AccountableForm_Assignment.DateIssued,dbo.AccountableForm_Assignment.DateTransferred,AccountableForm_Inventory.StubNo,AccountableForm_Inventory.StartingOR,AccountableForm_Inventory.EndingOR,AccountableForm_Inventory.Quantity, AccountableFormTable.AccountFormName,SubFund.SubFundID, dbo.AccountableForm_Assignment.IsTransferred FROM DB_TOSS.dbo.AccountableForm_Assignment,dbo.AccountableForm_Inventory,dbo.CollectorTable,dbo.SubFund,AccountableFormTable where AccountableForm_Inventory.AFORID = AccountableForm_Assignment.AFORID AND dbo.CollectorTable.CollectorID = AccountableForm_Assignment.CollectorID AND dbo.SubFund.SubFundID = dbo.AccountableForm_Assignment.SubFundID AND dbo.AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID and AccountableForm_Assignment.IsTransferred IS NULL and AccountableForm_Assignment.IsConsumed IS NULL and AccountableForm_Assignment.IsDefault IS NULL and AccountableForm_Assignment.BarangayID IS NULL AND AccountableFormTable.isCTC != 1";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -742,7 +742,7 @@ namespace TOSS_UPGRADE.Controllers
                 model.AccountableTCTRORStartingORID = tblAFIventory.AccountableForm_Inventory.StartingOR;
                 model.AccountableTCTROREndingORID = tblAFIventory.AccountableForm_Inventory.EndingOR;
                 model.AccountableTCTRORQuantityID = tblAFIventory.AccountableForm_Inventory.Quantity;
-                //model.AccountableTCTROROrDescID = "( " + tblAFIventory.SubFund.Fund.FundName + " - " + tblAFIventory.SubFund.SubFundName + " ) - " + tblAFIventory.AccountableForm_Inventory.AccountableFormTable.AccountFormName;
+                model.AccountableTCTROROrDescID = "( " + tblAFIventory.SubFund.Fund.FundName + " - " + tblAFIventory.SubFund.SubFundName + " ) - " + tblAFIventory.AccountableForm_Inventory.AccountableFormTable.AccountFormName;
             }
 
             return PartialView("AssignmentofAccountableForm/TreasurerCollector/TransferReturnOR/_AddTransferReturnPVOR", model);
@@ -1476,7 +1476,48 @@ namespace TOSS_UPGRADE.Controllers
         }
         #endregion
         #region BPLS
+        public ActionResult Get_AddAssignBPLS()
+        {
+            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
+            return PartialView("AssignmentofAccountableForm/BPLS/_AddBPLS", model);
+        }
+        public ActionResult Get_AFAssignmentBPLSTable()
+        {
+            FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
+            List<AccountableFormAssignmentList> tbl_AccountableFormAss = new List<AccountableFormAssignmentList>();
 
+            var SQLQuery = "SELECT AccountableForm_Assignment.AssignAFID,CollectorTable.CollectorName,dbo.AccountableForm_Assignment.DateIssued,AccountableForm_Inventory.StubNo,AccountableForm_Inventory.StartingOR,AccountableForm_Inventory.EndingOR,AccountableForm_Inventory.Quantity, AccountableFormTable.AccountFormName,SubFund.SubFundID,dbo.FieldFee.FieldFeeDescription FROM DB_TOSS.dbo.AccountableForm_Assignment,SubFund,FieldFee,AccountableForm_Inventory,CollectorTable,AccountableFormTable where SubFund.SubFundID = AccountableForm_Assignment.SubFundID AND FieldFee.FieldFeeID = AccountableForm_Assignment.FieldFeeID AND AccountableForm_Inventory.AFORID = AccountableForm_Assignment.AFORID AND AccountableForm_Assignment.IsTransferred IS NULL AND CollectorTable.CollectorID = AccountableForm_Assignment.CollectorID AND dbo.AccountableFormTable.AccountFormID = AccountableForm_Inventory.AccountFormID AND AccountableForm_Assignment.BarangayID IS NULL AND AccountableForm_Assignment.TotalAmount IS NULL";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_AccountableFormAssList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_AccountableFormAss.Add(new AccountableFormAssignmentList()
+                        {
+                            AssignAFID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            CollectorName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            DateIssued = GlobalFunction.ReturnEmptyString(dr[2]),
+                            StubNo = GlobalFunction.ReturnEmptyInt(dr[3]),
+                            StratingOR = GlobalFunction.ReturnEmptyInt(dr[4]),
+                            EndingOR = GlobalFunction.ReturnEmptyInt(dr[5]),
+                            Quantity = GlobalFunction.ReturnEmptyInt(dr[6]),
+                            AF = GlobalFunction.ReturnEmptyString(dr[7]),
+                            SubFundID = GlobalFunction.ReturnEmptyInt(dr[8]),
+                            FieldFee = GlobalFunction.ReturnEmptyString(dr[9]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getAccountableFormAssList = tbl_AccountableFormAss.ToList();
+            return PartialView("AssignmentofAccountableForm/BPLS/BPLSTable", model.getAccountableFormAssList);
+        }
         #endregion
     }
 }
