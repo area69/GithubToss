@@ -57,16 +57,12 @@
         }
     }
 </script>
-<style>
-    #DivCashTickets, #DivCommunityTaxCertificate, #DivFieldCollectorASF, #DivCashTicketASF, #DivCTCCollectorASF, #DivPATAS, #DivBrgyCollectorASF, #DivBPLS {
-        display: none;
-    }
-</style>
 <script>
+
     @* Angular Function *@
     app.controller('FMAccountableFormController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
-        
+
         F.AccountableFormTab = function () {
             F.tab1 = null;
             P({
@@ -154,7 +150,7 @@
                 F.Get_AccountableFormTable();
             });
         }
-        
+
         F.Get_AFDescriptionTable = function () {
             P({
                 url: '/FileMaintenanceAccountableForm/Get_AFDescriptionTable',
@@ -430,7 +426,7 @@
                 $("#_TransferReturnORTableID").html(response.data);
                 });
         }
-        F.Get_DataTransferReturnOR = function (AssignAFID) { 
+        F.Get_DataTransferReturnOR = function (AssignAFID) {
             P({
                 url: '/FileMaintenanceAccountableForm/Get_AddTransferReturnOR',
                 params: { AssignAFID: AssignAFID },
@@ -683,7 +679,6 @@
         }
 
         //Barangay Collector
-
         F.Get_AFAssignmentBrgyCollectorTable = function () {
             P({
                 url: '/FileMaintenanceAccountableForm/Get_AFAssignmentBarangayCollectorTable',

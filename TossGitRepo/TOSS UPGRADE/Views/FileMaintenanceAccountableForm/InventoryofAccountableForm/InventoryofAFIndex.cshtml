@@ -7,28 +7,15 @@
             <div class="card-content collapse show">
                 <div class="card-body box-shadow-2">
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <div class="row black">
-                                <div class="col-md-3 mt-1 form-group">
-                                    <fieldset class="radio">
-                                        <label><input type="radio" name="radio" id="radioOR"><b>Official Receipt</b></label>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-3 mt-1 form-group">
-                                    <fieldset class="radio">
-                                        <label><input type="radio" name="radio" id="radioTickets"><b>Cash Tickets</b></label>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-4 mt-1 form-group">
-                                    <fieldset class="radio">
-                                        <label><input type="radio" name="radio" id="radioCTC"><b>Community Tax Certificate</b></label>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-2 form-group">
-                                    <button class="btn bg-addbutton black"><b>View AF Details</b></button>
-                                </div>
-                            </div>
+                        <div class="col-md-4 form-group">
+                            <select class="form-control" id="invtAFID" onchange="ShowSpecificInventoryAF($('#invtAFID').val())">
+                                <option value="1">Official Receipt</option>
+                                <option value="2">Cash Tickets</option>
+                                <option value="3">Community Tax Certificate</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <button class="btn bg-addbutton black"><b>View AF Details</b></button>
                         </div>
                     </div>
                 </div>
@@ -87,26 +74,33 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 <script>
-    $("#radioOR").attr("checked", true);
-    $("input[id='radioOR']").click(function () {
-        $("#DivOfficalReceipt").show();
-        $("#DivCashTickets").hide();
-        $("#DivCommunityTaxCertificate").hide();
-    });
-    $("input[id='radioTickets']").click(function () {
-        $("#DivOfficalReceipt").hide();
-        $("#DivCashTickets").show();
-        $("#DivCommunityTaxCertificate").hide();
-    });
-    $("input[id='radioCTC']").click(function () {
-        $("#DivOfficalReceipt").hide();
-        $("#DivCashTickets").hide();
-        $("#DivCommunityTaxCertificate").show();
-    });
+    $(function () {
+        ShowSpecificInventoryAF();
+    })
+    function ShowSpecificInventoryAF() {
+        var ID = $("#invtAFID").val();
+        if (ID == 1) {
+            HideAAFCard();
+            $("#DivOfficalReceipt").removeClass("d-none");
+        }
+        else if (ID == 2) {
+            HideAAFCard();
+            $("#DivCashTickets").removeClass("d-none");
+        }
+        else {
+            HideAAFCard();
+            $("#DivCommunityTaxCertificate").removeClass("d-none");
+        }
+    }
+    function HideAAFCard() {
+        $("#DivOfficalReceipt").addClass("d-none");
+        $("#DivCashTickets").addClass("d-none");
+        $("#DivCommunityTaxCertificate").addClass("d-none");
+
+    }
+
 </script>

@@ -6,23 +6,20 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body box-shadow-2">
-                    <div align="center">
-                        <table style="padding: 5px 0 5px 0;" class="font-weight-normal">
-                            <tr>
-                                <td>
-                                    <label><input type="radio" name="radio" id="radioTCAssignAF">Treasurer Collection</label>
-                                    <label><input type="radio" name="radio" id="radioFCAssignAF">Field Collectors</label>
-                                    <label><input type="radio" name="radio" id="radioCTAssignAF">Cash Tickets</label>
-                                    <label><input type="radio" name="radio" id="radioBrgyCAssignAF">Barangay Collectors</label>
-                                    <label><input type="radio" name="radio" id="radioCTCAssignAF">Community Tax Certificate Collectors</label>
-                                    <label><input type="radio" name="radio" id="radioBPLSAssignAF">BPLS</label>
-                                    <label><input type="radio" name="radio" id="radioPATASAssignAF">PATAS</label>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-5 form-group">
+                            <select class="form-control" id="AssignAFID" onchange="ShowSpecificAssign($('#AssignAFID').val())">
+                                <option value="1">Treasurer Collection</option>
+                                <option value="2">Field Collectors</option>
+                                <option value="3">Cash Tickets</option>
+                                <option value="4">Barangay Collectors</option>
+                                <option value="5">Community Tax Certificate Collectors</option>
+                                <option value="6">BPLS</option>
+                                <option value="7">PATAS</option>
+                            </select>
+                        </div>
                     </div>
-
-                    @* Treasurer's Collection Div  *@
+                    @* Treasurer's Collection Div *@
                     <div id="DivTreasurerORASF">
                         <div class="card-header bg-carheadercolor mt-1">
                             <h4 class="card-title black"><b>Treasurer's OR Details</b></h4>
@@ -147,7 +144,7 @@
                             </div>
                             @* BPLS Partial View Table *@
                             <div class="mt-1" id="_BPLSTableID">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -233,71 +230,49 @@
         </div>
     </div>
 </div>
-
 <script>
-    //Assignment of Accountable Form
-    $("#radioTCAssignAF").attr("checked", true);
-    $("input[id='radioTCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").show();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioFCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").show();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioCTAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").show();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioBrgyCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").show();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioCTCAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").show();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioBPLSAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").show();
-        $("#DivPATAS").hide();
-    });
-    $("input[id='radioPATASAssignAF']").click(function () {
-        $("#DivTreasurerORASF").hide();
-        $("#DivFieldCollectorASF").hide();
-        $("#DivCashTicketASF").hide();
-        $("#DivBrgyCollectorASF").hide();
-        $("#DivCTCCollectorASF").hide();
-        $("#DivBPLS").hide();
-        $("#DivPATAS").show();
-    });
+    $(function () {
+        ShowSpecificAssign();
+    })
+    function ShowSpecificAssign() {
+        var ID = $("#AssignAFID").val();
+        if (ID == 1) {
+            HideAAFCard();
+            $("#DivTreasurerORASF").removeClass("d-none");
+        }
+        else if (ID == 2) {
+            HideAAFCard();
+            $("#DivFieldCollectorASF").removeClass("d-none");
+        }
+        else if (ID == 3) {
+            HideAAFCard();
+            $("#DivCashTicketASF").removeClass("d-none");
+        }
+        else if (ID == 4) {
+            HideAAFCard();
+            $("#DivBrgyCollectorASF").removeClass("d-none");
+        }
+        else if (ID == 5) {
+            HideAAFCard();
+            $("#DivCTCCollectorASF").removeClass("d-none");
+        }
+        else if (ID == 6) {
+            HideAAFCard();
+            $("#DivBPLS").removeClass("d-none");
+        }
+        else {
+            HideAAFCard();
+
+            $("#DivPATAS").removeClass("d-none");
+        }
+    }
+    function HideAAFCard() {
+        $("#DivTreasurerORASF").addClass("d-none");
+        $("#DivFieldCollectorASF").addClass("d-none");
+        $("#DivCashTicketASF").addClass("d-none");
+        $("#DivBrgyCollectorASF").addClass("d-none");
+        $("#DivCTCCollectorASF").addClass("d-none");
+        $("#DivBPLS").addClass("d-none");
+        $("#DivPATAS").addClass("d-none");
+    }
 </script>
