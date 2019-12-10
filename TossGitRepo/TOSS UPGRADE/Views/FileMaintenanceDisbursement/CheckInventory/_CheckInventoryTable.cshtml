@@ -8,7 +8,7 @@
         <thead class="text-center">
             <tr>
                 <th>Bank Name</th>
-                <th>Bank Account No.</th>
+                <th>Account No.</th>
                 <th>Quantity</th>
                 <th>Starting Check No.</th>
                 <th>Ending Check No.</th>
@@ -26,29 +26,40 @@
                     var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMDisbursementController','Get_UpdateCheckInventory','" + @Items.CheckInvntID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
                     var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.CheckInvntID + ",&quot;Get_DeleteCheckInventory&quot;,&quot;FMDisbursementController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                     var ActionContentProgram = ViewEdit + ViewDelete;
-            <tr>
-                <td>@Items.Bank</td>
-                <td>@Items.AccountName</td>
-                <td>@Items.Quantity</td>
-                <td>@Items.StartingChckNo</td>
-                <td>@Items.EndingChckNo</td>
-                <td>
-                    @{
-                        DateTime DateofHearing = Convert.ToDateTime(@Items.Date);
-                    }
-                    @DateofHearing.ToString("MMMM dd, yyyy")
-                </td>
-                @*<td>
-                    <button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMDisbursementController','Get_UpdateCheckInventory','@Items.CheckInvntID')"><i class="ft-edit"></i></button>
-                    <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.CheckInvntID ,&quot;Get_DeleteCheckInventory&quot;,&quot;FMDisbursementController&quot;)')"><i class="ft-delete"></i></button>
-                </td>*@
-                <td>
-                    <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
-                            data-original-title="" data-html="true" data-placement="right">
-                        <i class="la la-bars"></i>
-                    </button>
-                </td>
-            </tr>
+                    <tr>
+                        <td>
+                            @{
+                                var BankID = Items.Bank;
+                                var BankName = (from e in SISDB.BankTables where e.BankID == BankID select e).FirstOrDefault();
+                                var TDValueBank = "";
+                                if (BankName == null)
+                                {
+                                    TDValueBank = "N/A";
+                                }
+                                else
+                                {
+                                    TDValueBank = BankName.BankName;
+                                }
+                            }
+                            @TDValueBank
+                        </td>
+                        <td>@Items.AccountName</td>
+                        <td>@Items.Quantity</td>
+                        <td>@Items.StartingChckNo</td>
+                        <td>@Items.EndingChckNo</td>
+                        <td>
+                            @{
+                                DateTime DateofHearing = Convert.ToDateTime(@Items.Date);
+                            }
+                            @DateofHearing.ToString("MMMM dd, yyyy")
+                        </td>
+                        <td>
+                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                    data-original-title="" data-html="true" data-placement="right">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
                 }
             }
         </tbody>

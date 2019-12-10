@@ -1,0 +1,10 @@
+﻿@model TOSS_UPGRADE.Models.FM_Disbursement.FM_Disbursement_CheckInventory
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+<label>Bank Name</label>
+@Html.DropDownListFor(m => m.CheckInventoryBankID, Model.CheckInventoryAccountNameList, new { @class = "form-control select2", id = "BankIDDDCheckInventor", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadDynamicDDAccountName','')" })
+
+

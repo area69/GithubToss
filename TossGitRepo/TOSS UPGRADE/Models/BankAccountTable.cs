@@ -25,7 +25,7 @@ namespace TOSS_UPGRADE.Models
         public int BankID { get; set; }
         public string AccountName { get; set; }
         public string AccountNo { get; set; }
-        public int FundID { get; set; }
+        public int SubFundID { get; set; }
         public int GeneralAccountID { get; set; }
         public int AccountTypeID { get; set; }
     
@@ -33,8 +33,8 @@ namespace TOSS_UPGRADE.Models
         public virtual BankAccountTable BankAccountTable1 { get; set; }
         public virtual BankAccountTable BankAccountTable2 { get; set; }
         public virtual BankTable BankTable { get; set; }
-        public virtual Fund Fund { get; set; }
         public virtual GeneralAccount GeneralAccount { get; set; }
+        public virtual SubFund SubFund { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Barangay_BarangayBankAccount> Barangay_BarangayBankAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

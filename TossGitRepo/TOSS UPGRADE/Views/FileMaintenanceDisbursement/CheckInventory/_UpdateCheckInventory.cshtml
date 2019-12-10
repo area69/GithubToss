@@ -11,15 +11,13 @@
 {
     @Html.HiddenFor(m => m.getCheckInventorycolumns.CheckInvntID, new { })
     @Html.HiddenFor(m => m.CheckInventoryAccountNameTempID, new { id = "CheckInventoryAccountNameIDTempID" })
+    @Html.HiddenFor(m => m.CheckInventoryBankTempID, new { id = "CheckInventoryBankTempID" })
     <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Bank Name</label>
-            @Html.DropDownListFor(m => m.getCheckInventorycolumns.BankID, Model.CheckInventoryBankList, new { @class = "form-control select2", id = "BankIDDD", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadSelectDynamicDDAccountName','')" })
+        <div class="col-md-5 form-group" id="_DynamicDDBankID">
         </div>
         <div class="col-md-5 form-group" id="_DynamicDDAccountNameID">
-
         </div>
-        <div class="col-md-3 form-group">
+        <div class="col-md-2 form-group">
             <label>Quantity</label>
             @Html.TextBoxFor(m => m.getCheckInventorycolumns.Quantity, new { @class = "form-control", type = "text", id = "txtChkInvQty" })
         </div>
@@ -35,7 +33,7 @@
         </div>
         <div class="col-md-4 form-group">
             <label>Date</label>
-            @Html.TextBoxFor(m => m.getCheckInventorycolumns.Date, new { @class = "form-control pickadate", type = "text" })
+            @Html.TextBoxFor(m => m.getCheckInventorycolumns.DateIssued, new { @class = "form-control pickadate", type = "text" })
         </div>
     </div>
     <div class="row">

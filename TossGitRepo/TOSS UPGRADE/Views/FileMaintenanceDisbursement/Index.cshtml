@@ -9,209 +9,101 @@
         <h3 class="content-header black"><b>File Maintenance - Disbursement</b></h3>
     </div>
 </div>
-    <div class="card-content" id="FMDisbursementController" ng-controller="FMDisbursementController" ng-init="InitAllFunction();">
-       <div class="card">
-                <ul class="nav nav-tabs bg-headerbc nav-underline">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true"><b>Check Inventory</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Check Maintenance</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>DV Type</b></a>
-                    </li>
-                </ul>
-                <div class="tab-content px-1 pt-1">
-                    @* Check Inventory *@
-                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card-block">
-                                        <div class="card-header bg-carheadercolor">
-                                            <h4 class="card-title black"><b>Check Inventory</b></h4>
+<div class="card-content" id="FMDisbursementController" ng-controller="FMDisbursementController" ng-init="CheckInventoryTab();">
+    <div class="card">
+        <ul class="nav nav-tabs bg-headerbc nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" ng-click="CheckInventoryTab()"  aria-expanded="true"><b>Check Inventory</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false"><b>Check Maintenance</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " id="base-tab3" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false"><b>DV Type</b></a>
+            </li>
+        </ul>
+        <div class="tab-content px-1 pt-1">
+            @* Check Inventory *@
+            <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" ng-bind-html="tab1" aria-labelledby="base-tab1">
+            </div>
+            @* Check Maintenance *@
+            <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
+                <div class="content-body" id="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-block">
+                                <div class="card-header bg-carheadercolor">
+                                    <h4 class="card-title black"><b>Bank Account</b></h4>
+                                </div>
+                                <div class="card-body box-shadow-2" @*id="_checkMaintenanceID"*@>
+                                    <div class="row black" @*id="_CheckInventoryID"*@>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-4 form-group">
+                                            <label><b>Bank Name</b></label>
+                                            <select class="form-control">
+                                                <option>Land Bank of the Philippines</option>
+                                            </select>
                                         </div>
-                                        <div class="card-body box-shadow-2">
-                                            <div class="row black" @*id="_CheckInventoryID"*@>
-                                                <div class="col-md-1"></div>
+                                        <div class="col-md-3 form-group">
+                                            <label><b>Account Name/ Number</b></label>
+                                            <select class="form-control">
+                                                <option>0442-1046-11 - (GF - Proper)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label><b>Starting Check No.</b></label>
+                                            <select class="form-control">
+                                                <option>18092019</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row black" @*id="_CheckInventoryID"*@>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-10">
+                                            <div class="row">
                                                 <div class="col-md-4 form-group">
-                                                    <label><b>Bank Name</b></label>
-                                                    <select class="form-control">
-                                                        <option>Land Bank of the Philippines</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3 form-group">
-                                                    <label><b>Account Name/ Number</b></label>
-                                                    <select class="form-control">
-                                                        <option>0442-1046-11 - (GF - Proper)</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3 form-group">
+
                                                     <label><b>Quantity</b></label>
-                                                    <input type="text" class="form-control" value="" />
-                                                </div>
-                                            </div>
-                                            <div class="row black" @*id="_CheckInventoryID"*@>
-                                                <div class="col-md-1"></div>
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-md-4 form-group">
-                                                            <label><b>Starting Check No.</b></label>
-                                                            <input type="text" class="form-control" value="" />
-                                                        </div>
-                                                        <div class="col-md-4 form-group">
-                                                            <label><b>Ending Check No.</b></label>
-                                                            <input type="text" class="form-control" value="" />
-                                                        </div>
-                                                        <div class="col-md-4 form-group">
-                                                            <label><b>Date</b></label>
-                                                            <input name="name" value="" class="form-control pickadate " />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-1">
-                                                <div class="col-md-12">
-                                                    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Bank Name</th>
-                                                                <th>Bank Account No.</th>
-                                                                <th>Quantity</th>
-                                                                <th>Starting Check No.</th>
-                                                                <th>Ending Check No.</th>
-                                                                <th>Date</th>
-                                                                <th width="5px;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Land Bank of the Philippines</td>
-                                                                <td>0441-1941-10</td>
-                                                                <td>2</td>
-                                                                <td>101235</td>
-                                                                <td>101236</td>
-                                                                <td>9/18/2019</td>
-                                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <input type="text" class="form-control" value="" disabled />
 
                                                 </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @* Check Maintenance *@
-                    <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true" aria-labelledby="base-tab2">
-                        <div class="content-body" id="">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card-block">
-                                        <div class="card-header bg-carheadercolor">
-                                            <h4 class="card-title black"><b>Bank Account</b></h4>
-                                        </div>
-                                        <div class="card-body box-shadow-2" @*id="_checkMaintenanceID"*@>
-                                            <div class="row black" @*id="_CheckInventoryID"*@>
-                                                <div class="col-md-1"></div>
                                                 <div class="col-md-4 form-group">
-                                                    <label><b>Bank Name</b></label>
-                                                    <select class="form-control">
-                                                        <option>Land Bank of the Philippines</option>
-                                                    </select>
+                                                    <label><b>Ending Check No.</b></label>
+                                                    <input type="text" class="form-control" value="" disabled />
                                                 </div>
-                                                <div class="col-md-3 form-group">
-                                                    <label><b>Account Name/ Number</b></label>
-                                                    <select class="form-control">
-                                                        <option>0442-1046-11 - (GF - Proper)</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3 form-group">
-                                                    <label><b>Starting Check No.</b></label>     
-                                                    <select class="form-control">
-                                                        <option>18092019</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row black" @*id="_CheckInventoryID"*@>
-                                                <div class="col-md-1"></div>
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-md-4 form-group">
-
-                                                            <label><b>Quantity</b></label>
-                                                            <input type="text" class="form-control" value="" disabled/>
-                                                
-                                                        </div>
-                                                        <div class="col-md-4 form-group">
-                                                            <label><b>Ending Check No.</b></label>
-                                                            <input type="text" class="form-control" value="" disabled/>
-                                                        </div>
-                                                        <div class="col-md-4 form-group">
-                                                            <label><b>Date</b></label>
-                                                            <input name="name" value="" class="form-control pickadate " />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-1">
-                                                <div class="col-md-12">
-                                                    <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Bank Name</th>
-                                                                <th>Bank Account No.</th>
-                                                                <th>Quantity</th>
-                                                                <th>Starting Check No.</th>
-                                                                <th>Ending Check No.</th>
-                                                                <th>Date</th>
-                                                                <th width="5px;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Land Bank of the Philippines</td>
-                                                                <td>0441-1941-10</td>
-                                                                <td>2</td>
-                                                                <td>101235</td>
-                                                                <td>101236</td>
-                                                                <td>9/18/2019</td>
-                                                                <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
+                                                <div class="col-md-4 form-group">
+                                                    <label><b>Date</b></label>
+                                                    <input name="name" value="" class="form-control pickadate " />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @* DV Type *@
-                    <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
-                        <div class="content-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card-block">
-                                        <div class="card-header bg-carheadercolor">
-                                            <h4 class="card-title black"><b>DV Type</b></h4>
-                                        </div>
-                                        <div class="card-body box-shadow-2" id="DVTypeID">
-
-                                        </div>
-                                    </div>
-                                    <div class="card-block mt-1">
-                                        <div class="card-header bg-carheadercolor">
-                                            <h4 class="card-title black"><b>List of DV Types</b></h4>
-                                        </div>
-                                        <div class="card-body box-shadow-2" id="DVTypeTableID">
+                                    <div class="row mt-1">
+                                        <div class="col-md-12">
+                                            <table class="table table-striped zero-configuration table-bordered text-center table-smss-hover no-footer m-0 w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Bank Name</th>
+                                                        <th>Bank Account No.</th>
+                                                        <th>Quantity</th>
+                                                        <th>Starting Check No.</th>
+                                                        <th>Ending Check No.</th>
+                                                        <th>Date</th>
+                                                        <th width="5px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Land Bank of the Philippines</td>
+                                                        <td>0441-1941-10</td>
+                                                        <td>2</td>
+                                                        <td>101235</td>
+                                                        <td>101236</td>
+                                                        <td>9/18/2019</td>
+                                                        <td><button type="button" class="btn btn-sm btn-icon center bg-headerbc" onfocusout="ClosePopOver1()" data-toggle="popoverSignatories" data-placement="left" data-conztainer="body" data-original-title=""> <i class="la la-reorder"></i></button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
                                         </div>
                                     </div>
@@ -221,74 +113,120 @@
                     </div>
                 </div>
             </div>
+            @* DV Type *@
+            <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true" aria-labelledby="base-tab3">
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-block">
+                                <div class="card-header bg-carheadercolor">
+                                    <h4 class="card-title black"><b>DV Type</b></h4>
+                                </div>
+                                <div class="card-body box-shadow-2" id="DVTypeID">
+
+                                </div>
+                            </div>
+                            <div class="card-block mt-1">
+                                <div class="card-header bg-carheadercolor">
+                                    <h4 class="card-title black"><b>List of DV Types</b></h4>
+                                </div>
+                                <div class="card-body box-shadow-2" id="DVTypeTableID">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
+</div>
+<script>
 
     @*Angular Function*@
     app.controller('FMDisbursementController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
-        F.InitAllFunction = function () {
-            //DV Type Table
-            F.Get_DVTypeTable();
-            //F.Get_CheckInventoryTable();
-            //F.Get_CheckMaintenanceTable();
+        F.CheckInventoryTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceDisbursement/CheckInventoryTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+                F.Get_CheckInventoryTable();
+            });
         }
-        ////Check Inventory
-        //F.LoadDynamicDDAccountName = function () {
-        //    var BankAccountID = $("#BankIDDD").val()
-          
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/GetDynamicAccountName',
-        //        params: { BankAccountID: BankAccountID }
-        //    }).then(function (response) {
-        //        $("#_DynamicDDAccountNameID").html(response.data);
-        //    });
-        //}
-        //F.LoadSelectDynamicDDAccountName = function () {
-        //    var CheckInventoryAccountNameIDTempID = $("#CheckInventoryAccountNameIDTempID").val();
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/GetSelectedDynamicAccountName',
-        //        params: { CheckInventoryAccountNameIDTempID: CheckInventoryAccountNameIDTempID }
-        //    }).then(function (response) {
-        //        $("#_DynamicDDAccountNameID").html(response.data);
-        //    });
-        //}
-        //F.Get_CheckInventoryTable = function () {
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/Get_CheckInventoryTable',
-        //    }).then(function (response) {
-        //        $("#_CheckInventoryTableID").html(response.data);
-        //    });
-        //    F.Get_AddCheckInventory();
-        //}
-        //F.Get_AddCheckInventory = function () {
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/Get_AddCheckInventory',
-        //    }).then(function (response) {
-        //        $("#_CheckInventoryID").html(response.data);
-        //        F.LoadDynamicDDAccountName();
-        //        F.LoadDynamicCheckMaintenanceInventory();
-        //        });
-          
-        //}
-        //F.Get_UpdateCheckInventory = function (CheckInvntID) {
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/Get_UpdateCheckInventory',
-        //        params: { CheckInvntID: CheckInvntID }
-        //    }).then(function (response) {
-        //        $("#_CheckInventoryID").html(response.data);
-        //        F.LoadSelectDynamicDDAccountName();
-        //    });
-        //}
-        //F.Get_DeleteCheckInventory = function (CheckInvntID) {
-        //    P({
-        //        url: '/FileMaintenanceDisbursement/DeleteCheckInventory',
-        //        params: { CheckInvntID: CheckInvntID }
-        //    }).then(function (response) {
-        //        F.Get_CheckInventoryTable();
-        //    });
-        //}
+        //Check Inventory
+        F.LoadDynamicDDBankName = function () {
+            P({
+                url: '/FileMaintenanceDisbursement/GetDynamicBankName',
+            }).then(function (response) {
+                $("#_DynamicDDBankID").html(response.data);
+                F.LoadDynamicDDAccountName();
+            });
+        }
+        F.LoadDynamicDDAccountName = function () {
+            var BankID = $("#BankIDDDCheckInventor").val()
+            P({
+                url: '/FileMaintenanceDisbursement/GetDynamicAccountName',
+                params: { BankID: BankID }
+            }).then(function (response) {
+                $("#_DynamicDDAccountNameID").html(response.data);
+            });
+        }
+        F.LoadSelectDynamicDDBankName = function () {
+            var CheckInventoryBankTempID = $("#CheckInventoryBankTempID").val();
+            P({
+                url: '/FileMaintenanceDisbursement/GetSelectedDynamicBankName',
+                params: {  CheckInventoryBankTempID: CheckInventoryBankTempID }
+            }).then(function (response) {
+                $("#_DynamicDDBankID").html(response.data);
+                F.LoadSelectDynamicDDAccountName();
+            });
+        }
+        F.LoadSelectDynamicDDAccountName = function () {
+            var CheckInventoryAccountNameIDTempID = $("#CheckInventoryAccountNameIDTempID").val();
+            var BankID = $("#BankIDDDCheckInventor").val();
+            P({
+                url: '/FileMaintenanceDisbursement/GetSelectedDynamicAccountName',
+                params: { BankID: BankID,CheckInventoryAccountNameIDTempID: CheckInventoryAccountNameIDTempID }
+            }).then(function (response) {
+                $("#_DynamicDDAccountNameID").html(response.data);
+            });
+        }
+        F.Get_CheckInventoryTable = function () {
+            P({
+                url: '/FileMaintenanceDisbursement/Get_CheckInventoryTable',
+            }).then(function (response) {
+                $("#_CheckInventoryTableID").html(response.data);
+            });
+            F.Get_AddCheckInventory();
+        }
+        F.Get_AddCheckInventory = function () {
+            P({
+                url: '/FileMaintenanceDisbursement/Get_AddCheckInventory',
+            }).then(function (response) {
+                $("#_CheckInventoryID").html(response.data);
+                F.LoadDynamicDDBankName();
+            });
+        }
+        F.Get_UpdateCheckInventory = function (CheckInvntID) {
+            P({
+                url: '/FileMaintenanceDisbursement/Get_UpdateCheckInventory',
+                params: { CheckInvntID: CheckInvntID }
+            }).then(function (response) {
+                $("#_CheckInventoryID").html(response.data);
+                F.LoadSelectDynamicDDBankName();
+            });
+        }
+        F.Get_DeleteCheckInventory = function (CheckInvntID) {
+            P({
+                url: '/FileMaintenanceDisbursement/DeleteCheckInventory',
+                params: { CheckInvntID: CheckInvntID }
+            }).then(function (response) {
+                F.Get_CheckInventoryTable();
+            });
+        }
 
         ////Check Maintenance
         //F.Get_CheckMaintenanceTable = function () {
@@ -304,7 +242,7 @@
         //        url: '/FileMaintenanceDisbursement/Get_AddCheckMaitenance',
         //    }).then(function (response) {
         //        $("#_checkMaintenanceID").html(response.data);
-        //        F.LoadDynamicDDAccountName2(); 
+        //        F.LoadDynamicDDAccountName2();
         //        F.Get_CheckInventoryTable();
         //    });
         //}
@@ -415,4 +353,4 @@
             });
         }
         });
-    </script>
+</script>

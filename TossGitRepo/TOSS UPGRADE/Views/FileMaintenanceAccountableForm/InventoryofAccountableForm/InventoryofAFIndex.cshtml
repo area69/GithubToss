@@ -8,7 +8,9 @@
                 <div class="card-body box-shadow-2">
                     <div class="row">
                         <div class="col-md-4 form-group">
-                            <select class="form-control" id="invtAFID" onchange="ShowSpecificInventoryAF($('#invtAFID').val())">
+                            
+                            <select class="form-control" id="invtAFID" onchange="ShowSpecificInventoryAF($('#invtAFID option:selected').val())">
+                           
                                 <option value="1">Official Receipt</option>
                                 <option value="2">Cash Tickets</option>
                                 <option value="3">Community Tax Certificate</option>
@@ -81,26 +83,28 @@
     $(function () {
         ShowSpecificInventoryAF();
     })
+
     function ShowSpecificInventoryAF() {
-        var ID = $("#invtAFID").val();
+        var ID = $("#invtAFID option:selected").val();
         if (ID == 1) {
             HideAAFCard();
             $("#DivOfficalReceipt").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_InvtAccountableFormTable');
         }
         else if (ID == 2) {
             HideAAFCard();
             $("#DivCashTickets").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_InvtAccountableFormTableCT');
         }
         else {
             HideAAFCard();
             $("#DivCommunityTaxCertificate").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_InvtAccountableFormTableCTC');
         }
     }
     function HideAAFCard() {
         $("#DivOfficalReceipt").addClass("d-none");
         $("#DivCashTickets").addClass("d-none");
         $("#DivCommunityTaxCertificate").addClass("d-none");
-
     }
-
 </script>

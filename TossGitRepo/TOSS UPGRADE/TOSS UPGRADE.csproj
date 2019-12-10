@@ -5400,6 +5400,7 @@
     <Content Include="modernadmin\modern-admin-1.0\app-assets\vendors\js\vendors.min.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style-rtl.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style.css" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\AccountableFormJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\scripts.js" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-2-columns.html" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-block-ui.html" />
@@ -9246,6 +9247,8 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CTCCollector\_AddCTCCollectorInvtCTC.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BPLS\_AddBPLS.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BPLS\BPLSTable.cshtml" />
+    <Content Include="Views\FileMaintenanceDisbursement\CheckInventory\CheckInventoryIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceDisbursement\CheckInventory\_DynamicDDBankName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

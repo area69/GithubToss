@@ -39,7 +39,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_AccountableFormAssignment model = new FM_AccountableFormAssignment();
             return PartialView("AssignmentofAccountableForm/AssignmentofAFIndex", model);
         }
-
+        //Accountable Form
         #region Accountable Form Details
             //Table Accountable Form
         public ActionResult Get_AccountableFormTable()
@@ -210,6 +210,7 @@ namespace TOSS_UPGRADE.Controllers
             return PartialView("AccountableForm/Description/_DescriptionTable", model.getDescription);
         }
         #endregion
+        //Inventory of Accountable Form
         #region Inventory of Accountable Form
         #region OR
         //Table Accountable Form Inventory
@@ -565,6 +566,7 @@ namespace TOSS_UPGRADE.Controllers
         #endregion
         #endregion
         //Assignment of Accountable Form
+        #region Assignment of Accountable Form
         #region Treasurer Collector
         public ActionResult Get_AddAssignTreasurerCollector()
         {
@@ -1518,6 +1520,7 @@ namespace TOSS_UPGRADE.Controllers
             model.getAccountableFormAssList = tbl_AccountableFormAss.ToList();
             return PartialView("AssignmentofAccountableForm/BPLS/BPLSTable", model.getAccountableFormAssList);
         }
+        #endregion
         #endregion
     }
 }

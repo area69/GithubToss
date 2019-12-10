@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 namespace TOSS_UPGRADE.Models.FM_Bank
 {
@@ -24,6 +25,8 @@ namespace TOSS_UPGRADE.Models.FM_Bank
             getBankAccount = new List<BankAccountTable>();
             getBankAccountColumns = new BankAccountTable();
             getBankAccountList = new List<BankAccountList>();
+
+            globalClasses = new GlobalClasses();
         }
         public List<BankList> getBankList { get; set; }
         public BankTable getBankColumns { get; set; }
@@ -31,6 +34,7 @@ namespace TOSS_UPGRADE.Models.FM_Bank
         public IEnumerable<TOSS_UPGRADE.Models.BankTable> getBank { get; set; }
 
 
+        public GlobalClasses globalClasses { get; set; }
         public List<AccountTypeList> getAccountTypeList { get; set; }
         public BankAccount_AccountType getAccountTypeColumns { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> AccountTypeList { get; set; }
@@ -72,7 +76,7 @@ namespace TOSS_UPGRADE.Models.FM_Bank
         public int SubMajorAccountName { get; set; }
         public string GeneralAccountName { get; set; }
         public string GeneralAccountCode { get; set; }
-        public string FundName { get; set; }
+        public int FundName { get; set; }
         public string AccountType { get; set; }
 
     }

@@ -10,40 +10,46 @@
 @using (Ajax.BeginForm("AddCheckInventory", "FileMaintenanceDisbursement", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMDisbursementController','Get_CheckInventoryTable','Check Inventory Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row">
-        <div class="col-md-5 form-group">
-            <label>Bank Name</label>
-            @Html.DropDownListFor(m => m.getCheckInventorycolumns.BankAccountTable.BankID, Model.CheckInventoryBankList, new { @class = "form-control select2", id = "BankIDDD", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadDynamicDDAccountName','')" })
-        </div>
-        <div class="col-md-5 form-group" id="_DynamicDDAccountNameID">
-
-        </div>
-        <div class="col-md-2 form-group">
-            <label>Quantity</label>
-            @Html.TextBoxFor(m => m.getCheckInventorycolumns.Quantity, new { @class = "form-control", type = "text", id = "txtChkInvQty" })
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-5 form-group" id="_DynamicDDBankID">
+                </div>
+                <div class="col-md-5 form-group" id="_DynamicDDAccountNameID">
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>Quantity</label>
+                    @Html.TextBoxFor(m => m.getCheckInventorycolumns.Quantity, new { @class = "form-control", type = "text", id = "txtChkInvQty" })
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Starting Check No.</label>
-            @Html.TextBoxFor(m => m.getCheckInventorycolumns.StartingChckNo, new { @class = "form-control", type = "text", id = "txtStrtChkNo" })
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Ending Check No.</label>
-            @Html.TextBoxFor(m => m.getCheckInventorycolumns.EndingChckNo, new { @class = "form-control", type = "text", id = "txtEndChkNo" })
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Date</label>
-            @Html.TextBoxFor(m => m.getCheckInventorycolumns.Date, new { @class = "form-control pickadate", type = "text"})
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Starting Check No.</label>
+                    @Html.TextBoxFor(m => m.getCheckInventorycolumns.StartingChckNo, new { @class = "form-control", type = "text", id = "txtStrtChkNo" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Ending Check No.</label>
+                    @Html.TextBoxFor(m => m.getCheckInventorycolumns.EndingChckNo, new { @class = "form-control", type = "text", id = "txtEndChkNo" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Date</label>
+                    @Html.TextBoxFor(m => m.getCheckInventorycolumns.DateIssued, new { @class = "form-control pickadate", type = "text" })
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8"></div>
         <div class="col-md-2">
-            <label style="visibility:hidden">Hide</label>
             <button type="submit" class="btn black bg-addbutton form-control"><b>Add</b></button>
         </div>
         <div class="col-md-2">
-            <label style="visibility:hidden">Hide</label>
             <button type="reset" class="btn white bg-headerbc form-control"><b>Cancel</b></button>
         </div>
     </div>

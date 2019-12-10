@@ -17,7 +17,6 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Fund()
         {
-            this.BankAccountTables = new HashSet<BankAccountTable>();
             this.Signatory_DepartmentTable = new HashSet<Signatory_DepartmentTable>();
             this.SubFunds = new HashSet<SubFund>();
         }
@@ -26,8 +25,6 @@ namespace TOSS_UPGRADE.Models
         public string FundName { get; set; }
         public string FundCode { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BankAccountTable> BankAccountTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Signatory_DepartmentTable> Signatory_DepartmentTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

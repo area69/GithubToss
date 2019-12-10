@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using TOSS_UPGRADE.Models.FM_Bank;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 
 namespace TOSS_UPGRADE.Controllers
@@ -208,7 +209,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_Bank model = new FM_Bank();
             List<BankAccountList> tbl_Bank = new List<BankAccountList>();
 
-            var SQLQuery = "SELECT BankAccountID,BankName,AccountNo,AccountName,dbo.GeneralAccount.SubMajorAccountGroupID,GeneralAccountName,GeneralAccountCode,AccountType,FundName FROM DB_TOSS.dbo.BankAccountTable,Fund,BankTable,BankAccount_AccountType,GeneralAccount WHERE Fund.FundID = BankAccountTable.FundID AND BankTable.BankID = BankAccountTable.BankID AND BankAccount_AccountType.AccountTypeID = BankAccountTable.AccountTypeID AND GeneralAccount.GeneralAccountID = BankAccountTable.GeneralAccountID;";
+            var SQLQuery = "SELECT BankAccountID,BankName,AccountNo,AccountName,dbo.GeneralAccount.SubMajorAccountGroupID,GeneralAccountName,GeneralAccountCode,AccountType,SubFund.SubFundID FROM DB_TOSS.dbo.BankAccountTable,SubFund,BankTable,BankAccount_AccountType,GeneralAccount WHERE SubFund.SubFundID = BankAccountTable.SubFundID AND BankTable.BankID = BankAccountTable.BankID AND BankAccount_AccountType.AccountTypeID = BankAccountTable.AccountTypeID AND GeneralAccount.GeneralAccountID = BankAccountTable.GeneralAccountID;";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -230,7 +231,7 @@ namespace TOSS_UPGRADE.Controllers
                             GeneralAccountName = GlobalFunction.ReturnEmptyString(dr[5]),
                             GeneralAccountCode = GlobalFunction.ReturnEmptyString(dr[6]),
                             AccountType = GlobalFunction.ReturnEmptyString(dr[7]),
-                            FundName = GlobalFunction.ReturnEmptyString(dr[8]),
+                            FundName = GlobalFunction.ReturnEmptyInt(dr[8]),
                         });
                     }
                 }
@@ -245,7 +246,6 @@ namespace TOSS_UPGRADE.Controllers
             FM_Bank model = new FM_Bank();
             return PartialView("BankAccount/_AddBankAccount", model);
         }
-
         //Dropdown Bank
         public ActionResult GetDynamicBank()
         {
@@ -260,7 +260,6 @@ namespace TOSS_UPGRADE.Controllers
             model.BankAccountBankID = BankAccountBankTempID;
             return PartialView("BankAccount/_DynamicDDBankName", model);
         }
-
         //Dropdown Account Type
         public ActionResult GetDynamicAccountType()
         {
@@ -275,18 +274,63 @@ namespace TOSS_UPGRADE.Controllers
             model.BankAccountAccountTypeID = BankAccountAccountTypeTempID;
             return PartialView("BankAccount/_DynamicDDAccountType", model);
         }
-
         //Dropdown Fund Type
         public ActionResult GetDynamicFundType()
         {
             FM_Bank model = new FM_Bank();
-            model.BankAccountBankList = new SelectList((from s in TOSSDB.Funds.ToList() select new { FundID = s.FundID, FundName = s.FundName }), "FundID", "FundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.BankAccountBankList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             return PartialView("BankAccount/_DynamicDDFundName", model);
         }
         public ActionResult GetSelectedDynamicFundType(int BankAccountFundTypeTempID)
         {
             FM_Bank model = new FM_Bank();
-            model.BankAccountBankList = new SelectList((from s in TOSSDB.Funds.ToList() select new { FundID = s.FundID, FundName = s.FundName }), "FundID", "FundName");
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.Fund.FundName[i].ToString();
+                    }
+                    if (item.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
+                {
+                    SubFundID = item.SubFundID,
+                    FundName = Acronym + " - " + item.SubFundName,
+                });
+                Acronym = "";
+
+            }
+            model.BankAccountBankList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             model.BankAccountFundTypeID = BankAccountFundTypeTempID;
             return PartialView("BankAccount/_DynamicDDFundName", model);
         }
@@ -305,7 +349,6 @@ namespace TOSS_UPGRADE.Controllers
             model.BankAccountGeneralAccountNameID = BankAccountGeneralAccountNameTempID;
             return PartialView("BankAccount/_DynamicDDGeneralAccountName", model);
         }
-
         public ActionResult GetDynamicGeneralAccountCode(int GeneralAccountID)
         {
             FM_Bank model = new FM_Bank();
@@ -317,7 +360,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             BankAccountTable tblBankAccount = new BankAccountTable();
             tblBankAccount.BankID = model.BankAccountBankID;
-            tblBankAccount.FundID = model.BankAccountFundTypeID;
+            tblBankAccount.SubFundID = model.BankAccountFundTypeID;
             tblBankAccount.GeneralAccountID = model.BankAccountGeneralAccountNameID;
             tblBankAccount.AccountTypeID = model.BankAccountAccountTypeID;
             tblBankAccount.AccountName = model.getBankAccountColumns.AccountName;
@@ -326,7 +369,6 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return Json("");
         }
-
         //Get Bank Account Name
         public ActionResult Get_UpdateBankAccount(FM_Bank model, int BankAccountID)
         {
@@ -337,15 +379,14 @@ namespace TOSS_UPGRADE.Controllers
             model.BankAccountBankTempID = tblBankAccount.BankID;
             model.BankAccountAccountTypeTempID = tblBankAccount.AccountTypeID;
             model.BankAccountGeneralAccountNameTempID = tblBankAccount.GeneralAccountID;
-            model.BankAccountFundTypeTempID = tblBankAccount.FundID;
+            model.BankAccountFundTypeTempID = tblBankAccount.SubFundID;
             return PartialView("BankAccount/_UpdateBankAccount", model);
         }
-
         public ActionResult UpdateBankAccount(FM_Bank model)
         {
             BankAccountTable tblBankAccount = (from e in TOSSDB.BankAccountTables where e.BankAccountID == model.getBankAccountColumns.BankAccountID select e).FirstOrDefault();
             tblBankAccount.BankID = model.BankAccountBankID;
-            tblBankAccount.FundID = model.BankAccountFundTypeID;
+            tblBankAccount.SubFundID = model.BankAccountFundTypeID;
             tblBankAccount.GeneralAccountID = model.BankAccountGeneralAccountNameID;
             tblBankAccount.AccountTypeID = model.BankAccountAccountTypeID;
             tblBankAccount.AccountName = model.getBankAccountColumns.AccountName;
@@ -354,8 +395,6 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return PartialView("BankAccount/_UpdateBankAccount", model);
         }
-
-
         //Delete Bank Account Name
         public ActionResult DeleteBankAccount(FM_Bank model, int BankAccountID)
         {

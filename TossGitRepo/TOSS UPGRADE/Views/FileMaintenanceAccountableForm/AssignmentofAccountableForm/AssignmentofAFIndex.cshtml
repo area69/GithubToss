@@ -239,30 +239,35 @@
         if (ID == 1) {
             HideAAFCard();
             $("#DivTreasurerORASF").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AccountableFormAssignmentTable');
         }
         else if (ID == 2) {
             HideAAFCard();
             $("#DivFieldCollectorASF").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AccountableFormAssignmentFCTable');
         }
         else if (ID == 3) {
             HideAAFCard();
             $("#DivCashTicketASF").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AFAssignmentCashTicketTable');
         }
         else if (ID == 4) {
             HideAAFCard();
             $("#DivBrgyCollectorASF").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AFAssignmentBrgyCollectorTable');
         }
         else if (ID == 5) {
             HideAAFCard();
             $("#DivCTCCollectorASF").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AFAssignmentCTCCollectorTable');
         }
         else if (ID == 6) {
             HideAAFCard();
             $("#DivBPLS").removeClass("d-none");
+            AngularGlobalFunctions('FMAccountableFormController', 'Get_AFAssignmentBPLSTable');
         }
         else {
             HideAAFCard();
-
             $("#DivPATAS").removeClass("d-none");
         }
     }

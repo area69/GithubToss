@@ -27,6 +27,7 @@ namespace TOSS_UPGRADE.Models
         public Nullable<bool> IsTransferred { get; set; }
         public Nullable<bool> IsConsumed { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public Nullable<int> AssignTableID { get; set; }
     
         public virtual AccountableForm_Inventory AccountableForm_Inventory { get; set; }
         public virtual Barangay_BarangayName Barangay_BarangayName { get; set; }

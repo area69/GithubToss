@@ -19,7 +19,7 @@ namespace TOSS_UPGRADE.Models
         public int Quantity { get; set; }
         public int StartingChckNo { get; set; }
         public int EndingChckNo { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.DateTime DateIssued { get; set; }
         public bool IsIssued { get; set; }
     
         public virtual BankAccountTable BankAccountTable { get; set; }

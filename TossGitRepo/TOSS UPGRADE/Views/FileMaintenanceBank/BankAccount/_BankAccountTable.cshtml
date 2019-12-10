@@ -90,7 +90,22 @@
                             @TDValue1-@TDValue2-@TDValue3-@Items.GeneralAccountCode
                         </td>
                         <td>@Items.AccountType</td>
-                        <td>@Items.FundName</td>
+                        <td>
+                            @{
+                                var FundID = Items.FundName;
+                                var FundName = (from e in SISDB.SubFunds where e.SubFundID == FundID select e).FirstOrDefault();
+                                var TDValueFund = "";
+                                if (FundName == null)
+                                {
+                                    TDValueFund = "N/A";
+                                }
+                                else
+                                {
+                                    TDValueFund = FundName.Fund.FundName +" - "+ FundName.SubFundName;
+                                }
+                            }
+                            @TDValueFund
+                        </td>
                         <td>
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
                                     data-original-title="" data-html="true" data-placement="right">
