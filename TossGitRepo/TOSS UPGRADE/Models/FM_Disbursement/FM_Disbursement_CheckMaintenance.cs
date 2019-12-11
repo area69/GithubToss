@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TOSS_UPGRADE.Models.GlobalClass;
 
 namespace TOSS_UPGRADE.Models.FM_Disbursement
 {
@@ -13,24 +14,16 @@ namespace TOSS_UPGRADE.Models.FM_Disbursement
             getCheckMaintenanceType = new List<CheckMaintenanceTable>();
             getCheckMaintenancecolumns = new CheckMaintenanceTable();
             getCheckMaintenanceList = new List<CheckMaintenanceList>();
+            globalClasses = new GlobalClasses();
         }
-    public List<CheckMaintenanceList> getCheckMaintenanceList { get; set; }
-    public CheckMaintenanceTable getCheckMaintenancecolumns { get; set; }
-    public IEnumerable<System.Web.Mvc.SelectListItem> CheckMaintenanceList { get; set; }
-    public IEnumerable<TOSS_UPGRADE.Models.CheckMaintenanceTable> getCheckMaintenanceType { get; set; }
-    public int CheckMaintenanceBankTempID { get; set; }
-
-    public IEnumerable<System.Web.Mvc.SelectListItem> CheckMaintenanceBankList
-    {
-        get
-        {
-            List<BankTable> AccountNameLists = db.BankTables.ToList();
-            return new System.Web.Mvc.SelectList(AccountNameLists, "BankID", "BankName");
-        }
-    }
-
+        public List<CheckMaintenanceList> getCheckMaintenanceList { get; set; }
+        public CheckMaintenanceTable getCheckMaintenancecolumns { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> CheckMaintenanceList { get; set; }
+        public IEnumerable<TOSS_UPGRADE.Models.CheckMaintenanceTable> getCheckMaintenanceType { get; set; }
+        public int CheckMaintenanceBankTempID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> CheckMaintenanceInventoryList { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> CheckMaintenanceAccountNameList { get; set; }
+        public GlobalClasses globalClasses { get; set; }
 
         public int CheckMaintenanceAccountNameID { get; set; }
 

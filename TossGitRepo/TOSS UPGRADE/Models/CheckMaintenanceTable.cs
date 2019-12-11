@@ -16,5 +16,9 @@ namespace TOSS_UPGRADE.Models
     {
         public int CheckMainteID { get; set; }
         public int CheckInvntID { get; set; }
+        public string DateIssued { get; set; }
+        public Nullable<int> ConsumedValue { get; set; }
+    
+        public virtual CheckInventoryTable CheckInventoryTable { get; set; }
     }
 }

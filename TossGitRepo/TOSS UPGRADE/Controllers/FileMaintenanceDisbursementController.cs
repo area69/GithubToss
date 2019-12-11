@@ -29,6 +29,16 @@ namespace TOSS_UPGRADE.Controllers
             FM_Disbursement_CheckInventory model = new FM_Disbursement_CheckInventory();
             return PartialView("CheckInventory/CheckInventoryIndex", model);
         }
+        public ActionResult CheckMaintenanceTab()
+        {
+            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
+            return PartialView("CheckMaintenance/CheckMaitenanceIndex", model);
+        }
+        public ActionResult DVTypeTab()
+        {
+            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
+            return PartialView("DVType/DVTypeIndex", model);
+        }
         //Check Inventory
         #region 
         //Dropdown Account Name
@@ -199,41 +209,89 @@ namespace TOSS_UPGRADE.Controllers
         //Check Maintenance
         #region
         //Dropdown Account Name
-        public ActionResult GetDynamicMaitenance(int BankAccountID)
+        public ActionResult GetDynamicBankNameCM()
         {
             FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            model.CheckMaintenanceAccountNameList = new SelectList((from s in TOSSDB.BankAccountTables.ToList() where s.BankAccountID == BankAccountID select new { BankAccountID = s.BankAccountID, AccountNo = s.AccountNo /*+ "- (" + s.FundType_FundName.FundTitle + ")"*/ }), "BankAccountID", "AccountNo");
+            model.CheckMaintenanceList = new SelectList((from s in TOSSDB.BankTables.ToList() select new { BankID = s.BankID, BankName = s.BankName }), "BankID", "BankName");
+            return PartialView("CheckMaintenance/_DynamicDDBankName", model);
+        }
+        public ActionResult GetSelectedDynamicBankNameCM(int CheckInventoryBankTempID)
+        {
+            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
+            model.CheckMaintenanceList = new SelectList((from s in TOSSDB.BankTables.ToList() select new { BankID = s.BankID, BankName = s.BankName }), "BankID", "BankName");
+            model.CheckMaintenanceBankID = CheckInventoryBankTempID;
+            return PartialView("CheckMaintenance/_DynamicDDBankName", model);
+        }
+        //Dropdown Account Name
+        public ActionResult GetDynamicAccountNameCM(int BankID)
+        {
+            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
+            var Acronym = "";
+            foreach (var item in TOSSDB.BankAccountTables.Where(a => a.BankID == BankID).ToList())
+            {
+                for (var i = 0; i < item.SubFund.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.SubFund.Fund.FundName[i].ToString();
+                    }
+                    else if (item.SubFund.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.SubFund.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;    
+                }
+                model.globalClasses.BankAccDDs.Add(new BankAccDD
+                {
+                    BankAccountID = item.BankAccountID,
+                    AccountNo = item.AccountNo + " - (" + Acronym + " - " + item.SubFund.SubFundName + ")",
+                });
+                Acronym = "";
+            }
+            model.CheckMaintenanceList = new SelectList(model.globalClasses.BankAccDDs.ToList(), "BankAccountID", "AccountNo");
             return PartialView("CheckMaintenance/_DynamicDDAccountName2", model);
         }
-        public ActionResult GetSelectedDynamicMaitenance(int CheckMaintenanceBankIDTempID)
+        public ActionResult GetSelectedDynamicAccountNameCM(int BankID, int CheckInventoryAccountNameIDTempID)
         {
             FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            model.CheckMaintenanceAccountNameList = new SelectList((from s in TOSSDB.CheckInventoryTables.ToList() where s.CheckInvntID == CheckMaintenanceBankIDTempID select new { CheckInvntID = s.CheckInvntID, AccountNo = s.BankAccountTable.AccountNo /*+ "- (" + s.BankAccountTable.FundType_FundName.FundTitle + ")"*/ }), "CheckInvntID", "AccountNo");
-            model.CheckMaintenanceAccountNameID = CheckMaintenanceBankIDTempID;
+            var Acronym = "";
+            foreach (var item in TOSSDB.BankAccountTables.Where(a => a.BankID == BankID).ToList())
+            {
+                for (var i = 0; i < item.SubFund.Fund.FundName.Length;)
+                {
+                    if (i == 0)
+                    {
+                        Acronym += item.SubFund.Fund.FundName[i].ToString();
+                    }
+                    else if (item.SubFund.Fund.FundName[i] == ' ')
+                    {
+                        Acronym += item.SubFund.Fund.FundName[i + 1].ToString();
+                    }
+                    i++;
+                }
+                model.globalClasses.BankAccDDs.Add(new BankAccDD
+                {
+                    BankAccountID = item.BankAccountID,
+                    AccountNo = item.AccountNo + " - (" + Acronym + " - " + item.SubFund.SubFundName + ")",
+                });
+                Acronym = "";
+            }
+            model.CheckMaintenanceList = new SelectList(model.globalClasses.BankAccDDs.ToList(), "BankAccountID", "AccountNo");
+            model.CheckMaintenanceAccountNameID = CheckInventoryAccountNameIDTempID;
             return PartialView("CheckMaintenance/_DynamicDDAccountName2", model);
         }
-        //Get Add Check Maintenance Partial View
-        public ActionResult Get_AddCheckMaitenance()
+
+        public ActionResult LoadDynamicCheckMaintenanceInventory(int AccountNameIDDD2)
         {
             FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            return PartialView("CheckMaintenance/_AddCheckMaintenance", model);
-        }
-        public ActionResult Get_AddCheckMaintenanceInventory()
-        {
-            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            return PartialView("CheckMaintenance/_DynamicDDCheckInventory", model);
-        }
-        public ActionResult LoadDynamicCheckMaintenanceInventory(int BankID, int AccountNameIDDD2)
-        {
-            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
-            model.CheckMaintenanceInventoryList = new SelectList((from s in TOSSDB.CheckInventoryTables.ToList() where s.IsIssued != true && s.BankAccountTable.BankID == BankID && s.BankAccountID == AccountNameIDDD2 select new { CheckInvntID = s.CheckInvntID, StartingChckNo = s.StartingChckNo }), "CheckInvntID", "StartingChckNo");
+            model.CheckMaintenanceInventoryList = new SelectList((from s in TOSSDB.CheckInventoryTables.ToList() where s.IsIssued != true && s.BankAccountID == AccountNameIDDD2 select new { CheckInvntID = s.CheckInvntID, StartingChckNo = s.StartingChckNo }), "CheckInvntID", "StartingChckNo");
             return PartialView("CheckMaintenance/_DynamicDDStartingCheckNo", model);
         }
-        public ActionResult Get_CheckMaintenanceQuantyNEnd(int BankID,int BankAccountID,int StartingChckNo)
+        public ActionResult Get_CheckMaintenanceQuantyNEnd(int StartingChckNo)
         {
             FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
 
-                CheckInventoryTable tblCheckIventory = (from e in TOSSDB.CheckInventoryTables where e.BankAccountTable.BankID == BankID && e.BankAccountID == BankAccountID && e.StartingChckNo == StartingChckNo select e).FirstOrDefault();
+                CheckInventoryTable tblCheckIventory = (from e in TOSSDB.CheckInventoryTables where e.StartingChckNo == StartingChckNo select e).FirstOrDefault();
                 if (tblCheckIventory != null)
                 {
                     model.CheckMaintenanceEndingNoID = tblCheckIventory.EndingChckNo;
@@ -243,16 +301,24 @@ namespace TOSS_UPGRADE.Controllers
 
             return PartialView("CheckMaintenance/_DynamicTBQuantyNEndNo", model);
         }
-
+      
+        //Get Add Check Maintenance Partial View
+        public ActionResult Get_AddCheckMaitenance()
+        {
+            FM_Disbursement_CheckMaintenance model = new FM_Disbursement_CheckMaintenance();
+            return PartialView("CheckMaintenance/_AddCheckMaintenance", model);
+        }
         //Add  Check Maintenance
         public JsonResult AddCheckMaintenance(FM_Disbursement_CheckMaintenance model)
         {
             CheckMaintenanceTable tblCheckMaintenance = new CheckMaintenanceTable();
             tblCheckMaintenance.CheckInvntID = model.CheckMaintenanceInventoryID;
+            tblCheckMaintenance.DateIssued = model.getCheckMaintenancecolumns.DateIssued;
+            tblCheckMaintenance.ConsumedValue = model.CheckMaintenanceQuantityID;
             TOSSDB.CheckMaintenanceTables.Add(tblCheckMaintenance);
             TOSSDB.SaveChanges();
 
-            CheckInventoryTable tblAccountablechkInventory = (from e in TOSSDB.CheckInventoryTables where e.IsIssued == false select e).FirstOrDefault();
+            CheckInventoryTable tblAccountablechkInventory = (from e in TOSSDB.CheckInventoryTables where e.CheckInvntID == model.CheckMaintenanceInventoryID select e).FirstOrDefault();
             if (tblAccountablechkInventory.IsIssued == false)
             {
                 tblAccountablechkInventory.IsIssued = true;

@@ -162,6 +162,8 @@
           </Key>
           <Property Name="CheckMainteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CheckInvntID" Type="int" Nullable="false" />
+          <Property Name="DateIssued" Type="varchar" MaxLength="50" />
+          <Property Name="ConsumedValue" Type="int" />
         </EntityType>
         <EntityType Name="CollectorTable">
           <Key>
@@ -644,6 +646,18 @@
             </Principal>
             <Dependent Role="CheckInventoryTable">
               <PropertyRef Name="BankAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CheckMaintenanceTable_CheckInventoryTable">
+          <End Role="CheckInventoryTable" Type="Self.CheckInventoryTable" Multiplicity="1" />
+          <End Role="CheckMaintenanceTable" Type="Self.CheckMaintenanceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckInventoryTable">
+              <PropertyRef Name="CheckInvntID" />
+            </Principal>
+            <Dependent Role="CheckMaintenanceTable">
+              <PropertyRef Name="CheckInvntID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1147,6 +1161,10 @@
             <End Role="BankAccountTable" EntitySet="BankAccountTable" />
             <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
           </AssociationSet>
+          <AssociationSet Name="FK_CheckMaintenanceTable_CheckInventoryTable" Association="Self.FK_CheckMaintenanceTable_CheckInventoryTable">
+            <End Role="CheckInventoryTable" EntitySet="CheckInventoryTable" />
+            <End Role="CheckMaintenanceTable" EntitySet="CheckMaintenanceTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_FeeCategory_AF_Description" Association="Self.FK_FeeCategory_AF_Description">
             <End Role="AF_Description" EntitySet="AF_Description" />
             <End Role="FeeCategory" EntitySet="FeeCategory" />
@@ -1439,6 +1457,10 @@
             <End Role="Barangay_BarangayName" EntitySet="Barangay_BarangayName" />
             <End Role="Barangay_BarangayBankAccount" EntitySet="Barangay_BarangayBankAccount" />
           </AssociationSet>
+          <AssociationSet Name="FK_CheckMaintenanceTable_CheckInventoryTable" Association="DB_TOSSModel.FK_CheckMaintenanceTable_CheckInventoryTable">
+            <End Role="CheckInventoryTable" EntitySet="CheckInventoryTables" />
+            <End Role="CheckMaintenanceTable" EntitySet="CheckMaintenanceTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_FieldFee_FieldFee" Association="DB_TOSSModel.FK_FieldFee_FieldFee">
             <End Role="FeeCategory" EntitySet="FeeCategories" />
             <End Role="FieldFee" EntitySet="FieldFees" />
@@ -1726,6 +1748,7 @@
           <Property Name="DateIssued" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsIssued" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BankAccountTable" Relationship="DB_TOSSModel.FK_CheckInventoryTable_BankAccountTable" FromRole="CheckInventoryTable" ToRole="BankAccountTable" />
+          <NavigationProperty Name="CheckMaintenanceTables" Relationship="DB_TOSSModel.FK_CheckMaintenanceTable_CheckInventoryTable" FromRole="CheckInventoryTable" ToRole="CheckMaintenanceTable" />
         </EntityType>
         <EntityType Name="CheckMaintenanceTable">
           <Key>
@@ -1733,6 +1756,9 @@
           </Key>
           <Property Name="CheckMainteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CheckInvntID" Type="Int32" Nullable="false" />
+          <Property Name="DateIssued" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ConsumedValue" Type="Int32" />
+          <NavigationProperty Name="CheckInventoryTable" Relationship="DB_TOSSModel.FK_CheckMaintenanceTable_CheckInventoryTable" FromRole="CheckMaintenanceTable" ToRole="CheckInventoryTable" />
         </EntityType>
         <EntityType Name="CollectorTable">
           <Key>
@@ -2304,6 +2330,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CheckMaintenanceTable_CheckInventoryTable">
+          <End Type="DB_TOSSModel.CheckInventoryTable" Role="CheckInventoryTable" Multiplicity="1" />
+          <End Type="DB_TOSSModel.CheckMaintenanceTable" Role="CheckMaintenanceTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CheckInventoryTable">
+              <PropertyRef Name="CheckInvntID" />
+            </Principal>
+            <Dependent Role="CheckMaintenanceTable">
+              <PropertyRef Name="CheckInvntID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FieldFee_FieldFee">
           <End Type="DB_TOSSModel.FeeCategory" Role="FeeCategory" Multiplicity="1" />
           <End Type="DB_TOSSModel.FieldFee" Role="FieldFee" Multiplicity="*" />
@@ -2806,6 +2844,8 @@
           <EntitySetMapping Name="CheckMaintenanceTables">
             <EntityTypeMapping TypeName="DB_TOSSModel.CheckMaintenanceTable">
               <MappingFragment StoreEntitySet="CheckMaintenanceTable">
+                <ScalarProperty Name="ConsumedValue" ColumnName="ConsumedValue" />
+                <ScalarProperty Name="DateIssued" ColumnName="DateIssued" />
                 <ScalarProperty Name="CheckInvntID" ColumnName="CheckInvntID" />
                 <ScalarProperty Name="CheckMainteID" ColumnName="CheckMainteID" />
               </MappingFragment>

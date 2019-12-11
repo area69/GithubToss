@@ -9012,7 +9012,6 @@
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicDDAccountName2.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_AddCheckMaintenance.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_CheckMaintenanceTable.cshtml" />
-    <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicDDCheckInventory.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicDDStartingCheckNo.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicTBQuantyNEndNo.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_UpdateCheckMaintenance.cshtml" />
@@ -9249,6 +9248,9 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BPLS\BPLSTable.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckInventory\CheckInventoryIndex.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckInventory\_DynamicDDBankName.cshtml" />
+    <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\CheckMaitenanceIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicDDBankName.cshtml" />
+    <Content Include="Views\FileMaintenanceDisbursement\DVType\DVTypeIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

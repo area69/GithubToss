@@ -10,17 +10,26 @@
 @using (Ajax.BeginForm("AddCheckMaintenance", "FileMaintenanceDisbursement", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModal('FMDisbursementController','Get_CheckMaintenanceTable','Check Maintenance Successfully Saved')", OnFailure = "OnFailure()", }))
 {
     <div class="row">
-        <div class="col-md-6 form-group">
-            <label>Bank Name</label>
-            @Html.DropDownListFor(m => m.CheckMaintenanceBankID, Model.CheckMaintenanceBankList, new { @class = "form-control select2", id = "BankIDDD2", onchange = "AngularGlobalFunctions('FMDisbursementController','LoadDynamicDDAccountName2','')" })
-        </div>
-        <div class="col-md-6 form-group" id="_DynamicDDAccountID">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 form-group" id="_DynamicDDBankCMID">
+             </div>
+        <div class="col-md-5 form-group" id="_DynamicDDAccountID">
 
         </div>
-
     </div>
-    <div id="_CheckInventoryPVID">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2 form-group" id="_DynamicDDStartingNoID">
 
+        </div>
+        <div class="col-md-4">
+            <div class="row" id="_DynamicTBQuanEnding">
+            </div>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Date</label>
+            @Html.TextBoxFor(m => m.getCheckMaintenancecolumns.DateIssued, new { @class = "form-control pickadate", type = "text" })
+        </div>
     </div>
     <div class="row">
         <div class="col-md-8"></div>
