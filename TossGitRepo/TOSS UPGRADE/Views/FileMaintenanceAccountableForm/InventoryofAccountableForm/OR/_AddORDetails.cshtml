@@ -45,7 +45,7 @@
             <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulk()" id="_SaveButtonID"><b>Save Bulk</b></button>
             <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSave"><b>Submit</b></button>
         </div>
-        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button"><b>Cancel</b></button></div>
+        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button" onclick="AngularGlobalEdit('FMAccountableFormController','Get_InvtAccountableFormTable','')"><b>Cancel</b></button></div>
     </div>
     <div class="" id="NewOR"></div>
 }
@@ -86,7 +86,6 @@
             $("#txtORInvEndOR").val(res);
         }
     });
-
     $(document).ready(function () {
         $("#show-button").click(function () {
             $("#_SaveButtonID").show()
@@ -102,7 +101,6 @@
     var NewORModel = "";
     var m = 0;
     function SaveORTable() {
-
         var BodyContent = '';
         var x = 1;
         var qty = $("#txtORInvQuantityValue").val();
@@ -111,7 +109,7 @@
         var StrtStub = $("#txtORInvStrtOR").val();
         debugger
         for (i = 1; i <= $('#txtORInvStub').val(); i++) {
-            var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
+            var startStubNoF = parseFloat(StrtStub) + parseFloat(qty * (x - 1));
             if (startStubNoF < 0) {
                 startStubNoF = startStubNoF * -1;
             }
@@ -128,6 +126,7 @@
                 "IsIssued": isIssued,
             }
             ORarray.push(ORTableDatas);
+            console.log(ORarray);
             x++;
             StubNum++;
         }

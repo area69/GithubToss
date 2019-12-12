@@ -41,7 +41,7 @@
             <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulkCT()" id="_SaveButtonIDCT"><b>Save Bulk</b></button>
             <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSaveCT"><b>Submit</b></button>
         </div>
-        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button"><b>Cancel</b></button></div>
+        <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-button" onclick="AngularGlobalEdit('FMAccountableFormController','Get_InvtAccountableFormTableCT','')"><b>Cancel</b></button></div>
     </div>
 
     <div class="" id="NewCT"></div>
@@ -106,7 +106,7 @@
             var StrtStub = $("#txtStrtCTNo").val();
             var qty = $("#txtORInvQuantityValueCT").val();
             for (i = 1; i <= $('#txtCTInvQty').val(); i++) {
-                var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
+                var startStubNoF = parseFloat((qty * (x - 1)) + parseFloat(StrtStub));
                 if (startStubNoF < 0) {
                     startStubNoF = startStubNoF * -1;
                 }

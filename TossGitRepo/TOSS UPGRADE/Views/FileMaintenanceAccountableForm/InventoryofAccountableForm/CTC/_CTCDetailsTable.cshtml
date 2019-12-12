@@ -11,9 +11,9 @@
                     <tr>
                         <th>Accountable Forms</th>
                         <th>Stub No.</th>
+                        <th>Starting CTC</th>
+                        <th>Ending CTC</th>
                         <th>Quantity</th>
-                        <th>Starting OR</th>
-                        <th>Ending OR</th>
                         <th>Date Issued</th>
                         <th>Is Issued</th>
                         <th>Action</th>
@@ -29,61 +29,61 @@
                             var ViewEdit = "<button class=\"btn btn-icon btn-block black bg-addbutton border-0\" type=\"button\"onclick=\"AngularGlobalEdit('FMAccountableFormController','Get_UpdateAccountableFormInventoryCTC','" + @Items.AFORID + "')\"><i class='ft-edit mr-1'></i><b>Edit</b></button>";
                             var ViewDelete = "<button class=\"btn btn-icon white btn-block bg-headerbc  border-0\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.AF + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.AFORID + ",&quot;Get_DeleteAccountableFormInventoryCTC&quot;,&quot;FMAccountableFormController&quot;)')\"> <i class='ft-delete mr-1'></i><b>Delete</b></button>";
                             var ActionContentProgram = ViewEdit + ViewDelete;
-                            <tr>
-                                <td>
-                                    @{
-                                        var AFID = Items.AF;
-                                        var AF = (from e in SISDB.AccountableFormTables where e.AccountFormID == AFID select e).FirstOrDefault();
-                                        var TDValue = "";
-                                        if (AF == null)
-                                        {
-                                            TDValue = "N/A";
-                                        }
-                                        else
-                                        {
-                                            TDValue = AF.AccountFormName;
-                                        }
-                                    }
-                                    @TDValue
-                                </td>
-                                <td>@Items.StubNo</td>
-                                <td>@Items.Quantity</td>
-                                <td>@Items.StartingOR</td>
-                                <td>@Items.EndingOR</td>
-                                <td>
-                                    @{
-                                        DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
-                                    }
+                    <tr>
+                        <td>
+                            @{
+                                var AFID = Items.AF;
+                                var AF = (from e in SISDB.AccountableFormTables where e.AccountFormID == AFID select e).FirstOrDefault();
+                                var TDValue = "";
+                                if (AF == null)
+                                {
+                                    TDValue = "N/A";
+                                }
+                                else
+                                {
+                                    TDValue = AF.AccountFormName;
+                                }
+                            }
+                            @TDValue
+                        </td>
+                        <td>@Items.StubNo</td>
+                        <td>@Items.StartingOR</td>
+                        <td>@Items.EndingOR</td>
+                        <td>@Items.Quantity</td>
+                        <td>
+                            @{
+                                DateTime DateofHearing = Convert.ToDateTime(Items.DateIssued);
+                            }
 
-                                    @DateofHearing.ToString("MMMM dd, yyyy")
-                                </td>
-                                <td>
-                                    @{
-                                        var isIssued = "";
-                                        if (Items.isIssued == true)
-                                        {
-                                            isIssued = "Yes";
-                                        }
-                                        else if (Items.isIssued == false)
-                                        {
-                                            isIssued = "No";
-                                        }
+                            @DateofHearing.ToString("MMMM dd, yyyy")
+                        </td>
+                        <td>
+                            @{
+                                var isIssued = "";
+                                if (Items.isIssued == true)
+                                {
+                                    isIssued = "Yes";
+                                }
+                                else if (Items.isIssued == false)
+                                {
+                                    isIssued = "No";
+                                }
 
-                                    }
-                                    @isIssued
-                                </td>
-                                <td>
-                                    <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
-                                            data-original-title="" data-html="true" data-placement="right">
-                                        <i class="la la-bars"></i>
-                                    </button>
-                                </td>
+                            }
+                            @isIssued
+                        </td>
+                        <td>
+                            <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"
+                                    data-original-title="" data-html="true" data-placement="right">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
 
-                                @*<td>
-                        <button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMCollectionDepositController','Get_UpdateAccountableFormInventoryCT','@Items.AFORID')"><i class="ft-edit"></i></button>
-                        <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.AFORID ,&quot;Get_DeleteAccountableFormInventoryCT&quot;,&quot;FMCollectionDepositController&quot;)')"><i class="ft-delete"></i></button>
-                    </td>*@
-                            </tr>
+                        @*<td>
+            <button class="buttonEf iconhoverEdit" onclick="AngularGlobalEdit('FMCollectionDepositController','Get_UpdateAccountableFormInventoryCT','@Items.AFORID')"><i class="ft-edit"></i></button>
+            <button class="buttonEf iconhoverDelete" onclick="swalConfirmation('@DeleteConfirmationMess','','@DeleteSuccesMess', 'AngularGlobalDelete(@Items.AFORID ,&quot;Get_DeleteAccountableFormInventoryCT&quot;,&quot;FMCollectionDepositController&quot;)')"><i class="ft-delete"></i></button>
+        </td>*@
+                    </tr>
                         }
                     }
                 </tbody>

@@ -34,7 +34,6 @@
         @Html.TextBoxFor(m => m.getAccountableFormInvtcolumns.DateIssued, new { @class = "form-control pickadate", type = "text", id = "txtCTCDate" })
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-8"></div>
     <div class="col-md-2">
@@ -42,7 +41,7 @@
         <button type="button" class="btn black bg-addbutton form-control" onclick="SaveBulkCTC()" id="_SaveButtonIDCTC"><b>Save Bulk</b></button>
         <button type="submit" class="btn black bg-addbutton form-control d-none" id="btnSaveCTC"><b>Submit</b></button>
     </div>
-    <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-buttonCTC"><b>Cancel</b></button></div>
+    <div class="col-md-2"><button type="reset" class="btn white bg-headerbc form-control" id="hide-buttonCTC" onclick="AngularGlobalEdit('FMAccountableFormController','Get_InvtAccountableFormTableCTC','')"><b>Cancel</b></button></div>
 </div>
 <div class="" id="NewCTC"></div>
 }
@@ -107,7 +106,7 @@
         var StrtStub = $("#txtStrtCTCNo").val();
         debugger
         for (i = 1; i <= $('#txtCTCInvQty').val(); i++) {
-            var startStubNoF = parseFloat((qty * (StubNum - 1)) + parseFloat(StrtStub));
+            var startStubNoF = parseFloat((qty * (x - 1)) + parseFloat(StrtStub));
             if (startStubNoF < 0) {
                 startStubNoF = startStubNoF * -1;
             }
@@ -201,13 +200,13 @@
         console.log(CTCarray);
         debugger
         $.each(CTCarray, function (index, value) {
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formTypeCTC + "' id='AF" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].DateIssued' value='" + value.CTCDate + "' id='Date" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"
-            NewCTModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.Quantity + "' id='Quantity" + m + "'/>"
-            $("#NewCTC").html(NewCTModel);
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].AF' value='" + value.formTypeCTC + "' id='AF" + m + "'/>"
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].DateIssued' value='" + value.CTCDate + "' id='Date" + m + "'/>"
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].StubNo' value='" + value.StubNum + "' id='StubNo" + m + "'/>"
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].StartingOR' value='" + value.StrtStub + "' id='StartingOR" + m + "'/>"
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].EndingOR' value='" + value.EndStub + "' id='EndingOR" + m + "'/>"
+            NewCTCModel += "<input type='hidden' name='Accountable[" + m + "].Quantity' value='" + value.Quantity + "' id='Quantity" + m + "'/>"
+            $("#NewCTC").html(NewCTCModel);
             m++;
         });
         $('#btnSaveCTC').click()
