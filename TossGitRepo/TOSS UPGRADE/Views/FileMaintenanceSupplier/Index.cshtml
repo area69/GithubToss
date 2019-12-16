@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Supplier";
+}
+<script>
+    $("#fmsupplier").addClass("active");
+</script>
+<div class="content-header row">
+    <div class="content-header-left col-md-6 mb-2">
+        <h3 class="content-header"><b>Supplier</b></h3>
+    </div>
+</div>
+
+
+
+<div class="content-body black" id="FMSupplierController" ng-controller="FMSupplierController" ng-init="InitAllFunction();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-4">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #EABEBB;">
+                        <div class="card box-shadow-2">
+                            <div class="card-header bg-headerbc mt-1">
+                                <h4 class="card-title text-white"><b>Company List</b></h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements mt-0">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="text-white ft-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body box-shadow-1">
+                                    <div class="col-12 col-xl-12 col-sm-12 col-md-12">
+                                        <div class="card box-shadow-2">
+                                            <div id="_SupplierTableID">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="_SupplierID">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

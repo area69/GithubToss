@@ -1,0 +1,67 @@
+﻿@model TOSS_UPGRADE.Models.FM_Taxes.FM_Taxes
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+@using (Ajax.BeginForm("AddTax", "FileMaintenanceTaxes", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMTaxController', 'Get_TaxTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+<div class="row font-weight-bold form-group">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <label>Description</label>
+        @Html.TextBoxFor(m => m.getTaxcolumns.TaxDescription, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-3">
+        <label>Short Description</label>
+        @Html.TextBoxFor(m => m.getTaxcolumns.ShortDescription, new { @class = "form-control", type = "text" })
+    </div>
+    <div class="col-md-2">
+        <label><b>Is Used?</b></label>
+        <select class="form-control" id="isUsedDD" onchange="IsUsedOnChange()">
+            <option value="True">Yes</option>
+            <option value="False">No</option>
+        </select>
+    </div>
+    @Html.HiddenFor(m => m.isUsed, new { id = "isUsedID" })
+</div>
+    <div class="row font-weight-bold form-group">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label>Percentage</label> 
+            @Html.TextBoxFor(m => m.getTaxcolumns.TaxPercentage, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-3">
+            <label>Base</label>
+            @Html.TextBoxFor(m => m.getTaxcolumns.TaxBase, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-4" id="_DDGeneralAccountID">
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row form-group">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button class="btn form-control bg-addbutton black" type="submit"><b>Add</b></button>
+                </div>
+                <div class="col-md-2">
+                    <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMTaxController','Get_TaxTable','')"><b>Cancel</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+    $(function () {
+        IsUsedOnChange()
+    })
+    function IsUsedOnChange() {
+        var isDeptHeadValue = $("#isUsedDD").val();
+        $("#isUsedID").val(isDeptHeadValue);
+    }
+</script>
+

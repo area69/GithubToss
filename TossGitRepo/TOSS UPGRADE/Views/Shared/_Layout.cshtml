@@ -46,11 +46,9 @@
     <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-sanitize.js"></script>
     <script src="~/Angular/Ng.Module.js"></script>
-
-
 </head>
 <!-- BEGIN: Body-->
-<body ng-app="myApp" class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+<body ng-app="myApp" class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns" @*oncontextmenu="return false;"*@>
     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-headerbc navbar-shadow">
         <div class="navbar-wrapper">
@@ -130,5 +128,21 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
+    @*<script>
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        }
+    </script>*@
 </body>
 </html>

@@ -421,6 +421,41 @@
           <Property Name="SubSectorName" Type="varchar" MaxLength="50" />
           <Property Name="SubSectorCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" />
+          <Property Name="ProductServices" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="TaxType" Type="varchar" MaxLength="50" />
+          <Property Name="DTIRegNo" Type="varchar" MaxLength="50" />
+          <Property Name="CDARegistry" Type="varchar" MaxLength="50" />
+          <Property Name="FaxNo" Type="varchar" MaxLength="50" />
+          <Property Name="TelNo" Type="varchar" MaxLength="50" />
+          <Property Name="TIN" Type="varchar" MaxLength="50" />
+          <Property Name="MFName" Type="varchar" MaxLength="50" />
+          <Property Name="MFAddress" Type="varchar" MaxLength="50" />
+          <Property Name="MFContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="AccreNumber" Type="varchar" MaxLength="50" />
+          <Property Name="AccreDate" Type="varchar" MaxLength="50" />
+          <Property Name="AccreValidity" Type="varchar" MaxLength="50" />
+          <Property Name="AccreApproveBy" Type="varchar" MaxLength="50" />
+          <Property Name="AccreMOA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Taxes">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxDescription" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ShortDescription" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="TaxPercentage" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxBase" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GeneralAccountID" Type="int" Nullable="false" />
+          <Property Name="isUsed" Type="bit" Nullable="false" />
+        </EntityType>
         <Association Name="FK_AccountableForm_Assignment_AccountableForm_Inventory">
           <End Role="AccountableForm_Inventory" Type="Self.AccountableForm_Inventory" Multiplicity="1" />
           <End Role="AccountableForm_Assignment" Type="Self.AccountableForm_Assignment" Multiplicity="*" />
@@ -997,6 +1032,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Taxes_GeneralAccount">
+          <End Role="GeneralAccount" Type="Self.GeneralAccount" Multiplicity="1" />
+          <End Role="Taxes" Type="Self.Taxes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralAccount">
+              <PropertyRef Name="GeneralAccountID" />
+            </Principal>
+            <Dependent Role="Taxes">
+              <PropertyRef Name="GeneralAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_AccountableFormInvtList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -1085,6 +1132,8 @@
           <EntitySet Name="SubFund" EntityType="Self.SubFund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubMajorAccountGroup" EntityType="Self.SubMajorAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubSector" EntityType="Self.SubSector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="Self.FK_AccountableForm_Assignment_AccountableForm_Inventory">
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
@@ -1277,6 +1326,10 @@
             <End Role="Sector" EntitySet="Sector" />
             <End Role="SubSector" EntitySet="SubSector" />
           </AssociationSet>
+          <AssociationSet Name="FK_Taxes_GeneralAccount" Association="Self.FK_Taxes_GeneralAccount">
+            <End Role="GeneralAccount" EntitySet="GeneralAccount" />
+            <End Role="Taxes" EntitySet="Taxes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1373,6 +1426,8 @@
           <EntitySet Name="SubFunds" EntityType="DB_TOSSModel.SubFund" />
           <EntitySet Name="SubMajorAccountGroups" EntityType="DB_TOSSModel.SubMajorAccountGroup" />
           <EntitySet Name="SubSectors" EntityType="DB_TOSSModel.SubSector" />
+          <EntitySet Name="Suppliers" EntityType="DB_TOSSModel.Supplier" />
+          <EntitySet Name="Taxes" EntityType="DB_TOSSModel.Tax" />
           <AssociationSet Name="FK_AccountableForm_Assignment_AccountableForm_Inventory" Association="DB_TOSSModel.FK_AccountableForm_Assignment_AccountableForm_Inventory">
             <End Role="AccountableForm_Inventory" EntitySet="AccountableForm_Inventory" />
             <End Role="AccountableForm_Assignment" EntitySet="AccountableForm_Assignment" />
@@ -1508,6 +1563,10 @@
           <AssociationSet Name="FK_GeneralAccount_SubMajorAccountGroup" Association="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup">
             <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroups" />
             <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Taxes_GeneralAccount" Association="DB_TOSSModel.FK_Taxes_GeneralAccount">
+            <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
+            <End Role="Tax" EntitySet="Taxes" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_Level1Modules" Association="DB_TOSSModel.FK_Level1Modules_Level1Modules">
             <End Role="Level1Modules" EntitySet="Level1Modules" />
@@ -1848,6 +1907,7 @@
           <NavigationProperty Name="BankAccountTables" Relationship="DB_TOSSModel.FK_BankAccountTable_GeneralAccount" FromRole="GeneralAccount" ToRole="BankAccountTable" />
           <NavigationProperty Name="FieldFees" Relationship="DB_TOSSModel.FK_FieldFee_GeneralAccount" FromRole="GeneralAccount" ToRole="FieldFee" />
           <NavigationProperty Name="SubMajorAccountGroup" Relationship="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup" FromRole="GeneralAccount" ToRole="SubMajorAccountGroup" />
+          <NavigationProperty Name="Taxes" Relationship="DB_TOSSModel.FK_Taxes_GeneralAccount" FromRole="GeneralAccount" ToRole="Tax" />
         </EntityType>
         <EntityType Name="IRA_Table">
           <Key>
@@ -2077,6 +2137,42 @@
           <NavigationProperty Name="Functions" Relationship="DB_TOSSModel.FK_Function_SubSector" FromRole="SubSector" ToRole="Function" />
           <NavigationProperty Name="Sector" Relationship="DB_TOSSModel.FK_SubSector_Sector" FromRole="SubSector" ToRole="Sector" />
           <NavigationProperty Name="Signatory_DepartmentTable" Relationship="DB_TOSSModel.FK_Signatory_DepartmentTable_SubSector" FromRole="SubSector" ToRole="Signatory_DepartmentTable" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductServices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TaxType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DTIRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CDARegistry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MFName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MFAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MFContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccreNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccreDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccreValidity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccreApproveBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccreMOA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TaxPercentage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxBase" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GeneralAccountID" Type="Int32" Nullable="false" />
+          <Property Name="isUsed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="GeneralAccount" Relationship="DB_TOSSModel.FK_Taxes_GeneralAccount" FromRole="Tax" ToRole="GeneralAccount" />
         </EntityType>
         <Association Name="FK_AccountableForm_Assignment_AccountableForm_Inventory">
           <End Type="DB_TOSSModel.AccountableForm_Inventory" Role="AccountableForm_Inventory" Multiplicity="1" />
@@ -2483,6 +2579,18 @@
             </Principal>
             <Dependent Role="GeneralAccount">
               <PropertyRef Name="SubMajorAccountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Taxes_GeneralAccount">
+          <End Type="DB_TOSSModel.GeneralAccount" Role="GeneralAccount" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Tax" Role="Tax" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralAccount">
+              <PropertyRef Name="GeneralAccountID" />
+            </Principal>
+            <Dependent Role="Tax">
+              <PropertyRef Name="GeneralAccountID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3130,6 +3238,43 @@
                 <ScalarProperty Name="SubSectorName" ColumnName="SubSectorName" />
                 <ScalarProperty Name="SectorID" ColumnName="SectorID" />
                 <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="AccreMOA" ColumnName="AccreMOA" />
+                <ScalarProperty Name="AccreApproveBy" ColumnName="AccreApproveBy" />
+                <ScalarProperty Name="AccreValidity" ColumnName="AccreValidity" />
+                <ScalarProperty Name="AccreDate" ColumnName="AccreDate" />
+                <ScalarProperty Name="AccreNumber" ColumnName="AccreNumber" />
+                <ScalarProperty Name="MFContactNo" ColumnName="MFContactNo" />
+                <ScalarProperty Name="MFAddress" ColumnName="MFAddress" />
+                <ScalarProperty Name="MFName" ColumnName="MFName" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="TelNo" ColumnName="TelNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="CDARegistry" ColumnName="CDARegistry" />
+                <ScalarProperty Name="DTIRegNo" ColumnName="DTIRegNo" />
+                <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ProductServices" ColumnName="ProductServices" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Tax">
+              <MappingFragment StoreEntitySet="Taxes">
+                <ScalarProperty Name="isUsed" ColumnName="isUsed" />
+                <ScalarProperty Name="GeneralAccountID" ColumnName="GeneralAccountID" />
+                <ScalarProperty Name="TaxBase" ColumnName="TaxBase" />
+                <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="TaxDescription" ColumnName="TaxDescription" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

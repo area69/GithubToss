@@ -1,0 +1,150 @@
+﻿
+@model TOSS_UPGRADE.Models.FM_Supplier.FM_Supplier
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("UpdateSupplier", "FileMaintenanceSupplier", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMSupplierController', 'Get_SupplierTable','UpdateMessageBox')", OnFailure = "OnFailure()", }))
+{
+    @Html.HiddenFor(m => m.getSuppliercolumns.SupplierID, new { })
+    <div class="card box-shadow-2">
+        <div class="card-header bg-headerbc mt-1">
+            <h4 class="card-title text-white"><b>Company Profile</b></h4>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body box-shadow-1 rounded menubackground">
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <label>Company Name</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.CompanyName, new { @class = "form-control", type = "text" })
+                    </div>
+                    <div class="col-md-5">
+                        <label>Company Address</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.Address, new { @class = "form-control", type = "text" })
+                    </div>
+                </div>
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label><b>Tax Type</b></label>
+                        <select class="form-control" id="isVATDD" onchange="IsVATOnChange()">
+                            <option value="VAT">VAT</option>
+                            <option value="NONVAT">NON - VAT</option>
+                        </select>
+                        @Html.HiddenFor(m => m.TaxType, new { id = "TaxTypeID" })
+                    </div>
+                    <div class="col-md-6">
+                        <label>Product Services</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.ProductServices, new { @class = "form-control", type = "text" })
+                    </div>
+                </div>
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Telephone Number</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.TelNo, new { @class = "form-control", type = "text" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Fax Number</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.FaxNo, new { @class = "form-control", type = "text" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>T.I.N.</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.TIN, new { @class = "form-control", type = "text" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card box-shadow-2">
+        <div class="card-header bg-headerbc mt-1">
+            <h4 class="card-title text-white"><b>Accreditation</b></h4>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body box-shadow-1 rounded menubackground">
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Accreditation No</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.AccreNumber, new { @class = "form-control", type = "text" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Date</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.AccreDate, new { @class = "form-control pickadate", type = "text" })
+                            </div>
+                            <div class="col-md-4">
+                                <label>Valid Until</label>
+                                @Html.TextBoxFor(m => m.getSuppliercolumns.AccreValidity, new { @class = "form-control pickadate", type = "text" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <label>Approved By</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.AccreApproveBy, new { @class = "form-control", type = "text" })
+                    </div>
+                    <div class="col-md-6">
+                        <label>MOA</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.AccreMOA, new { @class = "form-control", type = "text" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card box-shadow-2">
+        <div class="card-header bg-headerbc mt-1">
+            <h4 class="card-title text-white"><b>Owner's Profile</b></h4>
+        </div>
+        <div class="card-content collapse show">
+            <div class="card-body box-shadow-1 rounded menubackground">
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                        <label>Name</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.MFName, new { @class = "form-control", type = "text" })
+                    </div>
+                    <div class="col-md-4">
+                        <label>Contact</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.MFContactNo, new { @class = "form-control", type = "text" })
+                    </div>
+                </div>
+                <div class="row form-group font-weight-bold">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <label>Address</label>
+                        @Html.TextBoxFor(m => m.getSuppliercolumns.MFAddress, new { @class = "form-control", type = "text" })
+                    </div>
+                </div>
+                <div class="row mt-2 font-weight-bold">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <button class="btn form-control bg-addbutton black" type="submit"><b>Update</b></button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="reset" class="btn bg-headerbc form-control white" onclick="AngularGlobalEdit('FMSupplierController','Get_SupplierTable','')"><b>Cancel</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $("#isVATDD").val($("#TaxTypeID").val());
+        LoadPickDatetime();
+    })
+    function IsVATOnChange() {
+        var isVATValue = $("#isVATDD").val();
+        $("#TaxTypeID").val(isVATValue);
+    }
+</script>

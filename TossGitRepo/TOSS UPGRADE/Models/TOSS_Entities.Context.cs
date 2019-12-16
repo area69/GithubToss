@@ -69,6 +69,8 @@ namespace TOSS_UPGRADE.Models
         public virtual DbSet<SubFund> SubFunds { get; set; }
         public virtual DbSet<SubMajorAccountGroup> SubMajorAccountGroups { get; set; }
         public virtual DbSet<SubSector> SubSectors { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Tax> Taxes { get; set; }
     
         public virtual int SP_AccountableFormInvtList(string sQLStatement)
         {

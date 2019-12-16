@@ -205,6 +205,8 @@
     <Compile Include="Controllers\FileMaintenanceResponsibilityCenterController.cs" />
     <Compile Include="Controllers\FileMaintenanceSectorController.cs" />
     <Compile Include="Controllers\FileMaintenanceSignatoriesController.cs" />
+    <Compile Include="Controllers\FileMaintenanceSupplierController.cs" />
+    <Compile Include="Controllers\FileMaintenanceTaxesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -312,6 +314,8 @@
     <Compile Include="Models\FM_ResponsibilityCenter\FM_ResponsibilityCenter_Section.cs" />
     <Compile Include="Models\FM_Sectors\FM_Sector.cs" />
     <Compile Include="Models\FM_SignatoriesModel.cs" />
+    <Compile Include="Models\FM_Supplier\FM_Supplier.cs" />
+    <Compile Include="Models\FM_Taxes\FM_Taxes.cs" />
     <Compile Include="Models\Function.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
@@ -378,6 +382,12 @@
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SubSector.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tax.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TOSSDataSet.Designer.cs">
@@ -9211,21 +9221,21 @@
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDStartCTNo.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_AddCashTicketIvntAF.cshtml" />
     <Content Include="Views\FileMaintenanceFees\Index.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_AddFees.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_FeesTable.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\FeeCategory\_AddFeeCategory.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\FeeCategory\_FeeCategoryTable.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\FeeCategory\_DynamicDDAccountableFormDescription.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\FeeCategory\_UpdateFeeCategory.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_DynamicDDFeeCategoryName.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_AddFees.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_FeesTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\FeeCategory\_AddFeeCategory.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\FeeCategory\_FeeCategoryTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\FeeCategory\_DynamicDDAccountableFormDescription.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\FeeCategory\_UpdateFeeCategory.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_DynamicDDFeeCategoryName.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\_DynamicDDDescriptionName.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_AddDescription.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_DescriptionTable.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AccountableForm\Description\_UpdateDescription.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_DynamicDDRevisionYear.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_DynamicFundType.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_DynamicDDGeneralAccountCode.cshtml" />
-    <Content Include="Views\FileMaintenanceFees\_UpdateFees.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_DynamicDDRevisionYear.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_DynamicFundType.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_DynamicDDGeneralAccountCode.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Fee\_UpdateFees.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\CashTicket\_DynamicDDTypeofFee.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_AddBarangayCollector.cshtml" />
     <Content Include="Views\FileMaintenanceAccountableForm\AssignmentofAccountableForm\BarangayCollector\_BarangayCollectorTable.cshtml" />
@@ -9251,6 +9261,15 @@
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\CheckMaitenanceIndex.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\CheckMaintenance\_DynamicDDBankName.cshtml" />
     <Content Include="Views\FileMaintenanceDisbursement\DVType\DVTypeIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceTaxes\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceSupplier\Index.cshtml" />
+    <Content Include="Views\FileMaintenanceTaxes\_AddTaxes.cshtml" />
+    <Content Include="Views\FileMaintenanceTaxes\_TaxesTable.cshtml" />
+    <Content Include="Views\FileMaintenanceTaxes\_DynamicDDGeneralAccountName.cshtml" />
+    <Content Include="Views\FileMaintenanceTaxes\_UpdateTaxes.cshtml" />
+    <Content Include="Views\FileMaintenanceSupplier\_AddSupplier.cshtml" />
+    <Content Include="Views\FileMaintenanceSupplier\_SupplierTable.cshtml" />
+    <Content Include="Views\FileMaintenanceSupplier\_UpdateSupplier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9265,6 +9284,7 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
+    <Folder Include="Views\FileMaintenanceFees\Particulars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

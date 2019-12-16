@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Taxes";
+}
+<script>
+    $("#fmtaxes").addClass("active");
+</script>
+<div class="content-header row">
+    <div class="content-header-left col-md-6 mb-2">
+        <h3 class="content-header"><b>File Maintenance - Taxes</b></h3>
+    </div>
+</div>
+
+<div class="content-body black" id="FMTaxController" ng-controller="FMTaxController" ng-init="InitAllFunction();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2" style="border: 1px solid; border-color: #EABEBB;">
+                <div class="card-body box-shadow-2">
+                    <div class="card-body px-1 card-body rounded menubackground">
+                        <div id="_TaxesID">
+
+                        </div>
+                    </div>
+                    <div class="row mt-1 form-group" id="_TaxesTableID">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+</script>

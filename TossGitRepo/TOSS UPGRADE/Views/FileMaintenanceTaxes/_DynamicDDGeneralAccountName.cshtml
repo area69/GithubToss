@@ -1,0 +1,14 @@
+﻿@model TOSS_UPGRADE.Models.FM_Taxes.FM_Taxes
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+<label><b>General Account Class</b></label>
+@Html.DropDownListFor(m => m.GeneralAccountID, Model.TaxList, new { @class = "form-control select2", id = "GeneralAccountIDD" })
+
+<script>
+    $(function () {
+        $("#GeneralAccountIDD").select2();
+    })
+</script>
+

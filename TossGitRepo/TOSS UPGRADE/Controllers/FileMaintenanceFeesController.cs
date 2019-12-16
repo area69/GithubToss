@@ -23,6 +23,7 @@ namespace TOSS_UPGRADE.Controllers
         {
             return View();
         }
+        #region Field Type of Fees
         #region Field Fees
         //Table Field Fees
         public ActionResult Get_FieldFeeTable()
@@ -56,38 +57,39 @@ namespace TOSS_UPGRADE.Controllers
                 Connection.Close();
             }
             model.getFieldFeeList = tbl_Fees.ToList();
-            return PartialView("_FeesTable", model.getFieldFeeList);
+            return PartialView("Fee/_FeesTable", model.getFieldFeeList);
         }
         //Get Add Field Fees Partial View
         public ActionResult Get_AddFieldFees()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            return PartialView("_AddFees", model);
+            return PartialView("Fee/_AddFees", model);
         }
         public ActionResult GetDynamicFeeCategory()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FieldFeeList = new SelectList((from s in TOSSDB.FeeCategories.ToList() select new { FeeCategoryID = s.FeeCategoryID, FeeCategoryName = s.FeeCategoryName }), "FeeCategoryID", "FeeCategoryName");
-            return PartialView("_DynamicDDFeeCategoryName", model);
+            return PartialView("Fee/_DynamicDDFeeCategoryName", model);
         }
         public ActionResult GetDynamicRevisionYear()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FieldFeeList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
-            return PartialView("_DynamicDDRevisionYear", model);
+            return PartialView("Fee/_DynamicDDRevisionYear", model);
         }
         public ActionResult GetDynamicFundType()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-           var Acronym = "";
-            foreach (var item in TOSSDB.SubFunds.ToList()) {
-                for(var i= 0; i < item.Fund.FundName.Length;)
+            var Acronym = "";
+            foreach (var item in TOSSDB.SubFunds.ToList())
+            {
+                for (var i = 0; i < item.Fund.FundName.Length;)
                 {
-                    if (i==0)
+                    if (i == 0)
                     {
                         Acronym += item.Fund.FundName[i].ToString();
                     }
-                    if (item.Fund.FundName[i]== ' ')
+                    if (item.Fund.FundName[i] == ' ')
                     {
                         Acronym += item.Fund.FundName[i + 1].ToString();
                     }
@@ -96,21 +98,21 @@ namespace TOSS_UPGRADE.Controllers
                 model.globalClasses.fieldFeeDDs.Add(new FieldFeeDD
                 {
                     SubFundID = item.SubFundID,
-                    FundName = Acronym +" - "+ item.SubFundName,
+                    FundName = Acronym + " - " + item.SubFundName,
                 });
                 Acronym = "";
-               
+
             }
             model.FieldFeeList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
 
-            return PartialView("_DynamicFundType", model);
+            return PartialView("Fee/_DynamicFundType", model);
         }
         public ActionResult GetDynamicGeneralAccountCode()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            model.FieldFeeList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode +" - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
-            return PartialView("_DynamicDDGeneralAccountCode", model);
-        }   
+            model.FieldFeeList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode + " - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
+            return PartialView("Fee/_DynamicDDGeneralAccountCode", model);
+        }
         //Get Add Field Fees
         public JsonResult AddFieldFee(FM_Fees_Fee model)
         {
@@ -130,14 +132,14 @@ namespace TOSS_UPGRADE.Controllers
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FieldFeeList = new SelectList((from s in TOSSDB.FeeCategories.ToList() select new { FeeCategoryID = s.FeeCategoryID, FeeCategoryName = s.FeeCategoryName }), "FeeCategoryID", "FeeCategoryName");
             model.FeeCategoryID = FeeCategoryTempID;
-            return PartialView("_DynamicDDFeeCategoryName", model);
+            return PartialView("Fee/_DynamicDDFeeCategoryName", model);
         }
         public ActionResult GetSelectedDynamicRevisionYear(int RevisionYearTempID)
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FieldFeeList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
             model.RevisionYearID = RevisionYearTempID;
-            return PartialView("_DynamicDDRevisionYear", model);
+            return PartialView("Fee/_DynamicDDRevisionYear", model);
         }
         public ActionResult GetSelectedDynamicFundType(int FundTypeTempID)
         {
@@ -167,14 +169,14 @@ namespace TOSS_UPGRADE.Controllers
             }
             model.FieldFeeList = new SelectList(model.globalClasses.fieldFeeDDs.ToList(), "SubFundID", "FundName");
             model.FundTypeID = FundTypeTempID;
-            return PartialView("_DynamicFundType", model);
+            return PartialView("Fee/_DynamicFundType", model);
         }
         public ActionResult GetSelectedDynamicGeneralAccountCode(int AccountCodeTempID)
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FieldFeeList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode + " - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
             model.AccountCodeID = AccountCodeTempID;
-            return PartialView("_DynamicDDGeneralAccountCode", model);
+            return PartialView("Fee/_DynamicDDGeneralAccountCode", model);
         }
         //Get Update Field Fees
         public ActionResult Get_UpdateFieldFee(FM_Fees_Fee model, int FieldFeeID)
@@ -188,7 +190,7 @@ namespace TOSS_UPGRADE.Controllers
             model.FeeCategoryTempID = tblFieldFee.FeeCategoryID;
             model.RevisionYearTempID = tblFieldFee.GeneralAccount.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AllotmentClass.RevisionYear.RevisionYearID;
             model.isRequired = tblFieldFee.ORRequired;
-            return PartialView("_UpdateFees", model);
+            return PartialView("Fee/_UpdateFees", model);
         }
         public ActionResult UpdateFieldFee(FM_Fees_Fee model)
         {
@@ -201,7 +203,7 @@ namespace TOSS_UPGRADE.Controllers
             tblFieldFee.ORRequired = model.isRequired;
             TOSSDB.Entry(tblFieldFee);
             TOSSDB.SaveChanges();
-            return PartialView("_UpdateFees", model);
+            return PartialView("Fee/_UpdateFees", model);
         }
         //Delete Field Fees
         public ActionResult DeleteFieldFee(FM_Fees_Fee model, int FieldFeeID)
@@ -216,7 +218,7 @@ namespace TOSS_UPGRADE.Controllers
         public ActionResult Get_AddFeeCategory()
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
-            return PartialView("FeeCategory/_AddFeeCategory", model);
+            return PartialView("Fee/FeeCategory/_AddFeeCategory", model);
         }
         public ActionResult Get_FeeCategoryTable()
         {
@@ -246,7 +248,7 @@ namespace TOSS_UPGRADE.Controllers
                 Connection.Close();
             }
             model.getFeeCategoryList = tbl_Fees.ToList();
-            return PartialView("FeeCategory/_FeeCategoryTable", model.getFeeCategoryList);
+            return PartialView("Fee/FeeCategory/_FeeCategoryTable", model.getFeeCategoryList);
         }
         public JsonResult AddFeeCategory(FM_Fees_Fee model)
         {
@@ -262,14 +264,14 @@ namespace TOSS_UPGRADE.Controllers
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FeeCategoryList = new SelectList((from s in TOSSDB.AF_Description.ToList() select new { AFDescriptionID = s.AFDescriptionID, DescriptionName = s.DescriptionName }), "AFDescriptionID", "DescriptionName");
-            return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
+            return PartialView("Fee/FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
         public ActionResult GetSelectedDynamicAccountableFormDescription(int AccountFormTempID)
         {
             FM_Fees_Fee model = new FM_Fees_Fee();
             model.FeeCategoryList = new SelectList((from s in TOSSDB.AF_Description.ToList() select new { AFDescriptionID = s.AFDescriptionID, DescriptionName = s.DescriptionName }), "AFDescriptionID", "DescriptionName");
             model.AFDescriptionID = AccountFormTempID;
-            return PartialView("FeeCategory/_DynamicDDAccountableFormDescription", model);
+            return PartialView("Fee/FeeCategory/_DynamicDDAccountableFormDescription", model);
         }
         //Get Update Internal Revenue Allotment
         public ActionResult Get_UpdateFeeCategory(FM_Fees_Fee model, int FeeCategoryID)
@@ -278,7 +280,7 @@ namespace TOSS_UPGRADE.Controllers
             model.getFeeCategorycolumns.FeeCategoryID = tblFeeCategory.FeeCategoryID;
             model.getFeeCategorycolumns.FeeCategoryName = tblFeeCategory.FeeCategoryName;
             model.AccountFormTempID = tblFeeCategory.AFDescriptionID;
-            return PartialView("FeeCategory/_UpdateFeeCategory", model);
+            return PartialView("Fee/FeeCategory/_UpdateFeeCategory", model);
         }
         //Update Internal Revenue Allotment
         public ActionResult UpdateFeeCategory(FM_Fees_Fee model)
@@ -288,7 +290,7 @@ namespace TOSS_UPGRADE.Controllers
             tblFeeCategory.AFDescriptionID = model.AFDescriptionID;
             TOSSDB.Entry(tblFeeCategory);
             TOSSDB.SaveChanges();
-            return PartialView("FeeCategory/_UpdateFeeCategory", model);
+            return PartialView("Fee/FeeCategory/_UpdateFeeCategory", model);
         }
         //Delete Internal Revenue Allotment
         public ActionResult DeleteFeeCategory(FM_Fees_Fee model, int FeeCategoryID)
@@ -298,6 +300,10 @@ namespace TOSS_UPGRADE.Controllers
             TOSSDB.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
+        #endregion
+        #region Particulars
+
         #endregion
     }
 }
