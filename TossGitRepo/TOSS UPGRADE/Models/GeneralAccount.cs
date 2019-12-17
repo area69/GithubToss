@@ -19,6 +19,7 @@ namespace TOSS_UPGRADE.Models
         {
             this.BankAccountTables = new HashSet<BankAccountTable>();
             this.FieldFees = new HashSet<FieldFee>();
+            this.Particulars = new HashSet<Particular>();
             this.Taxes = new HashSet<Tax>();
         }
     
@@ -39,6 +40,8 @@ namespace TOSS_UPGRADE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FieldFee> FieldFees { get; set; }
         public virtual SubMajorAccountGroup SubMajorAccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Particular> Particulars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tax> Taxes { get; set; }
     }

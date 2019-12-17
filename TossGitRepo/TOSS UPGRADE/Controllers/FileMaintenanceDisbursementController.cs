@@ -121,7 +121,7 @@ namespace TOSS_UPGRADE.Controllers
             FM_Disbursement_CheckInventory model = new FM_Disbursement_CheckInventory();
             List<CheckInventoryList> tbl_CheckInventory = new List<CheckInventoryList>();
 
-            var SQLQuery = "SELECT CheckInvntID,BankAccountTable.BankID,BankAccountTable.AccountNo,Quantity,StartingChckNo,EndingChckNo,DateIssued FROM DB_TOSS.dbo.CheckInventoryTable,dbo.BankAccountTable where dbo.BankAccountTable.BankAccountID = dbo.CheckInventoryTable.BankAccountID";
+            var SQLQuery = "SELECT CheckInvntID,BankAccountTable.BankID,BankAccountTable.AccountNo,Quantity,StartingChckNo,EndingChckNo,DateIssued,dbo.CheckInventoryTable.IsIssued FROM DB_TOSS.dbo.CheckInventoryTable,dbo.BankAccountTable where dbo.BankAccountTable.BankAccountID = dbo.CheckInventoryTable.BankAccountID";
             //SQLQuery += " WHERE (IsActive != 0)";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -142,6 +142,7 @@ namespace TOSS_UPGRADE.Controllers
                             StartingChckNo = GlobalFunction.ReturnEmptyInt(dr[4]),
                             EndingChckNo = GlobalFunction.ReturnEmptyInt(dr[5]),
                             Date = Convert.ToDateTime(dr[6]),
+                            isUsed = GlobalFunction.ReturnEmptyBool(dr[7])
                         });
                     }
                 }

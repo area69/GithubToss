@@ -13,6 +13,7 @@
                 <th>Starting Check No.</th>
                 <th>Ending Check No.</th>
                 <th>Date</th>
+                <th>Is Used?</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -52,6 +53,21 @@
                                 DateTime DateofHearing = Convert.ToDateTime(@Items.Date);
                             }
                             @DateofHearing.ToString("MMMM dd, yyyy")
+                        </td>
+                        <td>
+                            @{
+                                var isUsed = "";
+                                if (Items.isUsed == true)
+                                {
+                                    isUsed = "Yes";
+                                }
+                                else if (Items.isUsed == false)
+                                {
+                                    isUsed = "No";
+                                }
+
+                            }
+                            @isUsed
                         </td>
                         <td>
                             <button type="button" onfocusout="PopoveLostFocus()" class="btn btn-sm btn-warning popover-trigger" data-toggle="popover" data-content="@ActionContentProgram"

@@ -287,6 +287,13 @@
           <Property Name="MajorAccountGroupName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MajorAccountGroupCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="NatureOfParticular">
+          <Key>
+            <PropertyRef Name="NatureofParticularID" />
+          </Key>
+          <Property Name="NatureofParticularID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NatureofParticularName" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
         <EntityType Name="OfficeType">
           <Key>
             <PropertyRef Name="OfficeTypeID" />
@@ -305,6 +312,14 @@
           <Property Name="ControllerName" Type="varchar" MaxLength="50" />
           <Property Name="ActionName" Type="varchar" MaxLength="50" />
           <Property Name="JSID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Particulars">
+          <Key>
+            <PropertyRef Name="ParticularID" />
+          </Key>
+          <Property Name="ParticularID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GeneralAccountID" Type="int" Nullable="false" />
+          <Property Name="NatureofParticularID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Payee">
           <Key>
@@ -876,6 +891,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Particulars_GeneralAccount">
+          <End Role="GeneralAccount" Type="Self.GeneralAccount" Multiplicity="1" />
+          <End Role="Particulars" Type="Self.Particulars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralAccount">
+              <PropertyRef Name="GeneralAccountID" />
+            </Principal>
+            <Dependent Role="Particulars">
+              <PropertyRef Name="GeneralAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Particulars_NatureOfParticular">
+          <End Role="NatureOfParticular" Type="Self.NatureOfParticular" Multiplicity="1" />
+          <End Role="Particulars" Type="Self.Particulars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NatureOfParticular">
+              <PropertyRef Name="NatureofParticularID" />
+            </Principal>
+            <Dependent Role="Particulars">
+              <PropertyRef Name="NatureofParticularID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Payee_Signatory_DepartmentTable">
           <End Role="Signatory_DepartmentTable" Type="Self.Signatory_DepartmentTable" Multiplicity="0..1" />
           <End Role="Payee" Type="Self.Payee" Multiplicity="*" />
@@ -1118,8 +1157,10 @@
           <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level3Modules" EntityType="Self.Level3Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MajorAccountGroup" EntityType="Self.MajorAccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NatureOfParticular" EntityType="Self.NatureOfParticular" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OfficeType" EntityType="Self.OfficeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Particulars" EntityType="Self.Particulars" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payee" EntityType="Self.Payee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RevisionYear" EntityType="Self.RevisionYear" Schema="dbo" store:Type="Tables" />
@@ -1274,6 +1315,14 @@
             <End Role="ParentModules" EntitySet="ParentModules" />
             <End Role="ParentModules1" EntitySet="ParentModules" />
           </AssociationSet>
+          <AssociationSet Name="FK_Particulars_GeneralAccount" Association="Self.FK_Particulars_GeneralAccount">
+            <End Role="GeneralAccount" EntitySet="GeneralAccount" />
+            <End Role="Particulars" EntitySet="Particulars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Particulars_NatureOfParticular" Association="Self.FK_Particulars_NatureOfParticular">
+            <End Role="NatureOfParticular" EntitySet="NatureOfParticular" />
+            <End Role="Particulars" EntitySet="Particulars" />
+          </AssociationSet>
           <AssociationSet Name="FK_Payee_Signatory_DepartmentTable" Association="Self.FK_Payee_Signatory_DepartmentTable">
             <End Role="Signatory_DepartmentTable" EntitySet="Signatory_DepartmentTable" />
             <End Role="Payee" EntitySet="Payee" />
@@ -1412,8 +1461,10 @@
           <EntitySet Name="Level2Modules" EntityType="DB_TOSSModel.Level2Modules" />
           <EntitySet Name="Level3Modules" EntityType="DB_TOSSModel.Level3Modules" />
           <EntitySet Name="MajorAccountGroups" EntityType="DB_TOSSModel.MajorAccountGroup" />
+          <EntitySet Name="NatureOfParticulars" EntityType="DB_TOSSModel.NatureOfParticular" />
           <EntitySet Name="OfficeTypes" EntityType="DB_TOSSModel.OfficeType" />
           <EntitySet Name="ParentModules" EntityType="DB_TOSSModel.ParentModule" />
+          <EntitySet Name="Particulars" EntityType="DB_TOSSModel.Particular" />
           <EntitySet Name="Payees" EntityType="DB_TOSSModel.Payee" />
           <EntitySet Name="PersonalInformations" EntityType="DB_TOSSModel.PersonalInformation" />
           <EntitySet Name="RevisionYears" EntityType="DB_TOSSModel.RevisionYear" />
@@ -1564,6 +1615,10 @@
             <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroups" />
             <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Particulars_GeneralAccount" Association="DB_TOSSModel.FK_Particulars_GeneralAccount">
+            <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
+            <End Role="Particular" EntitySet="Particulars" />
+          </AssociationSet>
           <AssociationSet Name="FK_Taxes_GeneralAccount" Association="DB_TOSSModel.FK_Taxes_GeneralAccount">
             <End Role="GeneralAccount" EntitySet="GeneralAccounts" />
             <End Role="Tax" EntitySet="Taxes" />
@@ -1587,6 +1642,10 @@
           <AssociationSet Name="FK_SubMajorAccount_SubMajorAccount" Association="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount">
             <End Role="MajorAccountGroup" EntitySet="MajorAccountGroups" />
             <End Role="SubMajorAccountGroup" EntitySet="SubMajorAccountGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Particulars_NatureOfParticular" Association="DB_TOSSModel.FK_Particulars_NatureOfParticular">
+            <End Role="NatureOfParticular" EntitySet="NatureOfParticulars" />
+            <End Role="Particular" EntitySet="Particulars" />
           </AssociationSet>
           <AssociationSet Name="FK_Signatory_DepartmentTable_OfficeType" Association="DB_TOSSModel.FK_Signatory_DepartmentTable_OfficeType">
             <End Role="OfficeType" EntitySet="OfficeTypes" />
@@ -1907,6 +1966,7 @@
           <NavigationProperty Name="BankAccountTables" Relationship="DB_TOSSModel.FK_BankAccountTable_GeneralAccount" FromRole="GeneralAccount" ToRole="BankAccountTable" />
           <NavigationProperty Name="FieldFees" Relationship="DB_TOSSModel.FK_FieldFee_GeneralAccount" FromRole="GeneralAccount" ToRole="FieldFee" />
           <NavigationProperty Name="SubMajorAccountGroup" Relationship="DB_TOSSModel.FK_GeneralAccount_SubMajorAccountGroup" FromRole="GeneralAccount" ToRole="SubMajorAccountGroup" />
+          <NavigationProperty Name="Particulars" Relationship="DB_TOSSModel.FK_Particulars_GeneralAccount" FromRole="GeneralAccount" ToRole="Particular" />
           <NavigationProperty Name="Taxes" Relationship="DB_TOSSModel.FK_Taxes_GeneralAccount" FromRole="GeneralAccount" ToRole="Tax" />
         </EntityType>
         <EntityType Name="IRA_Table">
@@ -1969,6 +2029,14 @@
           <NavigationProperty Name="AccountGroup" Relationship="DB_TOSSModel.FK_MajorAccountGroup_AccountGroup" FromRole="MajorAccountGroup" ToRole="AccountGroup" />
           <NavigationProperty Name="SubMajorAccountGroups" Relationship="DB_TOSSModel.FK_SubMajorAccount_SubMajorAccount" FromRole="MajorAccountGroup" ToRole="SubMajorAccountGroup" />
         </EntityType>
+        <EntityType Name="NatureOfParticular">
+          <Key>
+            <PropertyRef Name="NatureofParticularID" />
+          </Key>
+          <Property Name="NatureofParticularID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NatureofParticularName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Particulars" Relationship="DB_TOSSModel.FK_Particulars_NatureOfParticular" FromRole="NatureOfParticular" ToRole="Particular" />
+        </EntityType>
         <EntityType Name="OfficeType">
           <Key>
             <PropertyRef Name="OfficeTypeID" />
@@ -1992,6 +2060,16 @@
           <NavigationProperty Name="Level1Modules" Relationship="DB_TOSSModel.FK_Level1Modules_ParentModules" FromRole="ParentModule" ToRole="Level1Modules" />
           <NavigationProperty Name="ParentModules1" Relationship="DB_TOSSModel.FK_ParentModules_ParentModules" FromRole="ParentModule" ToRole="ParentModule1" />
           <NavigationProperty Name="ParentModule1" Relationship="DB_TOSSModel.FK_ParentModules_ParentModules" FromRole="ParentModule1" ToRole="ParentModule" />
+        </EntityType>
+        <EntityType Name="Particular">
+          <Key>
+            <PropertyRef Name="ParticularID" />
+          </Key>
+          <Property Name="ParticularID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GeneralAccountID" Type="Int32" Nullable="false" />
+          <Property Name="NatureofParticularID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GeneralAccount" Relationship="DB_TOSSModel.FK_Particulars_GeneralAccount" FromRole="Particular" ToRole="GeneralAccount" />
+          <NavigationProperty Name="NatureOfParticular" Relationship="DB_TOSSModel.FK_Particulars_NatureOfParticular" FromRole="Particular" ToRole="NatureOfParticular" />
         </EntityType>
         <EntityType Name="Payee">
           <Key>
@@ -2582,6 +2660,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Particulars_GeneralAccount">
+          <End Type="DB_TOSSModel.GeneralAccount" Role="GeneralAccount" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Particular" Role="Particular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeneralAccount">
+              <PropertyRef Name="GeneralAccountID" />
+            </Principal>
+            <Dependent Role="Particular">
+              <PropertyRef Name="GeneralAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Taxes_GeneralAccount">
           <End Type="DB_TOSSModel.GeneralAccount" Role="GeneralAccount" Multiplicity="1" />
           <End Type="DB_TOSSModel.Tax" Role="Tax" Multiplicity="*" />
@@ -2651,6 +2741,18 @@
             </Principal>
             <Dependent Role="SubMajorAccountGroup">
               <PropertyRef Name="MajorAccountGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Particulars_NatureOfParticular">
+          <End Type="DB_TOSSModel.NatureOfParticular" Role="NatureOfParticular" Multiplicity="1" />
+          <End Type="DB_TOSSModel.Particular" Role="Particular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NatureOfParticular">
+              <PropertyRef Name="NatureofParticularID" />
+            </Principal>
+            <Dependent Role="Particular">
+              <PropertyRef Name="NatureofParticularID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3093,6 +3195,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NatureOfParticulars">
+            <EntityTypeMapping TypeName="DB_TOSSModel.NatureOfParticular">
+              <MappingFragment StoreEntitySet="NatureOfParticular">
+                <ScalarProperty Name="NatureofParticularName" ColumnName="NatureofParticularName" />
+                <ScalarProperty Name="NatureofParticularID" ColumnName="NatureofParticularID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="OfficeTypes">
             <EntityTypeMapping TypeName="DB_TOSSModel.OfficeType">
               <MappingFragment StoreEntitySet="OfficeType">
@@ -3111,6 +3221,15 @@
                 <ScalarProperty Name="icon" ColumnName="icon" />
                 <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
                 <ScalarProperty Name="ModuleParentID" ColumnName="ModuleParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Particulars">
+            <EntityTypeMapping TypeName="DB_TOSSModel.Particular">
+              <MappingFragment StoreEntitySet="Particulars">
+                <ScalarProperty Name="NatureofParticularID" ColumnName="NatureofParticularID" />
+                <ScalarProperty Name="GeneralAccountID" ColumnName="GeneralAccountID" />
+                <ScalarProperty Name="ParticularID" ColumnName="ParticularID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

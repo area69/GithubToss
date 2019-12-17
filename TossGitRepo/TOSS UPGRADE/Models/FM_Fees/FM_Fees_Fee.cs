@@ -24,14 +24,22 @@ namespace TOSS_UPGRADE.Models.FM_Fees
 
             // fieldFeeDDs = new List<FieldFeeDD>();
             globalClasses = new GlobalClasses();
+
+            getNatureofParticular = new List<NatureOfParticular>();
+            getNatureofParticularcolumns = new NatureOfParticular();
+            getNatureofParticularList = new List<NatureofParticularList>();
+
+
+            getParticular = new List<Particular>();
+            getParticularcolumns = new Particular();
+            getParticularList = new List<ParticularList>();
+
         }
         public List<FieldFeeList> getFieldFeeList { get; set; }
         public FieldFee getFieldFeecolumns { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FieldFeeList { get; set; }
         public IEnumerable<TOSS_UPGRADE.Models.FieldFee> getFieldFee { get; set; }
-
         public GlobalClasses globalClasses { get; set; }
-
 
         public List<FeeCategoryList> getFeeCategoryList { get; set; }
         public FeeCategory getFeeCategorycolumns { get; set; }
@@ -51,6 +59,25 @@ namespace TOSS_UPGRADE.Models.FM_Fees
         //public List<FieldFeeDD> fieldFeeDDs { get; set; }
         public bool isRequired { get; set; }
         public int AccountFormTempID { get; set; }
+
+        public int RevisionYearIDCT { get; set; }
+        public int RevisionYearTempIDCT { get; set; }
+        public int GeneralAccountIDCT { get; set; }
+        public int GeneralAccountTempIDCT { get; set; }
+        public int NatureOfParticularIDCT { get; set; }
+        public int NatureOfParticularTempIDCT { get; set; }
+
+
+        public List<NatureofParticularList> getNatureofParticularList { get; set; }
+        public NatureOfParticular getNatureofParticularcolumns { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> NatureofParticularList { get; set; }
+        public IEnumerable<TOSS_UPGRADE.Models.NatureOfParticular> getNatureofParticular { get; set; }
+        
+
+        public List<ParticularList> getParticularList { get; set; }
+        public Particular getParticularcolumns { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> ParticularList { get; set; }
+        public IEnumerable<TOSS_UPGRADE.Models.Particular> getParticular { get; set; }
     }
 
     public class FieldFeeList
@@ -68,10 +95,16 @@ namespace TOSS_UPGRADE.Models.FM_Fees
         public string FeeCategoryName { get; set; }
         public string AFDescription { get; set; }
     }
-    //public class FieldFeeDD
-    //{
-    //    public int SubFundID { get; set; }
-    //    public string FundName { get; set; }
+    public class NatureofParticularList
+    {
+        public int NatureofParticularID { get; set; }
+        public string NatureofParticularName { get; set; }
 
-    //}
+    }
+    public class ParticularList
+    {
+        public int ParticularID { get; set; }
+        public string ParticularName { get; set; }
+        public int GeneralAccount { get; set; }
+    }
 }

@@ -7,3 +7,9 @@
 <label>Starting OR</label>
 @Html.DropDownListFor(m => m.AccountableFormAssignmentID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "StartIDDDDBC", onchange = "AngularGlobalFunctions('FMAccountableFormController','LoadDynamicDDASFInvtBC','')" })
 
+
+<script>
+    $(function () {
+        $("#StartIDDDDBC").select2();
+    })
+</script>

@@ -121,7 +121,7 @@
     <script src="~/modernadmin/modern-admin-1.0/app-assets/js/scripts/animation/animation.js" type="text/javascript"></script>
     <!-- BEGIN Custom JS-->
     <script src="~/modernadmin/modern-admin-1.0/assets/js/scripts.js"></script>
-    <script src="~/modernadmin/modern-admin-1.0/assets/js/FileMaintenanceJS.js"></script>
+    <script src="~/modernadmin/modern-admin-1.0/assets/js/FileMaintenanceJS2.js"></script>
     <!-- END Custom JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -129,20 +129,20 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
     @*<script>
-        document.onkeydown = function (e) {
-            if (event.keyCode == 123) {
-                return false;
+            document.onkeydown = function (e) {
+                if (event.keyCode == 123) {
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                    return false;
+                }
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                    return false;
+                }
+                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                    return false;
+                }
             }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                return false;
-            }
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                return false;
-            }
-        }
-    </script>*@
+        </script>*@
 </body>
 </html>

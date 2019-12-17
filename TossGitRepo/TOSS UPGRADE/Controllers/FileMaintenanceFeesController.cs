@@ -303,7 +303,187 @@ namespace TOSS_UPGRADE.Controllers
         #endregion
         #endregion
         #region Particulars
+        //Table Field Fees
+        public ActionResult Get_ParticularTable()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            List<ParticularList> tbl_Fees = new List<ParticularList>();
 
+            var SQLQuery = "SELECT ParticularID,GeneralAccount.GeneralAccountID,NatureOfParticular.NatureofParticularName FROM DB_TOSS.dbo.Particulars,GeneralAccount,NatureOfParticular where GeneralAccount.GeneralAccountID = Particulars.GeneralAccountID AND NatureOfParticular.NatureofParticularID = Particulars.NatureofParticularID";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_PayeeList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_Fees.Add(new ParticularList()
+                        {
+                            ParticularID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            GeneralAccount = GlobalFunction.ReturnEmptyInt(dr[1]),
+                            ParticularName = GlobalFunction.ReturnEmptyString(dr[2]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getParticularList = tbl_Fees.ToList();
+            return PartialView("Particulars/_ParticularsTable", model.getParticularList);
+        }
+        //Get Add Field Fees Partial View
+        public ActionResult Get_AddParticular()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            return PartialView("Particulars/_AddParticulars", model);
+        }
+        public ActionResult GetDynamicRevisionYearCT()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            return PartialView("Particulars/_DynamicDDRevisionYear", model);
+        }
+        public ActionResult GetDynamicGeneralAccountCodeCT(int RevisionYearID)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() where s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AllotmentClass.RevisionYear.RevisionYearID == RevisionYearID select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode + " - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
+            return PartialView("Particulars/_DynamicDDGeneralAccountCode", model);
+        }
+        public ActionResult GetDynamicNatureOfParticularCT()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.NatureOfParticulars.ToList() select new { NatureofParticularID = s.NatureofParticularID, NatureofParticularName = s.NatureofParticularName }), "NatureofParticularID", "NatureofParticularName");
+            return PartialView("Particulars/_DynamicDDNatureOfParticular", model);
+        }
+        public JsonResult AddParticular(FM_Fees_Fee model)
+        {
+            Particular tblParticular = new Particular();
+            tblParticular.NatureofParticularID = model.NatureOfParticularIDCT;
+            tblParticular.GeneralAccountID = model.GeneralAccountIDCT;
+            TOSSDB.Particulars.Add(tblParticular);
+            TOSSDB.SaveChanges();
+            return Json(tblParticular);
+        }
+        public ActionResult GetSelectedDynamicRevisionYearCT(int RevisionYearTempIDCT)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.RevisionYears.ToList() where s.IsUsed == true select new { RevisionYearID = s.RevisionYearID, RevisionYearDate = s.RevisionYearDate }), "RevisionYearID", "RevisionYearDate");
+            model.RevisionYearTempID = RevisionYearTempIDCT;
+            return PartialView("Particulars/_DynamicDDRevisionYear", model);
+        }
+        public ActionResult GetSelectedDynamicGeneralAccountCodeCT(int RevisionYearID, int GeneralAccountTempIDCT)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.GeneralAccounts.ToList() where s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AllotmentClass.RevisionYear.RevisionYearID == RevisionYearID select new { GeneralAccountID = s.GeneralAccountID, GeneralAccountCode = s.SubMajorAccountGroup.MajorAccountGroup.AccountGroup.AccountGroupCode + "-" + s.SubMajorAccountGroup.MajorAccountGroup.MajorAccountGroupCode + "-" + s.SubMajorAccountGroup.SubMajorAccountGroupCode + "-" + s.GeneralAccountCode + " - " + s.GeneralAccountName }), "GeneralAccountID", "GeneralAccountCode");
+            model.GeneralAccountIDCT = GeneralAccountTempIDCT;
+            return PartialView("Particulars/_DynamicDDGeneralAccountCode", model);
+        }
+        public ActionResult GetSelectedDynamicNatureOfParticularCT(int NatureOfParticularTempIDCT)
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            model.ParticularList = new SelectList((from s in TOSSDB.NatureOfParticulars.ToList() select new { NatureofParticularID = s.NatureofParticularID, NatureofParticularName = s.NatureofParticularName }), "NatureofParticularID", "NatureofParticularName");
+            model.NatureOfParticularIDCT = NatureOfParticularTempIDCT;
+            return PartialView("Particulars/_DynamicDDNatureOfParticular", model);
+        }
+        //Get Update Field Fees
+        public ActionResult Get_UpdateParticular(FM_Fees_Fee model, int ParticularID)
+        {
+            Particular tblParticular = (from e in TOSSDB.Particulars where e.ParticularID == ParticularID select e).FirstOrDefault();
+            model.getParticularcolumns.ParticularID = tblParticular.ParticularID;
+            model.NatureOfParticularTempIDCT = tblParticular.NatureofParticularID;
+            model.GeneralAccountTempIDCT = tblParticular.GeneralAccountID;
+            return PartialView("Particulars/_UpdateParticulars", model);
+        }
+        public ActionResult UpdateParticular(FM_Fees_Fee model)
+        {
+            Particular tblParticular = (from e in TOSSDB.Particulars where e.ParticularID == model.getParticularcolumns.ParticularID select e).FirstOrDefault();
+            tblParticular.NatureofParticularID = model.NatureOfParticularIDCT;
+            tblParticular.GeneralAccountID = model.GeneralAccountIDCT;
+            TOSSDB.Entry(tblParticular);
+            TOSSDB.SaveChanges();
+            return PartialView("Particulars/_UpdateParticulars", model);
+        }
+        //Delete Field Fees
+        public ActionResult DeleteParticular(FM_Fees_Fee model, int ParticularID)
+        {
+            Particular tblParticular = (from e in TOSSDB.Particulars where e.ParticularID == ParticularID select e).FirstOrDefault();
+            TOSSDB.Particulars.Remove(tblParticular);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        #region Nature Of Particulars
+        //Table Nature Of Particulars
+        public ActionResult Get_NatureOfParticularTable()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            List<NatureofParticularList> tbl_Fees = new List<NatureofParticularList>();
+
+            var SQLQuery = "SELECT NatureofParticularID,NatureofParticularName FROM DB_TOSS.dbo.NatureOfParticular";
+            //SQLQuery += " WHERE (IsActive != 0)";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_PayeeList]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        tbl_Fees.Add(new NatureofParticularList()
+                        {
+                            NatureofParticularID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            NatureofParticularName = GlobalFunction.ReturnEmptyString(dr[1]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getNatureofParticularList = tbl_Fees.ToList();
+            return PartialView("Particulars/NatureOfParticular/_NatureOfParticularTable", model.getNatureofParticularList);
+        }
+        //Get Add Nature Of Particulars Partial View
+        public ActionResult Get_AddNatureOfParticular()
+        {
+            FM_Fees_Fee model = new FM_Fees_Fee();
+            return PartialView("Particulars/NatureOfParticular/_AddNatureOfParticular", model);
+        }
+        public JsonResult AddNatureOfParticular(FM_Fees_Fee model)
+        {
+            NatureOfParticular tblNatureOfParticular = new NatureOfParticular();
+            tblNatureOfParticular.NatureofParticularName = model.getNatureofParticularcolumns.NatureofParticularName;
+            TOSSDB.NatureOfParticulars.Add(tblNatureOfParticular);
+            TOSSDB.SaveChanges();
+            return Json(tblNatureOfParticular);
+        }
+        //Get Update Field Fees
+        public ActionResult Get_UpdateNatureOfParticular(FM_Fees_Fee model, int NatureofParticularID)
+        {
+            NatureOfParticular tblNatureOfParticulars = (from e in TOSSDB.NatureOfParticulars where e.NatureofParticularID == NatureofParticularID select e).FirstOrDefault();
+            model.getNatureofParticularcolumns.NatureofParticularID = tblNatureOfParticulars.NatureofParticularID;
+            model.getNatureofParticularcolumns.NatureofParticularName = tblNatureOfParticulars.NatureofParticularName;
+            return PartialView("Particulars/NatureOfParticular/_UpdateNatureOfParticular", model);
+        }
+        public ActionResult UpdateNatureOfParticular(FM_Fees_Fee model)
+        {
+            NatureOfParticular tblNatureOfParticular = (from e in TOSSDB.NatureOfParticulars where e.NatureofParticularID == model.getNatureofParticularcolumns.NatureofParticularID select e).FirstOrDefault();
+            tblNatureOfParticular.NatureofParticularName = model.getNatureofParticularcolumns.NatureofParticularName;
+            TOSSDB.Entry(tblNatureOfParticular);
+            TOSSDB.SaveChanges();
+            return PartialView("Particulars/NatureOfParticular/_UpdateNatureOfParticular", model);
+        }
+        //Delete Field Fees
+        public ActionResult DeleteNatureOfParticular(FM_Fees_Fee model, int NatureofParticularID)
+        {
+            NatureOfParticular tblNatureOfParticular = (from e in TOSSDB.NatureOfParticulars where e.NatureofParticularID == NatureofParticularID select e).FirstOrDefault();
+            TOSSDB.NatureOfParticulars.Remove(tblNatureOfParticular);
+            TOSSDB.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        #endregion
         #endregion
     }
 }

@@ -342,10 +342,16 @@
     <Compile Include="Models\MajorAccountGroup.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NatureOfParticular.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OfficeType.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParentModule.cs">
+      <DependentUpon>TOSS_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Particular.cs">
       <DependentUpon>TOSS_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Payee.cs">
@@ -5411,6 +5417,7 @@
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style-rtl.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FileMaintenanceJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FileMaintenanceJS2.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\scripts.js" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-2-columns.html" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-block-ui.html" />
@@ -9270,6 +9277,15 @@
     <Content Include="Views\FileMaintenanceSupplier\_AddSupplier.cshtml" />
     <Content Include="Views\FileMaintenanceSupplier\_SupplierTable.cshtml" />
     <Content Include="Views\FileMaintenanceSupplier\_UpdateSupplier.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_AddParticulars.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_ParticularsTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_DynamicDDRevisionYear.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_DynamicDDGeneralAccountCode.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_DynamicDDNatureOfParticular.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\NatureOfParticular\_AddNatureOfParticular.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\NatureOfParticular\_NatureOfParticularTable.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\NatureOfParticular\_UpdateNatureOfParticular.cshtml" />
+    <Content Include="Views\FileMaintenanceFees\Particulars\_UpdateParticulars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -9284,7 +9300,6 @@
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\" />
     <Folder Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\" />
     <Folder Include="Resources\PDF\" />
-    <Folder Include="Views\FileMaintenanceFees\Particulars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

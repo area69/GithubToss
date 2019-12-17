@@ -1,0 +1,27 @@
+﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddNatureOfParticular", "FileMaintenanceFees", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMFeeController','Get_NatureOfParticularTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+    <div class="row">
+        <div class="col-md-8">
+            <label>Nature of Payments/ Particular</label>  
+            @Html.TextBoxFor(m => m.getNatureofParticularcolumns.NatureofParticularName, new { @class = "form-control", type = "text" })
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <label style="visibility:hidden">Nature </label>
+                    <button class="btn form-control black bg-addbutton" type="submit"><b>Add</b></button>
+                </div>
+                <div class="col-md-6">
+                    <label style="visibility:hidden">Nature </label>
+                    <button type="reset" class="bottom-right form-control bg-headerbc white" onclick="AngularGlobalEdit('FMFeeController','Get_NatureOfParticularTable','')"><b>Cancel</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

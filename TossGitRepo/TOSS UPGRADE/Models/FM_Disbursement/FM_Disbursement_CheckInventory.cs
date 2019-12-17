@@ -38,5 +38,6 @@ namespace TOSS_UPGRADE.Models.FM_Disbursement
         public int StartingChckNo { get; set; }
         public int EndingChckNo { get; set; }
         public DateTime Date { get; set; }
+        public bool isUsed { get; set; }
     }
 }

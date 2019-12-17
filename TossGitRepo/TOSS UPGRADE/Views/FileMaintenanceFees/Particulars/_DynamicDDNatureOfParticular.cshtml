@@ -1,0 +1,15 @@
+﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities TOSSDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+
+<label><b>Nature of Payments/ Particular</b></label>
+@Html.DropDownListFor(m => m.NatureOfParticularIDCT, Model.ParticularList, new { @class = "form-control select2", id = "NatureofParticularIDDCT" })
+<script>
+    $(function () {
+        $("#NatureofParticularIDDCT").select2();
+    })
+</script>
+

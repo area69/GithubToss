@@ -85,88 +85,47 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="card-block">
                                 <div class="card-body">
-                                    <div class="row form-group" @*id="_FeeID"*@>
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-2">
-                                            <label>Revision Year</label>
-                                            <select class="form-control">
-                                                <option>2015</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label>Account Code/Title</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Sub-Account Code</label>
-                                            <input type="text" class="form-control" readonly />
-                                        </div>
+                                    <div id="_ParticularID">
+
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-md-1"></div>
-                                        <div class="col-md-7">
-                                            <label>Nature of Payments/ Particular</label>
-                                            <select class="form-control">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label style="visibility:hidden">Revision Year</label>
-                                            <button class="btn bg-addbutton form-control black"><b>Add Particulars</b></button>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group" @*id="_FeeTableID"*@>
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-10">
-                                            <table class="table table-striped table-bordered zero-configuration text-center dataTable table-smss-hover no-footer m-0 w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Particular Description</th>
-                                                        <th>Account Code/Title</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
+                                        <div class="col-md-10" id="_ParticularTableID">
+
 
                                         </div>
-                                  </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @* Fee Category Modal *@
                     <div class="col-lg-8 col-md-8 col-sm-12 center">
-                        <div class="modal animated zoomIn text-left" id="addFeeCategoryModal" role="dialog">
-                            <div class="modal-dialog" style="max-width:800px" role="document">
+                        <div class="modal animated zoomIn text-left" id="addNatureofParticularModal" role="dialog">
+                            <div class="modal-dialog" style="max-width:700px" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header bg-headerbc white">
-                                        <h6 class="modal-title white"><i class="la la-plus mr-1"></i><b>Field Category</b></h6>
+                                        <h6 class="modal-title white"><i class="la la-plus mr-1"></i><b>Nature of Payments/ Particular</b></h6>
                                         <button class="btn bg-headerbc pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
                                     </div>
                                     <div class="modal-body skin skin-square">
-                                        <div class="row">
-                                            <div class="col-md-12" id="_FeeCategoryID">
+                                        <div id="_NatureofParticularID">
 
-                                            </div>
                                         </div>
-                                        <div class="row mt-1">
-                                            <div class="col-md-12" id="_FeeCategoryTableID">
+                                        <div id="_NatureofParticularTableID">
 
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                 </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <script>
     $(function () {
         ShowSpecificFees();
@@ -181,11 +140,310 @@
         else {
             HideAAFCard();
             $("#DivParticulars").removeClass("d-none");
-            //AngularGlobalFunctions('FMAccountableFormController', 'Get_InvtAccountableFormTableCTC');
+            AngularGlobalFunctions('FMFeeController', 'Get_ParticularTable');
         }
     }
     function HideAAFCard() {
         $("#DivFees").addClass("d-none");
         $("#DivParticulars").addClass("d-none");
     }
+    
+    //Fees
+    app.controller('FMFeeController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        F.SuccessMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Added", SuccessMess);
+        }
+        F.UpdateMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Update", SuccessMess);
+        }
+        F.DeleteMessageBox = function () {
+            var SuccessMess = F.P;
+            swalSuccess("Successfully Deleted", SuccessMess);
+        }
+
+        F.Get_FeeTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_FieldFeeTable',
+            }).then(function (response) {
+                $("#_FeeTableID").html(response.data);
+            });
+            F.Get_AddFees();
+        }
+        F.Get_AddFees = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddFieldFees',
+            }).then(function (response) {
+                $("#_FeeID").html(response.data);
+                F.GetDynamicRevisionYear();
+                F.GetDynamicFeeCategory(); F.GetDynamicFundType()
+                F.GetDynamicAccountCode()
+            });
+        }
+
+        F.GetDynamicAccountCode = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicGeneralAccountCode',
+            }).then(function (response) {
+                $("#_DDAccountCodeID").html(response.data);
+            });
+        }
+        F.GetDynamicRevisionYear = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicRevisionYear',
+            }).then(function (response) {
+                $("#_DDRevisionYrID").html(response.data);
+            });
+        }
+        F.GetDynamicFundType = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicFundType',
+            }).then(function (response) {
+                $("#_DDFundTypeID").html(response.data);
+            });
+        }
+        F.GetDynamicFeeCategory = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicFeeCategory',
+            }).then(function (response) {
+                $("#_DDFeeCategoryID").html(response.data);
+            });
+        }
+
+        F.GetSelectedDynamicAccountCode = function () {
+            var AccountCodeTempID = $("#AccountCodeTempID").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicGeneralAccountCode',
+                params: { AccountCodeTempID: AccountCodeTempID }
+            }).then(function (response) {
+                $("#_DDAccountCodeID").html(response.data);
+            });
+        }
+        F.GetSelectedDynamicRevisionYear = function () {
+            var RevisionYearTempID = $("#RevisionYearTempID").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicRevisionYear',
+                params: { RevisionYearTempID: RevisionYearTempID }
+            }).then(function (response) {
+                $("#_DDRevisionYrID").html(response.data);
+            });
+        }
+        F.GetSelectedDynamicFundType = function () {
+            var FundTypeTempID = $("#FundTypeTempID").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicFundType',
+                params: { FundTypeTempID: FundTypeTempID }
+            }).then(function (response) {
+                $("#_DDFundTypeID").html(response.data);
+            });
+        }
+        F.GetSelectedDynamicFeeCategory = function () {
+            var FeeCategoryTempID = $("#FeeCategoryTempID").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicFeeCategory',
+                params: { FeeCategoryTempID: FeeCategoryTempID }
+            }).then(function (response) {
+                $("#_DDFeeCategoryID").html(response.data);
+            });
+        }
+        F.Get_UpdateFieldFee = function (FieldFeeID) {
+            P({
+                url: '/FileMaintenanceFees/Get_UpdateFieldFee',
+                params: { FieldFeeID: FieldFeeID }
+            }).then(function (response) {
+                $("#_FeeID").html(response.data);
+                F.GetSelectedDynamicAccountCode();
+                F.GetSelectedDynamicFundType();
+                F.GetSelectedDynamicFeeCategory();
+                F.GetSelectedDynamicRevisionYear();
+            });
+        }
+        F.Get_DeleteFieldFee = function (FieldFeeID) {
+            P({
+                url: '/FileMaintenanceFees/DeleteFieldFee',
+                params: { FieldFeeID: FieldFeeID }
+            }).then(function (response) {
+                F.Get_FeeTable();
+            });
+        }
+
+        F.Get_FeeCategoryTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_FeeCategoryTable',
+            }).then(function (response) {
+                $("#_FeeCategoryTableID").html(response.data);
+            });
+            F.Get_AddFeeCategory();
+            F.GetDynamicFeeCategory();
+        }
+        F.Get_AddFeeCategory = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddFeeCategory',
+            }).then(function (response) {
+                $("#_FeeCategoryID").html(response.data);
+                F.LoadDynamicDDAccountableFormDescription();
+            });
+        }
+        F.LoadDynamicDDAccountableFormDescription = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicAccountableFormDescription',
+            }).then(function (response) {
+                $("#_AFTypeORID").html(response.data);
+            });
+        }
+        F.LoadSelectedDynamicDDAccountableFormDescription = function () {
+            var AccountFormTempID = $("#AccountFormTempID").val();
+            alert(AccountFormTempID)
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicAccountableFormDescription',
+                params: { AccountFormTempID: AccountFormTempID }
+            }).then(function (response) {
+                $("#_AFTypeORID").html(response.data);
+            });
+        }
+        F.Get_UpdateFeeCategory = function (FeeCategoryID) {
+            P({
+                url: '/FileMaintenanceFees/Get_UpdateFeeCategory',
+                params: { FeeCategoryID: FeeCategoryID }
+            }).then(function (response) {
+                $("#_FeeCategoryID").html(response.data);
+                F.LoadSelectedDynamicDDAccountableFormDescription();
+            });
+        }
+        F.Get_DeleteFeeCategory = function (FeeCategoryID) {
+            P({
+                url: '/FileMaintenanceFees/DeleteFeeCategory',
+                params: { FeeCategoryID: FeeCategoryID }
+            }).then(function (response) {
+                F.Get_FeeCategoryTable();
+            });
+        }
+
+        F.Get_ParticularTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_ParticularTable',
+            }).then(function (response) {
+                $("#_ParticularTableID").html(response.data);
+            });
+            F.Get_AddParticular();
+        }
+        F.Get_AddParticular = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddParticular',
+            }).then(function (response) {
+                $("#_ParticularID").html(response.data);
+                F.GetDynamicRevisionYearCT();
+                F.GetDynamicNatureOfParticularCT();
+            });
+        }
+        F.GetDynamicRevisionYearCT = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicRevisionYearCT',
+            }).then(function (response) {
+                $("#_DDRevisionYrIDCT").html(response.data);
+                F.GetDynamicAccountCodeCT();
+
+            });
+        }
+        F.GetDynamicAccountCodeCT = function () {
+            var RevisionYearID = $("#RevisionYearIDDCT").val();
+            P({
+                url: '/FileMaintenanceFees/GetDynamicGeneralAccountCodeCT',
+                params: { RevisionYearID: RevisionYearID }
+            }).then(function (response) {
+                $("#_DDGeneralNameIDCT").html(response.data);
+            });
+        }
+        F.GetDynamicNatureOfParticularCT = function () {
+            P({
+                url: '/FileMaintenanceFees/GetDynamicNatureOfParticularCT',
+            }).then(function (response) {
+                $("#_DDNatureofParticularIDCT").html(response.data);
+            });
+        }
+        F.Get_UpdateParticular = function (ParticularID) {
+            P({
+                url: '/FileMaintenanceFees/Get_UpdateParticular',
+                params: { ParticularID: ParticularID }
+            }).then(function (response) {
+                $("#_ParticularID").html(response.data);
+                F.GetSelectedDynamicRevisionYearCT();
+                F.GetSelectedDynamicNatureOfParticularCT();
+            });
+        }
+        F.GetSelectedDynamicRevisionYearCT = function () {
+            var RevisionYearTempIDCT = $("#RevisionYearTempIDCT").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicRevisionYearCT',
+                params: { RevisionYearTempIDCT: RevisionYearTempIDCT }
+            }).then(function (response) {
+                $("#_DDRevisionYrIDCT").html(response.data);
+                F.GetSelectedDynamicAccountCodeCT();
+            });
+        }
+        F.GetSelectedDynamicAccountCodeCT = function () {
+            var RevisionYearID = $("#RevisionYearIDDCT").val();
+            var GeneralAccountTempIDCT = $("#GeneralAccountTempIDCT").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicGeneralAccountCodeCT',
+                params: { RevisionYearID: RevisionYearID, GeneralAccountTempIDCT: GeneralAccountTempIDCT }
+            }).then(function (response) {
+                $("#_DDGeneralNameIDCT").html(response.data);
+            });
+        }
+        F.GetSelectedDynamicNatureOfParticularCT = function () {
+            var NatureOfParticularTempIDCT = $("#NatureOfParticularTempIDCT").val();
+            P({
+                url: '/FileMaintenanceFees/GetSelectedDynamicNatureOfParticularCT',
+                params: { NatureOfParticularTempIDCT: NatureOfParticularTempIDCT }
+            }).then(function (response) {
+                $("#_DDNatureofParticularIDCT").html(response.data);
+            });
+        }
+        F.Get_DeleteParticular = function (ParticularID) {
+            P({
+                url: '/FileMaintenanceFees/DeleteParticular',
+                params: { ParticularID: ParticularID }
+            }).then(function (response) {
+                F.Get_ParticularTable();
+            });
+        }
+        
+        F.Get_NatureOfParticularTable = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_NatureOfParticularTable',
+            }).then(function (response) {
+                $("#_NatureofParticularTableID").html(response.data);
+            });
+            F.Get_AddNatureOfParticular();
+        }
+        F.Get_AddNatureOfParticular = function () {
+            P({
+                url: '/FileMaintenanceFees/Get_AddNatureOfParticular',
+            }).then(function (response) {
+                $("#_NatureofParticularID").html(response.data);
+                F.GetDynamicNatureOfParticularCT();
+            });
+        }
+        F.Get_UpdateNatureOfParticular = function (NatureofParticularID) {
+            P({
+                url: '/FileMaintenanceFees/Get_UpdateNatureOfParticular',
+                params: { NatureofParticularID: NatureofParticularID }
+            }).then(function (response) {
+                $("#_NatureofParticularID").html(response.data);
+            });
+        }
+        F.Get_DeleteNatureOfParticular = function (NatureofParticularID) {
+            P({
+                url: '/FileMaintenanceFees/DeleteNatureOfParticular',
+                params: { NatureofParticularID: NatureofParticularID }
+            }).then(function (response) {
+                F.Get_NatureOfParticularTable();
+            });
+        }
+    });
+
 </script>

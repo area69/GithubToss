@@ -1,0 +1,42 @@
+﻿@model TOSS_UPGRADE.Models.FM_Fees.FM_Fees_Fee
+@{
+    DB_TOSSEntities SISDB = new DB_TOSSEntities();
+}
+@using TOSS_UPGRADE.Models;
+
+@using (Ajax.BeginForm("AddParticular", "FileMaintenanceFees", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingNoModalNoSuccessWithDoubleFunc('FMFeeController','Get_ParticularTable','SuccessMessageBox')", OnFailure = "OnFailure()", }))
+{
+    <div class="row form-group">
+        <div class="col-md-1"></div>
+        <div class="col-md-2" id="_DDRevisionYrIDCT">
+        </div>
+        <div class="col-md-5" id="_DDGeneralNameIDCT">
+        </div>
+        <div class="col-md-3">
+            <label>Sub-Account Code</label>
+            <input type="text" class="form-control" readonly />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-1"></div>
+        <div class="col-md-7" id="_DDNatureofParticularIDCT">
+        </div>
+        <div class="col-md-3">
+            <label style="visibility:hidden">Revision Year</label>
+            <button type="button" class="form-control black bg-addbutton" data-toggle="modal" data-target="#addNatureofParticularModal" onclick="AngularGlobalView('FMFeeController','Get_NatureOfParticularTable','')"><b>Add Particular</b></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8"></div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn bg-addbutton form-control black" type="submit"><b>Add</b></button>
+                </div>
+                <div class="col-md-6">
+                    <button type="reset" class="bottom-right form-control bg-headerbc white" onclick="AngularGlobalEdit('FMFeeController','Get_ParticularTable','')"><b>Cancel</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

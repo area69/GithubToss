@@ -8,3 +8,9 @@
 @Html.DropDownListFor(m => m.AccountableFormAssignmentID, Model.AccountableFormAssignmentList, new { @class = "form-control select2", id = "StartIDDDDCTC", onchange = "AngularGlobalFunctions('FMAccountableFormController','LoadDynamicDDASFInvtCTC','')" })
 
 
+
+<script>
+    $(function () {
+        $("#StartIDDDDCTC").select2();
+    })
+</script>
